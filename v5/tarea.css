@@ -1,0 +1,165 @@
+/* 485: las SALIDAS dibujadas (.sx, sx-eN-*) de E4, E4b, E6, E7, E9 y E10; las de E1, E2, E3, E5 y E8 son el final de su
+   coreografía sd- (del --sd-sale, en breve.css, al 100 %). 585: los ciclos cortos de la tarea (tk-) ya no existen (el
+   bucle de la tarea completa está en bucle.css). Reglas en historia.css y motor.js. Sin .sd-motor no existe nada de
+   esto y se ve el último fotograma de siempre. */
+
+/* ============================================================ E4 · el papeleo: SALIDA, se va a saltos por la izquierda */
+[data-escena="e4"] { --sx-dura: 2.4; }
+.e4-sx-mn { transform-box: view-box; transform-origin: 118px 284px; }
+.sd-motor .e4-sx-mn { animation-name: sx-e4-mn; }
+@keyframes sx-e4-mn {
+  0% { transform: none; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  12% { transform: scale(1.12, 0.86); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  26% { transform: translate(-38px, -32px) rotate(-8deg) scale(0.94, 1.08); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  40% { transform: translate(-76px, 1px) rotate(0deg) scale(1.1, 0.9); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  55% { transform: translate(-118px, -26px) rotate(-7deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  70% { transform: translate(-160px, 1px) rotate(0deg) scale(1.08, 0.92); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  85% { transform: translate(-204px, -22px) rotate(-6deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  99.5% { opacity: 1; visibility: visible; transform: translate(-250px, 0px) rotate(0deg); }
+  100% { opacity: 0; visibility: hidden; transform: translate(-250px, 0px) rotate(0deg); }
+}
+
+/* ============================================================ E6 · la ola: SALIDA, las tres se van a saltos a la ola */
+[data-escena="e6"] { --sx-dura: 2.4; }
+/* (fill-box: los px cuentan desde la esquina de su caja; 614 los corrigió al cambiar la caja con el modelo base de
+   Manila, para que salten desde el mismo punto que antes: 74/141, 60/139 y 61/141 sobre la caja antigua) */
+.e6-sx1 { transform-origin: 73.71px 141px; --d: -360px; }
+.e6-sx2 { transform-origin: 61px 130.5px; --d: -480px; }
+.e6-sx3 { transform-origin: 61px 135.7px; --d: -600px; }
+.sd-motor :is(.e6-sx1, .e6-sx2, .e6-sx3) { animation-name: sx-e6-va; }
+.sd-motor .e6-sx2 { animation-delay: 110ms; }
+.sd-motor .e6-sx3 { animation-delay: 220ms; }
+@keyframes sx-e6-va {
+  0% { transform: none; animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  12% { transform: translateY(2px) scale(1.12, 0.86); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  28% { transform: translate(calc(var(--d) * 0.2), -34px) rotate(-10deg) scale(0.94, 1.08); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  44% { transform: translate(calc(var(--d) * 0.42), 1px) rotate(0deg) scale(1.1, 0.9); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  64% { transform: translate(calc(var(--d) * 0.68), -28px) rotate(-8deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  82% { transform: translate(calc(var(--d) * 0.88), 1px) rotate(0deg) scale(1.08, 0.92); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  99.5% { opacity: 1; visibility: visible; transform: translate(var(--d), -16px) rotate(-6deg) scale(1); }
+  100% { opacity: 0; visibility: hidden; transform: translate(var(--d), -16px) rotate(-6deg) scale(1); }
+}
+
+/* ============================================================ E7 · Un martes: SALIDA, apaga el flexo y se va a saltos */
+[data-escena="e7"] { --sx-dura: 2.25; }
+.e7-sx-mn { transform-box: view-box; transform-origin: 90px 150px; }
+.sd-motor .e7-sx-mn { animation-name: sx-e7-mn; }
+.sd-motor .e7-sx-luz { animation-name: sx-e7-luz; }
+@keyframes sx-e7-mn {
+  0% { transform: none; animation-timing-function: ease-in-out; }
+  10% { transform: scale(1.04, 0.96); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  20% { transform: translate(-6px, -2px) rotate(-12deg) scale(0.98, 1.03); animation-timing-function: ease-out; } /* clic */
+  26% { transform: translate(-4px, 0px) rotate(-8deg) scale(1); animation-timing-function: ease-in-out; }
+  34% { transform: none; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  40% { transform: scale(1.12, 0.86); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  54% { transform: translate(-40px, -24px) rotate(-8deg) scale(0.94, 1.08); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  68% { transform: translate(-80px, 1px) rotate(0deg) scale(1.08, 0.92); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  84% { transform: translate(-115px, -18px) rotate(-6deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  99.5% { opacity: 1; visibility: visible; transform: translate(-150px, 0px) rotate(0deg) scale(1); }
+  100% { opacity: 0; visibility: hidden; transform: translate(-150px, 0px) rotate(0deg) scale(1); }
+}
+@keyframes sx-e7-luz {
+  0%, 21% { opacity: 1; animation-timing-function: steps(1, end); }
+  22% { opacity: 0; animation-timing-function: steps(1, end); }
+  24% { opacity: 1; animation-timing-function: steps(1, end); }
+  26%, 100% { opacity: 0; }
+}
+/* En «Antes» el flexo es del tasador, que se queda en la mesa: al irse la escena no se apaga */
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .e7-sx-luz { animation-name: none; }
+
+/* ============================================================ E4b · la Multa: SALIDA, se va a saltos por la derecha */
+.e4b-sale { transform-origin: 92px 250px; }
+[data-escena="e4b"] { --sx-dura: 2.25; }
+.sd-motor .e4b-sale { animation-name: sx-e4b-sale; }
+@keyframes sx-e4b-sale {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1, 1); animation-timing-function: ease-out; }
+  10% { transform: translate(0, 1px) rotate(0deg) scale(1.1, 0.86); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  22% { transform: translate(32px, -30px) rotate(8deg) scale(0.95, 1.07); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  33% { transform: translate(62px, 0) rotate(0deg) scale(1.12, 0.86); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  43% { transform: translate(66px, 0) rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  50% { transform: translate(68px, 1px) rotate(0deg) scale(1.08, 0.9); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  62% { transform: translate(108px, -28px) rotate(10deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  73% { transform: translate(146px, 0) rotate(0deg) scale(1.1, 0.88); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  99.5% { transform: translate(270px, -26px) rotate(14deg) scale(0.95, 1.06); opacity: 1; visibility: visible; }
+  100% { transform: translate(270px, -26px) rotate(14deg) scale(0.95, 1.06); opacity: 1; visibility: hidden; }
+}
+
+/* ============================================================ E9 · los permisos: SALIDA, se va a saltos por la mesa */
+.e9-sale { transform-origin: 108px 150px; }
+[data-escena="e9"] { --sx-dura: 2.25; }
+.sd-motor .e9-sale { animation-name: sx-e9-sale; }
+@keyframes sx-e9-sale {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1, 1); animation-timing-function: ease-out; }
+  10% { transform: translate(0, 1px) rotate(0deg) scale(1.08, 0.88); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  22% { transform: translate(-30px, -22px) rotate(-8deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  34% { transform: translate(-55px, 0) rotate(0deg) scale(1.1, 0.88); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  44% { transform: translate(-58px, 0) rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  52% { transform: translate(-60px, 1px) rotate(0deg) scale(1.08, 0.9); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  64% { transform: translate(-95px, -22px) rotate(-8deg) scale(0.95, 1.06); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  76% { transform: translate(-125px, 0) rotate(0deg) scale(1.1, 0.88); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  99.5% { transform: translate(-200px, -14px) rotate(-10deg) scale(0.95, 1.06); visibility: visible; }
+  100% { transform: translate(-200px, -14px) rotate(-10deg) scale(0.95, 1.06); visibility: hidden; }
+}
+
+/* ============================================================ E10 · cómo se empieza: SALIDA, vuelve al fondo del papel */
+.e10-vuelve { transform-box: view-box; transform-origin: 30.8px 95.9px; }
+.sd-motor .e10-vuelve { animation-name: sx-e10-vuelve; }
+@keyframes sx-e10-vuelve {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: ease-out; }
+  12% { transform: translate(0, 1px) rotate(0deg) scale(1.08, 0.88); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  28% { transform: translate(7px, -14px) rotate(3deg) scale(0.86, 0.9); animation-timing-function: ease-in-out; }
+  46% { transform: translate(14px, -14px) rotate(0deg) scale(0.68, 0.68); animation-timing-function: ease-in-out; }
+  64% { transform: translate(22px, -26px) rotate(0deg) scale(0.5, 0.5); animation-timing-function: ease-in-out; }
+  84% { transform: translate(29px, -31px) rotate(0deg) scale(0.35, 0.35); opacity: 1; animation-timing-function: ease-in; }
+  100% { transform: translate(31px, -33px) rotate(0deg) scale(0.3, 0.3); opacity: 0; }
+}
+
+/* ============================================================ 585 · piezas del bucle, quietas */
+/* Los orígenes de las piezas del puente (bucle.css) y los orígenes fijos de la cámara de E6 y del portátil de E10. Las
+   copias que esperan ocultas lo están con atributos del SVG (opacity="0"…), que pierden ante las animaciones rs- igual
+   que una regla y no necesitan CSS. Detalle de cada pieza, en los comentarios de bucle.css. */
+/* E4 */
+.e4-dibujo .e4-sin-tachar { stroke-dasharray: 100; stroke-dashoffset: 100; }
+.e4-cam { transform-box: view-box; transform-origin: 0 0; }
+.e4-lista { transform-box: view-box; transform-origin: 63px 9px; }
+.e4-archiva { transform-box: view-box; transform-origin: 171.5px 200px; }
+.e4-nueva { transform-box: view-box; transform-origin: 47px 284px; }
+/* E4b */
+.e4b-hunde { transform-origin: 0 0; }
+.e4b-vuelve-y { transform-origin: 92px 250px; }
+.e4b-r-brindis { transform-origin: 165px 156px; }
+.e4b-r-taza { transform-origin: 169px 174px; }
+/* E5 */
+.e5-pagina { transform-origin: 50% 0; } /* (fill-box) el canto de arriba */
+.e5-agarra { transform-origin: 60px 141px; }
+/* E6 */
+.e6-lanza { transform-origin: 60% 100%; } /* (fill-box) los pies del jefe */
+.e6-vuela-y { transform-origin: 50% 50%; }
+.e6-cam { transform-box: view-box; transform-origin: 10px -17.52px; }
+.e6-camara { transform-box: view-box; transform-origin: 0 0; }
+/* E7 */
+.c-escena .e7-sombra { fill: var(--carpeta-2); transform-box: view-box; transform-origin: 34px 150px; transform: skewX(-29.5deg) scaleY(0.9325); }
+.e7-cam { transform-box: view-box; transform-origin: 0 0; }
+.e7-hora, .e7-min { transform-box: view-box; transform-origin: 143px 33px; }
+.e7-luna, .e7-sol { transform-origin: 50% 50%; }
+.e7-gato, .e7-mn { transform-origin: 50% 100%; }
+/* E8 */
+/* 614: el modelo base de Manila (hoja más baja, manos) le cambió la caja (fill-box); con «-7.14px» el saltito sale
+   del mismo punto que antes (sin regla, la esquina de arriba de la caja antigua). */
+.e8-brinca { transform-origin: 0 -7.14px; }
+/* E9 */
+.e9-aleja { transform-origin: 200px 190px; }
+.e9-r-a4 { transform-origin: 42px 158px; }
+.e9-r-taza-a { transform-origin: 18px 124px; }
+.e9-r-cabeza { transform-origin: 80px 126px; }
+.e9-r-brindis { transform-origin: 110px 80px; }
+.e9-r-taza-m { transform-origin: 124px 56px; }
+.e9-sacude { transform-origin: 60px 141px; }
+.e9-r-gafas { transform-origin: 58.5px 77px; }
+.e9-r-pelo { transform-origin: 58px 30px; }
+/* E10 */
+.e10-fuera { transform-box: view-box; transform-origin: 126.8px 87px; }
+.e10-portatil { transform-box: view-box; transform-origin: 8px 105px; }
+.e10-aleja { transform-box: view-box; transform-origin: 8px 105px; }
+.e10-salta { transform-origin: 50% calc(100% + 5.1px); } /* 614: el icono ya no tiene patas; el mismo punto que antes */
+.e10-adentro { transform-box: view-box; transform-origin: 30.8px 95.9px; }

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Manila de 24 a 48 px: la carpeta con su cara, trazo grueso (generar_manila.py). -->
+  <g transform="translate(1.2 1.6) scale(.68)">
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z" fill="#f2e2ab" transform="translate(2.4 2)"/>
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 9" fill="none" stroke="#1d1b16" stroke-width="4.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17 25 17.8 11.8l29 2-1 11" fill="#fbf8ef" stroke="#1d1b16" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="#f5c518" transform="translate(2.4 2)"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="none" stroke="#1d1b16" stroke-width="4.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(1.2 0)"><path d="M23 40v7.4M39 39.4v7.4" fill="none" stroke="#1d1b16" stroke-width="6.38" stroke-linecap="round" stroke-linejoin="round"/><path d="M24.2 53.6c4 2.6 9.6 2.4 13.2-.9" fill="none" stroke="#1d1b16" stroke-width="3.95" stroke-linecap="round" stroke-linejoin="round"/></g>
+  </g>
+</svg>

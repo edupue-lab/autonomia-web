@@ -1,0 +1,350 @@
+/* Ilustraciones de la v4 con el sistema «Calco» (empleado 448; skill ilustracion-calco). Todo es SVG en línea,
+   dibujado a mano como código: el empleado de IA es Manila, la carpeta amarilla con patas, y el detalle propio es el
+   relleno corrido respecto al trazo, como un calco mal registrado. Solo se anima transform, opacity y
+   stroke-dashoffset. Sin JavaScript o con «reducir movimiento», cada escena se ve en su último fotograma, quieta. */
+
+/* ------------------------------------------------------------ piezas comunes */
+.ilu { display: block; width: 100%; height: auto; overflow: visible; }
+.ilu .cl-t { fill: none; stroke: var(--tinta); stroke-width: var(--trazo, 3); stroke-linecap: round; stroke-linejoin: round; }
+.ilu .cl-f { stroke-width: calc(var(--trazo, 3) * 0.73); }
+.ilu .cl-sa { fill: none; stroke: var(--sobre-amarillo); stroke-width: calc(var(--trazo, 3) * 0.73); stroke-linecap: round; stroke-linejoin: round; }
+.ilu .cl-am { fill: var(--amarillo); }
+.ilu .cl-ma { fill: var(--carpeta-2); }
+.ilu .cl-ho { fill: var(--hoja); }
+.ilu .cl-pa { fill: var(--papel); }
+.ilu .cl-ti { fill: var(--tinta); }
+.ilu .cl-bo { fill: none; stroke: var(--boli-trazo); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.ilu * { transform-box: fill-box; }
+.ilu [transform] { transform-box: view-box; } /* los grupos ya colocados con transform="…" escalan desde su sitio */
+
+:root {
+  --rebote: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --resbala: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Manila en reposo: respira y parpadea a saltos, solo mientras se ve. */
+@keyframes cl-respira { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.025); } }
+@keyframes cl-parpadea { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.ilu-anima .en-pantalla .cl-respira { transform-origin: 50% 100%; animation: cl-respira 2.6s steps(6) infinite; }
+.ilu-anima .en-pantalla .cl-ojos { transform-origin: 50% 50%; animation: cl-parpadea 4.2s steps(1) infinite; }
+/* Lo que el boli dibuja al llegar (pathLength="100"); por defecto, dibujado. */
+@keyframes cl-traza { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+/* Manila viva (ilustra.js): g.mn-ojos y g.mn-cuerpo llevan el atributo transform que pone el script. Aquí no se
+   anima ninguno de los dos, para no pisarlo. */
+
+/* Cursor de boli sobre los dibujos, solo con ratón (punta abajo a la izquierda: el punto activo es 3 29). */
+@media (hover: hover) and (pointer: fine) {
+  .ilu, [data-ilustra] { cursor: url("cursor-boli.svg") 3 29, auto; }
+  .pt-manila, #seguridad .impreso-no { cursor: url("cursor-boli.svg") 3 29, pointer; }
+}
+
+/* ============================================================ PORTADA (ayudante A) */
+/* Manila de pie sobre la pila de carpetas, en el papel y no sobre el amarillo, de tres cuartos, inclinada y con la
+   lengua fuera del esfuerzo: al cargar asoma, echa tres hojas que caen hacia la carpeta «Para ti» y se queda con la
+   cuarta en la mano; al tocarla o pasar el ratón, salta y saluda, y saluda también cuando se apunta al WhatsApp.
+   Móvil: a la derecha, bajo la frase, con los pies en el borde de la carpeta «Qué hace». Desde 64rem: grande, en la
+   columna derecha del titular. Sus pies quedan a 7 unidades del borde de abajo del viewBox (de ahí los «- Npx»). */
+.portada .entregas { margin-top: 1.75rem; }
+@media (min-width: 60rem) { .portada .entregas { margin-top: 3.5rem; } }
+.pt-manila {
+  position: relative; z-index: 2; width: 210px; --trazo: 2.4; /* 210/164 = 1,28: trazo de 3,1 px */
+  margin: 0.25rem 0 calc(-3.75rem - 9px) auto; -webkit-tap-highlight-color: transparent;
+}
+.pt-ojo { stroke-width: calc(var(--trazo) * 1.35); }
+@media (max-width: 23rem) { .pt-manila { width: 190px; --trazo: 2.6; margin-bottom: calc(-3.75rem - 8px); } }
+@media (min-width: 48rem) {
+  .pt-manila { width: 280px; --trazo: 1.9; margin-bottom: calc(-5.25rem - 12px); } /* 1,71: 3,2 px */
+}
+/* Desde 64rem va a la derecha del titular, plantada en su hoja sobre la primera carpeta. Su ancho (--w) crece con la
+   pantalla hasta 420 px (1,4 veces los 300 de antes) y su dibujo no llega nunca a las letras del titular. */
+@media (min-width: 64rem) {
+  .portada-cabeza { position: relative; }
+  .pt-manila {
+    --w: clamp(300px, 33vw, 420px); --trazo: 1.4; /* de 1,83 a 2,56: 2,6-3,6 px */
+    position: absolute; right: 2rem; bottom: calc(-5.25rem - var(--w) * 0.0427); width: var(--w); margin: 0;
+  }
+}
+.pt-vuela { opacity: 0; pointer-events: none; }
+.pt-saludo { opacity: 0; }
+.pt-jarra, .pt-saludo { transition: opacity 90ms steps(1); }
+.pt-cejas { transition: transform 200ms var(--rebote); }
+.pt-manila:hover .pt-saludo, .pt-manila.saluda .pt-saludo,
+.portada:has(.acciones .boton:hover) .pt-saludo,
+.portada:has(.acciones .boton:focus-visible) .pt-saludo { opacity: 1; }
+.pt-manila:hover .pt-jarra, .pt-manila.saluda .pt-jarra,
+.portada:has(.acciones .boton:hover) .pt-jarra,
+.portada:has(.acciones .boton:focus-visible) .pt-jarra { opacity: 0; }
+.pt-manila:hover .pt-cejas, .pt-manila.saluda .pt-cejas,
+.portada:has(.acciones .boton:hover) .pt-cejas,
+.portada:has(.acciones .boton:focus-visible) .pt-cejas { transform: translateY(-2.5px); }
+
+/* Antes de verse (ayudante G): Manila ya está, agachada sobre su hoja, y se estira de un salto al entrar. Nunca vacía. */
+.ilu-anima .pt-manila:not(.vista) .pt-llega { transform-origin: 50% 100%; transform: translateY(8px) scale(1.04, 0.84); }
+.ilu-anima .pt-manila.vista .pt-llega { transform-origin: 50% 100%; animation: pt-llega 640ms var(--rebote) 260ms both; }
+.ilu-anima .pt-manila.vista .pt-brazo { transform-origin: 100% 0; animation: pt-lanza 380ms ease-in-out 760ms 3; }
+.ilu-anima .pt-manila.vista .pt-vuela { animation: pt-vuela 950ms linear both; }
+.pt-v1 { --dx: -60px; --r: -170deg; }
+.pt-v2 { --dx: -25px; --r: -230deg; }
+.pt-v3 { --dx: -95px; --r: -140deg; }
+.ilu-anima .pt-manila.vista .pt-v1 { animation-delay: 1000ms; }
+.ilu-anima .pt-manila.vista .pt-v2 { animation-delay: 1380ms; }
+.ilu-anima .pt-manila.vista .pt-v3 { animation-delay: 1760ms; }
+.ilu-anima .pt-manila:hover .pt-salta, .ilu-anima .pt-manila.saluda .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
+.ilu-anima .pt-manila:hover .pt-saludo, .ilu-anima .pt-manila.saluda .pt-saludo,
+.ilu-anima .portada:has(.acciones .boton:hover) .pt-saludo,
+.ilu-anima .portada:has(.acciones .boton:focus-visible) .pt-saludo { transform-origin: 0 100%; animation: pt-mano 300ms steps(3) infinite alternate; }
+
+@keyframes pt-llega {
+  0% { transform: translateY(8px) scale(1.04, 0.84); }
+  55% { transform: translateY(-9px) scale(0.96, 1.06); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes pt-lanza { 0%, 100% { transform: none; } 40% { transform: rotate(18deg); } 70% { transform: rotate(-14deg); } }
+@keyframes pt-vuela {
+  0% { opacity: 0; transform: none; animation-timing-function: var(--resbala); }
+  10% { opacity: 1; }
+  35% { transform: translate(calc(var(--dx) * 0.3), -30px) rotate(-35deg); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5); }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), 150px) rotate(var(--r)); }
+}
+@keyframes pt-salto {
+  0%, 100% { transform: none; }
+  22% { transform: translateY(3px) scale(1.05, 0.92); }
+  55% { transform: translateY(-16px) scale(0.97, 1.05); }
+  80% { transform: translateY(1px) scale(1.03, 0.97); }
+}
+@keyframes pt-mano { from { transform: rotate(10deg); } to { transform: rotate(-16deg); } }
+
+/* La hoja en el suelo (para que en oscuro no flote sobre el negro): resbala antes de que Manila aparezca. Tras el
+   tercer lanzamiento, marca con el boli la hoja que se queda en la mano. */
+.pt-suelo { transform-origin: 50% 100%; }
+.pt-visto { stroke-dasharray: 100; }
+.ilu-anima .pt-manila:not(.vista) .pt-suelo { transform: translateX(-8px) scaleX(0.92); }
+.ilu-anima .pt-manila:not(.vista) .pt-visto { stroke-dashoffset: 100; }
+.ilu-anima .pt-manila.vista .pt-suelo { animation: pt-suelo 620ms var(--resbala) 60ms both; }
+.ilu-anima .pt-manila.vista .pt-visto { animation: cl-traza 420ms ease-out 2.25s both; }
+@keyframes pt-suelo { from { transform: translateX(-8px) scaleX(0.92); } to { transform: none; } }
+/* En reposo: balancea un pie, la hoja de la mano ondea y la de dentro de la carpeta asoma, cada uno a su ritmo. */
+.pt-pie { transform-origin: 0 0; }
+.pt-hojita { transform-origin: 100% 0; }
+.ilu-anima .pt-manila.en-pantalla .pt-pie { animation: pt-pie 3s steps(1) 2.8s infinite; }
+.ilu-anima .pt-manila.en-pantalla .pt-hojita { animation: pt-ondea 2.4s steps(3) 2.8s infinite; }
+.ilu-anima .pt-manila.en-pantalla .pt-asoma { animation: pt-asoma 6.2s steps(1) 3.4s infinite; }
+@keyframes pt-pie { 0%, 55%, 100% { transform: none; } 62%, 78% { transform: rotate(-8deg); } 70%, 86% { transform: rotate(-2deg); } }
+@keyframes pt-ondea { 0%, 100% { transform: none; } 33% { transform: rotate(4deg) skewY(-3deg); } 66% { transform: rotate(-2deg) skewY(2deg); } }
+@keyframes pt-asoma { 0%, 80%, 100% { transform: none; } 84%, 92% { transform: translateY(-3px); } 88% { transform: translateY(-5px) rotate(-2deg); } }
+/* Al apuntar al WhatsApp: salta una vez, levanta las cejas y saluda (los ojos los gira ilustra.js hacia el botón). */
+.ilu-anima .portada:has(.acciones .boton:hover) .pt-salta,
+.ilu-anima .portada:has(.acciones .boton:focus-visible) .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
+.ilu-anima .portada:has(.acciones .boton:hover) .pt-hojita { animation-duration: 0.9s; }
+
+/* ============================================================ UN MARTES (ayudante C) */
+/* La noche de antes. Último fotograma (por defecto): amanece, la lámpara apagada y los papeles en «Para ti».
+   El modo «Antes» se lee de [data-dia] con :has; sin JS se ve «Con AutonomIA». */
+.c-escena { margin-top: 1.25rem; max-width: 26rem; }
+@media (min-width: 60rem) {
+  .dia-cabeza { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 3rem; align-items: end; }
+  .dia-cabeza > * { grid-column: 1; }
+  .dia-cabeza > .c-escena { grid-column: 2; grid-row: 1 / span 3; margin: 0; max-width: none; }
+}
+/* Trazo: viewBox de 320; a 390 la escena mide 358 px (x1,12 → 2,8 px) y a 1440, 487 px (x1,52 → 3,3 px con 2,2). Los grupos escalados dividen
+   --c-tr por su escala para que todo el dibujo tenga el mismo trazo renderizado. */
+.c-escena { --c-tr: 2.5; --trazo: var(--c-tr); }
+@media (min-width: 60rem) { .c-escena { --c-tr: 2.2; } }
+.c-escena .c-s6 { --trazo: calc(var(--c-tr) / .6); }
+.c-escena .c-a { --trazo: calc(var(--c-tr) / .5); }
+.c-escena .cl-bo { stroke-width: var(--trazo); }
+.c-escena .c-ojo { stroke-width: calc(var(--trazo) * 1.4); }
+.c-escena .c-bosteza { fill: var(--sobre-amarillo); }
+.c-escena .c-noche { stroke-width: calc(var(--c-tr) * .6); opacity: 0; }
+.c-escena .c-luna { transform: translate(14px, 70px) rotate(25deg); }
+.c-escena .c-luz { opacity: 0; transition: opacity .25s steps(2); }
+.c-escena .c-visto { stroke-dasharray: 100; }
+.c-escena .c-nf, .c-escena .c-suena { opacity: 0; }
+.c-escena .c-min, .c-escena .c-hor { transform-box: view-box; transform-origin: 247.5px 155px; }
+.c-escena .c-reloj, .c-escena .c-cuerpo { transform-origin: 50% 100%; }
+.c-escena .c-rotulo { stroke-width: calc(var(--trazo) * .6); } /* «Para ti» rotulado a mano: paths de un trazo, no texto */
+
+/* La noche que pasa: estado inicial solo con movimiento y antes de que la escena se vea. */
+.ilu-anima .c-escena:not(.vista) .c-noche { opacity: .55; }
+.ilu-anima .c-escena:not(.vista) .c-luna { transform: none; }
+.ilu-anima .c-escena:not(.vista) .c-sol { transform: translateY(32px); }
+.ilu-anima .c-escena:not(.vista) .c-luz { opacity: .35; }
+.ilu-anima .c-escena:not(.vista) .c-visto { stroke-dashoffset: 100; }
+.ilu-anima .c-escena:not(.vista) .c-hor { transform: rotate(-150deg); }
+.ilu-anima .c-escena:not(.vista) .c-min { transform: rotate(-1800deg); }
+.ilu-anima .c-escena:not(.vista) .c-nf { opacity: 1; }
+.ilu-anima .c-escena:not(.vista) .c-df { opacity: 0; }
+.ilu-anima .c-escena:not(.vista) .c-cuerpo { transform: rotate(5deg); }
+/* De noche Manila escribe de tres cuartos, ojos entornados y lengua fuera; a las siete suena el despertador
+   (las agujas han corrido de las dos a las siete) y ella se estira y bosteza: hecho. */
+@keyframes c-gira-h { from { transform: rotate(-150deg); } to { transform: none; } }
+@keyframes c-gira-m { from { transform: rotate(-1800deg); } to { transform: none; } }
+@keyframes c-ring { 0%, 100% { transform: none; } 15%, 55% { transform: translateY(-4px) rotate(-9deg); } 35%, 75% { transform: translateY(-4px) rotate(9deg); } }
+@keyframes c-tilin { 0%, 100% { opacity: 0; } 10%, 80% { opacity: 1; } }
+@keyframes c-sale-op { from { opacity: 1; } to { opacity: 0; } }
+@keyframes c-entra-op { from { opacity: 0; } to { opacity: 1; } }
+@keyframes c-estira { 0% { transform: rotate(5deg); } 45% { transform: scale(.97, 1.09); } 75% { transform: scale(1.02, .97); } 100% { transform: none; } }
+.ilu-anima .c-escena.vista .c-hor { animation: c-gira-h 3.2s cubic-bezier(.45, 0, .55, 1) .3s both; }
+.ilu-anima .c-escena.vista .c-min { animation: c-gira-m 3.2s cubic-bezier(.45, 0, .55, 1) .3s both; }
+.ilu-anima .c-escena.vista .c-reloj { animation: c-ring .8s steps(8) 3.5s both; }
+.ilu-anima .c-escena.vista .c-suena { animation: c-tilin .8s steps(4) 3.5s both; }
+.ilu-anima .c-escena.vista .c-nf { animation: c-sale-op .1s steps(1) 3.7s both; }
+.ilu-anima .c-escena.vista .c-df { animation: c-entra-op .1s steps(1) 3.7s both; }
+.ilu-anima .c-escena.vista .c-cuerpo { animation: c-estira 1s var(--rebote) 3.7s both; }
+@keyframes c-raya { from { opacity: .55; } to { opacity: 0; } }
+@keyframes c-baja { from { transform: none; } to { transform: translate(14px, 70px) rotate(25deg); } }
+@keyframes c-sale { from { transform: translateY(32px); } to { transform: none; } }
+@keyframes c-apaga { 0%, 97% { opacity: .35; } 100% { opacity: 0; } }
+@keyframes c-marca { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.ilu-anima .c-escena.vista .c-noche { animation: c-raya 1.2s ease 2.8s both; }
+.ilu-anima .c-escena.vista .c-luna { animation: c-baja 3.2s cubic-bezier(.5, 0, .75, .4) .3s both; }
+.ilu-anima .c-escena.vista .c-sol { animation: c-sale 1.6s var(--resbala) 3s both; }
+.ilu-anima .c-escena.vista .c-luz { animation: c-apaga 3.8s steps(40) both; }
+.ilu-anima .c-escena.vista .c-visto { animation: c-marca .5s ease 4.5s both; }
+.c-p1 { --x: -30px; --y: 22px; }
+.c-p2 { --x: -34px; --y: 21px; }
+.c-p3 { --x: -31px; --y: 20px; }
+.ilu-anima .c-escena:not(.vista) .c-p { transform: translate(var(--x), var(--y)); }
+@keyframes c-pasa {
+  0% { transform: translate(var(--x), var(--y)); }
+  45% { transform: translate(-16px, -22px) rotate(-10deg); }
+  60% { transform: translate(-12px, -20px) rotate(6deg); }
+  100% { transform: none; }
+}
+.ilu-anima .c-escena.vista .c-p { animation: c-pasa 1.1s var(--resbala) .5s both; }
+.ilu-anima .c-escena.vista .c-p2 { animation-delay: 1.5s; }
+.ilu-anima .c-escena.vista .c-p1 { animation-delay: 2.5s; }
+
+/* Bucles en reposo: el tasador respira bajo la manta; antes, él cabecea en la mesa. */
+@keyframes c-cabecea { 0%, 60%, 100% { transform: rotate(0); } 75% { transform: rotate(7deg); } }
+.ilu-anima .en-pantalla .c-manta { transform-origin: 50% 100%; animation: cl-respira 3.4s steps(5) infinite; }
+.ilu-anima .en-pantalla .c-cabeza { transform-origin: 50% 100%; animation: c-cabecea 4s steps(3) infinite; }
+/* Ya de día: los rayos del sol laten a saltos, la hoja de arriba de «Para ti» ondea y Manila respira más despacio
+   que las demás. Antes, la luz del flexo titila toda la noche. */
+.c-escena .c-rayos { transform-box: view-box; transform-origin: 77px 82px; }
+.c-escena .c-ondea { transform-origin: 50% 100%; }
+.ilu-anima .c-escena.en-pantalla .cl-respira { animation-duration: 3.3s; }
+.ilu-anima .c-escena.en-pantalla .c-rayos { animation: c-rayos 3.2s steps(1) 4.8s infinite; }
+.ilu-anima .c-escena.en-pantalla .c-ondea { animation: c-ondea 3.8s steps(3) 5.6s infinite; }
+.ilu-anima #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena.en-pantalla .c-luz { animation: c-titila 2.9s steps(1) infinite; }
+@keyframes c-rayos { 0%, 100% { transform: none; } 40% { transform: scale(1.1); } 70% { transform: scale(0.96); } }
+@keyframes c-ondea { 0%, 100% { transform: none; } 33% { transform: skewX(-5deg); } 66% { transform: rotate(-3deg) skewX(3deg); } }
+@keyframes c-titila { 0%, 100% { opacity: 0.35; } 6% { opacity: 0.2; } 9% { opacity: 0.35; } 51% { opacity: 0.27; } 54% { opacity: 0.35; } }
+
+/* Antes / Con AutonomIA: Manila se va andando y entra el tasador cansado; la cama se queda vacía. */
+.c-escena .c-ahora, .c-escena .c-antes { transition: opacity .3s ease, transform .55s var(--rebote); }
+.c-escena .c-m { transition: transform .5s var(--rebote); }
+.c-escena .c-antes { opacity: 0; transform: translateY(10px); }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .c-antes { opacity: 1; transform: none; transition-delay: .2s; }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .c-ahora { opacity: 0; transform: translateY(6px); }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .c-m { transform: translate(40px, -6px) rotate(8deg); }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .c-luz { opacity: .35; animation: none; }
+
+/* ============================================================ SEGURIDAD (ayudante D) */
+/* Manila, de tres cuartos, se asoma con la lupa al cajón autorizado, cuyas tres carpetas encienden la pestaña en
+   amarillo; de espaldas al cajón «Personal» (etiqueta de cartulina, candado marcado a boli) le levanta la palma: ahí
+   no entra. Al llegar niega con la mano, y otra vez al pasar o tocar la casilla vacía (clase seg-no, de ilustra.js),
+   cuando además cierra los ojos y se sacude. Trazo: viewBox de 300 → 358 px a 390 y 432 a 1440 (2,9 y 3,5 px). */
+.seg-escena { --trazo: 2.4; margin: 1.25rem 0 -1rem; max-width: 27rem; }
+@media (min-width: 60rem) { .seg-escena { margin-bottom: -1.5rem; } }
+.seg-m { --trazo: 3.1; } /* Manila va a escala .78 */
+.seg-escena .cl-bo { stroke-width: calc(var(--trazo) * .95); }
+.seg-ojo { stroke-width: calc(var(--trazo) * 1.3); }
+.seg-escena .seg-etiqueta { stroke-width: calc(var(--trazo) * .7); } /* «Personal» rotulado a mano */
+.seg-anda { transform-origin: 50% 100%; transform: rotate(-5deg); }
+.seg-alto { transform-origin: 0 100%; transition: transform 300ms var(--rebote); }
+.seg-lupa { transform-origin: 100% 100%; }
+.seg-niega { opacity: 0; }
+.seg-no .seg-niega { opacity: 1; }
+.seg-no .seg-calma { opacity: 0; }
+.seg-escena.seg-no .seg-alto { transform: rotate(-10deg); }
+.impreso-no { cursor: default; }
+
+.ilu-anima .seg-escena.vista .seg-on { transition: opacity 260ms ease-out, transform 520ms var(--rebote); }
+.ilu-anima .seg-escena.vista .seg-c1 .seg-on { transition-delay: 600ms; }
+.ilu-anima .seg-escena.vista .seg-c2 .seg-on { transition-delay: 900ms; }
+.ilu-anima .seg-escena.vista .seg-c3 .seg-on { transition-delay: 1200ms; }
+.ilu-anima .seg-escena:not(.vista) .seg-on { opacity: 0; transform: translateY(5px); }
+.ilu-anima .seg-escena.vista .seg-anda { transition: transform 900ms var(--rebote) 250ms; }
+.ilu-anima .seg-escena:not(.vista) .seg-anda { transform: translateX(34px) rotate(3deg); }
+.ilu-anima .seg-escena:not(.vista) .seg-alto { transform: rotate(40deg); }
+.ilu-anima .seg-escena.vista .seg-alto { animation: seg-alto 640ms ease-in-out 1.5s; }
+
+@keyframes seg-mira { 0%, 100% { transform: translateX(0); } 35% { transform: translateX(-3px); } 70% { transform: translateX(1.5px); } }
+@keyframes seg-busca { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(-5deg); } 70% { transform: rotate(3deg); } }
+@keyframes seg-alto { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 50% { transform: rotate(7deg); } 75% { transform: rotate(-5deg); } }
+@keyframes seg-alto-no { 0%, 100% { transform: rotate(-10deg); } 30% { transform: rotate(-22deg); } 65% { transform: rotate(0); } }
+@keyframes seg-sacude { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 45% { transform: translateX(4px); } 70% { transform: translateX(-2px); } }
+@keyframes seg-tiembla { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-9deg); } 65% { transform: rotate(6deg); } }
+.ilu-anima .seg-escena.en-pantalla .seg-mira { animation: seg-mira 5s steps(1) 1.6s infinite; }
+.ilu-anima .seg-escena.en-pantalla .seg-lupa { animation: seg-busca 3.6s steps(3) 2.2s infinite; }
+.ilu-anima .seg-escena.seg-no .seg-sacude { animation: seg-sacude 520ms ease-out; }
+.ilu-anima .seg-escena.seg-no .seg-alto { animation: seg-alto-no 480ms ease-in-out; }
+/* En reposo: la etiqueta «Personal» se balancea de su cordel, a saltos, y Manila parpadea a su propio ritmo. */
+.seg-cartel { transform-origin: 0 50%; }
+.ilu-anima .seg-escena.en-pantalla .seg-cartel { animation: seg-cartel 4.4s steps(1) 2.4s infinite; }
+.ilu-anima .seg-escena.en-pantalla .cl-ojos { animation-duration: 5.3s; animation-delay: 1.1s; }
+.ilu-anima .seg-escena.en-pantalla .cl-respira { animation-duration: 3s; }
+@keyframes seg-cartel { 0%, 60%, 100% { transform: none; } 66%, 84% { transform: rotate(3deg); } 75% { transform: rotate(-2deg); } }
+.seg-candado { transform-origin: 50% 0; }
+.ilu-anima .seg-escena.seg-no .seg-candado { animation: seg-tiembla 480ms steps(4) 120ms; }
+
+/* ============================================================ CONTACTO (ayudante A) */
+/* Manila espera con la carpeta «Para ti» vacía, lista para el nuevo cliente. Saluda una vez al llegar y, cuando se
+   apunta al WhatsApp o a «Prefiero que me llaméis», se estira, levanta el boli y alza la carpeta. Está de tres cuartos,
+   inclinada hacia la carpeta que ofrece y guiñando un ojo. Ancho 200-250 px sobre 244 de viewBox (0,83-1,02): un
+   --trazo de 3,4 da 2,8-3,5 px, y la pestaña, a 14 unidades, sale a 11,5 px o más. */
+.ct-manila { width: clamp(200px, 6vw + 180px, 250px); margin: 1.5rem 0 0; --trazo: 3.4; }
+@media (min-width: 60rem) { .ct-manila { margin-top: 0; } }
+.ct-manila .ct-txt { stroke-width: calc(var(--trazo) * .66); } /* «Para ti» rotulado a mano, con aire hasta el borde de la pestaña */
+.ct-manila .ct-boli .cl-t { stroke-width: calc(var(--trazo) * .55); }
+.ct-capu { fill: var(--boli-trazo); }
+.ct-ojo { stroke-width: calc(var(--trazo) * 1.35); }
+.ct-arriba { opacity: 0; transform-origin: 0 100%; }
+.ct-carpeta, .ct-ella { transform-origin: 50% 100%; transition: transform 420ms var(--rebote); }
+.cupon:has(.whatsapp .boton:hover) .ct-arriba, .cupon:has(.whatsapp .boton:focus-visible) .ct-arriba,
+.cupon:has(.llamadnos > summary:hover) .ct-arriba, .cupon:has(.llamadnos > summary:focus-visible) .ct-arriba { opacity: 1; }
+.cupon:has(.whatsapp .boton:hover) .ct-abajo, .cupon:has(.whatsapp .boton:focus-visible) .ct-abajo,
+.cupon:has(.llamadnos > summary:hover) .ct-abajo, .cupon:has(.llamadnos > summary:focus-visible) .ct-abajo { opacity: 0; }
+.cupon:has(.whatsapp .boton:hover) .ct-carpeta, .cupon:has(.whatsapp .boton:focus-visible) .ct-carpeta,
+.cupon:has(.llamadnos > summary:hover) .ct-carpeta, .cupon:has(.llamadnos > summary:focus-visible) .ct-carpeta { transform: translateY(-6px) rotate(-4deg); }
+.cupon:has(.whatsapp .boton:hover) .ct-ella, .cupon:has(.whatsapp .boton:focus-visible) .ct-ella,
+.cupon:has(.llamadnos > summary:hover) .ct-ella, .cupon:has(.llamadnos > summary:focus-visible) .ct-ella { transform: translateY(-5px) rotate(2deg); }
+/* Al llegar: la carpeta resbala hasta su sitio, Manila aparece con rebote, cambia el brazo de abajo por el de arriba y
+   saluda con el boli tres veces, a saltos. Las llegadas no dejan el transform fijado (backwards), para que el hover
+   siga funcionando después. */
+.ilu-anima .ct-manila:not(.vista) .ct-carpeta { transform: translate(-10px, 4px) rotate(-3deg); }
+.ilu-anima .ct-manila:not(.vista) .ct-ella { transform: translateY(6px) scale(1.04, 0.84); }
+.ilu-anima .ct-manila.vista .ct-carpeta { animation: ct-desliza 700ms var(--resbala) 60ms backwards; }
+.ilu-anima .ct-manila.vista .ct-ella { animation: ct-llega 640ms var(--rebote) 260ms backwards; }
+@keyframes ct-desliza { from { transform: translate(-10px, 4px) rotate(-3deg); } to { transform: none; } }
+@keyframes ct-llega {
+  0% { transform: translateY(6px) scale(1.04, 0.84); }
+  55% { transform: translateY(-8px) scale(0.97, 1.06); }
+  100% { opacity: 1; transform: none; }
+}
+.ilu-anima .ct-manila.vista .ct-arriba { animation: ct-saluda 1200ms steps(1) 820ms; }
+.ilu-anima .ct-manila.vista .ct-abajo { animation: ct-esconde 1200ms steps(1) 820ms; }
+/* En reposo: ofrece la carpeta (sube y baja muy poco), tamborilea con el boli y parpadea a su ritmo. */
+.ct-tambor { transform-box: view-box; transform-origin: 110px 80px; }
+.ilu-anima .ct-manila.en-pantalla .ct-ofrece { transform-origin: 50% 100%; animation: ct-ofrece 4.2s ease-in-out 2.2s infinite; }
+.ilu-anima .ct-manila.en-pantalla .ct-tambor { animation: ct-tambor 2.6s steps(1) 2.4s infinite; }
+.ilu-anima .ct-manila.en-pantalla .cl-ojos { animation-duration: 3.7s; animation-delay: 0.6s; }
+.ilu-anima .ct-manila.en-pantalla .cl-respira { animation-duration: 2.3s; }
+@keyframes ct-ofrece { 0%, 100% { transform: none; } 50% { transform: translateY(-2.5px) rotate(-1.2deg); } }
+@keyframes ct-tambor { 0%, 58%, 100% { transform: none; } 64%, 76% { transform: rotate(-7deg); } 70%, 82% { transform: rotate(-1deg); } }
+@keyframes ct-saluda {
+  0%, 99.9% { opacity: 1; }
+  0%, 34%, 68% { transform: rotate(12deg); }
+  17%, 51%, 85% { transform: rotate(-14deg); }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes ct-esconde { 0%, 99.9% { opacity: 0; } 100% { opacity: 1; } }
+.ilu-anima .cupon:has(.whatsapp .boton:hover) .ct-arriba,
+.ilu-anima .cupon:has(.llamadnos > summary:hover) .ct-arriba { animation: pt-mano 320ms steps(3) infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ilu *, .ilu { animation: none !important; transition: none !important; }
+}

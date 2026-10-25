@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Propuesta A (empleado 594): Manila entera, la de la web v5, de pie sobre su hoja; saluda con una mano y en la
+       otra trae una hoja con el visto del boli. Para tamaños grandes (Store, web, cabeceras). Sistema Calco: el
+       relleno va corrido (translate) bajo el trazo. -->
+  <style>
+    .t{fill:none;stroke:#1d1b16;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .f{stroke-width:2.2}
+    .am{fill:#f5c518}.ma{fill:#f2e2ab}.ho{fill:#fbf8ef}
+    .bo{fill:none;stroke:#1d3fa6;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <!-- la hoja de papel que pisa (se ve en claro y en oscuro) -->
+  <path class="ma" d="M9 13C50 10 100 11 139 8.5L156 25C156.5 70 155 115 157 155 110 156.5 55 155.5 8 157 9.5 110 7.5 60 9 13Z" transform="translate(3.5 3)"/>
+  <path class="ho t" d="M9 13C50 10 100 11 139 8.5L156 25C156.5 70 155 115 157 155 110 156.5 55 155.5 8 157 9.5 110 7.5 60 9 13Z"/>
+  <path class="t f" d="M139 8.5 138 24.5 156 25"/>
+  <g transform="translate(41.5 21) scale(.84)">
+    <!-- piernas -->
+    <path class="t" d="M40 120 35 141h-9M80 120l4 20h9"/>
+    <!-- carpeta de detrás, con su pestaña -->
+    <path class="ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104 17 106z" transform="translate(3.5 3)"/>
+    <path class="t" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104"/>
+    <!-- la hoja que asoma -->
+    <path class="ho t f" d="M34 56 37.5 19 85 23.5 81 58z"/>
+    <path class="t f" d="M45 30 74 32.5M44 37 70 39"/>
+    <!-- carpeta delantera, amarilla, con el calco -->
+    <path class="am" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z" transform="translate(3.5 3)"/>
+    <path class="t" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z"/>
+    <!-- la cara de la v5: guiño y lengua fuera -->
+    <path class="t f" d="M31 71c3-2.5 7-3 10-1M54 67.5c3.5-.5 7 .5 9.5 3"/>
+    <path class="t" stroke-width="3.6" d="M36 78v8"/>
+    <path class="t f" d="M56 78l6.5 3.5L56 85"/>
+    <path class="t f" d="M38 95c4.5 2.5 10 2 14-1.5M46 96.5c0 4.5 5.5 5 6-.8"/>
+    <!-- saluda -->
+    <path class="t" d="M110 79c8-4 12-13 11-25m-4-1 1-6m6 7 3-5"/>
+    <!-- trae una hoja con el visto -->
+    <path class="t" d="M11 84C2 88-5 96-9 106"/>
+    <path class="ho t f" d="M-23 105l15-2.5 2.5 17-15 2.5z"/>
+    <path class="t f" d="M-19 110l8-1.3M-18 115l6-1"/>
+    <path class="bo" d="M-17.5 118.5l2 2.2 4.5-5.5"/>
+  </g>
+</svg>

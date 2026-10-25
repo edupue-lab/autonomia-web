@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Logo oficial de AutonomIA: Manila, modelo base (Edu, 22/10/2026). Para 71 px o más. Generado por marca/herramientas/generar_manila.py; no se edita a mano. -->
+  <g transform="translate(17.5 4.9) scale(.98)">
+    <path d="M-4 77.5c22-1.6 46-2.4 72-3l4.6 6.4c-25 1-51 1.6-76.6 2z" fill="#f2e2ab" transform="translate(2.4 2)"/>
+    <path d="M-4 77.5c22-1.6 46-2.4 72-3l4.6 6.4c-25 1-51 1.6-76.6 2z" fill="#fbf8ef" stroke="#1d1b16" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 62.6 17 76h-6M46 62.4l3 13.6h6" fill="none" stroke="#fbf8ef" stroke-width="6.60" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M3.2 44C-2.4 47-5.4 52.4-6.2 58.6" fill="none" stroke="#fbf8ef" stroke-width="6.60" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M61.6 40c6.5-2.6 9.6-9 9-17" fill="none" stroke="#fbf8ef" stroke-width="6.60" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-6.5 60.4l-.6 3.2" fill="none" stroke="#fbf8ef" stroke-width="9.32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70.5 21.2l-.3-3.4" fill="none" stroke="#fbf8ef" stroke-width="9.32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-4.6 60.6l2.8 1.4" fill="none" stroke="#fbf8ef" stroke-width="5.85" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M68.6 22.4l-3.2-1.6" fill="none" stroke="#fbf8ef" stroke-width="5.85" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 62.6 17 76h-6M46 62.4l3 13.6h6" fill="none" stroke="#1d1b16" stroke-width="3.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z" fill="#f2e2ab" transform="translate(2.4 2)"/>
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 9" fill="none" stroke="#1d1b16" stroke-width="3.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17 25 17.8 11.8l29 2-1 11" fill="#fbf8ef" stroke="#1d1b16" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M23.4 16.6l13 .9" fill="none" stroke="#1d1b16" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="#f5c518" transform="translate(2.4 2)"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="none" stroke="#1d1b16" stroke-width="3.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(0 0)"><path d="M23 40v7.4M39 39.4v7.4" fill="none" stroke="#1d1b16" stroke-width="4.93" stroke-linecap="round" stroke-linejoin="round"/><path d="M24.2 53.6c4 2.6 9.6 2.4 13.2-.9" fill="none" stroke="#1d1b16" stroke-width="3.05" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <path d="M3.2 44C-2.4 47-5.4 52.4-6.2 58.6" fill="none" stroke="#1d1b16" stroke-width="3.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M61.6 40c6.5-2.6 9.6-9 9-17" fill="none" stroke="#1d1b16" stroke-width="3.40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-6.5 60.4l-.6 3.2" fill="none" stroke="#1d1b16" stroke-width="6.12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70.5 21.2l-.3-3.4" fill="none" stroke="#1d1b16" stroke-width="6.12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-4.6 60.6l2.8 1.4" fill="none" stroke="#1d1b16" stroke-width="2.92" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M68.6 22.4l-3.2-1.6" fill="none" stroke="#1d1b16" stroke-width="2.92" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

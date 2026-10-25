@@ -1,0 +1,116 @@
+/* v5 (469): el dossier (dossier.html). Edu, 19/10: no hay PDF aparte; la web hace también de dossier, «mucha info y
+   bien ordenada, sin ser la biblia». Es una hoja de carpeta para leer con calma: una columna de lectura, el índice
+   como pestañas de una carpeta, las ilustraciones del recorrido quietas y unos estilos de impresión limpios (se guarda
+   en PDF desde el navegador). Va después de v5.css (fichas, cabecera y botones), ilustra.css y escenas.css. */
+
+.dossier { padding: clamp(1.5rem, 1rem + 2vw, 3rem) 0 clamp(3rem, 2rem + 3vw, 5rem); }
+.dossier-hoja { max-width: 52rem; }
+.dossier p, .dossier li { max-width: 64ch; }
+
+/* ------------------------------------------------------------ la portada del dossier */
+.dossier-portada { padding-bottom: 1.5rem; }
+.dossier-pestana {
+  display: inline-block; margin: 0 0 1rem; color: var(--boli-trazo);
+  font: italic 600 var(--s-sub) var(--t-titulo); font-stretch: 95%; rotate: -1.5deg; transform-origin: 0 50%;
+}
+.dossier h1 {
+  font-size: clamp(2.5rem, 1.2rem + 5vw, 4.75rem); font-weight: 800; font-stretch: 78%; letter-spacing: -0.025em;
+  line-height: 0.95; margin: 0 0 1.25rem; max-width: 14ch;
+}
+.dossier-entrada { font-size: var(--s-sub); line-height: 1.45; }
+.dossier-acciones { margin: 1.25rem 0 0; }
+
+/* ------------------------------------------------------------ el índice: las pestañas de la carpeta */
+.dossier-indice { margin: 1.5rem 0 3rem; padding: 1.25rem 1.25rem 1.5rem; background: var(--carpeta-1); color: var(--sobre-carpeta-1); clip-path: var(--chaflan); }
+.dossier-indice h2 { font-size: var(--s-sub); margin: 0 0 0.75rem; }
+.dossier-indice ol { margin: 0; padding-left: 1.6rem; display: grid; gap: 0.15rem; }
+.dossier-indice li { font: 700 var(--s-texto) var(--t-titulo); font-stretch: 88%; }
+.dossier-indice li::marker { color: var(--gris); font-weight: 600; }
+.dossier-indice a { display: inline-flex; align-items: center; min-height: 44px; color: var(--sobre-carpeta-1); }
+@media (min-width: 48rem) { .dossier-indice ol { grid-template-columns: 1fr 1fr; column-gap: 2rem; } }
+
+/* ------------------------------------------------------------ capítulos */
+.capitulo { padding-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem); scroll-margin-top: 1rem; }
+.capitulo h2 {
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.25rem); font-weight: 800; font-stretch: 78%; letter-spacing: -0.02em;
+  line-height: 1; margin: 0 0 1.25rem;
+}
+.capitulo h3 { font-size: var(--s-sub); font-stretch: 88%; margin: 2rem 0 0.6rem; }
+.capitulo-entrada { font-size: var(--s-sub); line-height: 1.4; }
+.dossier-nota { color: var(--gris); font-size: var(--s-pequeno); }
+.dossier-lista { margin: 0 0 1rem; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+.dossier-lista li { position: relative; padding-left: 1.6rem; line-height: 1.5; }
+/* La viñeta: un recorte amarillo con su calco manila corrido, como los rellenos de los dibujos */
+.dossier-lista li::before {
+  content: ""; position: absolute; left: 0.1rem; top: 0.5em; width: 0.6rem; height: 0.6rem; background: var(--amarillo);
+  box-shadow: 2px 2px 0 var(--carpeta-3); /* taste-skill-ignore: el calco, bloque plano */
+}
+.dossier-vistos li { padding-left: 2.2rem; }
+.dossier-vistos li::before {
+  top: 0.05em; width: 1.5rem; height: 1.5rem; background: var(--boli-trazo); box-shadow: none;
+  -webkit-mask: url("visto-boli.svg") center / contain no-repeat; mask: url("visto-boli.svg") center / contain no-repeat;
+}
+
+/* Texto con dibujo al lado (en el móvil, el dibujo debajo) */
+.capitulo-con-dibujo { display: grid; gap: 1.5rem; align-items: center; }
+@media (min-width: 48rem) { .capitulo-con-dibujo { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2.5rem; } }
+.dossier-dibujo { margin: 0; }
+.dossier-dibujo figcaption { margin-top: 0.6rem; color: var(--boli-trazo); font: italic 560 var(--s-texto) var(--t-titulo); font-stretch: 95%; rotate: -1deg; }
+.dossier-ilu { width: 100%; height: auto; overflow: visible; --t: 2.4; --trazo: 2.6; }
+.dibujo-ancho { margin-top: 2rem; max-width: 30rem; }
+
+/* Los pasos: dibujo pequeño a la izquierda, texto a la derecha */
+.dossier-pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; display: grid; gap: 1.75rem; }
+.dossier-pasos > li { display: grid; grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
+.dossier-pasos h3 { margin: 0 0 0.35rem; }
+.dossier-pasos p { margin: 0; }
+.dibujo-paso .dossier-ilu { --trazo: 2.2; }
+@media (min-width: 48rem) { .dossier-pasos > li { grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 1rem 2rem; } }
+
+.dossier-dos { display: grid; gap: 0.5rem 2.5rem; }
+@media (min-width: 48rem) { .dossier-dos { grid-template-columns: 1fr 1fr; } .dossier-dos h3 { margin-top: 0.5rem; } }
+
+.dossier-preguntas h3 { font-size: var(--s-texto); font-stretch: 92%; margin: 1.5rem 0 0.35rem; }
+.dossier-preguntas h3:first-child { margin-top: 0; }
+.dossier-preguntas p { margin: 0; }
+
+/* El siguiente paso: el bloque de WhatsApp que pone el servidor, como en el cupón del recorrido */
+.capitulo-final .contacto-directo { margin: 1.25rem 0; }
+.capitulo-final .whatsapp { margin: 1rem 0; }
+.capitulo-final .otras-vias, .capitulo-final .nota { font-size: var(--s-pequeno); }
+
+.dossier-pie { padding: 2rem 0 3rem; background: var(--carpeta-1); color: var(--sobre-carpeta-1); }
+.dossier-pie-fila { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; }
+.dossier-pie p { margin: 0; font-size: var(--s-pequeno); color: var(--sobre-carpeta-1); }
+.dossier-pie a { color: inherit; }
+
+/* ------------------------------------------------------------ impresión y «guardar en PDF» */
+@media print {
+  @page { margin: 16mm 16mm 18mm; }
+  body { background: #fff; color: #111; font-size: 11pt; }
+  body::before, .saltar, .cabecera, .dossier-acciones, .dossier-pie a[href="./"] { display: none !important; }
+  .dossier { padding: 0; }
+  .dossier-hoja { max-width: none; }
+  .dossier h1 { font-size: 30pt; }
+  .capitulo h2 { font-size: 20pt; }
+  .capitulo { padding-top: 0; break-before: page; }
+  .capitulo h2, .capitulo h3, .dossier-pasos > li, .dossier-preguntas h3 { break-after: avoid; break-inside: avoid; }
+  .dossier-lista li, .dossier-pasos > li, .dossier-dibujo { break-inside: avoid; }
+  .dossier-indice { background: none; clip-path: none; border: 1.5pt solid #111; }
+  .dossier-indice a { min-height: 0; text-decoration: none; }
+  .dossier-dibujo { max-width: 9cm; }
+  .dibujo-paso { max-width: 3.6cm; }
+  a { color: #111; }
+  .boton { filter: none !important; border: 1.5pt solid #111; }
+  .dossier-pie { background: none; padding: 0; margin-top: 1cm; }
+}
+
+/* El cordel con el que Manila baja en el recorrido no pinta nada en una hoja quieta; la polilla, tampoco */
+.dossier-ilu .e2-cordel, .dossier-ilu .e2-polilla { display: none; }
+@media (max-width: 30rem) { .dossier-cuerpo .cabecera-contacto { padding-inline: 0.45rem; white-space: nowrap; } }
+/* En el móvil, los pasos a todo el ancho: el dibujo, pequeño, encima de su paso */
+@media (max-width: 47.99rem) {
+  .dossier-pasos > li { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  .dossier-pasos .sin-dibujo { display: none; }
+  .dibujo-paso { max-width: 10rem; }
+}

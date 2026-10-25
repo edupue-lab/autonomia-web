@@ -1,0 +1,98 @@
+/* v5 (605): oficinas.html, la página para inmobiliarias y oficinas de varias personas. Va después de v5.css, ilustra.css,
+   escenas.css y dossier.css, y no cambia nada de esos archivos compartidos. La idea: la oficina es un archivador; cada
+   sección es una carpeta con su pestaña (las de v5.css) y cada puesto, una hoja con su propia pestaña, que se saca
+   delante al tocarla (oficinas.js). Sin JavaScript se ven todas las hojas, una debajo de otra. */
+
+.oficinas p, .oficinas li { max-width: 64ch; }
+.of-hoja { max-width: 56rem; }
+.of-ancho { max-width: 72rem; }
+
+/* Los campos de color de cada carpeta y el sitio de su pestaña, escalonado como en un archivador */
+.of-c0 { --campo: var(--papel); }
+.of-c1 { --campo: var(--carpeta-1); --sobre-campo: var(--sobre-carpeta-1); }
+.of-c2 { --campo: var(--carpeta-2); --sobre-campo: var(--sobre-carpeta-2); }
+.of-px-1 { --pestana-x: 5%; }
+.of-px-2 { --pestana-x: 30%; }
+.of-px-3 { --pestana-x: 56%; }
+.of-px-4 { --pestana-x: 16%; }
+.of-px-5 { --pestana-x: 68%; }
+.of-px-6 { --pestana-x: 42%; }
+
+/* ------------------------------------------------------------ la portada */
+.of-portada { padding: clamp(2rem, 1rem + 3vw, 4.5rem) 0 calc(var(--hueco) + var(--alto-pestana)); }
+.of-portada-fila { display: grid; gap: 2rem; align-items: center; }
+@media (min-width: 56rem) { .of-portada-fila { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3.5rem; } }
+.of-portada h1 { max-width: 13ch; margin-bottom: 1.5rem; }
+@media (min-width: 64rem) { .of-portada h1 { font-size: clamp(4rem, 1rem + 5.6vw, 6.5rem); } }
+.of-frase { font-size: var(--s-sub); line-height: 1.35; max-width: 32ch; }
+.of-acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
+.of-dibujo-portada { max-width: 34rem; justify-self: center; width: 100%; }
+.of-dibujo-portada .dossier-ilu { --trazo: 2.4; }
+
+/* ------------------------------------------------------------ las secciones */
+.oficinas .seccion h2 { max-width: 18ch; }
+.of-entrada { font-size: 1.25rem; line-height: 1.45; max-width: 46ch; }
+@media (min-width: 48rem) { .of-entrada { font-size: var(--s-sub); line-height: 1.4; } }
+.of-nota { margin-top: 1.5rem; }
+.oficinas .dossier-pasos { margin-top: 2rem; }
+.oficinas .dossier-pasos h3 { font-size: var(--s-sub); }
+.oficinas .dossier-preguntas h3 { font-size: var(--s-sub); font-stretch: 86%; margin-top: 2rem; }
+.oficinas .dossier-preguntas h3:first-child { margin-top: 0.5rem; }
+
+/* ------------------------------------------------------------ los puestos: hojas con su pestaña */
+.puestos { margin-top: 2.25rem; display: grid; gap: 1.5rem; }
+.con-pestanas.puestos { gap: 0; }
+.puestos-pestanas { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.35rem 0.2rem; padding-inline: 0.5rem; }
+.puestos-pestanas[hidden] { display: none; }
+.puesto-pestana {
+  appearance: none; border: 0; border-radius: 0; margin: 0; min-height: 48px; padding: 0.6rem 1.5rem 0.5rem;
+  font: 720 var(--s-texto) var(--t-titulo); font-stretch: 86%; color: var(--tinta);
+  background: var(--carpeta-3); clip-path: var(--pestana);
+  transform: translateY(5px); transition: transform 260ms var(--muelle), background-color 160ms var(--suave);
+}
+.puesto-pestana:hover { background: var(--carpeta-4); transform: translateY(1px); }
+.puesto-pestana:active { transform: translateY(6px); }
+.puesto-pestana[aria-selected="true"] { background: var(--of-hoja); transform: none; }
+.puesto-pestana:focus-visible { clip-path: none; }
+/* En oscuro, la hoja blanca sería casi del color de la carpeta: va en manila para que se despegue */
+.oficinas { --of-hoja: var(--hoja); --of-calco: var(--carpeta-3); }
+:root[data-theme="dark"] .oficinas { --of-hoja: var(--carpeta-2); --of-calco: var(--carpeta-4); }
+
+.puesto {
+  position: relative; display: grid; gap: 1.5rem 2.5rem; align-items: start;
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.75rem);
+  background: var(--of-hoja); color: var(--tinta);
+  box-shadow: var(--calco-x) var(--calco-y) 0 var(--of-calco); /* taste-skill-ignore: el calco, bloque plano */
+}
+.puesto[hidden] { display: none; }
+@media (min-width: 56rem) { .puesto { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); } }
+.puesto h3 { font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem); font-weight: 780; font-stretch: 76%; line-height: 1; margin: 0 0 0.75rem; }
+.puesto-hoy > p { font-size: var(--s-sub); line-height: 1.35; max-width: 36ch; }
+.puesto .dossier-lista { margin-top: 1.25rem; }
+.puesto-luego { padding: 1.25rem 1.25rem 1.4rem; background: var(--carpeta-1); color: var(--sobre-carpeta-1); clip-path: var(--chaflan); }
+.puesto-luego p { margin: 0; }
+.puesto-luego p + p { margin-top: 0.5rem; }
+.puesto-luego-t { font: 720 var(--s-sub) var(--t-titulo); font-stretch: 86%; line-height: 1.1; }
+.of-llaves { margin-top: 1.25rem; max-width: 15rem; }
+.of-llaves .dossier-ilu { --trazo: 2.4; }
+
+/* La hoja nueva sube un poco al sacarla delante, como una ficha que se tira de la pestaña */
+@media (prefers-reduced-motion: no-preference) {
+  .con-pestanas .puesto:not([hidden]) { animation: of-saca 420ms var(--suave) both; }
+  @keyframes of-saca { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) { .puesto-pestana { transition: none; } }
+
+/* En el móvil, las pestañas más estrechas para que quepan en dos filas */
+@media (max-width: 30rem) {
+  .puestos-pestanas { padding-inline: 0; gap: 0.3rem 0.15rem; }
+  .puesto-pestana { padding: 0.55rem 1.05rem 0.45rem; font-size: var(--s-pequeno); min-height: 44px; }
+}
+
+/* Al imprimir, todas las hojas, sin pestañas */
+@media print {
+  .puestos-pestanas, .of-acciones { display: none !important; }
+  .puesto[hidden] { display: grid !important; }
+  .puesto { box-shadow: none; border: 1.5pt solid #111; break-inside: avoid; margin-bottom: 0.5cm; } /* taste-skill-ignore: al imprimir se quita el calco */
+  .seccion-pestana { clip-path: none; margin-top: 0; }
+}

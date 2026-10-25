@@ -1,0 +1,43 @@
+/* v5: la coreografía conducida por el scroll (keyframes sd-eN-*). ESQUELETO del ayudante B (empleado 457): una pieza
+   por escena para demostrar que el motor funciona en los dos caminos; la coreografía fina es del ayudante D.
+
+   Reglas (guion §2.1-2.2):
+   - Cada pieza lleva la clase «sd» en el marcado y aquí SOLO su animation-name (nunca el atajo «animation», que
+     borraría la línea de tiempo que pone historia.css). Duración, línea de tiempo, rango y relleno, en historia.css.
+   - Todas las piezas de una escena comparten el rango; la coreografía va en los porcentajes (40 % = al 40 % de la
+     escena) y la curva de cada tramo, con animation-timing-function dentro del keyframe.
+   - El CSS por defecto es el ÚLTIMO fotograma (sin JS, sin soporte o con «reducir movimiento» se ve ese).
+   - Un dueño por transform: una pieza «sd» no lleva entrada (.vista), ni bucle (.en-pantalla), ni es g.mn-ojos o
+     g.mn-cuerpo; si hacen falta dos, se anidan grupos. Los grupos «sd» no llevan atributo transform.
+   - Solo transform, opacity y stroke-dashoffset. */
+
+/* E1, E2, E3, E5, E6, E8 y E10 (y la Manila acompañante): su coreografía está en acompanante.css (ayudante C1). */
+
+/* E4 (el papeleo) y E7 (el día que se hace noche): su coreografía va en escena-papeleo.css (ayudante C2). */
+
+/* E5 · la libreta del relevo llega a su sitio */
+.e5-libreta { animation-name: sd-e5-libreta; }
+@keyframes sd-e5-libreta {
+  0% { transform: translate(-40px, -70px) rotate(-7deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  20%, 100% { transform: none; }
+}
+
+/* E6 · la ola de papeles crece desde la izquierda */
+.e6-ola { animation-name: sd-e6-ola; }
+@keyframes sd-e6-ola {
+  0% { transform: translate(-30%, 6%); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  25%, 100% { transform: none; }
+}
+
+/* E8 · llega la hoja (el papel de la cita) */
+.e8-papel { animation-name: sd-e8-papel; }
+@keyframes sd-e8-papel {
+  0% { transform: translateY(-24px) rotate(-1.6deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  20%, 100% { transform: none; }
+}
+
+/* E4b (la Multa) y E9 (los permisos): su coreografía va en escena-multa.css (ayudante C3). */
+
+/* E10 · la línea de boli que une las etapas */
+.e10-h, .e10-v { stroke-dashoffset: 0; animation-name: sd-e10-linea; }
+@keyframes sd-e10-linea { 0%, 15% { stroke-dashoffset: 100; } 60%, 100% { stroke-dashoffset: 0; } }

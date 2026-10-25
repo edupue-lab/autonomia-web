@@ -1,0 +1,108 @@
+/* AutonomIA · hoja de marca reutilizable (docs/marca.md).
+   Se enlaza ANTES de la hoja propia de cada web: <link rel="stylesheet" href="/marca/marca.css">.
+   Trae las tres tipografías (OFL, autoalojadas en marca/fuentes/, sin pedir nada a internet), los colores de la
+   marca como variables --am-* y tres piezas pequeñas: .am-ia (el «IA» subrayado con rotulador), .am-titulo y
+   el cambio de logo según el tema. El tema oscuro se activa con data-theme="dark" en <html>; el claro es el
+   de siempre por defecto. */
+
+/* ------------------------------------------------------------ tipografías */
+@font-face {
+  font-family: "Fraunces";
+  src: url("fuentes/fraunces-latin-full-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("fuentes/fraunces-latin-full-italic.woff2") format("woff2");
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fuentes/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fuentes/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fuentes/atkinson-hyperlegible-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fuentes/atkinson-hyperlegible-latin-700-italic.woff2") format("woff2");
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("fuentes/courier-prime-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Courier Prime";
+  src: url("fuentes/courier-prime-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ------------------------------------------------------------ variables */
+:root {
+  /* Letras: títulos con carácter, texto muy legible, números de máquina de escribir */
+  --am-titulo: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --am-texto: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --am-mono: "Courier Prime", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --am-titulo-ajustes: "SOFT" 100, "WONK" 1;   /* Fraunces blandita y con sus letras «traviesas» */
+
+  /* Colores (tema claro): papel, tinta y un único rotulador amarillo */
+  --am-papel: #f5f2ea;        /* fondo de página */
+  --am-hoja: #fffdf8;         /* tarjetas y superficies */
+  --am-renglon: #e4ddcf;      /* bordes y líneas finas */
+  --am-tinta: #1d1b16;        /* texto principal (15,4:1 sobre papel) */
+  --am-lapiz: #5f594d;        /* texto secundario (6,2:1 sobre papel) */
+  --am-rotulador: #f5c518;    /* el acento: solo para resaltar, nunca para texto sobre papel */
+  --am-rotulador-suave: #fbefb5;
+  --am-sobre-rotulador: #1d1b16;  /* lo que va encima del amarillo siempre es tinta (10,6:1) */
+  --am-margen: #b42318;       /* el rojo del margen del cuaderno: avisos y errores (5,9:1) */
+  --am-sombra-firma: 3px 3px 0 var(--am-rotulador);  /* sombra plana desplazada, solo en lo principal */
+  --am-radio: 8px;            /* esquinas poco redondeadas: cuaderno, no pastilla */
+}
+
+:root[data-theme="dark"] {
+  --am-papel: #15140f;
+  --am-hoja: #1d1c17;
+  --am-renglon: #36332b;
+  --am-tinta: #f3efe5;        /* 16,1:1 sobre el papel oscuro */
+  --am-lapiz: #a9a292;        /* 7,3:1 */
+  --am-rotulador: #f5c518;
+  --am-rotulador-suave: #3a3216;
+  --am-sobre-rotulador: #1d1b16;
+  --am-margen: #f0634f;
+}
+
+/* ------------------------------------------------------------ piezas */
+.am-titulo {
+  font-family: var(--am-titulo);
+  font-variation-settings: var(--am-titulo-ajustes);
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+/* «IA» resaltada con rotulador, como en el logo. Uso: Autonom<span class="am-ia">IA</span> */
+.am-ia {
+  font-family: var(--am-titulo);
+  font-variation-settings: var(--am-titulo-ajustes);
+  font-style: italic;
+  font-weight: 800;
+  color: var(--am-sobre-rotulador);
+  padding: 0 0.12em 0 0.08em;
+  margin-left: 0.04em;
+  background: linear-gradient(176deg, transparent 6%, var(--am-rotulador) 7%, var(--am-rotulador) 94%, transparent 95%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Logo que cambia con el tema: dos <img> con estas clases */
+:root:not([data-theme="dark"]) .am-solo-oscuro { display: none !important; }  /* el visible conserva el display de su web */
+:root[data-theme="dark"] .am-solo-claro { display: none !important; }

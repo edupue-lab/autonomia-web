@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Mezclas a 24-48 px (empleado 594): la carpeta con el ojo, el guiño y la sonrisa de Manila, trazo grueso, sin cejas, lengua ni visto (a ese tamaño emborronan). -->
+  <g transform="translate(1.2 1.4) scale(.68)">
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z" fill="#f2e2ab" transform="translate(2.4 2)"/>
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 9" fill="none" stroke="#1d1b16" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 25 16.6 2.6l31.4 2.8-1.8 20" fill="#fbf8ef" stroke="#1d1b16" stroke-width="3.4320000000000004" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 9.6l16 1.4M21.8 14.6l9 .8" fill="none" stroke="#1d1b16" stroke-width="3.4320000000000004" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="#f5c518" transform="translate(2.4 2)"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" fill="none" stroke="#1d1b16" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(4 0)"><path d="M20.5 40.5v7" fill="none" stroke="#1d1b16" stroke-width="6.38" stroke-linecap="round" stroke-linejoin="round"/><path d="M34.5 40.5l5.6 3.1-5.6 3.1" fill="none" stroke="#1d1b16" stroke-width="3.7752000000000008" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 54.5c3.8 2.2 8.6 1.8 11.8-1.2" fill="none" stroke="#1d1b16" stroke-width="3.7752000000000008" stroke-linecap="round" stroke-linejoin="round"/></g>
+  </g>
+</svg>

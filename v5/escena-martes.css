@@ -1,0 +1,360 @@
+/* v5 (472): E7, «Un martes de un tasador» (el dibujo y su coreografía, ayudante C2 del 465). Vivía en
+   escena-papeleo.css; el 469 quitó la escena y el 472 la devolvió en este archivo, que se carga en el cuerpo justo
+   antes de la sección para no frenar la primera pintura del móvil. La maquetación de E7 sigue en escena-papeleo.css
+   (F2 y F3) y en historia.css y breve.css. */
+
+/* ============================================================ E7 · el día que se hace noche (Un martes)
+   (ayudante C2 del 465) 0-13 %: Manila cae a su sitio bajo el flexo; el sol asoma aplastado por el borde de la ventana y
+   se estira; el tasador llega con su taza; un gato sentado en la mesa. 14-70 %: Manila escribe inclinada y pasa hojas
+   a «Para ti», que crece; el sol cruza en arco y la sombra del flexo en la pared se acorta y cambia de lado; el reloj
+   corre con las horas de la lista. 52-64 %: el tasador se va a dormir (de lado, gafas en la mesilla) y el gato salta
+   detrás de él y se enrosca a sus pies (el gag). 66-80 %: cae la noche, se enciende el flexo con un parpadeo y la luna
+   sube en arco. 74-86 %: medianoche: Manila se frota los ojos y bosteza. 86-89 %: la última hoja. 89-94 %: coge
+   impulso y se estira. Por defecto (sin JS, sin soporte o con «reducir movimiento»): la noche, el flexo encendido,
+   Manila estirada, el tasador dormido con el gato. En «Antes» (los botones): no hay Manila; él se queda en la mesa,
+   bajo el flexo, cabeceando. */
+.dia-historia {
+  --pp-cae: cubic-bezier(0.55, 0, 1, 0.45);
+  --pp-sube: cubic-bezier(0, 0.55, 0.45, 1);
+  --pp-vivo: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1);
+  --pp-noche: #1d1b16;
+}
+:root[data-theme="dark"] .dia-historia { --pp-noche: #050504; }
+.dia-historia .c-escena { overflow: clip; }
+.c-escena .pp7-k50 { --trazo: calc(var(--c-tr) / 0.5); }
+.c-escena .pp7-bostezo { fill: var(--sobre-amarillo); }
+.c-escena .pp7-noche { fill: var(--pp-noche); }
+.c-escena .pp7-sombra { fill: var(--carpeta-2); }
+.c-escena .pp7-rotulo { font: 700 12px var(--t-titulo); font-stretch: 75%; fill: var(--sobre-amarillo); }
+.c-escena .pp7-hora, .c-escena .pp7-min { transform-box: view-box; transform-origin: 143px 33px; }
+.c-escena .pp7-mn, .c-escena .pp7-duerme, .c-escena .pp7-gato-y { transform-origin: 50% 100%; }
+.c-escena .pp7-escribe { transform-origin: 0 0; }
+.c-escena .pp7-h1, .c-escena .pp7-h2 { transform-origin: 50% 50%; }
+.c-escena .pp7-sol-s { transform-box: view-box; transform-origin: 55px 36px; }
+.c-escena .pp7-sombra { transform-box: view-box; transform-origin: 34px 150px; }
+.c-escena .pp7-luna-y { transform-origin: 50% 50%; }
+/* Último fotograma (el CSS por defecto): la noche */
+.c-escena .pp7-mn { transform: scale(0.97, 1.05); }
+.c-escena .pp7-sol-x { transform: translateX(38px); }
+.c-escena .pp7-sol-y { transform: translateY(90px); }
+.c-escena .pp7-noche { opacity: 0.85; }
+.c-escena .pp7-luz { opacity: 0.55; }
+.c-escena .pp7-hora { transform: rotate(735deg); }
+.c-escena .pp7-min { transform: rotate(6300deg); }
+.c-escena .pp7-gato-x { transform: translateX(78px); }
+.c-escena .pp7-gato-y { transform: translateY(13px); }
+.c-escena .pp7-tas-sale, .c-escena .pp7-h1, .c-escena .pp7-h2, .c-escena .pp7-bostezo, .c-escena .pp7-pose-a,
+.c-escena .pp7-pose-b, .c-escena .pp7-gato-sentado, .c-escena .pp7-sombra { opacity: 0; }
+/* Conducidas por el scroll: solo animation-name */
+.c-escena .pp7-mn { animation-name: sd-e7-manila; }
+.c-escena .pp7-escribe { animation-name: sd-e7-escribe; }
+.c-escena .pp7-bostezo { animation-name: sd-e7-bostezo; }
+.c-escena .pp7-pose-a { animation-name: sd-e7-pose-a; }
+.c-escena .pp7-pose-b { animation-name: sd-e7-pose-b; }
+.c-escena .pp7-pose-c { animation-name: sd-e7-pose-c; }
+.c-escena .pp7-boli-mesa { animation-name: sd-e7-boli-mesa; }
+.c-escena .pp7-frota { animation-name: sd-e7-frota; }
+.c-escena .pp7-h1 { animation-name: sd-e7-hoja-1; }
+.c-escena .pp7-h2 { animation-name: sd-e7-hoja-2; }
+.c-escena .pp7-pila { animation-name: sd-e7-pila; }
+.c-escena .pp7-tas-sale { animation-name: sd-e7-tasador; }
+.c-escena .pp7-duerme { animation-name: sd-e7-duerme; }
+.c-escena .pp7-gafas { animation-name: sd-e7-gafas; }
+.c-escena .pp7-gato-x { animation-name: sd-e7-gato-x; }
+.c-escena .pp7-gato-y { animation-name: sd-e7-gato-y; }
+.c-escena .pp7-gato-sentado { animation-name: sd-e7-gato-sentado; }
+.c-escena .pp7-gato-enroscado { animation-name: sd-e7-gato-enroscado; }
+.c-escena .pp7-sol-x { animation-name: sd-e7-sol-x; }
+.c-escena .pp7-sol-y { animation-name: sd-e7-sol-y; }
+.c-escena .pp7-sol-s { animation-name: sd-e7-sol-s; }
+.c-escena .pp7-noche { animation-name: sd-e7-noche; }
+.c-escena .pp7-luna-x { animation-name: sd-e7-luna-x; }
+.c-escena .pp7-luna-y { animation-name: sd-e7-luna-y; }
+.c-escena .pp7-luz { animation-name: sd-e7-luz; }
+.c-escena .pp7-sombra { animation-name: sd-e7-sombra; }
+.c-escena .pp7-hora { animation-name: sd-e7-hora; }
+.c-escena .pp7-min { animation-name: sd-e7-min; }
+/* «Antes»: sin Manila; el tasador se queda en la mesa, se corre bajo el flexo y cabecea toda la noche */
+.c-escena .pp7-tas { transition: transform 0.5s var(--rebote); }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-tas { transform: translateX(-50px); }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-tas-sale { animation-name: none; opacity: 1; transform: none; }
+.c-escena .pp7-cabeza { transform-origin: 50% 100%; }
+.c-escena .pp7-cansado { opacity: 0; }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-cansado { opacity: 1; }
+#un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-sonrisa { opacity: 0; }
+.ilu-anima #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena.en-pantalla .pp7-cabeza { animation: c-cabecea 4s steps(3) infinite; }
+/* El bucle mientras se lee es uno solo: el tasador respira bajo la manta (ilustra.css, .c-manta). */
+
+@keyframes sd-e7-manila {
+  0% { transform: translate(0px, -200px) rotate(0deg) scale(0.86, 1.18); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  10% { transform: translate(0px, 0px) rotate(0deg) scale(1.24, 0.74); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  13% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  15% { transform: translate(2px, 0px) rotate(7deg) scale(1, 1); }
+  70% { transform: translate(2px, 0px) rotate(7deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  72.5% { transform: translate(0px, 0px) rotate(0deg) scale(1.02, 0.98); animation-timing-function: ease-in-out; }
+  74% { transform: translate(0px, 1px) rotate(-3deg) scale(1.05, 0.93); }
+  86% { transform: translate(0px, 1px) rotate(-3deg) scale(1.05, 0.93); animation-timing-function: ease-in-out; }
+  87% { transform: translate(2px, 0px) rotate(7deg) scale(1, 1); }
+  89% { transform: translate(2px, 0px) rotate(7deg) scale(1, 1); animation-timing-function: ease-in-out; }
+  90.3% { transform: translate(0px, 0px) rotate(0deg) scale(1.12, 0.86); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  92% { transform: translate(0px, -4px) rotate(0deg) scale(0.9, 1.14); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  94% { transform: translate(0px, 0px) rotate(0deg) scale(0.97, 1.05); }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(0.97, 1.05); }
+}
+@keyframes sd-e7-escribe {
+  0% { transform: rotate(0); }
+  14% { transform: rotate(0); }
+  15.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  16.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  17.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  19% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  20.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  21.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  22.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  24% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  25.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  26.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  27.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  29% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  30.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  31.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  32.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  34% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  35.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  36.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  37.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  39% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  40.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  41.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  42.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  44% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  45.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  46.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  47.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  49% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  50.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  51.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  52.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  54% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  55.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  56.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  57.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  59% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  60.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  61.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  62.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  64% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  65.25% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  66.5% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  67.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  69% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  87.75% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  89% { transform: rotate(0); }
+  100% { transform: rotate(0); }
+}
+@keyframes sd-e7-pose-a {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  74% { opacity: 0; animation-timing-function: steps(1, end); }
+  86% { opacity: 1; animation-timing-function: steps(1, end); }
+  89.5% { opacity: 0; animation-timing-function: steps(1, end); }
+  100% { opacity: 0; }
+}
+@keyframes sd-e7-pose-b {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  74% { opacity: 1; animation-timing-function: steps(1, end); }
+  86% { opacity: 0; animation-timing-function: steps(1, end); }
+  100% { opacity: 0; }
+}
+@keyframes sd-e7-pose-c {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  89.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  100% { opacity: 1; }
+}
+@keyframes sd-e7-bostezo {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  77% { opacity: 1; animation-timing-function: steps(1, end); }
+  81% { opacity: 0; animation-timing-function: steps(1, end); }
+  100% { opacity: 0; }
+}
+@keyframes sd-e7-boli-mesa {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  89.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  100% { opacity: 1; }
+}
+@keyframes sd-e7-frota {
+  0% { transform: translate(0, 0); }
+  74% { transform: translate(0, 0); }
+  74.6% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  75.2% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  75.8% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  76.4% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  77% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  77.6% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  78.2% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  78.8% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  79.4% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  80% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  80.6% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  81.2% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  81.8% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  82.4% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  83% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  83.6% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  84.2% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  84.8% { transform: translate(-2px, 1px); animation-timing-function: ease-in-out; }
+  85.4% { transform: translate(2px, -1px); animation-timing-function: ease-in-out; }
+  86% { transform: translate(0, 0); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes sd-e7-hoja-1 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; animation-timing-function: steps(1, end); }
+  22% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  23.2% { transform: translate(14px, -32px) rotate(-150deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  24.4% { transform: translate(28px, -10px) rotate(-360deg) scale(1.4, 0.6); opacity: 1; animation-timing-function: steps(1, end); }
+  24.5% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+  46% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  47.2% { transform: translate(14px, -32px) rotate(-150deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  48.4% { transform: translate(28px, -10px) rotate(-360deg) scale(1.4, 0.6); opacity: 1; animation-timing-function: steps(1, end); }
+  48.5% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+  86.6% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  87.8% { transform: translate(14px, -32px) rotate(-150deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  89% { transform: translate(28px, -10px) rotate(-360deg) scale(1.4, 0.6); opacity: 1; animation-timing-function: steps(1, end); }
+  89.1% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+}
+@keyframes sd-e7-hoja-2 {
+  0% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; animation-timing-function: steps(1, end); }
+  34% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  35.2% { transform: translate(14px, -32px) rotate(-150deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  36.4% { transform: translate(28px, -10px) rotate(-360deg) scale(1.4, 0.6); opacity: 1; animation-timing-function: steps(1, end); }
+  36.5% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+  58% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  59.2% { transform: translate(14px, -32px) rotate(-150deg) scale(1, 1); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  60.4% { transform: translate(28px, -10px) rotate(-360deg) scale(1.4, 0.6); opacity: 1; animation-timing-function: steps(1, end); }
+  60.5% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+  100% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 0; }
+}
+@keyframes sd-e7-pila {
+  0% { transform: translateY(14px); animation-timing-function: steps(1, end); }
+  24.4% { transform: translateY(10px); animation-timing-function: steps(1, end); }
+  36.4% { transform: translateY(7px); animation-timing-function: steps(1, end); }
+  48.4% { transform: translateY(4px); animation-timing-function: steps(1, end); }
+  60.4% { transform: translateY(2px); animation-timing-function: steps(1, end); }
+  89% { transform: translateY(0px); animation-timing-function: steps(1, end); }
+  100% { transform: translateY(0); }
+}
+@keyframes sd-e7-tasador {
+  0% { transform: translate(40px, 0px) rotate(0deg) scale(1, 1); opacity: 0; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  6% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); opacity: 1; }
+  52% { transform: translate(0px, 0px) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  54% { transform: translate(0px, -5px) rotate(4deg) scale(1, 1); }
+  58.4% { transform: translate(56px, -3px) rotate(6deg) scale(1, 1); opacity: 1; animation-timing-function: steps(1, end); }
+  58.5% { transform: translate(56px, -3px) rotate(6deg) scale(1, 1); opacity: 0; }
+  100% { transform: translate(56px, -3px) rotate(6deg) scale(1, 1); opacity: 0; }
+}
+@keyframes sd-e7-duerme {
+  0% { transform: translateY(-8px); opacity: 0; animation-timing-function: steps(1, end); }
+  58.5% { transform: translateY(-8px); opacity: 1; animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  61.5% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes sd-e7-gafas {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  62% { opacity: 1; animation-timing-function: steps(1, end); }
+  100% { opacity: 1; }
+}
+@keyframes sd-e7-gato-x {
+  0% { transform: translateX(0); }
+  61.2% { transform: translateX(0); animation-timing-function: linear; }
+  62.8% { transform: translateX(78px); }
+  100% { transform: translateX(78px); }
+}
+@keyframes sd-e7-gato-y {
+  0% { transform: translate(0, 0) scale(1, 1); }
+  60.4% { transform: translate(0, 0) scale(1, 1); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  61.2% { transform: translate(0, 0) scale(1.15, .8); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  62% { transform: translate(0, -34px) scale(.9, 1.12); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  62.8% { transform: translate(0, 13px) scale(1.25, .75); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  64% { transform: translate(0, 13px) scale(1, 1); }
+  100% { transform: translate(0, 13px) scale(1, 1); }
+}
+@keyframes sd-e7-gato-sentado {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  62.8% { opacity: 0; animation-timing-function: steps(1, end); }
+  100% { opacity: 0; }
+}
+@keyframes sd-e7-gato-enroscado {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  62.8% { opacity: 1; animation-timing-function: steps(1, end); }
+  100% { opacity: 1; }
+}
+@keyframes sd-e7-sol-x {
+  0% { transform: translateX(-33px); animation-timing-function: linear; }
+  75% { transform: translateX(38px); }
+  100% { transform: translateX(38px); }
+}
+@keyframes sd-e7-sol-y {
+  0% { transform: translateY(54px); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  40% { transform: translateY(0); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  75% { transform: translateY(90px); }
+  100% { transform: translateY(90px); }
+}
+@keyframes sd-e7-sol-s {
+  0% { transform: scale(1.35, .66); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  3.5% { transform: scale(.86, 1.16); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  7% { transform: scale(1, 1); }
+  100% { transform: scale(1, 1); }
+}
+@keyframes sd-e7-noche {
+  0% { opacity: 0; }
+  66% { opacity: 0; animation-timing-function: ease-in; }
+  80% { opacity: 0.85; }
+  100% { opacity: 0.85; }
+}
+@keyframes sd-e7-luna-x {
+  0% { transform: translateX(46px); }
+  74% { transform: translateX(46px); animation-timing-function: linear; }
+  96% { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+@keyframes sd-e7-luna-y {
+  0% { transform: translateY(62px) rotate(30deg); }
+  74% { transform: translateY(62px) rotate(30deg); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  96% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes sd-e7-luz {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  73% { opacity: 0.55; animation-timing-function: steps(1, end); }
+  73.6% { opacity: 0.1; animation-timing-function: steps(1, end); }
+  74.3% { opacity: 0.55; }
+  100% { opacity: 0.55; }
+}
+@keyframes sd-e7-sombra {
+  0% { transform: skewX(-36deg) scaleY(.9); opacity: 1; animation-timing-function: linear; }
+  20% { transform: skewX(-26deg) scaleY(.95); opacity: 1; animation-timing-function: linear; }
+  40% { transform: skewX(-8deg) scaleY(1); opacity: 1; animation-timing-function: linear; }
+  58% { transform: skewX(22deg) scaleY(.95); opacity: 1; animation-timing-function: ease-in; }
+  68% { transform: skewX(32deg) scaleY(.9); opacity: 0; }
+  100% { transform: skewX(32deg) scaleY(.9); opacity: 0; }
+}
+@keyframes sd-e7-hora {
+  0% { transform: rotate(225deg); animation-timing-function: linear; }
+  20% { transform: rotate(270deg); animation-timing-function: linear; }
+  40% { transform: rotate(360deg); animation-timing-function: linear; }
+  60% { transform: rotate(480deg); animation-timing-function: linear; }
+  75% { transform: rotate(600deg); animation-timing-function: linear; }
+  84% { transform: rotate(720deg); animation-timing-function: linear; }
+  93% { transform: rotate(735deg); animation-timing-function: linear; }
+  100% { transform: rotate(735deg); animation-timing-function: linear; }
+}
+@keyframes sd-e7-min {
+  0% { transform: rotate(180deg); animation-timing-function: linear; }
+  20% { transform: rotate(720deg); animation-timing-function: linear; }
+  40% { transform: rotate(1800deg); animation-timing-function: linear; }
+  60% { transform: rotate(3240deg); animation-timing-function: linear; }
+  75% { transform: rotate(4680deg); animation-timing-function: linear; }
+  84% { transform: rotate(6120deg); animation-timing-function: linear; }
+  93% { transform: rotate(6300deg); animation-timing-function: linear; }
+  100% { transform: rotate(6300deg); animation-timing-function: linear; }
+}

@@ -1,0 +1,215 @@
+/* v5 «scrollytelling» (empleado 457, ayudante B): la estructura de las escenas. Va después de v5.css, ilustra.css y
+   escenas.css; el movimiento conducido por el scroll (los keyframes sd-eN-*) va en coreografia.css.
+
+   Dos tipos de escena (guion §2.1):
+   - Escena FIJA (.escena-fija, E1, E4, E7 y E9): un contenedor alto con su línea de tiempo y, dentro, un escenario
+     fijo (sticky). En el ordenador, texto en las columnas 1-5 y escenario en las 6-12, centrado en vertical; en el
+     móvil, el dibujo se queda arriba con 42svh y las tarjetas de texto pasan por encima.
+   - Escena RODADA (.escena-rodada): no se fija; su línea de tiempo va de que asoma por abajo a que sale por arriba.
+
+   Marcado: [data-escena="eN"] y [data-rango="contain|cover"] en el contenedor; dentro de una fija, .historia-cabeza
+   (título y frase), .escenario (en el ordenador, el bloque fijo; en el móvil, display: contents) con su
+   .escenario-dibujo (lo que se queda fijo en el móvil) y .historia-pasos (lo que pasa por al lado o por encima).
+   Toda pieza que mueve el scroll lleva la clase «sd» y, en coreografia.css, SOLO su animation-name (sd-eN-algo): la
+   duración, la línea de tiempo y el rango los pone este archivo según el camino.
+
+   Cuándo hay escenas fijas y animaciones de scroll (§2.2): con movimiento permitido y animation-timeline (camino
+   CSS), o con html.sd-motor (camino de motor.js). Si no, --sd-on no existe: los contenedores tienen su alto natural,
+   el dibujo del móvil va en el flujo y todo lo «sd» se ve en su último fotograma, que es el CSS por defecto. En el
+   ordenador el escenario sigue pegado al lado del texto (sin alto extra): no es movimiento y la página queda mejor.
+   Nada aquí toca el scroll: ni snap, ni wheel, ni scroll-behavior. */
+
+/* ------------------------------------------------------------ medidas */
+:root {
+  --alto-escenario: min(78svh, 640px);
+  --barra: 0px;
+}
+@media (max-width: 47.99rem) { :root { --barra: 68px; } html { scroll-padding-bottom: var(--barra); } }
+
+/* ------------------------------------------------------------ líneas de tiempo (una por escena) */
+[data-escena="e1"] { view-timeline: --e1 block; --sd-tl: --e1; }
+[data-escena="e2"] { view-timeline: --e2 block; --sd-tl: --e2; }
+[data-escena="e3"] { view-timeline: --e3 block; --sd-tl: --e3; }
+[data-escena="e4"] { view-timeline: --e4 block; --sd-tl: --e4; }
+[data-escena="e5"] { view-timeline: --e5 block; --sd-tl: --e5; }
+[data-escena="e6"] { view-timeline: --e6 block; --sd-tl: --e6; }
+[data-escena="e7"] { view-timeline: --e7 block; --sd-tl: --e7; }
+[data-escena="e8"] { view-timeline: --e8 block; --sd-tl: --e8; }
+[data-escena="e9"] { view-timeline: --e9 block; --sd-tl: --e9; }
+[data-escena="e10"] { view-timeline: --e10 block; --sd-tl: --e10; }
+/* 468: en el móvil la escena tiene que estar completa cuando su dibujo (o su último texto, en las fijas) pasa por el
+   centro de la pantalla, no después. --sd-adelanto (rodadas) adelanta todo el tramo ese porcentaje; --sd-fin (fijas)
+   acaba la coreografía antes del final del tramo fijo. Medido con .taste-skill/v5-468/mide3.py; motor.js los lee. */
+[data-rango="contain"] { --sd-rango: contain 0% contain var(--sd-fin, 100%); }
+[data-rango="cover"] { --sd-rango: cover calc(0% - var(--sd-adelanto, 0%)) cover calc(100% - var(--sd-adelanto, 0%)); }
+@media (max-width: 47.99rem) {
+  [data-escena="e2"], [data-escena="e3"] { --sd-adelanto: 9%; }
+  [data-escena="e5"] { --sd-adelanto: 11%; }
+  [data-escena="e4b"] { --sd-fin: 75%; }
+}
+
+/* ------------------------------------------------------------ los dos caminos */
+/* --sd-on: 1 enciende el alto extra de las fijas y el dibujo pegado del móvil (las reglas de abajo lo multiplican). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    :root { --sd-on: 1; --sd-pegado: sticky; --sd-dibujo: 42svh; }
+    /* 479: ya no hay camino CSS ligado al scroll (Edu, 18/10: las escenas van por tiempo y en bucle). Sin JS, cada
+       pieza «sd» se queda en su último fotograma, que es el CSS por defecto. */
+  }
+}
+/* Camino del motor (motor.js): las animaciones, pausadas y de 1000 ms; el script las reproduce por tiempo, en bucle,
+   al asomar cada escena (--sd-dura, --sd-espera). */
+:root.sd-motor { --sd-on: 1; --sd-pegado: sticky; --sd-dibujo: 42svh; }
+:root.sd-motor [data-escena] .sd {
+  animation-duration: 1000ms; animation-timing-function: linear; animation-fill-mode: both; animation-play-state: paused;
+}
+/* 485: la SALIDA dibujada (.sx, keyframes sx-eN-*, en tarea.css). Solo existe con el motor; parte pausada y motor.js
+   la arranca una vez al irse la escena. Su 0 % es el reposo, así que no hay saltos. */
+:root.sd-motor [data-escena] .sx {
+  animation-duration: 1000ms; animation-timing-function: linear; animation-fill-mode: both; animation-play-state: paused;
+}
+/* 585: las piezas del PUENTE del bucle (.rs, keyframes rs-eN-*, en bucle.css): devuelven la escena del final de la
+   tarea a su principio sin saltos ni fundidos (las hojas se archivan, la tapa se cierra…). Pausadas; las mueve motor.js. */
+:root.sd-motor [data-escena] .rs {
+  animation-duration: 1000ms; animation-timing-function: linear; animation-fill-mode: both; animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------ escena fija: el móvil (y la tableta) */
+.escena-fija { position: relative; display: flex; flex-direction: column; gap: 1.75rem; }
+.historia-cabeza { order: 0; }
+.escenario { display: contents; }
+.escenario-dibujo {
+  order: 1; position: var(--sd-pegado, relative); top: 0; z-index: 1; isolation: isolate;
+  height: var(--sd-dibujo, auto); max-height: 45svh;
+  display: flex; flex-direction: column; justify-content: center; gap: 0;
+  background: var(--campo, var(--papel));
+}
+/* El grano del papel también en el dibujo pegado, para que no se vea como un recorte liso */
+.escenario-dibujo::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--grano); background-size: 240px 240px; opacity: var(--grano-fuerza);
+}
+.escenario > :not(.escenario-dibujo) { order: 2; }
+.historia-pasos { order: 3; position: relative; z-index: 2; }
+.tarjeta { position: relative; z-index: 2; }
+/* El dibujo se encoge para caber en su alto (nunca se corta ni se deforma: el viewBox lo centra) */
+.escenario-dibujo > * { flex: 0 1 auto; min-height: 0; }
+.escenario-dibujo > div { display: flex; flex-direction: column; justify-content: center; }
+.escenario-dibujo > div > svg { flex: 0 1 auto; min-height: 0; }
+.escenario-dibujo .ilu { width: 100%; }
+@media (max-width: 63.99rem) {
+  /* Pegado arriba: fondo de papel y un borde de tinta, para que se lea como una hoja aparte */
+  .escenario-dibujo { border-bottom: calc(var(--sd-on, 0) * 2px) solid var(--tinta); }
+  .dia-ventana { display: none; }
+  /* Entre tarjeta y tarjeta, un respiro en el que el dibujo fijo se ve libre (solo con las escenas encendidas) */
+  .pasos, .garantias { gap: calc(1.25rem + var(--sd-on, 0) * 24svh); }
+  /* E4 tiene cuatro tarjetas altas: con 24svh entre ellas pasaba de las dos pantallas fijadas (ayudante E) */
+  .dia-escritorio .pasos { gap: calc(1.25rem + var(--sd-on, 0) * 20svh); }
+  .dia-escritorio::after { content: ""; order: 5; height: calc(var(--sd-on, 0) * 30svh); }
+  /* E9: la autorización (alta) va al final de la escena, después de las tres garantías, para que no tape el dibujo
+     mientras pasa; con movimiento, un respiro antes para ver a Manila disfrazada. */
+  .seg-escenario .impreso { order: 4; margin-top: calc(var(--sd-on, 0) * 20svh); }
+}
+
+/* F4 (465): con html.se-va (escenas.js), el texto va por ENCIMA del dibujo fijo y se desvanece justo antes de tocar
+   su canto: nada se dibuja nunca sobre letras visibles (tampoco al soltarse el pin). */
+@media (max-width: 63.99rem) {
+  .se-va .escena-fija .historia-pasos { z-index: 4; }
+  .se-va .escena-fija .escenario > :not(.escenario-dibujo) { position: relative; z-index: 4; }
+}
+
+/* (ayudante E) Móvil con la escena fija encendida: las tarjetas de E4 no caben en 45svh con su fragmento de interfaz
+   y tapaban el dibujo todo el recorrido; como pide el guion (§5), se recorta el fragmento (es decorativo, aria-hidden)
+   y no se alarga la escena. Sin movimiento, sin soporte o en el ordenador, el fragmento sigue. */
+@media (max-width: 63.99rem) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) { .dia-escritorio .paso-vista { display: none; } }
+}
+@media (max-width: 63.99rem) { :root.sd-motor .dia-escritorio .paso-vista { display: none; } }
+
+/* ------------------------------------------------------------ escena fija: el ordenador */
+@media (min-width: 64rem) {
+  .escena-fija {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr;
+    column-gap: clamp(1.5rem, 3vw, 3rem); row-gap: 2.5rem; align-items: start;
+    min-height: calc(var(--sd-on, 0) * var(--alto-escena, 150svh));
+  }
+  .historia-cabeza { grid-column: 1 / 6; grid-row: 1; }
+  .historia-pasos { grid-column: 1 / 6; grid-row: 2; }
+  .escenario {
+    grid-column: 6 / 13; grid-row: 1 / 3; align-self: start;
+    position: sticky; top: calc((100svh - var(--alto-escenario)) / 2); height: var(--alto-escenario);
+    display: flex; flex-direction: column; gap: 1.25rem; min-width: 0;
+  }
+  .escenario-dibujo { order: 0; position: relative; height: auto; max-height: none; flex: 1 1 auto; min-height: 0; background: none; }
+  .escenario-dibujo::before { content: none; }
+  .escenario > :not(.escenario-dibujo) { order: 1; flex: none; }
+}
+
+/* ------------------------------------------------------------ E1 · la portada */
+.portada-historia { --alto-escena: 150svh; }
+.portada-escenario .escenario-dibujo { justify-content: flex-end; }
+.portada-escenario .pt-manila { width: 100%; margin: 0; }
+.portada-escenario .pila { flex: none; }
+.portada-pasos { margin-top: 0.5rem; }
+@media (max-width: 47.99rem) { .portada-cabeza .acciones .boton { width: 100%; min-height: 56px; } }
+@media (min-width: 64rem) {
+  .portada-historia { row-gap: 3rem; }
+  .portada-cabeza { padding-top: 1rem; }
+  .portada-pasos { align-self: end; margin-top: 0; }
+  .portada-escenario { gap: 0; }
+}
+
+/* ------------------------------------------------------------ E4 · un día en el escritorio */
+.dia-escritorio { --alto-escena: 200svh; }
+.e4-dibujo { --t: 3; }
+@media (min-width: 64rem) { .e4-dibujo { --t: 2.1; } }
+@media (max-width: 63.99rem) {
+  .paso-par h3 { font-size: var(--s-texto); }
+  .paso { gap: 0.8rem; }
+}
+
+/* ------------------------------------------------------------ E7 · el día que se hace noche */
+.dia-historia { --alto-escena: 180svh; }
+.dia-historia .historia-cabeza { margin-bottom: 0; }
+/* Móvil: entre hora y hora, un respiro para ver la noche del dibujo fijo (como los pasos de E4) */
+/* (ayudante E) Las horas, más juntas y con un tramo final para la noche: así cada hora llega a la zona de lectura
+   cuando el dibujo la cuenta (9:00 ≈ 25 %, 12:00 ≈ 40 %, 16:00 ≈ 60 %, 19:00 con la noche, ≈ 75 %). */
+@media (max-width: 63.99rem) {
+  .dia-lista { gap: calc(0.5rem + var(--sd-on, 0) * 9svh); }
+  .dia-historia::after { content: ""; order: 5; height: calc(var(--sd-on, 0) * 58svh); }
+}
+@media (min-width: 64rem) {
+  .dia-lista { gap: max(4px, calc(var(--sd-on, 0) * 10svh)); }
+  .dia-ventana { flex: none; }
+}
+
+/* ------------------------------------------------------------ E9 · la lupa y el cajón «Personal» */
+.seg-historia { --alto-escena: 150svh; }
+.garantias .tarjeta { padding: 1.1rem 1.25rem 1.25rem; background: var(--carpeta-1); clip-path: var(--chaflan); }
+.seg-escenario .impreso { margin: 0; }
+.e9-candado { stroke-dasharray: 100; }
+@media (min-width: 64rem) {
+  .garantias { gap: max(1.5rem, calc(var(--sd-on, 0) * 30svh)); }
+  /* (ayudante E) El dibujo, a todo el ancho del escenario y abajo; la autorización, como una hoja clavada en la pared
+     del despacho, arriba a la izquierda (donde el dibujo no tiene nada): se ven los dos enteros. */
+  .seg-escenario { justify-content: flex-end; }
+  .seg-escenario .escenario-dibujo { flex: none; }
+  .seg-escenario .impreso { position: absolute; top: 0; left: 0; z-index: 2; width: min(50%, 21rem); rotate: -1.2deg; }
+  .seg-escenario .impreso-hoja { padding: 0.8rem 1rem 0.9rem; }
+  .seg-escenario .impreso-titulo { font-size: var(--s-texto); }
+  .seg-escenario .impreso-lista li { padding: 0.4rem 0; font-size: var(--s-pequeno); grid-template-columns: minmax(0, 1fr) 1.6rem; gap: 0.6rem; }
+  .seg-escenario .impreso figcaption { font-size: 0.8125rem; margin-top: 0.5rem; }
+}
+
+/* ------------------------------------------------------------ escenas rodadas con piezas sueltas */
+/* E10: la línea de boli que une las etapas (horizontal en el ordenador, vertical en el móvil). Decorativa. */
+.etapas-marco { position: relative; }
+.e10-linea { position: absolute; pointer-events: none; overflow: visible; }
+.e10-linea path { fill: none; stroke: var(--boli-trazo); stroke-width: 2.6; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 100; }
+.e10-linea:not(.e10-linea-v) { display: none; }
+.e10-linea-v { left: -0.6rem; top: 0; width: 1rem; height: 100%; }
+@media (min-width: 60rem) {
+  .e10-linea:not(.e10-linea-v) { display: block; left: 0; right: 0; top: -1.6rem; width: 100%; height: 1.4rem; }
+  .e10-linea-v { display: none; }
+}
+@media (max-width: 59.99rem) { .etapas-marco .etapas { padding-left: 0.6rem; } }

@@ -1,0 +1,379 @@
+/* «Del correo al trabajo hecho» (sección #que-hace) y su escena .dm-ilu. Todo cuelga de .demo y usa las fichas de
+   v4.css. Sin JavaScript se ve el primer correo de cada oficio con sus pasos marcados y su carpeta «Para ti»; con
+   demo.js (clase .activa) se eligen oficio y correo y se ve paso a paso. demo.js escribe en .demo-escena el estado:
+   data-oficio, data-fase (espera | paso | fin), .ultimo y las reacciones de la escena (.dm-hop, .dm-cambia, .dm-final);
+   en cada hoja de la escena, data-e (sobre | mesa | dentro). Solo se mueven transform, opacity y stroke-dashoffset. */
+
+.demo {
+  --d-hoja: var(--hoja, #fff);
+  --d-tinta: var(--tinta, #1d1b16);
+  --d-gris: var(--gris, #5f594d);
+  --d-amarillo: var(--amarillo, #f5c518);
+  --d-acento: var(--acento-texto, #6b4c00);
+  --d-suave-am: var(--amarillo-suave, #fbefb5);
+  --d-sobre-am: var(--sobre-amarillo, #1d1b16);
+  --d-placa: var(--carpeta-2, #f2e2ab);
+  --d-titulo: var(--t-titulo, "Archivo", "Arial Narrow", sans-serif);
+  --d-pequeno: var(--s-pequeno, 15px);
+  --d-texto: var(--s-texto, 18px);
+  --d-resbala: cubic-bezier(0.22, 1, 0.36, 1);
+  --d-rebote: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ------------------------------------------------ composición: escena a la izquierda, elegir a la derecha */
+.demo-rejilla { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+.demo-cabeza h2 {
+  margin: 0; font-family: var(--d-titulo); font-weight: 800; font-stretch: 76%; letter-spacing: -0.02em;
+  line-height: 0.98; font-size: var(--s-medio, 2.25rem); color: var(--d-tinta); max-width: 14ch;
+}
+.demo-cabeza p { margin: 0.9rem 0 0; font-size: var(--d-texto); line-height: 1.5; color: var(--d-tinta); max-width: 36ch; }
+.demo-pie { margin: 0; font-size: var(--d-pequeno); color: var(--d-gris); }
+.demo-acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.demo-acciones:empty { display: none; }
+.demo-acciones .boton { min-height: 52px; }
+@media (max-width: 47.99rem) { .demo-acciones .boton { flex: 1 1 100%; } }
+.demo-elige { display: grid; gap: 1rem; align-content: start; }
+
+@media (min-width: 60rem) {
+  .demo-rejilla {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
+    grid-template-areas: "escena cabeza" "escena elige" "escena pie" "escena acciones" "escena .";
+    column-gap: clamp(2.5rem, 5vw, 5.5rem); row-gap: 1.75rem; align-items: start;
+  }
+  .demo-cabeza { grid-area: cabeza; }
+  .demo-cabeza h2 { font-size: min(var(--s-grande, 4.5rem), 5vw); }
+  .demo-elige { grid-area: elige; }
+  .demo-escena { grid-area: escena; }
+  .demo-pie { grid-area: pie; }
+  .demo-acciones { grid-area: acciones; }
+}
+
+/* ------------------------------------------------ el «calco» de los controles: un bloque amarillo corrido que
+   asoma por detrás al pasar por encima y se hunde al pulsar (la misma firma que las ilustraciones) */
+.demo-pestanas button, .demo-mensaje, .demo-mando { position: relative; isolation: isolate; }
+.demo-pestanas button::after, .demo-mensaje::after, .demo-mando::after {
+  content: ""; position: absolute; inset: 0; z-index: -2; background: var(--d-amarillo);
+  transform: translate(0, 0); opacity: 0; pointer-events: none;
+  transition: transform 220ms var(--d-rebote), opacity 120ms ease;
+}
+.demo-pestanas button::before, .demo-mensaje::before, .demo-mando::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: inherit; pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .demo-pestanas button:hover::after, .demo-mensaje:hover::after, .demo-mando:hover::after { opacity: 1; transform: translate(5px, 4px); }
+  .demo-pestanas button[aria-selected="true"]:hover::after { background: var(--d-tinta); }
+}
+.demo-pestanas button:active::after, .demo-mensaje:active::after, .demo-mando:active::after { opacity: 1; transform: translate(1px, 1px); }
+
+/* ------------------------------------------------ pestañas de oficio: pestañas de carpeta */
+.demo-pestanas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.demo-pestanas[hidden] { display: none; }
+.demo-pestanas button {
+  min-height: 52px; padding: 0.6rem 0.9rem; border: 0; border-radius: 0;
+  background: var(--d-hoja); color: var(--d-tinta); text-align: left; cursor: pointer;
+  font: 700 var(--d-texto) / 1.15 var(--d-titulo); font-stretch: 88%;
+  transition: transform 160ms var(--d-resbala);
+}
+.demo-pestanas button[aria-selected="true"] { background: var(--d-amarillo); color: var(--d-sobre-am); }
+.demo-pestanas button:active { transform: translate(2px, 2px); }
+@media (hover: hover) and (pointer: fine) {
+  .demo-pestanas button:hover { transform: translate(-2px, -2px); }
+  .demo-pestanas button:active { transform: translate(2px, 2px); }
+}
+
+/* ------------------------------------------------ la bandeja de entrada del oficio: el visitante elige el correo */
+.demo-bandeja[hidden] { display: none; }
+.demo-bandeja-titulo {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem;
+  margin: 0 0 0.6rem; font: 800 var(--s-sub, 1.5rem) / 1.1 var(--d-titulo); font-stretch: 80%; color: var(--d-tinta);
+}
+.demo-bandeja-titulo span { font: 400 var(--d-pequeno) / 1.3 var(--t-texto, sans-serif); color: var(--d-gris); }
+.demo-mensajes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.demo-mensaje {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 0.75rem; width: 100%; min-height: 64px;
+  padding: 0.7rem 0.9rem 0.75rem 1.4rem; border: 0; border-radius: 0; background: var(--d-hoja); color: var(--d-tinta);
+  text-align: left; cursor: pointer; font: inherit;
+  transition: transform 180ms var(--d-resbala);
+}
+.demo-m-de { font: 700 var(--d-texto) / 1.2 var(--d-titulo); font-stretch: 88%; overflow-wrap: anywhere; }
+.demo-m-hora { font-size: var(--d-pequeno); color: var(--d-gris); font-variant-numeric: tabular-nums; }
+.demo-m-asunto { grid-column: 1 / -1; font-size: var(--d-pequeno); line-height: 1.35; color: var(--d-tinta); }
+/* El abierto: fondo amarillo suave y la pestaña amarilla del borde, que crece desde abajo */
+.demo-mensaje[aria-pressed="true"] { background: var(--d-suave-am); }
+.demo-mensaje > span:first-child::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.5rem; background: var(--d-amarillo);
+  transform: scaleY(0); transform-origin: 50% 100%; transition: transform 320ms var(--d-rebote);
+}
+.demo-mensaje[aria-pressed="true"] > span:first-child::before { transform: scaleY(1); }
+@media (hover: hover) and (pointer: fine) {
+  .demo-mensaje:hover { transform: translate(-2px, -2px); }
+}
+.demo-mensaje:active { transform: translate(2px, 2px); }
+
+/* ------------------------------------------------ la placa con la escena, el encargo y los mandos */
+.demo-escena {
+  position: relative; display: grid; gap: 1rem; align-content: start; background: var(--d-placa);
+  padding: clamp(1rem, 3.2vw, 2.25rem); margin-inline: calc(var(--margen, 16px) * -1);
+}
+@media (min-width: 48rem) { .demo-escena { margin-inline: 0; } }
+.demo-casos { display: grid; gap: 2rem; }
+.demo-caso[hidden] { display: none; }
+.demo-caso { display: grid; gap: 1rem; }
+.demo-caso:focus-visible { outline-offset: 4px; }
+.demo-caso-oficio { margin: 0; font: 800 var(--s-sub, 24px) / 1.1 var(--d-titulo); font-stretch: 80%; color: var(--d-tinta); }
+
+/* El correo abierto y lo que hace con él */
+.demo-pantalla { background: var(--d-hoja); color: var(--d-tinta); font-size: var(--d-texto); line-height: 1.4; }
+.demo-pantalla p { margin: 0; }
+.demo-correo { padding: 1rem 1.1rem 1.1rem; }
+.demo-de { display: flex; justify-content: space-between; gap: 1rem; font-size: var(--d-pequeno); }
+.demo-de strong { position: relative; padding-left: 0.95rem; }
+.demo-de strong::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.5rem; height: 0.5rem; background: var(--d-amarillo); }
+.demo-de span { color: var(--d-gris); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.demo-asunto { margin-top: 0.3rem !important; font: 700 var(--d-texto) / 1.25 var(--d-titulo); font-stretch: 92%; }
+.demo-cuerpo { margin-top: 0.4rem !important; font-size: var(--d-pequeno); line-height: 1.45; }
+.demo-adjunto {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.8rem !important; padding: 0.3rem 0.6rem 0.3rem 0.3rem;
+  background: var(--d-suave-am); font-size: var(--d-pequeno);
+}
+.demo-tipo {
+  display: inline-block; min-width: 4.4rem; padding: 0.1rem 0.45rem; background: var(--d-suave-am); color: var(--d-tinta);
+  font: 700 var(--d-pequeno) / 1.35 var(--d-titulo); font-stretch: 90%; text-align: center;
+}
+.demo-adjunto .demo-tipo { min-width: 0; background: var(--d-hoja); }
+
+.demo-rotulo { padding: 0.55rem 1.1rem; background: var(--d-suave-am); font-size: var(--d-pequeno); color: var(--d-gris); }
+.demo-pasos { list-style: none; margin: 0; padding: 0.6rem 0.6rem 0.9rem; }
+.demo-pasos li {
+  position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.6rem;
+  padding: 0.45rem 0.5rem; isolation: isolate;
+}
+/* Sin JS, cada paso lleva una marca sencilla (dos trazos), ya que la del boli la dibuja demo.js */
+.demo:not(.activa) .demo-pasos li::before {
+  content: ""; width: 0.7rem; height: 1.2rem; margin: 0.05rem 0 0 0.55rem; border: solid var(--d-acento);
+  border-width: 0 3px 3px 0; transform: rotate(40deg);
+}
+.demo-marca { width: 2rem; height: 2rem; margin-top: -0.3rem; color: var(--d-acento); overflow: visible; }
+.demo-marca path, .demo-flecha path {
+  fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 100; stroke-dashoffset: 0;
+}
+
+/* La carpeta «Para ti» abierta: su pestaña, sus archivos, el documento abierto y la nota a boli */
+.demo-resultado { color: var(--d-tinta); font-size: var(--d-pequeno); line-height: 1.45; }
+.demo-resultado p { margin: 0; }
+.demo-carpeta-nombre {
+  display: inline-block; padding: 0.55rem 1.6rem 0.4rem 0.9rem; background: var(--d-amarillo); color: var(--d-sobre-am);
+  font: 700 var(--d-texto) / 1.2 var(--d-titulo); font-stretch: 88%;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%);
+}
+.demo-carpeta-cuerpo { display: grid; gap: 0.6rem; background: var(--d-suave-am); padding: 0.75rem; }
+.demo-carpeta-de { font-weight: 700; }
+.demo-archivos { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.demo-archivos li { display: flex; align-items: center; gap: 0.75rem; min-height: 40px; padding: 0.3rem 0.5rem; background: var(--d-hoja); }
+.demo-archivos li.abierto { background: var(--d-amarillo); color: var(--d-sobre-am); font-weight: 700; }
+.demo-archivos li.abierto .demo-tipo { background: var(--d-hoja); color: var(--d-tinta); }
+.demo-doc { background: var(--d-hoja); padding: 0.9rem 1rem 1rem; display: grid; gap: 0.5rem; }
+.demo-doc-titulo { font: 700 var(--d-texto) / 1.25 var(--d-titulo); font-stretch: 90%; }
+.demo-doc-cab { display: grid; gap: 0.1rem; padding-bottom: 0.5rem; color: var(--d-gris); }
+.demo-doc-cab span:last-child { color: var(--d-tinta); font-weight: 700; }
+.demo-doc mark { background: var(--d-suave-am); color: var(--d-tinta); padding: 0 0.15em; }
+.demo-doc-lista { margin: 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.3rem; }
+.demo-doc-lista li::marker { color: var(--d-acento); }
+.demo-doc-check { list-style: none; padding: 0; }
+.demo-doc-check li { position: relative; padding-left: 1.6rem; }
+.demo-doc-check li::before { content: ""; position: absolute; left: 0.3rem; top: 0.15em; width: 0.45rem; height: 0.85rem; border: solid var(--d-acento); border-width: 0 3px 3px 0; transform: rotate(40deg); }
+.demo-doc-check li.no { font-weight: 700; }
+.demo-doc-check li.no::before { width: 0.8rem; height: 0; top: 0.65em; left: 0.15rem; border-width: 3px 0 0; border-color: var(--aviso, #b42318); transform: none; }
+.demo-doc-enviar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding-top: 0.25rem; }
+.demo-doc-enviar > span:last-child {
+  margin-left: auto; padding: 0.35rem 1rem; background: var(--boton, #1d1b16); color: var(--sobre-boton, #f5c518);
+  font: 700 var(--d-pequeno) / 1.3 var(--d-titulo); font-stretch: 90%;
+}
+.demo-doc-pie { color: var(--d-gris); }
+.demo-tabla { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.demo-tabla caption { text-align: left; padding-bottom: 0.4rem; font: 700 var(--d-texto) / 1.25 var(--d-titulo); font-stretch: 90%; }
+.demo-tabla th, .demo-tabla td { padding: 0.3rem 0.5rem; text-align: left; border-bottom: 1px solid var(--d-placa); }
+.demo-tabla th { background: var(--d-suave-am); font-weight: 700; }
+.demo-tabla td:nth-child(n+2), .demo-tabla th:nth-child(n+2) { text-align: right; }
+.demo-nota { display: flex; align-items: flex-end; justify-content: flex-end; gap: 0.3rem; color: var(--d-acento); }
+.demo-flecha { width: clamp(40px, 10vw, 64px); height: auto; flex: none; overflow: visible; transform: scaleY(-1) rotate(-4deg); }
+.demo-flecha path { stroke-width: 2.2; }
+.demo-nota span { font: italic 600 var(--d-texto) / 1.2 var(--d-titulo); font-stretch: 95%; transform: rotate(-2deg); padding-bottom: 0.15rem; }
+@media (min-width: 36rem) {
+  .demo-carpeta-cuerpo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+  .demo-carpeta-de, .demo-nota { grid-column: 1 / -1; }
+}
+
+/* ------------------------------------------------ los mandos: avanzar, verlo seguido, otro correo */
+.demo-mandos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.demo-mandos[hidden], .demo-mando[hidden] { display: none; }
+.demo-mando {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; min-height: 56px; padding: 0.6rem 1rem;
+  border: 0; border-radius: 0; background: var(--d-hoja); color: var(--d-tinta); cursor: pointer;
+  font: 750 var(--d-texto) / 1.15 var(--d-titulo); font-stretch: 88%;
+  transition: transform 160ms var(--d-resbala);
+}
+.demo-siguiente { background: var(--boton, #1d1b16); color: var(--sobre-boton, #f5c518); }
+.demo-siguiente::after, .demo-otro::after { background: var(--d-amarillo); }
+@media (hover: hover) and (pointer: fine) {
+  .demo-mando:hover { transform: translate(-2px, -2px); }
+}
+.demo-mando:active { transform: translate(2px, 2px); }
+@media (max-width: 22rem) { .demo-mandos { grid-template-columns: 1fr; } }
+
+.demo-aviso { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ------------------------------------------------ con demo.js: el caso abierto cambia de pantalla a resultado */
+.demo.activa .demo-caso-oficio { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+/* El correo y la carpeta comparten sitio: la altura es la del mayor de los dos y no salta al terminar */
+.demo.activa .demo-caso { grid-template-columns: minmax(0, 1fr); }
+.demo.activa .demo-pantalla, .demo.activa .demo-resultado { grid-area: 1 / 1; }
+.demo.activa .demo-resultado { visibility: hidden; opacity: 0; align-self: start; }
+.demo.activa .demo-caso.fin .demo-pantalla { visibility: hidden; opacity: 0; }
+/* En el resultado, la pantalla del correo ya no reserva alto: los botones quedan pegados a la carpeta */
+.demo.activa .demo-caso { position: relative; }
+.demo.activa .demo-caso.fin .demo-pantalla { position: absolute; inset: 0 0 auto 0; }
+.demo.activa .demo-caso.fin .demo-resultado { visibility: visible; opacity: 1; }
+/* Los pasos que faltan se ven en gris (AA sobre la hoja) y se encienden al hacerse; el último hecho, resaltado */
+.demo.activa .demo-pasos li > span { color: var(--d-gris); }
+.demo.activa .demo-pasos li.hecho > span { color: var(--d-tinta); }
+.demo.activa .demo-pasos li::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--d-suave-am);
+  transform: scaleX(0); transform-origin: 0 50%; opacity: 0;
+}
+.demo.activa .demo-pasos li.ahora::after { transform: scaleX(1); opacity: 1; }
+.demo.activa .demo-marca { opacity: 0; }
+.demo.activa .demo-marca path { stroke-dashoffset: 100; }
+.demo.activa .demo-pasos li.hecho .demo-marca { opacity: 1; }
+.demo.activa .demo-pasos li.hecho .demo-marca path { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .demo.activa .demo-caso:not([hidden]) .demo-correo { animation: demo-llega 600ms var(--d-resbala) both; }
+  .demo.activa .demo-pasos li > span { transition: transform 420ms var(--d-resbala); }
+  .demo.activa .demo-pasos li.ahora > span { transform: translateX(4px); }
+  .demo.activa .demo-pasos li::after { transition: transform 460ms var(--d-resbala), opacity 200ms ease; }
+  .demo.activa .demo-marca { transition: opacity 100ms ease 120ms; }
+  .demo.activa .demo-marca path { transition: stroke-dashoffset 420ms ease-out 120ms; }
+
+  /* Al terminar: el correo se va hacia arriba y la carpeta se abre debajo, con los archivos uno a uno */
+  .demo.activa .demo-pantalla { transition: opacity 260ms ease, transform 420ms var(--d-resbala), visibility 0s; }
+  .demo.activa .demo-caso.fin .demo-pantalla { transform: translateY(-18px) scale(0.98); transition-delay: 0s, 0s, 420ms; }
+  .demo.activa .demo-resultado { transition: opacity 280ms ease 150ms, visibility 0s 150ms; }
+  /* Al llegar, visible al momento (la opacidad sigue entrando con su retardo): así el foco puede pasar a la carpeta */
+  .demo.activa .demo-caso.fin .demo-resultado { transition-delay: 150ms, 0s; }
+  .demo.activa .demo-carpeta-nombre { transform: translateY(14px); transition: transform 520ms var(--d-rebote) 200ms; }
+  .demo.activa .demo-carpeta-cuerpo { transform: scaleY(0.92); transform-origin: 50% 0; transition: transform 560ms var(--d-resbala) 260ms; }
+  .demo.activa .demo-archivos li { opacity: 0; transform: translateX(-14px); transition: opacity 260ms ease, transform 460ms var(--d-resbala); }
+  .demo.activa .demo-archivos li.a0 { transition-delay: 420ms; }
+  .demo.activa .demo-archivos li.a1 { transition-delay: 520ms; }
+  .demo.activa .demo-archivos li.a2 { transition-delay: 620ms; }
+  .demo.activa .demo-archivos li.a3 { transition-delay: 720ms; }
+  .demo.activa .demo-doc { opacity: 0; transform: translateY(22px) rotate(0.6deg); transition: opacity 320ms ease 650ms, transform 640ms var(--d-rebote) 650ms; }
+  .demo.activa .demo-flecha { opacity: 0; transition: opacity 100ms ease 1150ms; }
+  .demo.activa .demo-flecha path { stroke-dashoffset: 100; transition: stroke-dashoffset 600ms ease-out 1150ms; }
+  .demo.activa .demo-nota span { opacity: 0; transition: opacity 400ms ease 1350ms; }
+  .demo.activa .demo-caso.fin :is(.demo-carpeta-nombre, .demo-carpeta-cuerpo, .demo-archivos li, .demo-doc) { opacity: 1; transform: none; }
+  .demo.activa .demo-caso.fin :is(.demo-flecha, .demo-nota span) { opacity: 1; }
+  .demo.activa .demo-caso.fin .demo-flecha path { stroke-dashoffset: 0; }
+
+  .demo.activa .sin-paso *, .demo.activa .sin-paso *::before, .demo.activa .sin-paso *::after { transition: none !important; animation: none !important; }
+}
+@keyframes demo-llega { from { opacity: 0; transform: translateY(-14px); } }
+
+/* ================================================ la escena: Manila trabajando encima del encargo */
+/* viewBox de 420 y como mucho 420 px: escala 0,85 a 390 y 1 en escritorio. Con --trazo 3,2, unos 2,7 px en el móvil
+   y 3,2 px en escritorio. Por defecto (sin JS o con «reducir movimiento») se ve el último fotograma: el sobre abierto,
+   Manila contenta con las hojas dentro y lo de su oficio a los pies. */
+.demo .dm-ilu { width: 100%; max-width: 26.25rem; margin: 0 auto; --trazo: 3.2; overflow: visible; }
+.demo .dm-ilu .cl-bo { stroke-width: 2.9; }
+.demo .dm-ilu .dm-visto { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.demo .dm-ilu .dm-pila-visto { stroke-dashoffset: 100; opacity: 0; }
+.demo .dm-ilu .dm-tapa { transform-origin: 50% 0; transform: scaleY(-1); }
+.demo .dm-ilu .dm-hoja { transform-origin: 50% 50%; opacity: 0; transform: translate(103px, -64px) scale(0.4) rotate(8deg); }
+.demo .dm-ilu .dm-hoja[data-e="sobre"] { transform: translate(-171px, 7px) scale(0.35); }
+.demo .dm-ilu .dm-hoja[data-e="mesa"] { opacity: 1; transform: none; }
+
+/* Pose y ojos según la fase; por defecto, contenta */
+.demo .dm-ilu .dm-pose, .demo .dm-ilu .dm-ojo { opacity: 0; }
+.demo .demo-escena:not([data-fase]) :is(.dm-feliz, .dm-ojo-feliz),
+.demo .demo-escena[data-fase="fin"] :is(.dm-feliz, .dm-ojo-feliz),
+.demo .demo-escena[data-fase="espera"] :is(.dm-espera, .dm-ojo-espera),
+.demo .demo-escena[data-fase="paso"] :is(.dm-curra, .dm-ojo-curra) { opacity: 1; }
+.demo .demo-escena:is([data-fase="espera"], [data-fase="paso"]) .dm-dentro { opacity: 0; transform: translateY(34px); }
+.demo .demo-escena[data-fase="espera"] .dm-tapa { transform: none; }
+.demo .demo-escena:is([data-fase="espera"], [data-fase="paso"]) .dm-sobre-visto { stroke-dashoffset: 100; opacity: 0; }
+.demo .demo-escena.ultimo[data-fase="paso"] .dm-pila-visto { stroke-dashoffset: 0; opacity: 1; }
+
+/* Lo de cada oficio: la hoja que lleva dentro y el objeto a sus pies */
+.demo .dm-ilu .dm-o, .demo .dm-ilu .dm-prop { opacity: 0; }
+.demo .demo-escena:not([data-oficio]) :is(.dm-o-tasador, .dm-p-tasador),
+.demo .demo-escena[data-oficio="tasador"] :is(.dm-o-tasador, .dm-p-tasador),
+.demo .demo-escena[data-oficio="perito"] :is(.dm-o-perito, .dm-p-perito),
+.demo .demo-escena[data-oficio="arquitecto"] :is(.dm-o-arquitecto, .dm-p-arquitecto),
+.demo .demo-escena[data-oficio="tecnico"] :is(.dm-o-tecnico, .dm-p-tecnico) { opacity: 1; }
+.demo .dm-ilu .dm-prop { transform-origin: 50% 100%; }
+
+/* Movimiento: solo con ilustra.js (.ilu-anima) y sin «reducir movimiento» */
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada, la primera vez que se ve: cae el sobre y Manila llega andando con rebote */
+  /* Antes de verse, nada queda vacío: el sobre está un poco más arriba y Manila agachada en su sitio (ayudante G) */
+  .ilu-anima .demo .dm-ilu:not(.vista) .dm-llega-sobre { transform: translateY(-10px) rotate(-2deg); }
+  .ilu-anima .demo .dm-ilu:not(.vista) .dm-manila { transform-origin: 50% 100%; transform: translateY(5px) scale(1.03, 0.86); }
+  .ilu-anima .demo .dm-ilu:not(.vista) .dm-props { opacity: 0.001; }
+  .ilu-anima .demo .dm-ilu.vista .dm-llega-sobre { animation: dm-cae 560ms var(--d-resbala) 120ms both; }
+  .ilu-anima .demo .dm-ilu.vista .dm-manila { transform-origin: 50% 100%; animation: dm-llega 760ms var(--d-rebote) 320ms both; }
+  .ilu-anima .demo .dm-ilu.vista .dm-props { animation: dm-pop 420ms var(--d-rebote) 900ms both; }
+
+  /* Las hojas: del sobre a la mesa en arco con cada paso, y de la mesa a Manila al terminar */
+  .ilu-anima .demo .dm-ilu .dm-hoja[data-e="mesa"] { animation: dm-sale 720ms linear both; }
+  .ilu-anima .demo .dm-ilu .dm-hoja[data-e="dentro"] { animation: dm-guarda 700ms linear both; }
+  .ilu-anima .demo .dm-ilu .dm-h2[data-e="dentro"] { animation-delay: 90ms; }
+  .ilu-anima .demo .dm-ilu .dm-h3[data-e="dentro"] { animation-delay: 180ms; }
+  .ilu-anima .demo .dm-ilu .dm-h4[data-e="dentro"] { animation-delay: 270ms; }
+  .ilu-anima .demo .dm-ilu .dm-tapa { transition: transform 420ms var(--d-rebote); }
+  .ilu-anima .demo .dm-ilu .dm-visto { transition: stroke-dashoffset 380ms ease-out, opacity 0s; }
+  .ilu-anima .demo .demo-escena[data-fase="fin"] .dm-sobre-visto { transition-delay: 1100ms; }
+  .ilu-anima .demo .dm-ilu .dm-dentro { transition: transform 600ms var(--d-resbala) 700ms, opacity 200ms ease 700ms; }
+  /* 585: al volver a empezar sola (demo.js, otraVez), la hoja del resultado se hunde dentro de Manila y solo
+     desaparece ya tapada, y el visto del sobre se borra trazo a trazo: nada se funde */
+  .ilu-anima .demo .demo-escena:not([data-fase="fin"]) .dm-dentro { transition: transform 600ms var(--d-resbala), opacity 0s 600ms; }
+  .ilu-anima .demo .demo-escena:not([data-fase="fin"]) .dm-sobre-visto { transition: stroke-dashoffset 380ms ease-in, opacity 0s 380ms; }
+  .ilu-anima .demo .demo-escena[data-fase="fin"] :is(.dm-pose, .dm-ojo) { transition: opacity 0s 760ms; }
+
+  /* Reacciones: un saltito por paso, agacharse y levantarse al cambiar de oficio, y el salto del final */
+  .ilu-anima .demo .dm-ilu .dm-salto { transform-origin: 50% 100%; }
+  .ilu-anima .demo .dm-ilu.dm-hop .dm-salto { animation: dm-hop 460ms var(--d-rebote) 200ms both; }
+  .ilu-anima .demo .dm-ilu.dm-cambia .dm-salto { animation: dm-agacha 700ms var(--d-rebote) both; }
+  .ilu-anima .demo .dm-ilu.dm-cambia .dm-prop { animation: dm-pop 460ms var(--d-rebote) 260ms both; }
+  .ilu-anima .demo .dm-ilu.dm-final .dm-salto { animation: dm-salta 680ms var(--d-rebote) 820ms both; }
+
+  /* Bucles, solo mientras se ve: el boli va y viene al trabajar y, esperando, el sobre late («ha llegado otro») */
+  .ilu-anima .demo .demo-escena[data-fase="paso"] .dm-ilu.en-pantalla .dm-mano { transform-origin: 100% 0; animation: dm-boli 520ms steps(1) infinite; }
+  .ilu-anima .demo .demo-escena[data-fase="espera"] .dm-ilu.en-pantalla .dm-late { transform-origin: 50% 100%; animation: dm-late 5s steps(12) 1.2s infinite; }
+
+  .demo .demo-escena.sin-paso .dm-ilu, .demo .demo-escena.sin-paso .dm-ilu * { transition: none !important; }
+  .demo .demo-escena.sin-paso .dm-ilu .dm-hoja { animation: none !important; }
+}
+@keyframes dm-cae { from { transform: translateY(-10px) rotate(-2deg); } 45% { transform: translateY(-34px) rotate(-6deg); } }
+@keyframes dm-llega { from { transform: translateY(5px) scale(1.03, 0.86); } 45% { transform: translateY(-14px) scale(0.96, 1.06); } 75% { transform: translateY(1px) scale(1.03, 0.96); } }
+@keyframes dm-pop { from { opacity: 0; transform: scale(0.2); } }
+@keyframes dm-sale {
+  from { opacity: 0; transform: translate(-171px, 7px) scale(0.35); animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+  20% { opacity: 1; }
+  50% { transform: translate(-92px, -52px) rotate(-14deg) scale(0.75); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.5); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dm-guarda {
+  from { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+  50% { opacity: 1; transform: translate(54px, -88px) rotate(-14deg) scale(0.7); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.5); }
+  85% { opacity: 1; }
+  to { opacity: 0; transform: translate(103px, -64px) scale(0.4) rotate(8deg); }
+}
+@keyframes dm-hop { 35% { transform: translateY(-9px) scaleY(1.03); } 65% { transform: translateY(0) scaleY(0.95); } }
+@keyframes dm-agacha { 30% { transform: scaleY(0.8) scaleX(1.06); } 65% { transform: translateY(-12px) scaleY(1.05); } }
+@keyframes dm-salta { 40% { transform: translateY(-16px) scaleY(1.05) rotate(-3deg); } 70% { transform: translateY(0) scaleY(0.93); } }
+@keyframes dm-boli { 50% { transform: rotate(-7deg); } }
+@keyframes dm-late { 0%, 84%, 100% { transform: none; } 88% { transform: translateY(-4px) rotate(-3deg); } 92% { transform: translateY(0) rotate(2.5deg); } 96% { transform: rotate(-1deg); } }
+:root[data-theme="dark"] .demo-siguiente::after { background: var(--d-tinta); }

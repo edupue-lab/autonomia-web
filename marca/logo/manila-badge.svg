@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Silueta de Manila de una sola tinta para el badge de las notificaciones de Android (solo cuenta la
+       transparencia). Mismas formas que manila-pequeno.svg: la carpeta con sus dos ojos y la sonrisa vaciados. -->
+  <defs>
+    <mask id="cara" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+      <rect width="48" height="48" fill="#fff"/>
+      <g transform="translate(1.2 1.6) scale(.68)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M0 24.8C21 23.4 41 22.4 64.2 21.4" stroke-width="3.4"/>
+        <g transform="translate(1.2 0)"><path d="M23 40v7.4M39 39.4v7.4" stroke-width="6.8"/><path d="M24.2 53.6c4 2.6 9.6 2.4 13.2-.9" stroke-width="4.4"/></g>
+      </g>
+    </mask>
+  </defs>
+  <g transform="translate(1.2 1.6) scale(.68)" mask="url(#cara)" fill="#000" stroke="#000" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z"/>
+    <path d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z"/>
+  </g>
+</svg>

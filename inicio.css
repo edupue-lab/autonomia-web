@@ -1,0 +1,429 @@
+/* Web oficial de AutonomIA, v3 (empleado 283, 13/10/2026), pulida por el empleado 359 (15/10/2026). Va después de
+   marca/marca.css, de la que usa el logo y Atkinson Hyperlegible. Privacidad, gracias y 404 usan estilo.css.
+
+   Encargo de Edu (13/10): la v2 «parece un artículo»; esta tiene que parecer una web de verdad, leerse en el móvil con
+   prisa (llega por WhatsApp) y no tener precios. Se mantiene la identidad aprobada de la v2 (folio blanco, tinta azulada,
+   bolígrafo azul, Archivo estrecha, radio 0, sin sombras) y cambia la composición.
+
+   Dirección de arte (docs/anti-ai-slop.md): «la mesa del profesional por la mañana». Cada bloque enseña una cosa del
+   oficio (la carpeta con el informe y los testigos, la corrección que recuerda, los plazos) en vez de describirla.
+   - Things (culturedcode.com/things): cada sección es una idea y un objeto del producto que la enseña, con mucho aire.
+   - Basecamp (basecamp.com): el «antes y ahora» contado con un día normal, y el tono llano, de persona a persona.
+   - GOV.UK: texto grande, alineado a la izquierda, pasos numerados solo porque son una secuencia, foco amarillo.
+   El detalle propio: la carpeta «Para ti, de AutonomIA» con archivos de tasador, con la marca a bolígrafo, y la
+   autorización rellenada a bolígrafo en «Tú decides hasta dónde llega».
+   Fichas: papel #fafaf8, hoja #fff, tinta #151a24, gris #4a5161, bolígrafo #1d3fa6 (el único acento: botones, enlaces,
+   la banda de la ola), foco #f5c518.
+
+   Pulido 359: el titular de la portada manda (dos líneas a todo el ancho); las secciones se separan por el tono del
+   fondo y el aire, sin filetes finos; los objetos del producto (carpeta, conversación, móvil, autorización) llevan
+   data-ui y conservan sus líneas porque son pantallas y papeles de verdad; cinco tamaños de letra; el texto corrido,
+   en tinta; y un movimiento discreto: los archivos llegan a la carpeta uno a uno y el bolígrafo marca lo que importa.
+   Todo el movimiento respeta «reducir movimiento» y, sin JavaScript, la página se ve completa y quieta. */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("fuentes/archivo-latin-wdth-italic.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: italic; font-display: swap;
+}
+/* Las cifras del texto, en Archivo: el cero tachado de Atkinson parece de código */
+@font-face {
+  font-family: "Cifras";
+  src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap; unicode-range: U+0030-0039;
+}
+
+:root {
+  --papel: #fafaf8;
+  --hoja: #ffffff;
+  --linea: #d6d9df;
+  --tinta: #151a24;
+  --gris: #4a5161;
+  --boli: #1d3fa6;
+  --boli-oscuro: #142e7d;
+  --boli-suave: #e9edf9;
+  --sobre-boli: #ffffff;
+  --banda-tinta: #1d3fa6;
+  --sobre-banda: #ffffff;
+  --foco: #f5c518;
+  --aviso: #b42318;
+  --sombra-flota: 0 6px 20px rgba(21, 26, 36, 0.08);
+
+  --t-titulo: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --t-texto: "Cifras", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ancho: 76rem;
+
+  /* Cinco tamaños, bien separados: pequeño, texto, entrada (también los títulos de cada punto), cita y títulos */
+  --s-pequeno: 1rem;
+  --s-texto: 1.125rem;
+  --s-entrada: clamp(1.2rem, 1.1rem + 0.4vw, 1.375rem);
+  --s-cita: clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem);
+  --s-h2: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  --s-portada: clamp(2.2rem, 0.9rem + 5.2vw, 5.25rem);
+
+  /* Movimiento: entra rápido y se posa despacio */
+  --suave: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-pulsar: 140ms;
+  --t-encima: 180ms;
+}
+:root[data-theme="dark"] {
+  --papel: #111419;
+  --hoja: #181c23;
+  --linea: #2e343e;
+  --tinta: #eef0f3;
+  --gris: #a7aebb;
+  --boli: #9fb4ff;
+  --boli-oscuro: #c3d0ff;
+  --boli-suave: #1c2643;
+  --sobre-boli: #0d1222;
+  --banda-tinta: #1c2643;
+  --sobre-banda: #eef0f3;
+  --aviso: #f0634f;
+  --sombra-flota: 0 6px 20px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--t-texto); font-size: var(--s-texto); line-height: 1.6;
+  font-kerning: normal; text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--boli); text-decoration-thickness: 0.07em; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--tinta); outline-offset: 0; box-shadow: 0 0 0 7px var(--foco); }
+::selection { background: var(--boli); color: var(--sobre-boli); }
+p { margin: 0 0 1em; text-wrap: pretty; }
+h1, h2, h3 { font-family: var(--t-titulo); line-height: 1.08; margin: 0 0 0.5em; text-wrap: balance; hyphens: none; }
+h1 { font-size: var(--s-portada); font-weight: 760; font-stretch: 84%; letter-spacing: -0.025em; line-height: 1; }
+h2 { font-size: var(--s-h2); font-weight: 750; font-stretch: 84%; letter-spacing: -0.015em; line-height: 1.04; max-width: 22ch; }
+h3 { font-size: var(--s-entrada); font-weight: 700; font-stretch: 92%; line-height: 1.2; margin-bottom: 0.35em; }
+
+.ancho { max-width: var(--ancho); margin: 0 auto; padding-inline: 1rem; }
+@media (min-width: 48rem) { .ancho { padding-inline: 2rem; } }
+.saltar { position: absolute; left: -999px; top: 0; z-index: 20; background: var(--foco); color: #151a24; padding: 0.6rem 1rem; }
+.saltar:focus { left: 1rem; }
+
+/* ------------------------------------------------------------ cabecera */
+/* Sin filete: se funde con el papel arriba del todo y, al bajar, flota con una sombra suave (inicio.js) */
+.cabecera { position: sticky; top: 0; z-index: 10; background: var(--papel); transition: box-shadow var(--t-encima) ease; }
+.cabecera.flota { box-shadow: var(--sombra-flota); }
+.cabecera-fila { display: flex; align-items: center; gap: 0.75rem; padding-block: 0.55rem; }
+.logo { display: flex; align-items: center; gap: 0.45rem; margin-right: auto; }
+.logo img { height: 34px; width: auto; }
+.logo .logo-manila { height: 40px; } /* Manila, el logo (Edu, 22/10): marca/logo/manila-pequeno.svg */
+.cabecera-contacto { font-family: var(--t-titulo); font-weight: 650; font-stretch: 92%; color: var(--tinta); text-decoration: none; padding: 0.5rem 0.5rem; }
+.cabecera-contacto:hover { color: var(--boli); text-decoration: underline; }
+.tema {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; min-width: 44px; padding: 0 0.8rem;
+  font: 600 var(--s-pequeno) var(--t-titulo); font-stretch: 92%; color: var(--tinta);
+  background: transparent; border: 0; border-radius: 0; cursor: pointer;
+  transition: background-color var(--t-encima) ease;
+}
+.tema:hover { background: var(--boli-suave); }
+.icono-sol { display: none; }
+:root[data-theme="dark"] .icono-sol { display: block; }
+:root[data-theme="dark"] .icono-luna { display: none; }
+@media (max-width: 30rem) {
+  .tema-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .tema { padding-inline: 0.65rem; justify-content: center; }
+  .logo img { height: 30px; }
+  .logo .logo-manila { height: 34px; }
+}
+
+/* ------------------------------------------------------------ botones */
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 54px;
+  padding: 0.75rem 1.6rem; border: 2px solid var(--boli); border-radius: 0;
+  font: 700 var(--s-entrada) var(--t-titulo); font-stretch: 92%; text-decoration: none; cursor: pointer; text-align: center;
+  transition: transform var(--t-pulsar) var(--suave), background-color var(--t-encima) ease, border-color var(--t-encima) ease;
+}
+.boton:active { transform: scale(0.97); }
+.boton-principal { background: var(--boli); color: var(--sobre-boli); }
+.boton-principal:hover { background: var(--boli-oscuro); border-color: var(--boli-oscuro); color: var(--sobre-boli); }
+.boton-grande { min-height: 64px; padding: 0.9rem 2rem; }
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.75rem; margin-top: 2rem; }
+.enlace-flecha { font-family: var(--t-titulo); font-weight: 650; font-stretch: 92%; font-size: var(--s-entrada); color: var(--tinta); padding-block: 0.5rem; }
+@media (max-width: 30rem) { .acciones .boton { width: 100%; } }
+
+/* ------------------------------------------------------------ portada */
+/* El titular va solo y a todo el ancho; debajo, la explicación con el botón a un lado y la carpeta al otro */
+.portada { padding-block: 1.5rem 3.5rem; }
+.portada-rejilla { display: grid; gap: 1rem 4rem; }
+.portada-titulo { margin: 0; max-width: 17ch; margin-left: -0.04em; }
+.entradilla { font-size: var(--s-entrada); line-height: 1.45; max-width: 34ch; margin: 0.25rem 0 0.75rem; }
+.para-quien { color: var(--gris); max-width: 40ch; margin: 0; }
+.carpeta { margin: 1.5rem 0 0; }
+@media (max-width: 30rem) { .acciones { margin-top: 1.25rem; gap: 0.25rem 1.5rem; } }
+@media (min-width: 60rem) {
+  .portada { padding-block: 4rem 6rem; }
+  .portada-rejilla { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .portada-titulo { grid-column: 1 / -1; max-width: 24ch; margin-bottom: 2.5rem; }
+  .portada-texto { padding-top: 0.5rem; }
+  .carpeta { margin-top: 0; }
+}
+
+/* La carpeta del escritorio: el objeto propio de la página (un fragmento de pantalla, por eso conserva sus líneas) */
+.carpeta-marco { background: var(--hoja); border: 2px solid var(--tinta); padding: 1rem 1rem 0.75rem; }
+.carpeta-titulo {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 0.6rem; margin: 0 0 0.5rem;
+  font-family: var(--t-titulo); font-weight: 700; font-stretch: 92%; font-size: var(--s-texto);
+  padding-bottom: 0.65rem; border-bottom: 2px solid var(--tinta);
+}
+.carpeta-icono { color: var(--boli); flex: none; }
+.carpeta-hora { margin-left: auto; font-weight: 500; color: var(--gris); font-size: var(--s-pequeno); }
+.carpeta-lista { list-style: none; margin: 0; padding: 0; }
+.carpeta-lista li { display: grid; grid-template-columns: 3.6rem minmax(0, 1fr); gap: 0.75rem; align-items: baseline; padding: 0.7rem 0.4rem; border-bottom: 1px solid var(--linea); }
+.carpeta-lista li:last-child { border-bottom: 0; }
+.carpeta-lista .destacado { background: var(--boli-suave); }
+.tipo { font-family: var(--t-titulo); font-stretch: 88%; font-weight: 650; font-size: var(--s-pequeno); line-height: 1.5; color: var(--gris); border: 1px solid var(--linea); text-align: center; background: var(--hoja); }
+.archivo { font-weight: 700; line-height: 1.3; }
+.archivo small { display: block; font-weight: 400; font-size: var(--s-pequeno); color: var(--gris); margin-top: 0.15rem; }
+.marca-boli { display: flex; align-items: flex-end; justify-content: flex-end; gap: 0.25rem; margin: 0.25rem 0 0; color: var(--boli); }
+.marca-boli svg { width: 84px; height: auto; transform: scaleY(-1) rotate(-4deg); }
+.marca-boli span { font-family: var(--t-titulo); font-style: italic; font-weight: 550; font-stretch: 95%; font-size: var(--s-entrada); transform: rotate(-2deg); padding-bottom: 0.2rem; }
+.carpeta figcaption, .movil figcaption, .impreso figcaption { color: var(--gris); font-size: var(--s-pequeno); margin-top: 0.75rem; max-width: 46ch; }
+
+/* ------------------------------------------------------------ bandas */
+/* Cada banda se distingue de la anterior por el tono del fondo (papel y hoja se alternan) y por el aire */
+.banda { padding-block: clamp(4rem, 2.5rem + 6vw, 8rem); }
+.banda-blanca { background: var(--hoja); }
+.intro { font-size: var(--s-entrada); line-height: 1.5; max-width: 46ch; margin-bottom: 2.25rem; }
+.nota { color: var(--gris); font-size: var(--s-pequeno); max-width: 60ch; }
+
+/* Cabeza de sección: titular a la izquierda y entradilla a la derecha en pantallas anchas */
+@media (min-width: 60rem) {
+  .cabeza { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: end; margin-bottom: 3rem; }
+  .cabeza h2 { margin: 0; }
+  .cabeza .intro { margin: 0; }
+}
+
+/* Qué es y qué no es */
+.comparar { display: grid; gap: 2rem; }
+.comparar-col { padding: 1.25rem 0 0; border-top: 2px solid var(--linea); }
+.comparar-col p { max-width: 42ch; }
+.comparar-col:first-child { color: var(--gris); }
+.comparar-col:first-child h3 { color: var(--gris); }
+.comparar-nuestro { border-top-color: var(--tinta); }
+.comparar-nuestro p { font-size: var(--s-entrada); line-height: 1.5; }
+@media (min-width: 48rem) { .comparar { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+
+/* Oficios con pestañas: lo único con lo que se juega en la página */
+.pestanas { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; margin-bottom: 2rem; scrollbar-width: thin; }
+.pestanas[hidden] { display: none; }
+@media (max-width: 37.5rem) {
+  .pestanas { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; }
+  .pestanas button { padding-inline: 0.5rem; }
+}
+.pestanas button {
+  flex: none; min-height: 48px; padding: 0.5rem 1.1rem; border: 2px solid var(--tinta); border-radius: 0;
+  background: transparent; color: var(--tinta); font: 650 var(--s-texto) var(--t-titulo); font-stretch: 92%; cursor: pointer;
+  transition: background-color var(--t-encima) ease, color var(--t-encima) ease, transform var(--t-pulsar) var(--suave);
+}
+.pestanas button:hover { background: var(--boli-suave); }
+.pestanas button:active { transform: scale(0.97); }
+.pestanas button[aria-selected="true"] { background: var(--tinta); color: var(--papel); }
+.oficio + .oficio { margin-top: 3rem; }
+.oficios.con-pestanas .oficio + .oficio { margin-top: 0; }
+.oficios.con-pestanas .oficio-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.oficio[hidden] { display: none; }
+.tareas { list-style: none; margin: 0; padding: 1.5rem 0 0; display: grid; gap: 1.6rem; border-top: 2px solid var(--tinta); }
+.tareas li { color: var(--tinta); max-width: 46ch; }
+.tareas strong { display: block; color: var(--tinta); font-family: var(--t-titulo); font-weight: 700; font-stretch: 90%; font-size: var(--s-entrada); line-height: 1.2; margin-bottom: 0.3rem; }
+@media (min-width: 48rem) {
+  .tareas { grid-template-columns: 1fr 1fr; gap: 2.25rem 3rem; padding-top: 2rem; }
+}
+
+/* Aprende a trabajar como tú */
+.medida { display: grid; gap: 3rem; }
+.medida-texto p { max-width: 44ch; }
+.conversacion { display: grid; gap: 0.9rem; margin-top: 2rem; }
+.burbuja { margin: 0; padding: 0.9rem 1.1rem; max-width: 30rem; line-height: 1.45; }
+.burbuja-tu { justify-self: end; background: var(--boli-suave); border: 2px solid var(--boli); }
+.burbuja-ia { justify-self: start; background: var(--hoja); border: 2px solid var(--tinta); }
+.quien { display: block; font-family: var(--t-titulo); font-weight: 700; font-stretch: 90%; font-size: var(--s-pequeno); color: var(--gris); margin-bottom: 0.2rem; }
+.testimonio { border-top: 2px solid var(--tinta); padding-top: 1.75rem; }
+.testimonio-titulo { font-size: var(--s-entrada); color: var(--gris); }
+@media (min-width: 60rem) {
+  .medida { grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .testimonio { border-top: 0; border-left: 2px solid var(--tinta); padding: 0 0 0 2.5rem; margin-top: 0.5rem; }
+}
+/* (304) Llega con experiencia: dentro de la banda de «a tu medida», con las dos columnas en tinta */
+.experiencia { margin-top: clamp(4rem, 2.5rem + 5vw, 7rem); }
+.experiencia .comparar-col:first-child, .experiencia .comparar-col:first-child h3 { color: inherit; }
+
+/* Testimonio: la primera frase manda; la segunda la acompaña */
+.cita { margin: 0 0 1.75rem; padding: 0; }
+.cita p { font-family: var(--t-titulo); font-weight: 650; font-stretch: 90%; font-size: var(--s-cita); line-height: 1.15; letter-spacing: -0.01em; max-width: 24ch; margin: 0; }
+.cita-segunda p { font-size: var(--s-entrada); line-height: 1.35; color: var(--gris); max-width: 34ch; }
+.firma { color: var(--gris); max-width: 50ch; margin: 0; }
+
+/* Cómo se empieza: una secuencia de verdad, por eso lleva números */
+.pasos { list-style: none; margin: 2rem 0 0; padding: 0; counter-reset: paso; display: grid; gap: 0; }
+.pasos li { counter-increment: paso; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); column-gap: 0.75rem; padding: 1.4rem 0 1.6rem; border-top: 2px solid var(--tinta); }
+.pasos li::before { content: counter(paso); grid-row: span 2; font-family: var(--t-titulo); font-weight: 800; font-stretch: 85%; font-size: var(--s-h2); line-height: 0.9; color: var(--boli); }
+.pasos h3 { margin-top: 0.2rem; }
+.pasos p { margin: 0; max-width: 36ch; }
+@media (min-width: 48rem) {
+  .pasos { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .pasos li { grid-template-columns: 1fr; }
+  .pasos li::before { grid-row: auto; margin-bottom: 0.75rem; }
+}
+
+/* Tu página (298): el texto con tres tareas y, al lado, un móvil de ejemplo hecho con las burbujas de la conversación */
+.pagina { display: grid; gap: 3rem; }
+.tareas-una { grid-template-columns: 1fr !important; }
+.movil { margin: 0; justify-self: center; width: 100%; max-width: 21rem; }
+.movil-marco { border: 2px solid var(--tinta); border-radius: 1.5rem; background: var(--papel); padding: 0.9rem 0.9rem 1.2rem; display: grid; gap: 0.75rem; }
+.movil-barra { margin: 0 0 0.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--linea); font-family: var(--t-titulo); font-weight: 700; font-stretch: 90%; text-align: center; }
+.movil .burbuja { font-size: var(--s-pequeno); max-width: 92%; }
+.movil-botones { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+.movil-botones span { border: 2px solid var(--boli); color: var(--boli); font-family: var(--t-titulo); font-weight: 650; font-stretch: 92%; font-size: var(--s-pequeno); padding: 0.2rem 0.8rem; }
+.movil figcaption { text-align: center; margin-inline: auto; }
+@media (min-width: 60rem) {
+  .pagina { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 4rem; align-items: center; }
+}
+
+/* Lo que hace sin que se lo pidas (298): una agenda, con cuándo pasa cada cosa a la izquierda */
+.agenda { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--tinta); }
+.agenda li { display: grid; gap: 0.3rem; padding: 1.4rem 0 0.4rem; }
+.agenda-cuando { font-family: var(--t-titulo); font-weight: 650; font-stretch: 90%; font-size: var(--s-pequeno); color: var(--boli); }
+.agenda h3 { margin-bottom: 0.2rem; }
+.agenda p { margin: 0; max-width: 52ch; }
+@media (min-width: 48rem) {
+  .agenda li { grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; padding: 1.75rem 0 0.25rem; }
+  .agenda-cuando { padding-top: 0.25rem; }
+}
+
+/* La ola: la frase de Edu en grande, en dos líneas en el ordenador */
+.banda-tinta { background: var(--banda-tinta); color: var(--sobre-banda); }
+.ola-frase { font-family: var(--t-titulo); font-weight: 750; font-stretch: 84%; font-size: 1.5rem; line-height: 1.12; letter-spacing: -0.01em; max-width: 26ch; margin-bottom: 1.5rem; text-wrap: balance; }
+@media (min-width: 48rem) { .ola-frase { font-size: clamp(2rem, 0.9rem + 2.6vw, 3.25rem); line-height: 1.04; max-width: 22em; } }
+.ola-texto { font-size: var(--s-entrada); line-height: 1.5; max-width: 48ch; margin: 0; }
+.ola-firma { margin: 1.5rem 0 0; font-family: var(--t-titulo); font-weight: 650; font-stretch: 92%; font-size: var(--s-texto); }
+.banda-tinta :focus-visible { outline-color: var(--sobre-banda); }
+
+/* Seguridad: las tres garantías a un lado y, al otro, la autorización rellenada a bolígrafo */
+.seguridad { display: grid; gap: 2.5rem; }
+.garantias { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
+.garantias p { margin: 0; max-width: 40ch; }
+.letra-pequena { font-size: var(--s-pequeno); color: var(--gris); max-width: 70ch; margin: 0; }
+@media (min-width: 60rem) {
+  .seguridad { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 4rem; row-gap: 3rem; align-items: start; }
+  .seguridad-texto h2 { margin-bottom: 1.5rem; }
+  .letra-pequena { grid-column: 1 / -1; }
+}
+.impreso { margin: 0; }
+.impreso-hoja { background: var(--hoja); border: 2px solid var(--tinta); padding: 1.1rem 1.25rem 1.25rem; }
+.impreso-titulo { font-family: var(--t-titulo); font-weight: 700; font-stretch: 92%; font-size: var(--s-texto); margin: 0; padding-bottom: 0.6rem; border-bottom: 2px solid var(--tinta); }
+.impreso-titulo span { display: block; font-weight: 500; color: var(--gris); font-size: var(--s-pequeno); }
+.impreso-lista { list-style: none; margin: 0; padding: 0; }
+.impreso-lista li { display: grid; grid-template-columns: minmax(0, 1fr) 2rem; gap: 1rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--linea); }
+.impreso-lista li:last-child { border-bottom: 0; padding-bottom: 0.25rem; }
+.casilla { width: 1.75rem; height: 1.75rem; border: 2px solid var(--tinta); position: relative; justify-self: end; }
+.casilla svg { position: absolute; left: -0.15rem; bottom: 0.05rem; width: 2.2rem; height: 2.2rem; color: var(--boli); overflow: visible; }
+.impreso-no { color: var(--gris); }
+
+/* ------------------------------------------------------------ contacto (el bloque de WhatsApp lo pone el servidor) */
+.contacto h2 { margin-bottom: 1rem; }
+.contacto-directo { margin-bottom: 1.5rem; }
+.contacto-directo .texto { font-size: var(--s-entrada); line-height: 1.5; max-width: 44ch; }
+.whatsapp { margin: 1.25rem 0 0.75rem; }
+@media (max-width: 30rem) { .whatsapp .boton { width: 100%; } }
+.contacto-directo .nota a, .otras-vias a { color: var(--tinta); font-weight: 700; white-space: nowrap; }
+.otras-vias { padding-top: 0.5rem; max-width: 42rem; }
+.llamadnos { max-width: 42rem; padding-bottom: 0.5rem; }
+.llamadnos > summary { cursor: pointer; font: 700 var(--s-texto) var(--t-titulo); font-stretch: 92%; color: var(--boli); border: 2px solid var(--boli); width: fit-content; padding: 0.7rem 1.2rem; min-height: 50px; transition: background-color var(--t-encima) ease; }
+.llamadnos > summary:hover { background: var(--boli-suave); }
+.llamadnos[open] > summary { margin-bottom: 0.75rem; }
+@media (min-width: 60rem) {
+  .contacto { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
+  .contacto h2 { margin: 0; }
+}
+.formulario { display: grid; gap: 1.25rem; max-width: 37rem; margin-top: 1.5rem; }
+.campo { display: grid; gap: 0.35rem; }
+.campo label { font-family: var(--t-titulo); font-weight: 600; font-stretch: 95%; font-size: var(--s-texto); }
+.opcional { font-weight: 400; color: var(--gris); font-size: var(--s-pequeno); }
+.campo input, .campo textarea, .campo select {
+  width: 100%; min-height: 50px; padding: 0.6rem 0.75rem; font: inherit; color: var(--tinta);
+  background: var(--hoja); border: 2px solid var(--tinta); border-radius: 0;
+}
+.campo textarea { min-height: 7rem; resize: vertical; }
+.campo-casilla { grid-template-columns: 1.75rem minmax(0, 1fr); align-items: start; gap: 0.75rem; }
+.campo-casilla input { appearance: none; -webkit-appearance: none; width: 1.6rem; height: 1.6rem; min-height: 0; margin: 0.15rem 0 0; padding: 0; border: 2px solid var(--tinta); background: var(--hoja); cursor: pointer; }
+.campo-casilla input:checked { background: var(--boli); box-shadow: inset 0 0 0 3px var(--hoja); }
+.campo-casilla label { font-family: var(--t-texto); font-weight: 400; font-size: var(--s-pequeno); }
+.campo-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formulario .boton { justify-self: start; }
+@media (max-width: 30rem) { .formulario .boton { width: 100%; } }
+
+/* ------------------------------------------------------------ pie */
+.pie { padding-block: 2rem 2.5rem; font-size: var(--s-pequeno); color: var(--gris); }
+.pie-fila { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
+.pie p { margin: 0; }
+
+/* ------------------------------------------------------------ barra fija del móvil */
+.barra-movil { display: none; }
+@media (max-width: 47.99rem) {
+  .barra-movil {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 9;
+    padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom)); background: var(--papel); box-shadow: var(--sombra-flota);
+    transition: transform 0.24s var(--suave);
+  }
+  .barra-movil .boton { width: 100%; min-height: 50px; }
+  .barra-movil.oculta { transform: translateY(110%); }
+  .pie { padding-bottom: 6rem; }
+}
+@media (prefers-reduced-motion: reduce) { .barra-movil { transition: none; } }
+
+/* ------------------------------------------------------------ movimiento */
+/* Solo con JavaScript y sin «reducir movimiento»: si no, todo se ve quieto y completo. La portada (clase js, de
+   tema.js) sube en tres tiempos; después, los archivos llegan a la carpeta uno a uno y el bolígrafo traza su flecha.
+   Más abajo (clase anima y .visto, de inicio.js, para que nada se quede oculto si ese archivo no carga), las listas
+   aparecen fila a fila al llegar a ellas, las casillas de la autorización se marcan y las burbujas entran cada una
+   desde su lado. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-sube] { opacity: 0; transform: translateY(18px); animation: sube 800ms var(--suave) forwards; }
+  .js .portada-titulo[data-sube] { animation-delay: 80ms; }
+  .js .entradilla[data-sube] { animation-delay: 180ms; }
+  .js .para-quien[data-sube] { animation-delay: 260ms; }
+  .js .acciones[data-sube] { animation-delay: 340ms; }
+
+  .js .carpeta-lista li { opacity: 0; transform: translateX(16px); animation: llega 650ms var(--suave) forwards; }
+  .js .carpeta-lista li:nth-child(1) { animation-delay: 650ms; }
+  .js .carpeta-lista li:nth-child(2) { animation-delay: 820ms; }
+  .js .carpeta-lista li:nth-child(3) { animation-delay: 990ms; }
+  .js .carpeta-lista li:nth-child(4) { animation-delay: 1160ms; }
+  .js .marca-boli path { stroke-dasharray: 220; stroke-dashoffset: 220; animation: traza 700ms ease-out 1450ms forwards; }
+  .js .marca-boli span { opacity: 0; animation: asoma 500ms ease-out 1800ms forwards; }
+
+  .anima [data-aparece] > * { opacity: 0; transform: translateY(22px); transition: opacity 600ms ease-out, transform 850ms var(--suave); }
+  .anima [data-aparece].visto > * { opacity: 1; transform: none; }
+  .anima [data-aparece].visto > :nth-child(2) { transition-delay: 90ms; }
+  .anima [data-aparece].visto > :nth-child(3) { transition-delay: 180ms; }
+  .anima [data-aparece].visto > :nth-child(4) { transition-delay: 270ms; }
+  .anima [data-aparece].visto > :nth-child(5) { transition-delay: 360ms; }
+  .anima .conversacion[data-aparece] > .burbuja-tu { transform: translateX(24px); }
+  .anima .conversacion[data-aparece] > .burbuja-ia { transform: translateX(-24px); }
+  .anima .conversacion[data-aparece].visto > * { transform: none; }
+
+  .anima .impreso .casilla path { stroke-dasharray: 60; stroke-dashoffset: 60; }
+  .anima .impreso.visto .casilla path { animation: traza 420ms ease-out forwards; }
+  .anima .impreso.visto li:nth-child(1) .casilla path { animation-delay: 250ms; }
+  .anima .impreso.visto li:nth-child(2) .casilla path { animation-delay: 550ms; }
+  .anima .impreso.visto li:nth-child(3) .casilla path { animation-delay: 850ms; }
+
+  .js .con-pestanas .oficio:not([hidden]) { animation: asoma 320ms ease-out; }
+}
+@keyframes sube { to { opacity: 1; transform: none; } }
+@keyframes llega { to { opacity: 1; transform: none; } }
+@keyframes traza { to { stroke-dashoffset: 0; } }
+@keyframes asoma { from { opacity: 0; } to { opacity: 1; } }

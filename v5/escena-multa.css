@@ -1,0 +1,868 @@
+/* v5 (457 y 465, ayudante C3): E4b «La Multa» (Ningún plazo se te escapa) y E9 «Los permisos» (Tú decides hasta
+   dónde llega). Va después de historia.css y coreografia.css (y aquí se ajusta lo de esas dos escenas). Reglas:
+   - Las piezas conducidas por el scroll llevan la clase «sd» y aquí SOLO animation-name; duración, línea de tiempo y
+     rango los pone historia.css según el camino (CSS o motor.js).
+   - El CSS por defecto es el fotograma de REPOSO (sin JS, sin soporte o con «reducir movimiento») y es también el
+     100 % de los keyframes: la escena termina en su pose, nunca en el escenario vacío. En la Multa, la bola en la
+     papelera, Manila orgullosa y el autónomo vuelto, sonriendo y levantando la taza; en los permisos, el plano cerca
+     con Manila disfrazada de él y los dos levantando la taza, como en un espejo.
+   - Un dueño por transform; solo transform, opacity y stroke-dashoffset. El rojo, solo en el sello «SANCIÓN».
+   - transform-origin en px = coordenadas del espacio local del grupo (el del dibujo o el del personaje).
+   - Oficio (465): anticipación antes de cada acción, aplastar y estirar al caer y al saltar, arcos (x lineal, y con
+     ease-out al subir y ease-in al bajar), lo que cuelga llega tarde (la taza, el humo, la capa, la etiqueta) y los
+     gestos son dibujos distintos a fotogramas (steps), no un mismo dibujo girado. */
+
+/* Aquí todos los orígenes van en coordenadas del dibujo (ilustra.css pone fill-box a todo lo de .ilu); el parpadeo
+   sigue con su caja. */
+.ilu.e4b-ilu *, .ilu.e9-ilu * { transform-box: view-box; }
+.ilu.e4b-ilu .cl-ojos, .ilu.e9-ilu .cl-ojos { transform-box: fill-box; }
+
+/* ============================================================ E4b · la Multa: maquetación */
+[data-escena="e4b"] { view-timeline: --e4b block; --sd-tl: --e4b; }
+.multa-seccion {
+  --campo: var(--carpeta-1); --sobre-campo: var(--tinta);
+  --pestana-x: 58%; --pestana-ancho: clamp(8rem, 20vw, 14rem);
+}
+.multa-historia { --alto-escena: 185svh; }
+.multa-historia .historia-cabeza h2 { margin-bottom: 0; }
+.multa-pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+.multa-pasos .tarjeta { padding: 1.1rem 1.25rem 1.25rem; background: var(--hoja); color: var(--tinta); clip-path: var(--chaflan); }
+.multa-pasos p { margin: 0; max-width: 36ch; font-size: var(--s-sub); line-height: 1.4; }
+.multa-pasos .multa-firma { margin-top: 0.6rem; font-weight: 700; }
+/* El dibujo recorta lo que se sale (la Multa que entra por la izquierda, Manila en lo alto del salto) */
+.multa-historia .escenario-dibujo { overflow: clip; }
+.e4b-ilu { overflow: visible; }
+
+/* Móvil y tableta: con movimiento, el titular, el dibujo y las dos tarjetas se quedan fijos y llenan la pantalla
+   (el titular, encima del cielo del dibujo); el dibujo, con el suelo abajo, ocupa el alto que dejan libre las
+   tarjetas. El estante con Manila asomada va arriba del dibujo: la escena entra ya con algo que mirar. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .multa-historia { --multa-dibujo: max(16rem, calc(100svh - var(--barra) - 18rem)); }
+  }
+}
+:root.sd-motor .multa-historia { --multa-dibujo: max(16rem, calc(100svh - var(--barra) - 18rem)); }
+@media (max-width: 63.99rem) {
+  .multa-historia { gap: 1rem; }
+  .multa-pasos p { font-size: var(--s-texto); }
+  /* A la salida, el titular se va a la vez que el dibujo (su margen inferior alarga su tope, y el margen negativo del
+     dibujo lo compensa en el flujo) y las tarjetas se van por debajo del dibujo: nada se monta encima de nada. */
+  .multa-historia .historia-cabeza {
+    position: var(--sd-pegado, relative); top: 0; z-index: 3; padding-top: 0.5rem;
+    margin-bottom: calc(var(--multa-dibujo, 3.5rem) - 3.5rem);
+  }
+  .multa-historia .escenario-dibujo {
+    height: var(--multa-dibujo, auto); max-height: none; justify-content: flex-end;
+    margin-top: calc(3.5rem - var(--multa-dibujo, 3.5rem));
+  }
+  .multa-historia .escenario-dibujo > div { justify-content: flex-end; }
+  .multa-historia .multa-pasos { gap: 0.75rem; z-index: 0; position: var(--sd-pegado, relative); top: calc(var(--multa-dibujo, 0px) + 1rem); }
+  /* El tramo fijo da para el corto entero (~0,75 pantallas de scroll); la pose final se queda hasta el final */
+  .multa-historia::after { content: ""; order: 4; height: calc(var(--sd-on, 0) * 74svh); }
+}
+/* Ordenador: las dos tarjetas se quedan fijas al lado del dibujo todo el tramo (se leen mientras pasa la historia;
+   nunca hay un tramo sin texto) */
+@media (min-width: 64rem) {
+  .multa-historia .multa-pasos { position: var(--sd-pegado, relative); top: calc(50svh - 8rem); }
+  /* F2 (465): el escenario, más grande y con el suelo abajo; ya no hace falta recortar (la Multa sale de la papelera),
+     así que el suelo sigue por debajo del texto hasta el margen y la escena llena el cuadro de lado a lado */
+  .multa-historia { --alto-escenario: min(92svh, 800px); }
+  .multa-historia .escenario { grid-column: 5 / 13; }
+  .multa-historia .escenario-dibujo { overflow: visible; }
+  .multa-historia .escenario-dibujo > div { justify-content: flex-end; align-items: flex-end; }
+}
+/* F3 (465): entre 1024 y 1280 la columna del dibujo es estrecha y la Multa, al trepar de la papelera, rozaba «Tú solo
+   lo revisas…»; el escenario baja un poco para dejar libre la columna del texto */
+@media (min-width: 64rem) and (max-width: 79.99rem) { .multa-historia { --alto-escenario: min(80svh, 800px); } }
+
+/* ============================================================ E4b · el dibujo */
+/* viewBox 240 × 270: ~1,49 px por unidad a 390 (el autónomo mide ~200 px, la Multa ~185 y Manila ~145) y ~2,3 a 1280 */
+.e4b-ilu { --t: 1.9; --trazo: var(--t); }
+@media (min-width: 64rem) { .e4b-ilu { --t: 1.25; } }
+.e4b-ilu .e4b-k50 { --trazo: calc(var(--t) / 0.5); }
+.e4b-ilu .e4b-k80 { --trazo: calc(var(--t) / 0.8); }
+.e4b-ojo { stroke-width: calc(var(--trazo) * 1.4); }
+/* 13 unidades en la capa (escalada a .72): 14 px renderizados a 390 */
+.e4b-letra { font: 700 13px var(--t-titulo); font-stretch: 85%; fill: var(--tinta); }
+.e4b-dia { font: 700 21px var(--t-titulo); font-stretch: 85%; fill: var(--tinta); }
+.e4b-ilu .cl-bo { stroke-width: var(--trazo); }
+.e4b-sello path { fill: none; stroke: var(--aviso); stroke-width: calc(var(--trazo) * 0.75); stroke-linejoin: round; }
+.e4b-sello text { font: 800 13px var(--t-titulo); font-stretch: 80%; letter-spacing: 0.05em; text-anchor: middle; fill: var(--aviso); }
+.e4b-rojo { fill: none; stroke: var(--aviso); stroke-width: calc(var(--trazo) * 0.9); stroke-linecap: round; stroke-linejoin: round; }
+/* En oscuro, la Multa y la bola siguen siendo papel claro con tinta oscura: un papel negro ya no se lee como papel */
+:root[data-theme="dark"] .e4b-multa, :root[data-theme="dark"] .e4b-bola {
+  --hoja: #ece6d6; --tinta: #1d1b16; --carpeta-2: #e9d79c; --aviso: #b42318;
+}
+:root[data-theme="dark"] .e4b-miembro { stroke: #f3efe5; } /* patas, brazos y campanas, sobre el campo oscuro */
+.ilu-anima .en-pantalla .e4b-ilu .cl-respira { transform-origin: 60px 141px; }
+
+/* ---- Reposo: el fotograma final (y el de «reducir movimiento») */
+.e4b-viva { transform-origin: 117px 89px; }
+.e4b-mece { transform-origin: 117px 89px; }
+.e4b-mustia { opacity: 0; }
+.e4b-bola { transform-origin: 27px 214px; }
+.e4b-papelera { transform-origin: 27px 250px; }
+.e4b-l0, .e4b-l1, .e4b-l2, .e4b-l3, .e4b-sorbo, .e4b-silba { opacity: 0; }
+.e4b-brazo { transform-origin: 137px 154px; }
+.e4b-brindis { transform-origin: 165px 156px; transform: rotate(-30deg); }
+.e4b-taza { transform-origin: 169px 174px; }
+.e4b-vapor { transform-origin: 169px 168px; }
+.e4b-cara { transform: translateX(-9px); }
+.e4b-cuerpo, .e4b-arruga, .e4b-mp0, .e4b-mp1, .e4b-mala, .e4b-frota, .e4b-garra { opacity: 0; }
+.e4b-capa { transform-origin: -28px -90px; }
+.e4b-garra { transform-origin: 34px -62px; }
+.e4b-aguja { transform-origin: 0 -112px; }
+.e4b-reloj { transform-origin: 0 -100px; }
+.e4b-golpe { opacity: 0; transform-origin: 132px 125px; }
+.e4b-my { transform-origin: 92px 250px; }
+.e4b-mrot { transform-origin: 60px 141px; transform: rotate(-3deg); }
+.e4b-estela, .e4b-f1, .e4b-f2, .e4b-f3, .e4b-p1, .e4b-p2, .e4b-p3, .e4b-p4, .e4b-p5 { opacity: 0; }
+
+/* ---- La coreografía (0-100 % del tramo fijo), en tiempos de dibujo animado:
+   0-33    el autónomo entra andando: once dibujos de pierna (contacto, abajo, paso, arriba) a saltos de 3 %, la cadera
+           sube y baja, el brazo bracea, la taza llega tarde y el humo se inclina hacia atrás. Silba.
+   0-44    Manila, en el estante, espía con cara de pillería y se ríe por dentro (se sacude un poco).
+   20-46   la Multa entra de puntillas, paso a paso (sube en la punta, cae), frotándose las manos; la capa ondea con
+           retraso; la planta del estante se mustia al verla.
+   38-51   él, ajeno, da un sorbo de café.
+   44-48.5 anticipación: Manila se agacha; la Multa se echa atrás y arma la garra.
+   48.5-53.5 Manila salta en arco y cae estirada (smear); la Multa la ve y se asusta.
+   53.5    ¡golpe! (rayas a boli); la Multa se aplasta, se arruga en dos tiempos y queda una bola (58.5).
+   56-61   Manila rebota en arco y aterriza. 60-64.5 la bola salta como un corcho y Manila la caza.
+   64.5-74 Manila arma el tiro, lanza y la bola entra en la papelera girando (la papelera se aplasta).
+   74      Manila, orgullosa. 75-83 él se encoge (anticipación), se gira, sonríe y levanta la taza. La planta revive.
+   88-100  la pose final, quieta. */
+
+/* Fondo: la planta */
+.e4b-viva { animation-name: sd-e4b-viva; }
+@keyframes sd-e4b-viva {
+  0% { opacity: 1; transform: scale(1, 1); animation-timing-function: steps(1, end); }
+  36% { opacity: 0; transform: scale(1, 0.6); animation-timing-function: steps(1, end); }
+  80% { opacity: 1; transform: scale(1, 0.6); animation-timing-function: ease-out; }
+  82.5% { transform: scale(0.94, 1.16); animation-timing-function: ease-in-out; }
+  85% { transform: scale(1.02, 0.97); }
+  87%, 100% { opacity: 1; transform: scale(1, 1); }
+}
+.e4b-mustia { animation-name: sd-e4b-mustia; }
+@keyframes sd-e4b-mustia {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  36% { opacity: 1; animation-timing-function: steps(1, end); }
+  80%, 100% { opacity: 0; }
+}
+.e4b-circulo { stroke-dasharray: 100; stroke-dashoffset: 0; animation-name: sd-e4b-circulo; }
+@keyframes sd-e4b-circulo { 0%, 22% { stroke-dashoffset: 100; } 34%, 100% { stroke-dashoffset: 0; } }
+
+/* El autónomo */
+.e4b-au { animation-name: sd-e4b-au; }
+@keyframes sd-e4b-au {
+  0% { transform: translateX(-175px); animation-timing-function: linear; }
+  33% { transform: translateX(-3px); animation-timing-function: ease-out; }
+  36%, 100% { transform: translateX(0); }
+}
+.e4b-l0 { animation-name: sd-e4b-l0; }
+@keyframes sd-e4b-l0 {
+  0%, 12%, 24% { opacity: 1; animation-timing-function: steps(1, end); }
+  3%, 15%, 27%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-l1 { animation-name: sd-e4b-l1; }
+@keyframes sd-e4b-l1 {
+  3%, 15%, 27% { opacity: 1; animation-timing-function: steps(1, end); }
+  0%, 6%, 18%, 30%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-l2 { animation-name: sd-e4b-l2; }
+@keyframes sd-e4b-l2 {
+  6%, 18%, 30% { opacity: 1; animation-timing-function: steps(1, end); }
+  0%, 9%, 21%, 33%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-l3 { animation-name: sd-e4b-l3; }
+@keyframes sd-e4b-l3 {
+  9%, 21% { opacity: 1; animation-timing-function: steps(1, end); }
+  0%, 12%, 24%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-pie { animation-name: sd-e4b-pie; }
+@keyframes sd-e4b-pie { 0% { opacity: 0; animation-timing-function: steps(1, end); } 33%, 100% { opacity: 1; } }
+/* La cadera: abajo en el «abajo», arriba en el «arriba»; y la anticipación del giro (se encoge antes de volverse) */
+.e4b-bob { animation-name: sd-e4b-bob; }
+@keyframes sd-e4b-bob {
+  0%, 12%, 24% { transform: translateY(0); animation-timing-function: steps(1, end); }
+  3%, 15%, 27% { transform: translateY(3px); animation-timing-function: steps(1, end); }
+  6%, 18%, 30% { transform: translateY(-1px); animation-timing-function: steps(1, end); }
+  9%, 21% { transform: translateY(-3px); animation-timing-function: steps(1, end); }
+  33%, 75% { transform: translateY(0); animation-timing-function: ease-in-out; }
+  78% { transform: translateY(3px); animation-timing-function: ease-out; }
+  80.5% { transform: translateY(-2px); animation-timing-function: ease-in-out; }
+  82.5%, 100% { transform: translateY(0); }
+}
+.e4b-brazo { animation-name: sd-e4b-brazo; }
+@keyframes sd-e4b-brazo {
+  0%, 24% { transform: rotate(18deg); animation-timing-function: ease-in-out; }
+  12% { transform: rotate(-18deg); animation-timing-function: ease-in-out; }
+  33% { transform: rotate(-6deg); animation-timing-function: ease-out; }
+  36%, 100% { transform: rotate(0deg); }
+}
+/* La taza: el brazo bracea poco y al revés; la taza llega 1,5 % tarde y el humo se tumba al andar */
+.e4b-brindis { animation-name: sd-e4b-brindis; }
+@keyframes sd-e4b-brindis {
+  0%, 24% { opacity: 1; transform: rotate(-8deg); animation-timing-function: ease-in-out; }
+  12% { transform: rotate(8deg); animation-timing-function: ease-in-out; }
+  33% { transform: rotate(4deg); animation-timing-function: ease-out; }
+  36% { transform: rotate(0deg); }
+  38.9% { opacity: 1; }
+  39%, 50.9% { opacity: 0; transform: rotate(0deg); }
+  51% { opacity: 1; transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  80% { transform: rotate(0deg); animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1.5); }
+  85% { transform: rotate(-36deg); animation-timing-function: ease-in-out; }
+  88%, 100% { opacity: 1; transform: rotate(-30deg); }
+}
+.e4b-taza { animation-name: sd-e4b-taza; }
+@keyframes sd-e4b-taza {
+  0% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  1.5%, 25.5% { transform: rotate(10deg); animation-timing-function: ease-in-out; }
+  13.5% { transform: rotate(-10deg); animation-timing-function: ease-in-out; }
+  34.5% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  37% { transform: rotate(3deg); animation-timing-function: ease-in-out; }
+  39%, 82% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  85% { transform: rotate(12deg); animation-timing-function: ease-in-out; }
+  87.5% { transform: rotate(-4deg); }
+  90%, 100% { transform: rotate(0deg); }
+}
+.e4b-vapor { animation-name: sd-e4b-vapor; }
+@keyframes sd-e4b-vapor {
+  0%, 33% { transform: rotate(-30deg) scale(1, 0.8); animation-timing-function: ease-out; }
+  36.5% { transform: rotate(14deg) scale(1, 1.1); animation-timing-function: ease-in-out; }
+  39% { transform: rotate(-5deg) scale(1, 1); }
+  41%, 82% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  85% { transform: rotate(-28deg); animation-timing-function: ease-in-out; }
+  89%, 100% { transform: rotate(0deg); }
+}
+.e4b-sorbo { animation-name: sd-e4b-sorbo; }
+@keyframes sd-e4b-sorbo {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  39% { opacity: 1; animation-timing-function: steps(1, end); }
+  51%, 100% { opacity: 0; }
+}
+.e4b-cara { animation-name: sd-e4b-cara; }
+@keyframes sd-e4b-cara {
+  0%, 75% { transform: translateX(6px); animation-timing-function: ease-in-out; }
+  78% { transform: translateX(10px); animation-timing-function: ease-out; }
+  80.5% { transform: translateX(-12px); animation-timing-function: ease-in-out; }
+  82.5%, 100% { transform: translateX(-9px); }
+}
+.e4b-silba { animation-name: sd-e4b-silba; }
+@keyframes sd-e4b-silba {
+  0%, 51% { opacity: 1; animation-timing-function: steps(1, end); }
+  39%, 79%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-sonrie { animation-name: sd-e4b-sonrie; }
+@keyframes sd-e4b-sonrie { 0% { opacity: 0; animation-timing-function: steps(1, end); } 79%, 100% { opacity: 1; } }
+
+/* La Multa: seis pasos de puntillas (sube despacio, cae deprisa), inclinada hacia delante, sigilosa */
+.e4b-multa { animation-name: sd-e4b-multa; }
+@keyframes sd-e4b-multa {
+  /* F2 (465): sale de la papelera (el recorte #e4b-c-papelera la esconde bajo el borde): asoma el reloj, espía,
+     se encoge (anticipación), salta fuera estirada, aterriza aplastada y sigue de puntillas */
+  0%, 20% { transform: translate(-105px, 96px) scale(0.6) rotate(0deg); animation-timing-function: ease-out; }
+  23% { transform: translate(-105px, 56px) scale(0.6) rotate(-4deg); animation-timing-function: ease-in-out; }
+  24.6% { transform: translate(-103px, 52px) scale(0.6) rotate(6deg); animation-timing-function: ease-in-out; }
+  26% { transform: translate(-105px, 60px) scale(0.64, 0.54) rotate(0deg); animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1); }
+  28% { transform: translate(-96px, -42px) scale(0.78, 0.98) rotate(-12deg); animation-timing-function: ease-in; }
+  30% { transform: translate(-80px, 0) scale(1.08, 0.82) rotate(4deg); animation-timing-function: ease-out; }
+  31.5% { transform: translate(-78px, 0) scale(1) rotate(5deg); animation-timing-function: ease-out; }
+  32.7% { transform: translate(-71px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  33.9% { transform: translate(-65px, 0) rotate(5deg); animation-timing-function: ease-out; }
+  35.1% { transform: translate(-58px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  36.3% { transform: translate(-52px, 0) rotate(5deg); animation-timing-function: ease-out; }
+  37.5% { transform: translate(-45px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  38.7% { transform: translate(-39px, 0) rotate(5deg); animation-timing-function: ease-out; }
+  39.9% { transform: translate(-32px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  41.1% { transform: translate(-26px, 0) rotate(5deg); animation-timing-function: ease-out; }
+  42.3% { transform: translate(-19px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  43.5% { transform: translate(-13px, 0) rotate(5deg); animation-timing-function: ease-out; }
+  44.7% { transform: translate(-6px, -9px) rotate(8deg); animation-timing-function: ease-in; }
+  46% { transform: translate(0, 0) rotate(5deg); animation-timing-function: ease-out; }
+  48.5% { transform: translate(-6px, 0) rotate(-8deg); animation-timing-function: ease-in-out; }
+  50% { transform: translate(-4px, 0) rotate(-10deg); animation-timing-function: ease-in; }
+  53.5%, 100% { transform: translate(0, 0) rotate(0deg); }
+}
+.e4b-mp0 { animation-name: sd-e4b-mp0; }
+@keyframes sd-e4b-mp0 {
+  0%, 28.7%, 37.3% { opacity: 1; animation-timing-function: steps(1, end); }
+  24.3%, 33%, 41.7%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-mp1 { animation-name: sd-e4b-mp1; }
+@keyframes sd-e4b-mp1 {
+  24.3%, 33%, 41.7% { opacity: 1; animation-timing-function: steps(1, end); }
+  0%, 28.7%, 37.3%, 46%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e4b-mpq { animation-name: sd-e4b-mpq; }
+@keyframes sd-e4b-mpq { 0% { opacity: 0; animation-timing-function: steps(1, end); } 46%, 100% { opacity: 1; } }
+/* El cuerpo: se estira del susto (toma de sorpresa), se aplasta con el golpe y deja paso al arrugón */
+.e4b-cuerpo { animation-name: sd-e4b-cuerpo; }
+@keyframes sd-e4b-cuerpo {
+  0%, 48.5% { opacity: 1; transform: scale(1, 1); animation-timing-function: ease-out; }
+  50.5% { transform: scale(0.92, 1.1); animation-timing-function: ease-in-out; }
+  53.4% { transform: scale(0.96, 1.05); animation-timing-function: steps(1, end); }
+  53.5% { transform: scale(1.24, 0.72); animation-timing-function: ease-out; }
+  55.9% { opacity: 1; transform: scale(1.32, 0.6); animation-timing-function: steps(1, end); }
+  56%, 100% { opacity: 0; transform: scale(1.32, 0.6); }
+}
+/* La capa: llega tarde a cada paso (follow-through) y da un latigazo con el golpe */
+.e4b-capa { animation-name: sd-e4b-capa; }
+@keyframes sd-e4b-capa {
+  /* F2 (465): plegada pegada al cuerpo mientras sale de la papelera; se despliega de un latigazo al aterrizar */
+  0%, 27% { transform: scale(0.3, 0.75) rotate(24deg); animation-timing-function: ease-in; }
+  28.5% { transform: scale(0.4, 0.9) rotate(-14deg); animation-timing-function: ease-out; }
+  /* se va desplegando a cada paso, sin pasar nunca del borde izquierdo del papel */
+  30.2% { transform: scale(0.45, 1) rotate(-9deg); animation-timing-function: ease-in-out; }
+  31.8% { transform: scale(0.5, 1) rotate(-9deg); animation-timing-function: ease-in-out; }
+  34% { transform: scale(0.58, 1) rotate(5deg); animation-timing-function: ease-in-out; }
+  36.2% { transform: scale(0.7, 1) rotate(-9deg); animation-timing-function: ease-in-out; }
+  38.3% { transform: scale(0.82, 1) rotate(5deg); animation-timing-function: ease-in-out; }
+  40.5% { transform: scale(0.93, 1) rotate(-9deg); animation-timing-function: ease-in-out; }
+  42.7%, 47% { transform: rotate(5deg); animation-timing-function: ease-in-out; }
+  44.8% { transform: rotate(-9deg); animation-timing-function: ease-in-out; }
+  49.5% { transform: rotate(-12deg); animation-timing-function: ease-in-out; }
+  52% { transform: rotate(6deg); animation-timing-function: ease-out; }
+  54.5% { transform: rotate(-18deg); animation-timing-function: ease-in-out; }
+  56%, 100% { transform: rotate(0deg); }
+}
+.e4b-mala { animation-name: sd-e4b-mala; }
+@keyframes sd-e4b-mala { 0% { opacity: 1; animation-timing-function: steps(1, end); } 50%, 100% { opacity: 0; } }
+.e4b-susto { animation-name: sd-e4b-susto; }
+@keyframes sd-e4b-susto { 0% { opacity: 0; animation-timing-function: steps(1, end); } 50%, 100% { opacity: 1; } }
+.e4b-frota { animation-name: sd-e4b-frota; }
+@keyframes sd-e4b-frota { 0% { opacity: 1; animation-timing-function: steps(1, end); } 46%, 100% { opacity: 0; } }
+.e4b-garra { animation-name: sd-e4b-garra; }
+@keyframes sd-e4b-garra {
+  0% { opacity: 0; transform: rotate(20deg); animation-timing-function: steps(1, end); }
+  46% { opacity: 1; transform: rotate(20deg); animation-timing-function: ease-out; }
+  49% { transform: rotate(-30deg); animation-timing-function: ease-in-out; }
+  51% { transform: rotate(-22deg); animation-timing-function: ease-in-out; }
+  53.4% { opacity: 1; transform: rotate(-30deg); animation-timing-function: steps(1, end); }
+  53.5%, 100% { opacity: 0; transform: rotate(-30deg); }
+}
+.e4b-agita { animation-name: sd-e4b-agita; }
+@keyframes sd-e4b-agita { 0% { opacity: 0; animation-timing-function: steps(1, end); } 53.5%, 100% { opacity: 1; } }
+.e4b-aguja { animation-name: sd-e4b-aguja; }
+@keyframes sd-e4b-aguja { 0% { transform: rotate(0deg); } 53.5%, 100% { transform: rotate(1440deg); } }
+/* El arrugón (segundo tiempo): entra apretándose y se encoge antes de hacerse bola */
+.e4b-arruga { animation-name: sd-e4b-arruga; }
+@keyframes sd-e4b-arruga {
+  0% { opacity: 0; transform: scale(1.2, 0.8); animation-timing-function: steps(1, end); }
+  56% { opacity: 1; transform: scale(1.2, 0.8); animation-timing-function: ease-out; }
+  57.2% { transform: scale(0.9, 1.08); animation-timing-function: ease-in-out; }
+  58.4% { opacity: 1; transform: scale(0.8, 0.8); animation-timing-function: steps(1, end); }
+  58.5%, 100% { opacity: 0; }
+}
+.e4b-golpe { animation-name: sd-e4b-golpe; }
+@keyframes sd-e4b-golpe {
+  0%, 53.4% { opacity: 0; transform: scale(0.6); animation-timing-function: steps(1, end); }
+  53.5% { opacity: 1; transform: scale(0.7); animation-timing-function: ease-out; }
+  56% { opacity: 1; transform: scale(1.15); animation-timing-function: ease-in; }
+  58%, 100% { opacity: 0; transform: scale(1.25); }
+}
+
+/* La bola: aparece en el sitio de la Multa, salta como un corcho, la caza Manila, la sube, y en arco a la papelera */
+.e4b-bola { animation-name: sd-e4b-bola; }
+@keyframes sd-e4b-bola {
+  0% { opacity: 0; transform: translate(105px, 22px) scale(0.6); animation-timing-function: steps(1, end); }
+  58.5% { opacity: 1; transform: translate(105px, 22px) scale(0.6); animation-timing-function: ease-out; }
+  59.5% { transform: translate(105px, 21px) scale(1.15); animation-timing-function: ease-in-out; }
+  60.3% { transform: translate(104px, 22px) scale(1, 0.85); animation-timing-function: ease-out; }
+  62.5% { transform: translate(113px, -94px) scale(0.95, 1.08); animation-timing-function: ease-in; }
+  64.5% { transform: translate(73px, -66px) scale(1); animation-timing-function: ease-in-out; }
+  67% { transform: translate(79px, -80px) scale(1); animation-timing-function: linear; }
+  68.4% { transform: translate(58px, -101px); animation-timing-function: linear; }
+  69.8% { transform: translate(44px, -102px); animation-timing-function: linear; }
+  71.2% { transform: translate(29px, -86px); animation-timing-function: linear; }
+  72.6% { transform: translate(15px, -52px); animation-timing-function: ease-in; }
+  74% { transform: translate(0, 0) scale(1); animation-timing-function: ease-out; }
+  75% { transform: translate(0, 4px) scale(1); animation-timing-function: ease-out; }
+  77%, 100% { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+.e4b-gira { animation-name: sd-e4b-gira; }
+@keyframes sd-e4b-gira {
+  0%, 60.3% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  64.5%, 67% { transform: rotate(-200deg); animation-timing-function: linear; }
+  74%, 100% { transform: rotate(-720deg); }
+}
+.e4b-papelera { animation-name: sd-e4b-papelera; }
+@keyframes sd-e4b-papelera {
+  0%, 22% { transform: scale(1, 1); animation-timing-function: ease-in-out; }
+  23.5% { transform: rotate(-4deg); animation-timing-function: ease-in-out; }   /* F2: algo se mueve dentro */
+  25% { transform: rotate(3deg); animation-timing-function: ease-in-out; }
+  27% { transform: scale(1.08, 0.9); animation-timing-function: ease-out; }    /* el impulso del salto */
+  28.5% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  30.5% { transform: rotate(2deg); animation-timing-function: ease-in-out; }
+  32%, 74% { transform: scale(1, 1); animation-timing-function: ease-out; }
+  74.8% { transform: scale(1.12, 0.86); animation-timing-function: ease-in-out; }
+  76.5% { transform: scale(0.96, 1.05); animation-timing-function: ease-in-out; }
+  78%, 100% { transform: scale(1, 1); }
+}
+
+/* Manila: e4b-mx lleva la x (lineal en los arcos), e4b-my la y y el aplastar y estirar (desde los pies), e4b-mrot
+   la inclinación. Del estante (-30, -148) a la cabeza de la Multa (40, -125) y de ahí al suelo (0, 0). */
+.e4b-mx { animation-name: sd-e4b-mx; }
+@keyframes sd-e4b-mx {
+  0%, 46.5% { transform: translateX(-30px); animation-timing-function: ease-in-out; }
+  48.5% { transform: translateX(-34px); animation-timing-function: linear; }
+  53.5%, 56% { transform: translateX(40px); animation-timing-function: linear; }
+  61%, 64.5% { transform: translateX(0); animation-timing-function: ease-out; }
+  66.5% { transform: translateX(3px); animation-timing-function: ease-out; }
+  68.5% { transform: translateX(-4px); animation-timing-function: ease-in-out; }
+  72%, 100% { transform: translateX(0); }
+}
+.e4b-my { animation-name: sd-e4b-my; }
+@keyframes sd-e4b-my {
+  0%, 44% { transform: translateY(-148px) scale(1, 1); animation-timing-function: ease-in-out; }
+  47.5% { transform: translateY(-148px) scale(1.14, 0.82); animation-timing-function: ease-out; }
+  48.5% { transform: translateY(-150px) scale(0.86, 1.18); animation-timing-function: ease-out; }
+  50.5% { transform: translateY(-158px) scale(0.94, 1.08); animation-timing-function: ease-in; }
+  53.4% { transform: translateY(-125px) scale(0.8, 1.28); animation-timing-function: steps(1, end); }
+  53.5% { transform: translateY(-125px) scale(1.32, 0.66); animation-timing-function: ease-out; }
+  55.5% { transform: translateY(-90px) scale(1.2, 0.78); animation-timing-function: ease-out; }
+  56.5% { transform: translateY(-96px) scale(0.88, 1.14); animation-timing-function: ease-out; }
+  58.5% { transform: translateY(-134px) scale(0.96, 1.06); animation-timing-function: ease-in; }
+  61% { transform: translateY(0) scale(0.9, 1.12); animation-timing-function: ease-out; }
+  61.8% { transform: translateY(0) scale(1.2, 0.8); animation-timing-function: ease-in-out; }
+  63.3% { transform: translateY(-3px) scale(0.96, 1.04); animation-timing-function: ease-in-out; }
+  64.5%, 100% { transform: translateY(0) scale(1, 1); }
+}
+.e4b-mrot { animation-name: sd-e4b-mrot; }
+@keyframes sd-e4b-mrot {
+  0%, 16%, 44% { transform: rotate(8deg); animation-timing-function: ease-in-out; }
+  10%, 14% { transform: rotate(4deg); animation-timing-function: ease-in-out; }
+  12% { transform: rotate(10deg); animation-timing-function: ease-in-out; }
+  47.5% { transform: rotate(-6deg); animation-timing-function: ease-out; }
+  48.5% { transform: rotate(12deg); animation-timing-function: ease-in-out; }
+  53.5% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  56.5% { transform: rotate(-10deg); animation-timing-function: ease-in-out; }
+  58.5% { transform: rotate(-20deg); animation-timing-function: ease-in; }
+  61%, 64.5% { transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  66.5% { transform: rotate(10deg); animation-timing-function: ease-in; }
+  68.5% { transform: rotate(-16deg); animation-timing-function: ease-out; }
+  72% { transform: rotate(-6deg); animation-timing-function: ease-in-out; }
+  76%, 100% { transform: rotate(-3deg); }
+}
+.e4b-estela { animation-name: sd-e4b-estela; }
+@keyframes sd-e4b-estela {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  51% { opacity: 1; animation-timing-function: steps(1, end); }
+  53.5%, 100% { opacity: 0; }
+}
+/* Caras (modelo base del 22/10: solo cambian los ojos y la boca): pillería (estante) · decidida (salto y caza) ·
+   esfuerzo (tiro) · orgullo */
+.e4b-f1 { animation-name: sd-e4b-f1; }
+@keyframes sd-e4b-f1 { 0% { opacity: 1; animation-timing-function: steps(1, end); } 48.5%, 100% { opacity: 0; } }
+.e4b-f2 { animation-name: sd-e4b-f2; }
+@keyframes sd-e4b-f2 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  48.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  64.5%, 100% { opacity: 0; }
+}
+.e4b-f3 { animation-name: sd-e4b-f3; }
+@keyframes sd-e4b-f3 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  64.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  74%, 100% { opacity: 0; }
+}
+.e4b-f4 { animation-name: sd-e4b-f4; }
+@keyframes sd-e4b-f4 { 0% { opacity: 0; animation-timing-function: steps(1, end); } 74%, 100% { opacity: 1; } }
+/* Poses (brazos y piernas), un dibujo por momento: al acecho · en el aire · el golpe · armar el tiro · tirar · en jarras */
+.e4b-p1 { animation-name: sd-e4b-p1; }
+@keyframes sd-e4b-p1 { 0% { opacity: 1; animation-timing-function: steps(1, end); } 48.5%, 100% { opacity: 0; } }
+.e4b-p2 { animation-name: sd-e4b-p2; }
+@keyframes sd-e4b-p2 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  48.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  53.5%, 100% { opacity: 0; }
+}
+.e4b-p3 { animation-name: sd-e4b-p3; }
+@keyframes sd-e4b-p3 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  53.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  64.5%, 100% { opacity: 0; }
+}
+.e4b-p4 { animation-name: sd-e4b-p4; }
+@keyframes sd-e4b-p4 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  64.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  68.5%, 100% { opacity: 0; }
+}
+.e4b-p5 { animation-name: sd-e4b-p5; }
+@keyframes sd-e4b-p5 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  68.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  74%, 100% { opacity: 0; }
+}
+.e4b-p6 { animation-name: sd-e4b-p6; }
+@keyframes sd-e4b-p6 { 0% { opacity: 0; animation-timing-function: steps(1, end); } 74%, 100% { opacity: 1; } }
+
+/* ---- Bucles mientras se ve (con intención): el humo, la planta que se mece, el reloj de la Multa que tiembla, las
+   manos que se frotan, y la bola que de vez en cuando intenta salir de la papelera y se rinde */
+@keyframes e4b-humo { 0% { opacity: 0; transform: translateY(2px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-5px); } }
+.e4b-humo { opacity: 0.8; }
+.ilu-anima .en-pantalla .e4b-humo { animation: e4b-humo 2.4s steps(6) infinite; }
+@keyframes e4b-mece { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+.ilu-anima .en-pantalla .e4b-mece { animation: e4b-mece 4.6s steps(8) infinite; }
+@keyframes e4b-tiembla { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.ilu-anima .en-pantalla .e4b-reloj { animation: e4b-tiembla 0.16s steps(1) infinite alternate; }
+@keyframes e4b-frota { from { transform: translate(-1px, -1.5px); } to { transform: translate(1px, 1.5px); } }
+.ilu-anima .en-pantalla .e4b-mano-i { animation: e4b-frota 0.28s steps(1) infinite alternate; }
+.ilu-anima .en-pantalla .e4b-mano-d { animation: e4b-frota 0.28s steps(1) -0.28s infinite alternate-reverse; }
+@keyframes e4b-intenta {
+  0%, 84%, 100% { transform: translate(0, 0) rotate(0deg); }
+  86% { transform: translate(0, -5px) rotate(-10deg); }
+  88% { transform: translate(1px, -2px) rotate(8deg); }
+  90% { transform: translate(0, -6px) rotate(-6deg); }
+  93% { transform: translate(0, 1px) rotate(0deg); }
+}
+.ilu-anima .en-pantalla .e4b-bola-vive { animation: e4b-intenta 5.5s ease-in-out 1.5s infinite; }
+
+/* ============================================================ E9 · los permisos: maquetación */
+/* Las garantías, como notas a boli sobre el papel (no una fila de tarjetas iguales): sin caja, con un visto azul
+   hecho a mano y escalonadas. */
+.seg-historia .garantias .tarjeta { background: none; clip-path: none; padding: 0.25rem 0 0.25rem 2.4rem; }
+.seg-historia .garantias .tarjeta::before {
+  content: ""; position: absolute; left: 0; top: 0.2rem; width: 1.9rem; height: 1.6rem; background: var(--boli-trazo);
+  -webkit-mask: url("visto-boli.svg") center / contain no-repeat;
+  mask: url("visto-boli.svg") center / contain no-repeat;
+}
+.seg-historia .garantias .tarjeta:nth-child(2) { margin-left: 1.25rem; }
+.seg-historia .garantias .tarjeta:nth-child(3) { margin-left: 0.5rem; }
+.seg-historia .garantias h3 { margin-bottom: 0.35rem; }
+
+/* Móvil: el dibujo (alto natural, sin papel vacío) se queda fijo y opaco ENCIMA; las notas y la autorización pasan
+   por debajo de su borde. Entre nota y nota, un respiro corto para que el corto quepa (~1,8 pantallas). */
+@media (max-width: 63.99rem) {
+  .seg-historia .escenario-dibujo { height: auto; z-index: 3; }
+  .seg-historia .garantias { gap: calc(1.5rem + var(--sd-on, 0) * 12svh); }
+  .seg-historia .seg-escenario .impreso { margin-top: 0.5rem; }
+}
+/* Ordenador: el dibujo grande y fijo a la derecha; a la izquierda, el titular, las notas y la autorización al final
+   (así no tapa el dibujo). */
+@media (min-width: 64rem) {
+  .seg-historia .seg-escenario { display: contents; }
+  .seg-historia .escenario-dibujo {
+    grid-column: 6 / 13; grid-row: 1 / 4; align-self: start;
+    position: sticky; top: calc((100svh - var(--alto-escenario)) / 2); height: var(--alto-escenario);
+    justify-content: center;
+  }
+  .seg-historia .garantias { align-self: stretch; align-content: space-between; gap: 1.75rem; }
+  .seg-historia .seg-escenario .impreso { position: relative; grid-column: 1 / 6; grid-row: 3; width: auto; max-width: 25rem; }
+}
+
+/* ============================================================ E9 · el dibujo */
+/* viewBox 236 × 200: ~1,52 px por unidad a 390 (el busto ~180 px, Manila ~150) y ~2,9 a 1280 */
+.e9-ilu { --t: 1.8; --trazo: var(--t); overflow: hidden; }
+@media (min-width: 64rem) { .e9-ilu { --t: 1; } }
+.e9-ilu .e9-k80 { --trazo: calc(var(--t) / 0.8); }
+.e9-ilu .e9-k78 { --trazo: calc(var(--t) / 0.78); }
+.e9-gafas-t { stroke-width: calc(var(--trazo) * 1.15); }
+/* 10,5 unidades: 16 px a 390, 20 en el plano cerca */
+.e9-letra { font: 700 10.5px var(--t-titulo); font-stretch: 82%; fill: var(--tinta); }
+.e9-ilu .cl-bo { stroke-width: calc(var(--trazo) * 0.9); }
+.ilu-anima .en-pantalla .e9-ilu .cl-respira { transform-box: view-box; transform-origin: 60px 141px; }
+
+/* ---- Reposo: el plano cerca (espejo), con el candado dibujado y el cajón «Personal» a la vista */
+.e9-cam { transform-origin: 200px 190px; transform: scale(1.22); }
+.e9-mm { transform-origin: 108px 150px; }
+.e9-cabeza { transform-origin: 80px 126px; transform: rotate(-4deg); }
+.e9-cara { transform: translateX(-6px); }
+.e9-a0, .e9-a1, .e9-a2, .e9-a3, .e9-sobre, .e9-carpeta, .e9-boli, .e9-perfil { opacity: 0; }
+.e9-a4 { transform-origin: 42px 158px; transform: rotate(4deg); }
+.e9-taza-a { transform-origin: 18px 124px; transform: rotate(-4deg); }
+.e9-it1, .e9-it2 { transform-origin: 28px 80px; }
+.e9-it2 { transform-origin: 41px 80px; }
+.e9-it3 { transform-origin: 58px 80px; }
+.e9-it4 { transform-origin: 76px 166px; }
+.e9-etiqueta { transform-origin: 46px 182px; }
+.e9-candado { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.e9-lupa { transform-origin: 74px 82px; }
+.e9-pelo { transform-origin: 58px 30px; }
+.e9-gota { opacity: 0; }
+.e9-ca, .e9-cb, .e9-cc, .e9-ar0, .e9-palma, .e9-empuja, .e9-salpica { opacity: 0; }
+.e9-gafas { transform-origin: 58.5px 77px; }
+.e9-brindis-m { transform-origin: 110px 80px; transform: rotate(-6deg); }
+.e9-taza-m { transform-origin: 124px 56px; }
+/* El gesto de la v4 al pasar por «Mis demás carpetas personales» (ilustra.js pone .seg-no): «ahí no entro» */
+.seg-no .e9-palma { opacity: 1 !important; }
+.seg-no .e9-brindis-m, .seg-no .e9-arf { opacity: 0 !important; }
+
+/* ---- La coreografía:
+   0-13    Manila cae sobre la mesa (se estira al caer, se aplasta y rebota).
+   12-22   él le da el correo (brazo estirado); el sobre vuela en arco y entra en la carpeta; ella se lo «come».
+   26-36   le da la carpeta de trabajo (brazo levantado); lo mismo.
+   38-50   él señala el cajón; el boli dibuja el candado a trazo sobre el cajón «Personal» y la etiqueta se mece.
+   46-60   Manila, de perfil y con la lupa: recorre en arco lo permitido (cada cosa se ilumina con un saltito al pasar) y
+           frena en seco antes del cajón (se pasa un poco y vuelve).
+   60-66   se da la vuelta (otra silueta), aparta la mirada y levanta la palma: ahí no. La etiqueta se mece.
+   64-71   le caen unas gafas grandes, torcidas; se las endereza con la mano.
+   70-75   el pelo de tinta cae como un flan y suelta una gota.
+   75-78   saca una taza. 76-86 el plano se acerca.
+   82-88   él levanta la taza; 85-92 ella, con retraso y pasándose (salpica), como en un espejo.
+   92-100  la pose final. */
+.e9-cam { animation-name: sd-e9-cam; }
+@keyframes sd-e9-cam {
+  0%, 76% { transform: scale(1); animation-timing-function: ease-in-out; }
+  86%, 100% { transform: scale(1.22); }
+}
+.e9-mm { animation-name: sd-e9-mm; }
+@keyframes sd-e9-mm {
+  0% { transform: translateY(-200px) scale(0.9, 1.15); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  8% { transform: translateY(0) scale(1.16, 0.82); animation-timing-function: ease-out; }
+  10.5% { transform: translateY(-6px) scale(0.95, 1.07); animation-timing-function: ease-in; }
+  13%, 21.5% { transform: translateY(0) scale(1, 1); animation-timing-function: ease-out; }
+  23% { transform: translateY(0) scale(1.1, 0.9); animation-timing-function: ease-in-out; }
+  25%, 35.5% { transform: translateY(0) scale(1, 1); animation-timing-function: ease-out; }
+  37% { transform: translateY(0) scale(1.1, 0.9); animation-timing-function: ease-in-out; }
+  39%, 59.5% { transform: translateY(0) scale(1, 1); animation-timing-function: ease-out; }
+  60.5% { transform: translateY(-4px) scale(0.92, 1.08); animation-timing-function: ease-in; }
+  62% { transform: translateY(0) scale(1.06, 0.95); animation-timing-function: ease-in-out; }
+  63.5%, 66.4% { transform: translateY(0) scale(1, 1); animation-timing-function: ease-out; }
+  67% { transform: translateY(0) scale(1.06, 0.94); animation-timing-function: ease-in-out; }
+  68.5%, 72.4% { transform: translateY(0) scale(1, 1); animation-timing-function: ease-out; }
+  73% { transform: translateY(0) scale(1.1, 0.9); animation-timing-function: ease-in-out; }
+  75%, 100% { transform: translateY(0) scale(1, 1); }
+}
+.e9-fa, .e9-fb { animation-name: sd-e9-frente; }
+@keyframes sd-e9-frente {
+  0%, 60% { opacity: 1; animation-timing-function: steps(1, end); }
+  46% { opacity: 0; animation-timing-function: steps(1, end); }
+  100% { opacity: 1; }
+}
+.e9-perfil { animation-name: sd-e9-perfil; }
+@keyframes sd-e9-perfil {
+  0%, 60% { opacity: 0; animation-timing-function: steps(1, end); }
+  46% { opacity: 1; animation-timing-function: steps(1, end); }
+  100% { opacity: 0; }
+}
+
+/* Él: los gestos son dibujos de brazo distintos */
+.e9-a0 { animation-name: sd-e9-a0; }
+@keyframes sd-e9-a0 {
+  0%, 22%, 36%, 50% { opacity: 1; animation-timing-function: steps(1, end); }
+  12%, 26%, 38%, 76%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e9-a1 { animation-name: sd-e9-a1; }
+@keyframes sd-e9-a1 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  12% { opacity: 1; animation-timing-function: steps(1, end); }
+  22%, 100% { opacity: 0; }
+}
+.e9-a2 { animation-name: sd-e9-a2; }
+@keyframes sd-e9-a2 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  26% { opacity: 1; animation-timing-function: steps(1, end); }
+  36%, 100% { opacity: 0; }
+}
+.e9-a3 { animation-name: sd-e9-a3; }
+@keyframes sd-e9-a3 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  38% { opacity: 1; animation-timing-function: steps(1, end); }
+  50%, 100% { opacity: 0; }
+}
+.e9-a4 { animation-name: sd-e9-a4; }
+@keyframes sd-e9-a4 {
+  0% { opacity: 0; transform: rotate(-60deg); animation-timing-function: steps(1, end); }
+  76% { opacity: 1; transform: rotate(-60deg); animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1.4); }
+  82% { transform: rotate(-60deg); animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1.4); }
+  87.5%, 100% { opacity: 1; transform: rotate(4deg); }
+}
+.e9-taza-a { animation-name: sd-e9-taza-a; }
+@keyframes sd-e9-taza-a {
+  0%, 82% { transform: rotate(60deg); animation-timing-function: ease-out; }
+  86% { transform: rotate(-12deg); animation-timing-function: ease-in-out; }
+  89%, 100% { transform: rotate(-4deg); }
+}
+.e9-cabeza { animation-name: sd-e9-cabeza; }
+@keyframes sd-e9-cabeza {
+  0%, 9% { transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  12%, 37% { transform: rotate(-5deg); animation-timing-function: ease-in-out; }
+  40%, 48% { transform: rotate(-9deg); animation-timing-function: ease-in-out; }
+  52%, 82% { transform: rotate(-4deg); animation-timing-function: ease-in-out; }
+  86% { transform: rotate(2deg); animation-timing-function: ease-in-out; }
+  90%, 100% { transform: rotate(-4deg); }
+}
+.e9-cara { animation-name: sd-e9-cara; }
+@keyframes sd-e9-cara {
+  0%, 9% { transform: translateX(0); animation-timing-function: ease-in-out; }
+  12%, 100% { transform: translateX(-6px); }
+}
+/* El correo y la carpeta: en la mano, luego en arco a la boca de la carpeta de Manila, y adentro */
+.e9-sobre { animation-name: sd-e9-sobre; }
+@keyframes sd-e9-sobre {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0deg); animation-timing-function: steps(1, end); }
+  12% { opacity: 1; transform: translate(0, 0) rotate(0deg); animation-timing-function: ease-in-out; }
+  16.5% { transform: translate(2px, -2px) rotate(4deg); animation-timing-function: linear; }
+  18% { transform: translate(-12px, -30px) rotate(-10deg); animation-timing-function: linear; }
+  19.5% { transform: translate(-28px, -46px) rotate(-18deg); animation-timing-function: ease-in; }
+  21% { opacity: 1; transform: translate(-38px, -42px) rotate(-8deg); animation-timing-function: ease-in; }
+  22.5%, 100% { opacity: 0; transform: translate(-41px, -26px) rotate(0deg); }
+}
+.e9-carpeta { animation-name: sd-e9-carpeta; }
+@keyframes sd-e9-carpeta {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0deg); animation-timing-function: steps(1, end); }
+  26% { opacity: 1; transform: translate(0, 0) rotate(0deg); animation-timing-function: ease-in-out; }
+  30.5% { transform: translate(2px, -3px) rotate(-4deg); animation-timing-function: linear; }
+  32% { transform: translate(-14px, -22px) rotate(8deg); animation-timing-function: linear; }
+  33.5% { transform: translate(-32px, -36px) rotate(16deg); animation-timing-function: ease-in; }
+  35% { opacity: 1; transform: translate(-44px, -30px) rotate(6deg); animation-timing-function: ease-in; }
+  36.5%, 100% { opacity: 0; transform: translate(-48px, -12px) rotate(0deg); }
+}
+/* El boli: aparece, recorre el candado mientras se dibuja (arco, cuerpo, ojo de la cerradura) y se va */
+.e9-boli { animation-name: sd-e9-boli; }
+@keyframes sd-e9-boli {
+  0% { opacity: 0; transform: translate(14px, -40px); animation-timing-function: steps(1, end); }
+  39% { opacity: 1; transform: translate(14px, -40px); animation-timing-function: ease-out; }
+  40% { transform: translate(0, 0); animation-timing-function: linear; }
+  42% { transform: translate(5.5px, -7px); animation-timing-function: linear; }
+  44% { transform: translate(11px, 0); animation-timing-function: linear; }
+  44.8% { transform: translate(-2.5px, 0); animation-timing-function: linear; }
+  45.8% { transform: translate(13.5px, -0.5px); animation-timing-function: linear; }
+  46.8% { transform: translate(13.9px, 11px); animation-timing-function: linear; }
+  47.8% { transform: translate(-2.1px, 11.4px); animation-timing-function: linear; }
+  48.6% { transform: translate(-2.5px, 0); animation-timing-function: linear; }
+  49.4% { transform: translate(5.5px, 7px); animation-timing-function: linear; }
+  50% { transform: translate(-7px, -2px); animation-timing-function: ease-in; }
+  50.5% { opacity: 1; transform: translate(-7px, -2px); }
+  52%, 100% { opacity: 0; transform: translate(20px, -50px); }
+}
+.e9-candado { animation-name: sd-e9-candado; }
+@keyframes sd-e9-candado { 0%, 40% { stroke-dashoffset: 100; } 50%, 100% { stroke-dashoffset: 0; } }
+/* La etiqueta «Personal» cuelga de su chincheta y se mece con retraso: al cerrarse el candado y al darse la vuelta Manila */
+.e9-etiqueta { animation-name: sd-e9-etiqueta; }
+@keyframes sd-e9-etiqueta {
+  0%, 49% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  51% { transform: rotate(7deg); animation-timing-function: ease-in-out; }
+  53% { transform: rotate(-4deg); animation-timing-function: ease-in-out; }
+  55%, 60.5% { transform: rotate(0deg); animation-timing-function: ease-out; }
+  62% { transform: rotate(-9deg); animation-timing-function: ease-in-out; }
+  64% { transform: rotate(5deg); animation-timing-function: ease-in-out; }
+  66% { transform: rotate(-2deg); animation-timing-function: ease-in-out; }
+  68%, 100% { transform: rotate(0deg); }
+}
+/* La lupa, de perfil: arco del estante hacia el archivador; frena en seco (se pasa y vuelve) antes del cajón */
+.e9-lupa { animation-name: sd-e9-lupa; }
+@keyframes sd-e9-lupa {
+  0%, 46% { transform: rotate(-50deg); animation-timing-function: ease-in-out; }
+  49% { transform: rotate(-36deg); animation-timing-function: linear; }
+  52% { transform: rotate(-12deg); animation-timing-function: linear; }
+  55% { transform: rotate(24deg); animation-timing-function: cubic-bezier(0.1, 0.9, 0.2, 1); }
+  58% { transform: rotate(60deg); animation-timing-function: ease-in-out; }
+  59.5%, 100% { transform: rotate(54deg); }
+}
+.e9-it1, .e9-it2, .e9-it3, .e9-it4 { animation-timing-function: ease-out; }
+.e9-it3 { animation-name: sd-e9-it3; }
+@keyframes sd-e9-it3 { 0%, 48% { transform: none; } 49.5% { transform: translateY(-3px) scale(1.08); } 51.5%, 100% { transform: none; } }
+.e9-it2 { animation-name: sd-e9-it2; }
+@keyframes sd-e9-it2 { 0%, 49.5% { transform: none; } 51% { transform: translateY(-3px) scale(1.08); } 53%, 100% { transform: none; } }
+.e9-it1 { animation-name: sd-e9-it1; }
+@keyframes sd-e9-it1 { 0%, 51% { transform: none; } 52.5% { transform: translateY(-3px) scale(1.08); } 54.5%, 100% { transform: none; } }
+.e9-it4 { animation-name: sd-e9-it4; }
+@keyframes sd-e9-it4 { 0%, 55% { transform: none; } 56.5% { transform: translateY(-2px) scale(1.15); } 58.5%, 100% { transform: none; } }
+
+/* Manila de frente: caras y brazos a fotogramas */
+.e9-ca { animation-name: sd-e9-ca; }
+@keyframes sd-e9-ca {
+  0%, 25%, 39% { opacity: 1; animation-timing-function: steps(1, end); }
+  21%, 35%, 60%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e9-cb { animation-name: sd-e9-cb; }
+@keyframes sd-e9-cb {
+  21%, 35% { opacity: 1; animation-timing-function: steps(1, end); }
+  0%, 25%, 39%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e9-cc { animation-name: sd-e9-cc; }
+@keyframes sd-e9-cc {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  60% { opacity: 1; animation-timing-function: steps(1, end); }
+  66%, 100% { opacity: 0; }
+}
+.e9-cd { animation-name: sd-e9-cd; }
+@keyframes sd-e9-cd { 0% { opacity: 0; animation-timing-function: steps(1, end); } 66%, 100% { opacity: 1; } }
+.e9-ar0 { animation-name: sd-e9-ar0; }
+@keyframes sd-e9-ar0 {
+  0%, 71% { opacity: 1; animation-timing-function: steps(1, end); }
+  60%, 75%, 100% { opacity: 0; animation-timing-function: steps(1, end); }
+}
+.e9-palma { animation-name: sd-e9-palma; }
+@keyframes sd-e9-palma {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  60% { opacity: 1; animation-timing-function: steps(1, end); }
+  66%, 100% { opacity: 0; }
+}
+.e9-empuja { animation-name: sd-e9-empuja; }
+@keyframes sd-e9-empuja {
+  0%, 66% { opacity: 0; animation-timing-function: steps(1, end); }
+  68.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  71%, 100% { opacity: 0; }
+}
+.e9-arf { animation-name: sd-e9-arf; }
+@keyframes sd-e9-arf { 0% { opacity: 0; animation-timing-function: steps(1, end); } 75%, 100% { opacity: 1; } }
+/* El disfraz, pieza a pieza: gafas que caen torcidas (y se enderezan con la mano), pelo que cae como un flan y suelta
+   una gota, taza que sale con un saltito */
+.e9-gafas { animation-name: sd-e9-gafas; }
+@keyframes sd-e9-gafas {
+  0% { opacity: 0; transform: translateY(-150px) rotate(-25deg); animation-timing-function: steps(1, end); }
+  64% { opacity: 1; transform: translateY(-150px) rotate(-25deg); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  66.5% { transform: translateY(2px) rotate(14deg); animation-timing-function: ease-out; }
+  67.3% { transform: translateY(-3px) rotate(11deg); animation-timing-function: ease-in; }
+  68.2% { transform: translateY(0) rotate(14deg); animation-timing-function: ease-in-out; }
+  69.5% { transform: translateY(-1px) rotate(-5deg); animation-timing-function: ease-in-out; }
+  70.5%, 100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+.e9-pelo { animation-name: sd-e9-pelo; }
+@keyframes sd-e9-pelo {
+  0% { opacity: 0; transform: translateY(-140px) scale(0.85, 1.2); animation-timing-function: steps(1, end); }
+  70% { opacity: 1; transform: translateY(-140px) scale(0.85, 1.2); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  72.5% { transform: translateY(0) scale(1.3, 0.6); animation-timing-function: ease-out; }
+  73.5% { transform: translateY(-2px) scale(0.9, 1.14); animation-timing-function: ease-in-out; }
+  74.5% { transform: translateY(0) scale(1.05, 0.95); animation-timing-function: ease-in-out; }
+  75.5%, 100% { opacity: 1; transform: translateY(0) scale(1, 1); }
+}
+.e9-gota { animation-name: sd-e9-gota; }
+@keyframes sd-e9-gota {
+  0%, 73% { opacity: 0; transform: translateY(0) scale(1, 1); animation-timing-function: steps(1, end); }
+  73.1% { opacity: 1; transform: translateY(0) scale(1, 1.3); animation-timing-function: ease-in; }
+  77% { opacity: 1; transform: translateY(70px) scale(0.9, 1.4); animation-timing-function: steps(1, end); }
+  77.1%, 100% { opacity: 0; transform: translateY(70px); }
+}
+.e9-brindis-m { animation-name: sd-e9-brindis-m; }
+@keyframes sd-e9-brindis-m {
+  0% { opacity: 0; transform: rotate(70deg); animation-timing-function: steps(1, end); }
+  75% { opacity: 1; transform: rotate(70deg); animation-timing-function: ease-in-out; }
+  85% { transform: rotate(70deg); animation-timing-function: ease-out; }
+  89% { transform: rotate(-18deg); animation-timing-function: ease-in-out; }
+  91.5% { transform: rotate(0deg); animation-timing-function: ease-in-out; }
+  93%, 100% { opacity: 1; transform: rotate(-6deg); }
+}
+.e9-taza-m { animation-name: sd-e9-taza-m; }
+@keyframes sd-e9-taza-m {
+  0%, 75% { transform: rotate(-70deg) scale(0.3); animation-timing-function: ease-out; }
+  76.5% { transform: rotate(-70deg) scale(1.15); animation-timing-function: ease-in-out; }
+  77.5%, 85% { transform: rotate(-70deg) scale(1); animation-timing-function: ease-out; }
+  89% { transform: rotate(12deg) scale(1); animation-timing-function: ease-in-out; }
+  92%, 100% { transform: rotate(0deg) scale(1); }
+}
+.e9-salpica { animation-name: sd-e9-salpica; }
+@keyframes sd-e9-salpica {
+  0%, 88.9% { opacity: 0; transform: translateY(0); animation-timing-function: steps(1, end); }
+  89% { opacity: 1; transform: translateY(0); animation-timing-function: ease-out; }
+  91% { opacity: 1; transform: translateY(-8px); animation-timing-function: ease-in; }
+  93%, 100% { opacity: 0; transform: translateY(2px); }
+}
+
+/* ---- Bucle mientras se ve: la mosca ronda entre las dos cabezas, a saltos, y se para un rato (Manila respira y
+   parpadea con cl-respira y cl-ojos) */
+@keyframes e9-mosca {
+  0%, 30%, 100% { transform: translate(0, 0) rotate(0deg); }
+  36% { transform: translate(10px, -6px) rotate(20deg); }
+  42% { transform: translate(18px, 2px) rotate(-10deg); }
+  48% { transform: translate(8px, 9px) rotate(-30deg); }
+  54% { transform: translate(-6px, 4px) rotate(10deg); }
+  60% { transform: translate(-12px, -5px) rotate(-15deg); }
+  66% { transform: translate(-2px, -8px) rotate(15deg); }
+  72% { transform: translate(4px, -1px) rotate(0deg); }
+}
+.ilu-anima .en-pantalla .e9-mosca { animation: e9-mosca 4.4s steps(22) infinite; }

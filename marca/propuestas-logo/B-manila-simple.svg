@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
+  <title>AutonomIA</title>
+  <!-- Propuesta B (empleado 594): Manila simplificada para 24-48 px (barra de tareas, icono del Escritorio, favicon).
+       Solo la carpeta con su cara y la hoja que asoma, con trazo grueso. El calco va corto para que no emborrone. -->
+  <style>
+    .t{fill:none;stroke:#1d1b16;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+    .am{fill:#f5c518}.ma{fill:#f2e2ab}.ho{fill:#fbf8ef}
+  </style>
+  <!-- carpeta de detrás, con la pestaña a la izquierda -->
+  <path class="ma" d="M6.5 19 8 10.8c.2-1 .8-1.5 1.8-1.5l8.2-.2 2 3.6 18.6-.5c1 0 1.6.6 1.6 1.6l.3 7.4z"/>
+  <path class="t" d="M6.5 19 8 10.8c.2-1 .8-1.5 1.8-1.5l8.2-.2 2 3.6 18.6-.5c1 0 1.6.6 1.6 1.6l.3 6"/>
+  <!-- la hoja que asoma -->
+  <path class="ho t" stroke-width="2.2" d="M14 18 15 5.8l17.8 1.6-.9 10.3z"/>
+  <!-- carpeta delantera, amarilla, con el calco corto -->
+  <path class="am" d="M3.6 18.6C16.5 17.5 29 16.8 43.4 16.2L42 42.2c-12 .7-24 .7-36.6.3z" transform="translate(1.6 1.4)"/>
+  <path class="t" d="M3.6 18.6C16.5 17.5 29 16.8 43.4 16.2L42 42.2c-12 .7-24 .7-36.6.3z"/>
+  <!-- la cara: ojos de raya y sonrisa -->
+  <path class="t" stroke-width="3.4" d="M17 25.2v5.6M29.5 24.6v5.6"/>
+  <path class="t" stroke-width="2.6" d="M18 35c3.4 2.6 8.2 2.6 11.6-.6"/>
+</svg>

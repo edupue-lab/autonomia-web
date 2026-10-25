@@ -1,0 +1,123 @@
+/* v5 (465, ayudante E): la maqueta de estudio. Va la ÚLTIMA, después de los archivos de las escenas, y solo toca
+   composición: la escala de titulares, el ritmo entre secciones, el tamaño del escenario en el ordenador, los textos
+   que antes iban en tarjetas y los pies de «ejemplo». Nada de aquí mueve nada (sin animaciones ni transiciones).
+
+   - Escala: un solo tamaño de titular de escena en el ordenador (--s-titular, por debajo del titular de la portada,
+     que manda), siempre en dos líneas como mucho; el resto, los tamaños de v5.css.
+   - Ritmo: el hueco entre secciones baja (antes, ~290 px de papel vacío entre una escena y la siguiente en el
+     ordenador y ~180 en el móvil), y una escena fija termina en su dibujo, sin banda de papel debajo: el paso de una
+     a otra lo cuenta lo que viaja (acompanante.css), no un corte en blanco.
+   - Escenario: en el ordenador, más alto (84svh) y sangrado hasta el borde derecho de la pantalla, para que el dibujo
+     llene la composición en vez de quedarse en media pantalla.
+   - Sin tarjetas de una frase ni pies grises: la Multa se escribe sobre el papel con jerarquía (una frase grande, el
+     texto y la firma a boli), y los avisos de «es un ejemplo» pasan a ser notas a boli al margen (.boli-pie). */
+
+/* ------------------------------------------------------------ escala y ritmo */
+:root {
+  --hueco: clamp(3rem, 1.6rem + 4.2vw, 6.5rem);
+  --s-titular: clamp(2.25rem, 0.75rem + 3.9vw, 4.25rem);
+  --alto-escenario: min(84svh, 720px);
+  /* lo que el escenario sale de la caja de .ancho hasta el borde derecho de la pantalla */
+  --sangra: max(1rem, (100vw - var(--ancho)) / 2 + 1rem);
+}
+@media (min-width: 48rem) { :root { --sangra: max(2rem, (100vw - var(--ancho)) / 2 + 2rem); } }
+
+h2 { margin-bottom: 0.32em; }
+@media (min-width: 64rem) {
+  h2, .demo-cabeza h2 { font-size: var(--s-titular); max-width: 16ch; }
+  /* «Cómo se empieza» va solo, a todo el ancho: una línea */
+  .empezar h2 { max-width: none; }
+}
+/* Los h3 de las listas de texto no dejan una palabra sola en la segunda línea */
+h3, .paso-par h3, .garantias h3, .etapa h3 { text-wrap: balance; }
+.historia-cabeza > p, .dia-cabeza p { max-width: 38ch; text-wrap: pretty; }
+
+/* Una escena fija termina en su dibujo: sin el hueco de debajo (solo lo que pisa la pestaña de la siguiente) */
+.seccion:has(.escena-fija) { padding-bottom: calc(var(--alto-pestana) + 0.75rem); }
+.seccion:has(.escena-fija) > .ancho > :last-child:not(.escena-fija) { margin-bottom: 0; }
+
+/* La letra pequeña de la seguridad (dónde se procesa lo que lee) es información que se lee entera: a tamaño de texto */
+.letra-pequena { font-size: var(--s-texto); max-width: 62ch; }
+
+/* ------------------------------------------------------------ el escenario en el ordenador */
+@media (min-width: 64rem) {
+  .escena-fija > .escenario, .seg-historia .escenario-dibujo { margin-right: calc(-1 * var(--sangra)); }
+  /* «Cada día» por debajo de dos pantallas: un solo fragmento de interfaz, el de la nota simple que no cuadra (el
+     resto ya lo cuenta el dibujo: el Excel, la lista tachada, las facturas), y la escena a 170svh */
+  .dia-escritorio { --alto-escena: 170svh; }
+  .dia-escritorio .paso:not(.paso-2) .paso-vista { display: none; }
+  .dia-escritorio .pasos { gap: 2.25rem; }
+}
+
+/* ------------------------------------------------------------ la Multa: el texto sobre el papel */
+/* Sin las dos tarjetas blancas: una frase grande (lo que hace), la explicación a tamaño de texto y la firma escrita a
+   boli, como la nota de la carpeta «Para ti» (el mismo «tú lo revisas»). */
+.multa-seccion .multa-pasos { gap: 0.85rem; }
+.multa-seccion .multa-pasos .tarjeta { background: none; clip-path: none; padding: 0; }
+.multa-seccion .multa-pasos li:first-child p {
+  font: 680 var(--s-sub) var(--t-titulo); font-stretch: 82%; line-height: 1.12; letter-spacing: -0.01em; max-width: none;
+  text-wrap: balance;
+}
+.multa-seccion .multa-pasos li:nth-child(2) p:first-child { font-size: var(--s-texto); line-height: 1.45; max-width: 34ch; }
+.multa-seccion .multa-pasos .multa-firma {
+  display: inline-block; margin-top: 0.7rem; color: var(--boli-trazo);
+  font: italic 560 var(--s-sub) var(--t-titulo); font-stretch: 95%; line-height: 1.15; rotate: -2deg; transform-origin: 0 50%;
+}
+@media (min-width: 64rem) {
+  .multa-seccion .multa-pasos { gap: 1.5rem; }
+  .multa-seccion .multa-pasos li:first-child p { font-size: var(--s-medio); line-height: 1.08; }
+}
+
+/* ------------------------------------------------------------ los avisos de «ejemplo», a boli al margen */
+.boli-pie, .demo-pie.boli-pie, .movil .boli-pie, .seg-escenario .impreso .boli-pie {
+  margin: 0.9rem 0 0; max-width: 32ch; color: var(--boli-trazo);
+  font: italic 560 var(--s-texto) var(--t-titulo); font-stretch: 95%; line-height: 1.25;
+  rotate: -1.2deg; transform-origin: 0 50%; text-wrap: balance;
+}
+.movil .boli-pie { margin-inline: auto 0; text-align: right; rotate: 1.5deg; transform-origin: 100% 50%; }
+.dia .boli-pie { margin-top: 1.5rem; }
+/* F1 (465): la nota apunta a lo que anota con una flecha a boli, como la acotación de un diseñador al margen de la
+   prueba; deja de leerse como un aviso al pie. */
+.boli-pie { position: relative; padding-left: 2.6rem; }
+.boli-pie::before {
+  content: ""; position: absolute; left: 0; top: -1.15rem; width: 2.2rem; height: 2rem; background: var(--boli-trazo);
+  -webkit-mask: url("flecha-boli.svg") center / contain no-repeat; mask: url("flecha-boli.svg") center / contain no-repeat;
+}
+.movil .boli-pie { padding-left: 0; padding-right: 2.6rem; }
+.movil .boli-pie::before { left: auto; right: 0; scale: -1 1; }
+
+/* F1 (465): las tijeras sobre la línea de corte del cupón */
+.cupon-cuerpo .tijeras { position: absolute; z-index: 1; top: -17px; left: 2.2rem; width: 50px; height: 30px; --trazo: 2.2; overflow: visible; }
+@media (min-width: 60rem) {
+  .cupon-cuerpo .tijeras { top: 2.4rem; left: -28px; rotate: 90deg; }
+}
+
+/* ------------------------------------------------------------ F2 (465) · TU PÁGINA: el móvil, dibujado */
+/* El marco es un dibujo Calco (trazo que no cierra recto, calco manila corrido) estirado a la medida de la pantalla;
+   la mano del autónomo lo sujeta por la izquierda y Manila asoma por detrás de la esquina. Los mensajes están desde
+   el principio (v5.js solo pulsa «De siempre»), así que el marco nunca está vacío. */
+.movil { position: relative; isolation: isolate; padding: 0.9rem 0.75rem 1.4rem; }
+.movil-marco { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; --trazo: 2.8; overflow: visible; }
+.movil-manila {
+  position: absolute; z-index: -2; right: -2.4rem; top: -5.6rem; width: 6.6rem; height: auto; --trazo: 2.4;
+  rotate: 12deg; overflow: visible;
+}
+/* En una columna, el dibujo de la foto ya trae a Manila justo encima: aquí no se repite */
+@media (max-width: 59.99rem) { .movil-manila { display: none; } }
+/* El visto a boli sobre «De siempre»: se traza cuando se pulsa (v5.js pone .pulsada); quieto, ya está */
+.movil-visto { width: 1.7rem; height: auto; margin: -0.55rem 0 0 -1.1rem; align-self: flex-start; position: relative; z-index: 1; overflow: visible; }
+.movil-visto .cl-bo { stroke-width: 3; stroke-dasharray: 100; stroke-dashoffset: 0; } /* se traza: v5.css */
+.movil .movil-pantalla { background: none; border: 0; clip-path: none; border-radius: 0; filter: none; padding: 0.4rem 0.5rem 0.6rem; }
+.movil-barra { border-bottom: 0; padding-bottom: 0.2rem; }
+/* Las burbujas, sin caja de interfaz: manchas planas de color, como recortes pegados en la pantalla */
+.movil .burbuja { border: 0; }
+.movil .burbuja-tu { background: var(--amarillo-suave); rotate: 0.6deg; }
+.movil .burbuja-ia { background: color-mix(in srgb, var(--carpeta-2) 34%, var(--hoja)); rotate: -0.5deg; }
+
+/* 468: en el ordenador la rueda baja a golpes de 100-120 px y las escenas fijas duraban 4 o 5 golpes (la portada y los
+   permisos, menos de media pantalla de recorrido). Ahora cada una tiene al menos 1,1 pantallas de recorrido fijo y
+   motor.js amortigua cada golpe. En el móvil no cambia nada. */
+@media (min-width: 64rem) {
+  .portada-historia, .seg-historia, .dia-escritorio, .dia-historia { --alto-escena: 210svh; }
+  .multa-historia { --alto-escena: 215svh; }
+}

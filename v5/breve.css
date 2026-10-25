@@ -1,0 +1,253 @@
+/* v5 (469): la página, a la mitad. Feedback del 19/10: a los compañeros de Edu les encantaron la estética y las
+   animaciones, pero había demasiado texto y la página era muy larga (~22 pantallas en el móvil y ~20,5 en el
+   ordenador). Va la ÚLTIMA, después de maqueta.css, y solo hace tres cosas:
+   - «Saber más»: cada escena deja a la vista su titular y una o dos frases; lo demás va en un <details> cerrado.
+   - Alturas: las escenas fijas duran menos (en el móvil, un alto mínimo propio en vez de los huecos entre tarjetas; en
+     el ordenador, unas 1,55-1,65 pantallas de recorrido). E7, «Un martes de un tasador», se quitó aquí y volvió en el
+     472 con su puente: a la vista, el titular, una frase y el dibujo; las horas, en su «Saber más».
+   - El WhatsApp a mitad del recorrido, como una línea discreta al final de «Tu página». */
+
+/* ------------------------------------------------------------ Saber más */
+.saber-mas { margin-top: 0.75rem; max-width: 40rem; }
+.saber-mas > summary {
+  list-style: none; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; cursor: pointer;
+  color: var(--boli-trazo); font: italic 600 var(--s-texto) var(--t-titulo); font-stretch: 95%; line-height: 1.2;
+  text-decoration: underline 2px; text-underline-offset: 0.28em; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  -webkit-tap-highlight-color: transparent;
+}
+.saber-mas > summary::-webkit-details-marker { display: none; }
+.saber-mas > summary::before {
+  content: ""; flex: none; width: 1.15rem; height: 1.15rem; background: currentColor;
+  -webkit-mask: url("mas-boli.svg") center / contain no-repeat; mask: url("mas-boli.svg") center / contain no-repeat;
+  transition: rotate 260ms cubic-bezier(.34, 1.56, .64, 1);
+}
+.saber-mas > summary:hover { text-decoration-color: currentColor; }
+.saber-mas[open] > summary::before { rotate: 45deg; }
+.saber-mas > :not(summary) { margin-top: 0.6rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .saber-mas[open] > :not(summary) { animation: sm-abre 300ms cubic-bezier(.22, 1, .36, 1) both; }
+}
+@keyframes sm-abre { from { opacity: 0; transform: translateY(-8px); } }
+/* Abierto, se lee como una hoja de la carpeta: papel algo más claro, sin caja de interfaz */
+.saber-mas[open] { padding: 0.15rem 1rem 1rem; margin-inline: -1rem; background: color-mix(in srgb, var(--hoja) 70%, transparent); }
+.saber-lista { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
+.saber-lista li { font-size: var(--s-texto); line-height: 1.5; color: var(--tinta); max-width: 60ch; }
+.saber-lista strong { font-weight: 700; }
+.garantias-breve { margin: 0; padding: 0; list-style: none; display: grid; gap: 1rem; }
+.garantias-breve h3 { font-size: var(--s-texto); margin: 0 0 0.25rem; }
+.garantias-breve p { margin: 0; max-width: 60ch; }
+.saber-mas .letra-pequena { margin: 1rem 0 0; }
+.saber-mas .panel-bloque { margin-bottom: 1rem; }
+.saber-mas .panel-bloque h3 { margin: 0 0 0.3rem; }
+.saber-mas .panel-charla { margin: 0 0 1rem; }
+.saber-mas .charla { padding: 1.5rem 1.25rem; }
+.saber-mas .panel-final { margin: 0; }
+.saber-mas .lista-pestana { margin: 0; }
+.saber-dossier { margin: 1rem 0 0; }
+.saber-dossier a { display: inline-flex; align-items: center; min-height: 44px; font: 700 var(--s-texto) var(--t-titulo); font-stretch: 88%; }
+/* En las escenas fijas del móvil, el texto que sube va por encima del dibujo: el desplegable, también */
+.historia-pasos .saber-mas { position: relative; z-index: 4; }
+
+/* El mismo gesto para plegar la elección de oficio y correo de la demo en el móvil (demo.js) */
+.demo-cambiar {
+  justify-self: start; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; padding: 0; border: 0;
+  background: none; cursor: pointer; color: var(--boli-trazo); font: italic 600 var(--s-texto) var(--t-titulo);
+  font-stretch: 95%; text-decoration: underline 2px; text-underline-offset: 0.28em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+}
+.demo-cambiar::before {
+  content: ""; flex: none; width: 1.15rem; height: 1.15rem; background: currentColor;
+  -webkit-mask: url("mas-boli.svg") center / contain no-repeat; mask: url("mas-boli.svg") center / contain no-repeat;
+  transition: rotate 260ms cubic-bezier(.34, 1.56, .64, 1);
+}
+.demo-cambiar[aria-expanded="true"]::before { rotate: 45deg; }
+.demo-elige.plegada { display: none; }
+
+/* ------------------------------------------------------------ frases nuevas */
+.panel-frase { font-size: var(--s-texto); line-height: 1.5; max-width: 38ch; margin: 0; }
+.empezar-frase { max-width: 44ch; margin: 0 0 1.5rem; text-wrap: pretty; }
+.seg-historia .historia-cabeza > p { margin: 0; }
+
+/* ------------------------------------------------------------ «Se adapta a ti» + «Tu página»: un solo panel
+   (469: las dos secciones repetían idea). Titular, frase, «Saber más», la libreta (Manila apunta la corrección) y el
+   móvil dibujado con Manila asomando; al final, el WhatsApp discreto. */
+.panel { gap: 1.25rem; padding-bottom: 2rem; }
+.panel-derecha { display: contents; }
+.panel h2 { order: 0; margin-bottom: 0; }
+.panel .panel-frase { order: 1; }
+.panel .saber-mas { order: 2; margin: -0.5rem 0 0; }
+.panel .es-medida { order: 3; margin: 0; max-width: 24rem; }
+.panel .movil { order: 4; margin-top: 3.4rem; }
+.panel .charla-wa { order: 5; margin: 0; }
+.movil-manila { display: block; position: absolute; z-index: -2; right: -0.6rem; top: -4.4rem; width: 5.4rem; height: auto; --trazo: 2.4; rotate: 12deg; overflow: visible; }
+@media (min-width: 64rem) {
+  .panel {
+    min-height: 0; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: repeat(4, auto) 1fr;
+    column-gap: 4.5rem; row-gap: 1.1rem; align-items: start; padding-bottom: 3rem;
+  }
+  .panel-izquierda { display: contents; }
+  .panel h2 { grid-area: 1 / 1; margin: 0; }
+  .panel .panel-frase { grid-area: 2 / 1; }
+  .panel .saber-mas { grid-area: 3 / 1; margin: 0; }
+  .panel .es-medida { grid-area: 4 / 1; max-width: 26rem; margin-top: 0.75rem; }
+  .panel .charla-wa { grid-area: 5 / 1; align-self: end; }
+  .panel .movil { grid-area: 1 / 2 / 6 / 3; align-self: center; margin: 4rem 0 0; }
+  .movil-manila { right: -2.4rem; top: -5.6rem; width: 6.6rem; }
+}
+
+
+/* ------------------------------------------------------------ «Cómo se empieza» en el móvil: dibujo y rótulo en fila */
+@media (max-width: 59.99rem) {
+  .empezar .etapas { margin-top: 0.5rem; gap: 1.1rem; }
+  .empezar .etapa { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); column-gap: 1rem; align-items: center; }
+  .empezar .etapa .etapa-bloque { display: contents; }
+  .empezar .etapa .es-etapa, .empezar .etapa-1 .es-etapa, .empezar .etapa-3 .es-etapa { grid-column: 1; grid-row: 1 / span 2; max-width: none; margin: 0; }
+  .empezar .etapa h3 { grid-column: 2; margin: 0.3rem 0 0; align-self: start; }
+  .empezar .etapa .etapa-bloque { font-size: var(--s-texto); }
+}
+
+/* ------------------------------------------------------------ WhatsApp a mitad del recorrido: una línea discreta */
+.charla-wa { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; margin-top: 2rem; margin-bottom: 0; font-size: var(--s-texto); }
+.charla-wa .boton {
+  min-height: 44px; padding: 0; background: none; border: 0; box-shadow: none; clip-path: none; color: var(--boli-trazo);
+  font: italic 600 var(--s-texto) var(--t-titulo); font-stretch: 95%; text-decoration: underline 2px; text-underline-offset: 0.28em;
+  display: inline-flex; align-items: center;
+}
+.charla-wa .boton::before, .charla-wa .boton::after { content: none; }
+.charla-wa .boton, .charla-wa .boton:hover { filter: none; background: none; color: var(--boli-trazo); }
+.charla-wa .boton:hover { text-decoration-thickness: 3px; }
+
+/* ------------------------------------------------------------ alturas: el móvil y la tableta */
+@media (max-width: 63.99rem) {
+  /* Sin las tarjetas, la escena fija dura lo que diga su alto mínimo (con movimiento); sin él, su alto natural */
+  .dia-escritorio { min-height: calc(var(--sd-on, 0) * 120svh); }
+  .seg-historia { min-height: calc(var(--sd-on, 0) * 116svh); }
+  .dia-historia { min-height: calc(var(--sd-on, 0) * 120svh); }
+  .multa-historia::after { height: calc(var(--sd-on, 0) * 20svh); }
+  .dia-escritorio .pasos-breve, .seg-breve, .dia-historia .dia-cuerpo { margin-top: auto; }
+  /* La autorización dibujada solo cabe en el escenario del ordenador; en el móvil, lo cuenta el «Saber más» */
+  .seg-escenario .impreso { display: none; }
+}
+@media (max-width: 47.99rem) {
+  /* Con la elección de oficio plegada, el dibujo de la demo queda más arriba en su sección: se adelanta más (468: 9 %)
+     para que siga completo antes de pasar por el centro (mide3.py) */
+  [data-escena="e3"] { --sd-adelanto: 14%; }
+  /* Menos papel entre sección y sección (antes 3rem arriba y abajo de cada una) */
+  :root { --hueco: 2.25rem; }
+  /* La carpeta «Para ti» de la portada, más apretada: la lista se lee igual con la letra de texto */
+  .entregas-lista .archivo { font-size: var(--s-texto); }
+  .entregas-lista li { padding-block: 0.55rem; }
+  .entregas figcaption { margin-top: 0.4rem; }
+  /* La demo: los pasos a tamaño de texto y las pestañas de oficio algo más bajas */
+  .demo-pasos li > span { font-size: var(--s-texto); }
+  .demo-pestanas button { min-height: 46px; padding-block: 0.4rem; }
+  /* En el móvil, del correo basta con quién lo manda, el asunto y el adjunto: el cuerpo se queda en el ordenador */
+  .demo-correo .demo-cuerpo { display: none; }
+  /* La carpeta «Para ti» de la portada repetía lo que enseña la demo justo después (la carpeta con el resultado): en
+     el móvil se queda el dibujo, que dura lo justo para que la carpeta se abra (alto mínimo con movimiento) */
+  .portada-pasos { display: none; }
+  .portada-historia { min-height: calc(var(--sd-on, 0) * 118svh); }
+  .cupon-cabeza > p { display: none; }
+  .panel .es-medida { max-width: 18rem; }
+  .panel .movil { margin-top: 2.8rem; }
+  /* El cierre: el contacto y el nombre a todo el ancho, algo más bajos */
+  .ct-manila { width: min(100%, 15rem); }
+  .cupon-cabeza { padding-block: 1.5rem 1.25rem; }
+  .pie-marca { height: 7rem; margin-bottom: 2rem; }
+}
+
+/* ------------------------------------------------------------ alturas: el ordenador */
+@media (min-width: 64rem) {
+  /* Menos papel entre secciones (antes hasta 6,5rem arriba y abajo de cada una) */
+  :root { --hueco: clamp(3rem, 1rem + 3vw, 4.25rem); }
+  /* Fijas más cortas que en el 468 (210-215svh); motor.js amortigua ahora en ~0,3 s, así que cada golpe de rueda se
+     sigue viendo como un deslizamiento y no como un salto */
+  .portada-historia { --alto-escena: 142svh; }
+  .dia-escritorio, .seg-historia, .dia-historia { --alto-escena: 142svh; }
+  /* 472: con las horas plegadas en «Saber más», su vista previa no se enseña bajo el dibujo hasta que se abre */
+  .dia-historia:has(.saber-mas:not([open])) .dia-ventana { display: none; }
+  .multa-historia { --alto-escena: 148svh; }
+  .pie-marca { height: clamp(9rem, 20vw, 26svh); }
+  .seg-historia .garantias-breve { gap: 0.8rem; }
+}
+
+/* ------------------------------------------------------------ 479: las fijas, sin tramos para «rascar» */
+/* Las escenas van ahora por tiempo y en bucle (motor.js), así que el recorrido extra de las fijas, que solo servía
+   para que el scroll fuera avanzando la coreografía, sobra: cada fija dura lo que su texto, con el dibujo pegado al
+   lado (ordenador) o arriba (móvil) mientras se lee. No se quita ninguna escena. */
+@media (min-width: 64rem) {
+  .portada-historia, .dia-escritorio, .seg-historia, .dia-historia, .multa-historia { --alto-escena: 100svh; }
+  .garantias { gap: 1.5rem; }
+  .dia-lista { gap: 4px; }
+}
+@media (max-width: 63.99rem) {
+  .portada-historia, .dia-escritorio, .seg-historia, .dia-historia { min-height: 0; }
+  .dia-escritorio::after, .dia-historia::after, .multa-historia::after { height: 0; }
+  .pasos, .garantias, .dia-escritorio .pasos { gap: 1.25rem; }
+  .seg-historia .garantias { gap: 1.5rem; }
+  .dia-lista { gap: 0.5rem; }
+}
+@media (max-width: 47.99rem) { .portada-historia { min-height: 0; } }
+/* 479: dónde empieza la salida de cada escena (Manila se va por abajo, acompanante.css): hasta ahí llega la entrada y
+   ahí se queda en su tarea, con sus bucles propios, hasta que la escena deja el centro de la pantalla. Sin valor, la
+   escena no tiene salida dibujada y se queda en su último fotograma.
+   485: el reposo cae al final del tramo quieto de Manila (antes de que coja aire), para que la tarea no arranque a
+   medio gesto ni la deje un poco aplastada en todo el bucle (quieto.py en .taste-skill/v5-485 lo comprueba). */
+[data-escena="e1"] { --sd-sale: 0.91; }
+[data-escena="e3"] { --sd-sale: 0.89; }
+[data-escena="e2"] { --sd-sale: 0.865; }
+[data-escena="e8"] { --sd-sale: 0.89; }
+/* E5 (485; 585 lo trae de tarea.css, que ya carga motor.js): justo después de escribir, el «12» subrayado y cara de
+   alivio; su SALIDA es el final dibujado de sd-e5-* (se seca el sudor, suelta el boli y salta fuera) */
+[data-escena="e5"] { --sd-sale: 0.425; }
+
+/* ------------------------------------------------------------ (658) Más o menos movimiento
+   Edu (22/10): que la web se vea animada aunque el aparato pida «reducir movimiento». movimiento.js decide el modo
+   (suave si el aparato lo pide o si se elige «Menos movimiento», y se recuerda) y hace que las reglas de siempre
+   funcionen; aquí, el botón y lo que cambia en el modo suave: entradas con poco recorrido, sin rebotes de muelle (las
+   curvas pasan a la que frena sin pasarse) y sin la Manila del cordel, que sigue al scroll. */
+.movimiento[hidden], .pie-movimiento[hidden] { display: none; }
+@media (max-width: 47.99rem) { .cabecera .movimiento { display: none; } } /* en el móvil, abajo, en el pie */
+.movimiento .icono-mov { flex: none; }
+.pie-movimiento { /* como el enlace de al lado */
+  min-height: 24px; padding: 0; background: none; border: 0; cursor: pointer; font: inherit; color: var(--sobre-oscuro);
+  text-decoration: underline; text-decoration-color: var(--subrayado); text-decoration-thickness: 0.12em; text-underline-offset: 0.18em;
+}
+.pie-movimiento:hover { text-decoration-thickness: 0.18em; text-underline-offset: 0.26em; text-decoration-color: currentColor; }
+:root.mov-suave {
+  --muelle: var(--suave); --resorte: var(--suave);
+  --muelle-vivo: var(--muelle-suave); --muelle-pesado: var(--muelle-suave);
+  --sube-carpeta: 14px;
+}
+:root.mov-suave .acompanante { display: none !important; }
+:root.mov-suave .anima [data-sube]:not(.visto) { transform: translateY(8px); }
+:root.mov-suave .js .pila .carpeta { animation-name: sube; }
+
+/* ------------------------------------------------------------ (635) Movimiento físico, con mesura
+   Edu (22/10): que lo que se toca se mueva como un objeto, con resorte y peso. Resortes de verdad en CSS linear()
+   (calculados con skills-comunes/movimiento-fisico/generar_linear.py) en vez de la curva que se pasa una sola vez:
+   --muelle es un resorte blando (ζ 0.5: se pasa un 16 % y vuelve) y --resorte uno firme (ζ 0.72: un 4 %). Solo cambian
+   los controles (botones, pestañas, «Saber más»); los dibujos y sus bucles siguen con sus curvas. Donde el navegador no
+   sabe linear(), todo sigue como antes, y con «reducir movimiento», también (sin rebotes).
+   Lo de JavaScript (el imán de las pestañas y Manila con peso), en fisica.js. */
+@media (prefers-reduced-motion: no-preference) {
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --muelle: linear(0, 0.007 1%, 0.034 2.2%, 0.079 3.5%, 0.137 4.8%, 0.281 7.2%, 0.594 12%, 0.719 14%, 0.845 16.2%,
+      0.940 18.2%, 1.018 20.2%, 1.077 22.2%, 1.120 24.2%, 1.147 26.2%, 1.163 29.2%, 1.154 32.5%, 1.128 35.8%,
+      1.018 46.8%, 0.991 51%, 0.977 55.2%, 0.975 62%, 1.003 83%, 1);
+    --resorte: linear(0, 0.006 1.5%, 0.026 3.2%, 0.064 5.2%, 0.113 7.2%, 0.217 10.8%, 0.571 21.5%, 0.671 25%,
+      0.753 28.2%, 0.818 31.2%, 0.877 34.5%, 0.925 37.8%, 0.962 41%, 0.994 44.8%, 1.017 48.8%, 1.031 53%, 1.038 57.8%,
+      1.036 66%, 1);
+  }
+  /* Al soltar, el botón vuelve a su sitio con resorte; al apretar, se hunde al momento (90 ms, como antes) */
+  .boton, .dia-modo, .llamadnos > summary, .tema { transition-duration: 460ms; }
+  .tema:active { transition-duration: 90ms; }
+  .carpeta .pestana { transition-duration: 560ms; }
+  .saber-mas > summary::before { transition: rotate 520ms var(--muelle); }
+  /* «Saber más» se abre como un cajón que cae en su sitio: baja con resorte firme y aparece en el primer tercio */
+  .saber-mas[open] > :not(summary) { animation: sm-cae 520ms var(--resorte) both, sm-aparece 200ms ease-out both; }
+}
+}
+@keyframes sm-cae { from { translate: 0 -14px; } }
+@keyframes sm-aparece { from { opacity: 0; } }

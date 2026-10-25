@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self' https://pc-salon.tail9a0eeb.ts.net; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="same-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El dossier de AutonomIA</title>
+<meta name="description" content="El dossier de AutonomIA, para leerlo con calma: qué es y qué te quita en cada oficio, cómo funciona paso a paso, la seguridad y los permisos, qué hace y qué no, y las preguntas más frecuentes.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fafaf8">
+<meta name="color-scheme" content="only light">
+<link rel="icon" href="../favicon.ico?v=614" sizes="16x16 24x24 32x32 48x48 64x64">
+<link rel="icon" href="../marca/logo/manila-16.svg" type="image/svg+xml">
+<link rel="preload" href="../fuentes/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../marca/fuentes/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../marca/marca.css">
+<link rel="stylesheet" href="v5.css?v=614">
+<link rel="stylesheet" href="ilustra.css?v=660">
+<link rel="stylesheet" href="escenas.css?v=660">
+<link rel="stylesheet" href="dossier.css?v=469">
+<script src="../tema.js"></script>
+<script src="tema-v5.js?v=585" defer></script>
+<script src="dossier.js?v=469" defer></script>
+</head>
+<body class="dossier-cuerpo">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<!-- 469 (Edu, 19/10): no hay dossier en PDF aparte; la web hace de dossier. Esta página es lo que antes iba en los
+     «Saber más» del recorrido, ordenado para leerlo con calma, imprimirlo o guardarlo en PDF desde el navegador.
+     Las ilustraciones son las del recorrido, quietas (sin ilustra.js, cada una en su último fotograma). -->
+<header class="cabecera">
+  <div class="ancho cabecera-fila">
+    <a class="logo" href="../" aria-label="AutonomIA, volver al recorrido">
+      <img class="logo-manila" src="../marca/logo/manila-pequeno.svg" alt="" width="40" height="40">
+      <img class="am-solo-claro" src="../marca/logo/autonomia-claro.svg" alt="AutonomIA" width="150" height="38">
+      <img class="am-solo-oscuro" src="../marca/logo/autonomia-oscuro.svg" alt="AutonomIA" width="150" height="38">
+    </a>
+    <a class="cabecera-contacto" href="../">Recorrido</a>
+    <a class="cabecera-contacto" href="#siguiente-paso">Contacto</a>
+    <button class="tema" type="button" data-tema aria-label="Cambiar a tema oscuro">
+      <svg class="icono-luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <svg class="icono-sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="tema-texto">Oscuro</span>
+    </button>
+  </div>
+</header>
+
+<main id="contenido" class="dossier">
+  <div class="ancho dossier-hoja">
+
+    <header class="dossier-portada">
+      <p class="dossier-pestana">Para leer con calma</p>
+      <h1>El dossier de AutonomIA</h1>
+      <p class="dossier-entrada">Aquí está todo lo que cuenta la página, en orden y con más detalle: qué es, qué te quita en tu oficio, cómo se pone en marcha, cómo cuida tus datos y qué hace y qué no. Puedes imprimirlo o guardarlo en PDF desde el navegador.</p>
+      <p class="dossier-acciones"><button type="button" class="boton boton-secundario" data-imprime hidden>Imprimir o guardar en PDF</button></p>
+    </header>
+
+    <nav class="dossier-indice" aria-labelledby="indice-titulo">
+      <h2 id="indice-titulo">Índice</h2>
+      <ol>
+        <li><a href="#que-es">Qué es y qué te quita</a></li>
+        <li><a href="#como-funciona">Cómo funciona, paso a paso</a></li>
+        <li><a href="#seguridad">Seguridad y permisos</a></li>
+        <li><a href="#que-hace-y-que-no">Qué hace y qué no</a></li>
+        <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        <li><a href="#siguiente-paso">El siguiente paso</a></li>
+      </ol>
+    </nav>
+
+    <section class="capitulo" id="que-es" aria-labelledby="que-es-t">
+      <h2 id="que-es-t">Qué es y qué te quita</h2>
+      <div class="capitulo-con-dibujo">
+        <div>
+          <p>AutonomIA es una inteligencia artificial que entra en tu ordenador con tu permiso, aprende cómo trabajas y te hace el papeleo igual que lo harías tú. Tú pasas a ser el jefe de tu empleado de inteligencia artificial: le encargas las cosas, él las prepara y tú las revisas.</p>
+          <p>No es un programa al que le pasas las facturas cada trimestre. Funciona solo: lee tu correo y tus PDF, busca lo que hace falta y te deja el trabajo preparado en tu carpeta, con tus plantillas y con tus palabras.</p>
+        </div>
+        <figure class="dossier-dibujo"><svg class="dossier-ilu ilu es es-queno ilu-papel-claro" viewBox="0 0 300 172" aria-hidden="true" focusable="false">
+        <path class="cl-t cl-f" d="M6 162c70-2 180 1 288-1"/>
+        <g class="sd e2-tapa"><path class="cl-ma cl-t cl-f" d="M3 160 15 99l12 2-12 61z"/></g>
+        <path class="cl-ma" d="M16 114 30 102l98-4-14 12z"/>
+        <path class="cl-t cl-f" d="M16 114l14-12 98-4"/>
+        <g class="sd e2-cordel"><path class="cl-t cl-f" d="M56 -2c.5 6-.5 13 0 20"/></g>
+        <g class="sd e2-manila"><g transform="translate(150 20)"><g class="sd e2-salto"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
+          <g class="sd e2-pie"><path class="cl-t" d="M74 116l2 23h8"/><g class="sd e2-pegado"><path class="cl-ho cl-t cl-f" d="M78 131l13-3 2 9-13 3z"/></g></g>
+          <path class="cl-t" d="M38 118 36 141h8"/>
+          <path class="cl-ma" d="M30 46 33 31c.5-2 1.5-3 3.5-3l19-.5 5 10 46-1.5c2.5 0 3.5 1.5 3.5 4L110 100 32 104z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M30 46 33 31c.5-2 1.5-3 3.5-3l19-.5 5 10 46-1.5c2.5 0 3.5 1.5 3.5 4L110 100"/>
+          <g class="sd e2-hoja"><path class="cl-ho cl-t cl-f" d="M40 55 42.5 34 88 37.5 84 57z"/>
+          <path class="cl-t cl-f cl-en" d="M51.5 42l23 1.6"/></g>
+          <path class="cl-am" d="M10 57c30-3 58-5 85-6L93 111c-26 3-52 6-79 8z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M10 57c30-3 58-5 85-6L93 111c-26 3-52 6-79 8zM95 51l7 2.5-1.5 55-7.5 2.5"/>
+          <path class="cl-sa mn-boca" d="M54.8 99.9c5.7 4 13.5 3.3 18.5-2.3"/>
+          <g class="mn-ojos"><g class="es-parpado"><path class="cl-sa mn-ojo" d="M53 78v11.5M75.5 76v11.5"/></g></g>
+          <g class="sd e2-brazo"><path class="cl-t" d="M12 84C3 89 1 99 6 107"/><path class="cl-t mn-palma" d="M6 107l2.8 4.6"/><path class="cl-t mn-pulgar" d="M8.5 104.5l4.6-1.4"/></g>
+          <g class="es-sobre"><path class="cl-ho cl-t cl-f" d="M86 76l29-4 2.5 20-29 4z"/><path class="cl-t cl-f cl-en" d="M86.5 76.5l16 9.5 13-13.5"/></g>
+          <path class="cl-t" d="M94 80c9 4 11 11 7 17"/><path class="cl-t mn-palma" d="M101 97l3.6-3.9"/><path class="cl-t mn-pulgar" d="M99.4 94.4l-1.4-4.8"/>
+        </g></g></g></g></g></g>
+        <g class="sd e2-papeles">
+          <path class="cl-ho cl-t cl-f" d="M36 108l-2-23 26-2 3 22M68 106l6-25 24 6-5 19M92 103l14-17 16 13-6 6"/>
+          <path class="cl-t cl-f cl-en" d="M40 92l15-1M77 89l13 3M103 92l7 6"/>
+        </g>
+        <path class="cl-ma" d="M16 114l98-4 1 50-98 2z" transform="translate(3.5 3)"/>
+        <path class="cl-ma cl-t" d="M16 114l98-4 1 50-98 2zM114 110l14-12 1 48-14 14z"/>
+        <path class="cl-t cl-f" d="M30 126c20-1 50-2 70-2M44 140l30-.5"/>
+        <g class="e2-polilla"><g class="e2-alas"><path class="cl-t cl-f" d="M97 106v3.5M97 107c-4-5-8-1-5 2.5M97 107c4-5 8-1 5 2.5"/></g></g>
+        <g class="sd e2-polvo"><path class="cl-t cl-f" d="M48 92v.5M86 84v.5M104 96v.5"/></g>
+      </svg></figure>
+      </div>
+
+      <h3>Si eres tasador</h3>
+      <ul class="dossier-lista">
+        <li>Cuando llega un encargo, lo lee, descarga la nota simple, la compara con el Catastro y te señala si la superficie no coincide.</li>
+        <li>Busca testigos de la zona y te los deja en tu Excel, para que tú elijas cuáles valen.</li>
+        <li>Te deja en el móvil la hoja de la visita y prepara el borrador del informe con tu plantilla.</li>
+        <li>Si una clienta pide cita, mira tu agenda y te deja escrita la respuesta con dos huecos para que ella elija.</li>
+        <li>Si el control de calidad te pide justificar algo, corrige el párrafo del borrador y te deja escrita la respuesta.</li>
+      </ul>
+
+      <h3>Si eres perito</h3>
+      <ul class="dossier-lista">
+        <li>Cuando te designan en un procedimiento, cuenta los plazos y prepara la aceptación del cargo y la provisión de fondos con tu formato.</li>
+        <li>Lee entero el informe de la parte contraria y te hace una nota con cada diferencia y la página donde está.</li>
+        <li>Cuando te citan para ratificar, apunta la vista, te prepara un resumen de una página y la minuta de honorarios.</li>
+      </ul>
+
+      <h3>Si eres arquitecto o arquitecto técnico</h3>
+      <ul class="dossier-lista">
+        <li>Si te piden honorarios para una reforma, busca la ficha del Catastro, prepara la propuesta con tus tarifas y te deja la respuesta escrita.</li>
+        <li>Si el ayuntamiento te hace un requerimiento, repasa la carpeta del proyecto, te dice qué tienes y qué falta, y prepara el escrito de respuesta.</li>
+        <li>Con las fotos de la obra, las ordena por fecha y compara lo que ha llegado con lo que dice el proyecto.</li>
+        <li>Para una inspección técnica o un certificado energético, saca del Catastro el año y la superficie, te dice el plazo y prepara el presupuesto y la hoja de la visita.</li>
+        <li>Antes de una visita de obra, busca el acta anterior y te resume lo que quedó pendiente.</li>
+      </ul>
+
+      <h3>Y en cualquier oficio, el papeleo de todos los días</h3>
+      <ul class="dossier-lista">
+        <li>Entra en tu correo y en tus webs, siempre con tu permiso y solo para leer.</li>
+        <li>Descarga las facturas de las webs donde están y las guarda en su carpeta.</li>
+        <li>Te avisa de los plazos, los de Hacienda y, si eres perito, los del juzgado, y te deja preparado el resumen del trimestre para que lo presentes tú o tu gestoría.</li>
+        <li>Con normas nuevas como Verifactu, te prepara los datos para que cumplas.</li>
+        <li>Le preguntas desde el móvil dónde está un archivo y te lo da en unos segundos.</li>
+      </ul>
+      <p class="dossier-nota">Los ejemplos son del día a día de cada oficio, con datos inventados.</p>
+    </section>
+
+    <section class="capitulo" id="como-funciona" aria-labelledby="como-funciona-t">
+      <h2 id="como-funciona-t">Cómo funciona, paso a paso</h2>
+      <ol class="dossier-pasos">
+        <li>
+          <figure class="dossier-dibujo dibujo-paso"><svg class="dossier-ilu ilu es es-etapa es-llamada ilu-hoja-entera" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+              <g class="hoja-osc"><path class="cl-ho" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z" transform="translate(2.5 2)"/><path class="cl-ho cl-t cl-f" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z"/></g>
+              <g class="es-k50" transform="translate(4 2) scale(.5)"><g class="es-in es-habla">
+                <path class="cl-ho cl-t" d="M30 186c2-30 18-46 50-47 31 0 47 17 50 47"/>
+                <path class="cl-t" d="M80 139v-12"/>
+                <path class="cl-ho cl-t" d="M52 70c-1-28 13-44 29-44 18 0 30 15 29 42-1 30-13 57-29 58-17 1-28-24-29-56z"/>
+                <path class="cl-ti" d="M50 60c0-22 14-36 32-35 13 1 27 9 29 30-8-7-14-14-17-20-8 9-24 14-44 25z"/>
+                <path class="cl-t" d="M58 76h17v12H58zM86 76h17v12H86zM75 81c4-2 7-2 11 0"/>
+                <path class="cl-t cl-f" d="M82 92c-1 5-3 9-6 12l7 1"/>
+                <path class="cl-t cl-f es-boca-a" d="M72 113c5 6 12 6 16-1-5 2-11 2-16 1z"/>
+                <path class="cl-t cl-f es-boca-b" d="M72 114c5 3 11 3 16-1"/>
+              </g></g>
+              <g class="es-in es-telefono">
+                <path class="cl-ho cl-t cl-f" d="M58 26l9-1.5 4 28-9 1.5z"/>
+                <path class="cl-t" d="M66 96c6-12 9-26 4-40"/>
+              </g>
+              <g class="es-ondas"><path class="cl-t cl-f es-o1" d="M77 34c3 3 3 8 0 11"/><path class="cl-t cl-f es-o2" d="M83 30c5 5 5 14 0 19"/></g>
+              <g class="es-reloj">
+                <path class="cl-ho" d="M130 27c11 0 19 8 19 19s-8 19.5-19.5 19C119 65 111 57 111 46c0-11 8-19.5 19-19z" transform="translate(2 1.8)"/>
+                <path class="cl-am es-cuna" d="M130 46V29.5a16.5 16.5 0 0 1 14.3 24.8z"/>
+                <path class="cl-t" d="M130 27c11 0 19 8 19 19s-8 19.5-19.5 19C119 65 111 57 111 46c0-11 8-19.5 19-19zM126 26.5l1-4h6l1 4"/>
+                <path class="cl-t cl-f" d="M130 30v3M146 46h-3M130 62v-3M114 46h3"/>
+                <path class="cl-t es-aguja" d="M130 46l14.3 8.2"/>
+              </g>
+              <path class="cl-t cl-f" d="M116.1 76.3c.3-.2 .9-1 1.5-1.2 .6-.2 1.6-.2 2 .1 .4 .4 .7 1.3 .5 2 -.2 .7-.7 1.3-1.5 2.4 -.8 1.1-3.4 3.7-3.2 4.4 .2 .7 3.7-.1 4.4-.1M124.1 75.3c-.3 .2-1.6 .6-2 1.4 -.4 .8-.7 2.4-.7 3.5 0 1.1 .1 2.5 .5 3.1 .4 .6 1.2 .7 1.8 .5 .5-.2 1.1-.9 1.5-1.9 .4-1 .7-2.7 .7-3.8 0-1.1-.2-2.1-.5-2.6 -.3-.4-1.2-.1-1.5-.1M130.7 78.3l-0.5 5.7M130.3 80.4c.3-.3 1-1.8 1.5-2 .5-.2 1.2-.3 1.4 .6 .2 .9-.2 4.1-.3 4.9M133.2 80.1c.2-.3 .7-1.6 1.2-1.8 .5-.2 1.3-.1 1.6 .7 .3 .8-.2 3-.1 3.9 .1 .9 .4 1.1 .5 1.3M138.8 78.8c-.1 .7-.4 3.5-.4 4.4 0 .9 .4 .7 .5 .8M139.3 76.5l0 0.1M140.9 78.5l-0.7 5.4M140.9 80c.3-.3 1-1.4 1.5-1.6 .5-.2 1.3-.5 1.6 .2 .3 .7-.1 3.3-.1 4.2 .1 .9 .3 1 .4 1.2"/>
+            </svg></figure>
+          <div>
+            <h3>Hablamos</h3>
+            <p>Una llamada con Eduardo, el fundador, de unos veinte minutos y sin visitas. Nos cuentas a qué te dedicas y qué te quita más tiempo, y si no vemos claro que podamos ayudarte, te lo decimos.</p>
+          </div>
+        </li>
+        <li>
+          <div class="sin-dibujo"></div>
+          <div>
+            <h3>Firmas la autorización</h3>
+            <p>En ella eliges qué carpetas puede mirar y en qué correo y webs puede entrar. Cuanto más de tu trabajo pueda ver, mejor lo hará; lo personal se queda fuera.</p>
+          </div>
+        </li>
+        <li>
+          <figure class="dossier-dibujo dibujo-paso"><svg class="dossier-ilu ilu es es-etapa es-instala ilu-hoja-entera" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+              <g class="hoja-osc"><path class="cl-ho" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z" transform="translate(2.5 2)"/><path class="cl-ho cl-t cl-f" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z"/></g>
+              <g class="sd e10-portatil">
+              <g class="es-portatil">
+                <path class="cl-ho" d="M22 12l116-4 3 66-117 4z" transform="translate(2.5 2)"/>
+                <path class="cl-t" d="M22 12l116-4 3 66-117 4z"/>
+                <path class="cl-ma" d="M8 80l144-2c3 4 4 8 4 11L4 91c0-4 1-8 4-11z" transform="translate(2.5 2)"/>
+                <path class="cl-t" d="M8 80l144-2c3 4 4 8 4 11L4 91c0-4 1-8 4-11z"/>
+                <path class="cl-t cl-f" d="M68 85h24"/>
+              </g>
+              <path class="cl-bo es-traza es-enlace" pathLength="100" d="M76 35c8-2 12 1 18-1s12-1 18-2M76 41l38-1.2"/>
+              <path class="cl-t cl-f es-p es-p1" d="M70 62h12"/><path class="cl-t cl-f es-p es-p2" d="M88 61.6h12"/><path class="cl-t cl-f es-p es-p3" d="M106 61.2h12"/>
+              <g class="es-cursor"><g class="es-clic">
+                <path class="cl-t cl-f es-chispa" d="M100 34l-3-3M104 32v-4M108 34l3-3"/>
+                <path class="cl-ho cl-t cl-f" d="M104 39l1.5 15 4-4.5 5 7 3-2-5-7 6-1.5z"/>
+              </g></g>
+              <g class="sd e10-icono"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
+                <path class="cl-ma cl-t cl-f" d="M33 31l1.5-7c.2-1 .8-1.4 1.6-1.4l9-.2 2.2 4.4 14-.5c1 0 1.5.6 1.5 1.6L61 47 33 48z"/>
+                <path class="cl-ho cl-t cl-f" d="M38.3 31l.5-6.2 15.6.8-.4 5.4"/>
+                <path class="cl-t cl-f" d="M41.7 27.3l7 .3"/>
+                <path class="cl-am" d="M30 31l33-2.5-1.5 20.5-30 .5z" transform="translate(1.6 1.4)"/>
+                <path class="cl-t cl-f" d="M30 31l33-2.5-1.5 20.5-30 .5z"/>
+                <g class="mn-ojos"><g class="es-parpado"><path class="cl-sa mn-ojo" d="M42 37.8v3.8M50.7 37.3v3.9"/></g></g>
+                <path class="cl-sa mn-boca" d="M42.7 44.8c2.1 1.3 5.2 1.2 7.1-.6"/>
+              </g></g></g></g>
+              <path class="cl-t cl-f es-nombre" d="M33 63l26-.6" pathLength="100"/>
+              </g>
+              <g class="sd e10-entra"><g transform="translate(94 12) scale(.56)"><g class="es-k58b">
+                <path class="cl-t" d="M44 116c-8 0-16-4-20-12l-7 2M80 118l12 15 9 1"/>
+                <path class="cl-am" d="M9 58c6-.5 10-1 14-1L22 117c-4 .2-8 .3-12 .3z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M9 58c6-.5 10-1 14-1L22 117c-4 .2-8 .3-12 .3z"/>
+                <path class="cl-ho cl-t cl-f" d="M37 56 38.5 33 84 35 81 56z"/>
+                <path class="cl-ma" d="M101 47 97 31c-.5-2-1.5-3-3.5-3l-23-.5-5 10.5-40-1.5c-2.5 0-3.5 1.5-3.5 4L20 115c28 2 55 2 84 0z" transform="translate(3.5 3)"/>
+                <path class="cl-ma cl-t" d="M101 47 97 31c-.5-2-1.5-3-3.5-3l-23-.5-5 10.5-40-1.5c-2.5 0-3.5 1.5-3.5 4L20 115c28 2 55 2 84 0z"/>
+                <path class="cl-t cl-f" d="M62 39 61 116"/>
+                <path class="cl-t" d="M16 76C6 70-2 60-6 48M104 80c8 6 16 8 24 4"/>
+                <path class="cl-t mn-palma" d="M-6 48l-1.6-4.7M128 84l4.5-2.2"/><path class="cl-t mn-pulgar" d="M-6.5 51l-4.8-1M125.5 86.5l2.8 4.2"/>
+              </g></g></g>
+              <path class="cl-t cl-f" d="M108 91.5c16 .3 32 0 48-.5"/>
+            </svg></figure>
+          <div>
+            <h3>La instalas con un enlace</h3>
+            <p>Te mandamos un enlace que no caduca. Lo abres en tu ordenador, con Windows o con Mac, y la app se instala en unos pocos clics y te deja en el escritorio el icono de tu página. Si prefieres no instalar nada, puedes compartirnos la carpeta en la que trabajas desde la nube que ya usas: iCloud Drive, Google Drive, OneDrive o Dropbox.</p>
+          </div>
+        </li>
+        <li>
+          <figure class="dossier-dibujo dibujo-paso"><svg class="dossier-ilu ilu es es-etapa es-entrevista ilu-hoja-entera" viewBox="0 0 160 96" aria-hidden="true" focusable="false">
+              <g class="es-papel">
+                <path class="cl-ho" d="M6 10l148-5 2 84-150 4z" transform="translate(2.5 2)"/>
+                <path class="cl-t cl-f" d="M6 10l148-5 2 84-150 4z"/>
+              </g>
+              <g class="sd e10-sale"><g class="es-k68" transform="translate(-10 0) scale(.68)"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
+                <path class="cl-t" d="M40 118 34 141h-8M78 118c8 6 14 14 16 24l8 1"/>
+                <path class="cl-ma" d="M30 46 33 31c.5-2 1.5-3 3.5-3l19-.5 5 10 46-1.5c2.5 0 3.5 1.5 3.5 4L110 100 32 104z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M30 46 33 31c.5-2 1.5-3 3.5-3l19-.5 5 10 46-1.5c2.5 0 3.5 1.5 3.5 4L110 100"/>
+                <path class="cl-ho cl-t cl-f" d="M40 55 42.5 34 88 37.5 84 57z"/>
+                <path class="cl-t cl-f cl-en" d="M51.5 42l23 1.6"/>
+                <path class="cl-am" d="M10 57c30-3 58-5 85-6L93 111c-26 3-52 6-79 8z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M10 57c30-3 58-5 85-6L93 111c-26 3-52 6-79 8zM95 51l7 2.5-1.5 55-7.5 2.5"/>
+                <path class="cl-sa mn-boca es-boca-a" d="M56 99c4.5 6.5 13.5 6.5 17-1.2-5.6 2.2-11.4 2.2-17 1.2z"/>
+                <path class="cl-sa mn-boca es-boca-b" d="M54.8 99.9c5.7 4 13.5 3.3 18.5-2.3"/>
+                <g class="mn-ojos"><g class="es-parpado es-d2"><path class="cl-sa mn-ojo" d="M53 78v11.5M75.5 76v11.5"/></g></g>
+                <path class="cl-t" d="M12 84C3 89 1 99 6 107"/><path class="cl-t mn-palma" d="M6 107l2.8 4.6"/><path class="cl-t mn-pulgar" d="M8.5 104.5l4.6-1.4"/>
+                <g class="sd e10-senala"><path class="cl-t" d="M100 78c14-8 28-19 38-30"/><path class="cl-t mn-palma" d="M137 49.1l3.6-4"/><path class="cl-t mn-pulgar" d="M135.6 51.4l4.4 2.4"/></g>
+              </g></g></g></g></g>
+              <g class="es-tarjeta">
+                <path class="cl-ho cl-t cl-f" d="M80 20l60-3 3 42-60 3z"/>
+                <path class="cl-t cl-f" d="M88 28l36-1.5M88 34l24-1"/>
+                <g class="es-boton"><path class="cl-am cl-t cl-f" d="M88 42l22-1 .5 11-22 1z"/>
+                <path class="cl-sa" d="M97.9 46.6c-.2-.1-.9-.4-1.3-.4 -.4 0-.8 .3-.9 .6 -.1 .3-.2 .8 .1 1 .3 .2 1.2 .2 1.5 .4 .3 .2 .5 .6 .4 .9 -.1 .3-.5 .8-.9 .9 -.4 .1-1.2-.4-1.4-.5M99.3 46.4c0 .5-.2 2.3-.2 2.9 0 .6 .3 .5 .3 .6M99.4 45.2l1.1 -1"/></g>
+                <path class="cl-ho cl-t cl-f" d="M115 41l21-.8.5 11-21 .8z"/>
+                <path class="cl-t cl-f" d="M121.6 45.9l-0.4 3.6M121.5 47c.2-.2 .7-1.2 1.1-1.3 .4-.1 .9 0 1.1 .5 .2 .5 0 2 0 2.5 0 .5 .1 .6 .1 .7M126.3 45.6c-.2 .1-.8 .4-1 .8 -.2 .4-.5 1.3-.4 1.8 .1 .5 .4 1.1 .8 1.3 .3 .1 1-.1 1.3-.4 .3-.3 .5-1.1 .5-1.6 0-.5-.2-1.1-.4-1.4 -.2-.3-.8-.3-1-.3"/>
+              </g>
+              <g transform="translate(-27 1)"><g class="es-dedo"><g class="es-toque"><path class="cl-ho cl-t cl-f" d="M134 72c-4-2-6-7-2-9l-15-9c-3-2-1-6 2-5l17 7c3-3 8-2 10 2 2 5-1 10-6 12z"/><path class="cl-t" d="M160 95c-8-8-15-14-24-21"/></g></g></g>
+            </svg></figure>
+          <div>
+            <h3>Te hace una entrevista corta</h3>
+            <p>Con botones y de una pregunta en una, para entender cómo trabajas y cómo te gusta que te dejen las cosas.</p>
+          </div>
+        </li>
+        <li>
+          <div class="sin-dibujo"></div>
+          <div>
+            <h3>El primer trabajo</h3>
+            <p>Empiezas con una o dos tareas, las que más tiempo te quitan, y le vas encargando más desde tu página, como se las pedirías a una persona. Cuando necesita saber algo, te pregunta con botones, de una en una.</p>
+          </div>
+        </li>
+        <li>
+          <div class="sin-dibujo"></div>
+          <div>
+            <h3>Te lo deja en tu carpeta</h3>
+            <p>Lo que prepara te lo deja en tu carpeta «Para ti» y en tu página, que abres desde el escritorio o desde el móvil. Lo sencillo te llega en uno o dos minutos. Tú lo revisas y, si está bien, lo envías o lo firmas tú.</p>
+          </div>
+        </li>
+        <li>
+          <div class="sin-dibujo"></div>
+          <div>
+            <h3>Aprende de ti</h3>
+            <p>Al principio le enseñas, como a cualquier persona que empieza contigo. Cuando le corriges algo, lo recuerda para la próxima vez, y además llega sabiendo cómo trabajan los demás profesionales de tu oficio que la usan.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="capitulo" id="seguridad" aria-labelledby="seguridad-t">
+      <h2 id="seguridad-t">Seguridad y permisos</h2>
+      <p class="capitulo-entrada">Tú decides hasta dónde llega, y lo decides por escrito.</p>
+      <ul class="dossier-lista dossier-vistos">
+        <li><strong>Solo con tu permiso por escrito.</strong> En la autorización eliges qué carpetas puede mirar y en qué correo y webs puede entrar.</li>
+        <li><strong>Solo ve, nunca modifica.</strong> No cambia ni borra tus archivos. Lo que prepara te lo deja en una carpeta aparte.</li>
+        <li><strong>Presentas y firmas tú.</strong> No envía correos, no presenta nada en Hacienda ni en ningún otro sitio y no firma en tu nombre.</li>
+        <li><strong>Lo retiras cuando quieras.</strong> Puedes retirar el permiso en cualquier momento, y desde ese momento deja de entrar.</li>
+        <li><strong>Tus datos son solo tuyos.</strong> No se mezclan con los de otros clientes ni se le cuentan a nadie. De cada oficio se comparte lo aprendido, nunca tus clientes, tus cifras ni tus correos.</li>
+      </ul>
+      <p>La conexión con tu ordenador es privada y va cifrada. Por dentro usa la inteligencia artificial de Anthropic, una empresa estadounidense, así que lo que lee se procesa en sus servidores. Usamos su servicio para empresas, y sus condiciones no le permiten usar tus datos para entrenar sus modelos. Tienes el detalle en la <a href="../privacidad.html">política de privacidad</a>.</p>
+    </section>
+
+    <section class="capitulo" id="que-hace-y-que-no" aria-labelledby="que-hace-y-que-no-t">
+      <h2 id="que-hace-y-que-no-t">Qué hace y qué no</h2>
+      <p class="capitulo-entrada">Sin humo: lo que hace bien, y lo que no hace ni va a hacer.</p>
+      <div class="dossier-dos">
+        <div>
+          <h3>Lo que hace</h3>
+          <ul class="dossier-lista">
+            <li>Lee tus correos y tus PDF y saca los datos que importan.</li>
+            <li>Busca en webs como la sede del Catastro y en tus carpetas.</li>
+            <li>Rellena tus Excel y prepara borradores y respuestas con tus plantillas y en tu tono.</li>
+            <li>Cuenta los plazos y te avisa a tiempo.</li>
+            <li>Te señala lo que no cuadra, como una superficie que no coincide entre la nota simple y el Catastro.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Lo que no hace</h3>
+          <ul class="dossier-lista">
+            <li>No decide por ti ni sustituye tu criterio profesional.</li>
+            <li>No envía, no presenta y no firma nada: eso lo haces siempre tú.</li>
+            <li>No entra donde no le has dado permiso.</li>
+            <li>No es infalible: se puede equivocar, y por eso todo pasa por tus manos antes de salir.</li>
+            <li>No lo sabe todo el primer día: al principio necesita que le enseñes cómo lo quieres.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="dossier-dibujo dibujo-ancho"><svg class="dossier-ilu ilu es es-testimonio ilu-hoja-entera" viewBox="0 0 360 220" aria-hidden="true" focusable="false">
+        <g class="e8-hoja"></g>
+        <g class="sd e8-papel"><g class="es-papel">
+          <path class="cl-ho" d="M14 12l330-6 4 200-332 6z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M14 12l330-6 4 200-332 6z"/>
+          <path class="cl-ma cl-t cl-f" d="M150 2l46 3-1 13-46-3z"/>
+          <path class="cl-t cl-f" d="M40 36c30-1 70-2 120-2M40 50c40-1 90-2 150-2M40 64c25 0 50-1 80-1M40 102c18-1 40-1 70-1M100 132c30-1 60-1 90-1M100 146c25 0 45-1 70-1"/>
+          <path class="cl-t" d="M137.9 96.8c-.4-.5-1.3-2.7-2.2-2.9 -1-.2-2.9 .7-3.5 1.6 -.6 .9-.6 2.6 .1 3.7 .7 1.1 3.3 1.5 4.3 2.7 1 1.2 1.8 3.4 1.5 4.7 -.3 1.3-1.9 2.8-3.1 3 -1.2 .2-3.3-.8-3.8-1.8 -.6-.9-.5-2.7 .5-3.9 1-1.2 4.1-1.9 5.2-3.1 1.1-1.2 1.3-3.5 1.6-4.2M147.8 96.6c-.4-.5-1.4-2.8-2.3-3 -.9-.2-2.5 1-3 2 -.5 1-.8 2.9-.2 3.9 .6 1 2.9 1 3.8 2 .9 1 1.7 3 1.5 4.3 -.2 1.3-1.8 3.3-2.9 3.6 -1.1 .3-2.9-.9-3.5-1.8 -.6-.9-1-2.7-.1-3.8 .9-1.1 4.4-1.7 5.6-3 1.2-1.2 1.4-3.7 1.7-4.5M156.9 99.5l-0.4 10.3M157.2 102.8c.3-.5 1-2.9 1.8-3.3 .8-.4 2.7-.7 3 1 .3 1.7-.8 7.7-.9 9.3M162.1 102.7c.3-.5 1-2.3 1.8-2.7 .8-.4 2.9-.8 3.3 .5 .4 1.3-.7 5.7-.7 7.3 0 1.6 .7 1.9 .8 2.3M170.7 96c.3-.4 1.1-2.1 1.8-2.4 .7-.3 1.9 .3 2.2 .7 .3 .4 .5 .6-.2 1.5 -.7 .9-4 3-3.8 3.6 .2 .6 4 .1 4.8 .1"/>
+        </g></g>
+        <path class="cl-bo es-traza sd e8-rodea" pathLength="100" d="M124 90c18-9 54-8 58 5 3 13-38 19-57 12-9-4-7-15 4-20"/>
+        <g class="e8-mango"></g>
+        <path class="cl-bo es-traza sd e8-exclama" pathLength="100" d="M194 90l1 12M195.4 107v.4"/>
+        <g class="es-k60" transform="translate(-4 106) scale(.6)"><g class="es-in es-mira">
+          <path class="cl-ho cl-t" d="M30 186c2-30 18-46 50-47 31 0 47 17 50 47"/>
+          <path class="cl-t" d="M80 139v-12"/>
+          <path class="cl-ho cl-t" d="M52 70c-1-28 13-44 29-44 18 0 30 15 29 42-1 30-13 57-29 58-17 1-28-24-29-56z"/>
+          <path class="cl-ti" d="M50 60c0-22 14-36 32-35 13 1 27 9 29 30-8-7-14-14-17-20-8 9-24 14-44 25z"/>
+          <g class="e8-gafas"><path class="cl-t" d="M58 76h17v12H58zM86 76h17v12H86zM75 81c4-2 7-2 11 0"/></g>
+          <path class="cl-t cl-f" d="M82 92c-1 5-3 9-6 12l7 1M77 112c-2 4 3 7 5 2-1-4-4-4-5-2z"/>
+          <g class="es-cejas"><path class="cl-t cl-f" d="M57 67c5-4 12-4 17-1M86 65c5-3 11-3 16 1"/></g>
+          <g class="es-vapor"><path class="cl-t cl-f" d="M104 152c-4-5 3-9 0-14M113 152c-4-5 3-9 0-14"/></g>
+          <path class="cl-am" d="M98 160h22l-2 26h-18z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M98 160h22l-2 26h-18zM120 166c7 0 8 12 0 13"/>
+        </g></g>
+        <g class="sd e8-cordel"><path class="cl-t cl-f" d="M242 8c.5 5-.5 11 0 16"/></g>
+        <g class="sd e8-cae"><g transform="translate(206 62)"><g class="es-in es-asoma-m"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
+          <path class="cl-t" d="M42 120 38 141h-8M80 120l3 21h8"/>
+          <path class="cl-ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104 17 106z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104"/>
+          <path class="cl-ho cl-t cl-f" d="M34 56 36 33.5 85 36.5 81 58z"/>
+          <path class="cl-t cl-f" d="M45 41.5l24 1.5"/>
+          <path class="cl-am" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z" transform="translate(3.5 3)"/>
+          <path class="cl-t" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z"/>
+          <path class="cl-sa mn-boca" d="M41.9 104.3c6.6 4.5 16 4.1 22-1.6"/>
+          <g class="mn-ojos"><g class="es-parpado es-d2"><path class="cl-sa mn-ojo" d="M40 80.8v12.8M66.6 79.6v12.8"/></g></g>
+          <g class="es-brazo-boli"><path class="cl-t" d="M11 84c-10-8-24-20-31-34"/><path class="cl-bo" d="M-20 50l-7-10"/><path class="cl-t mn-palma" d="M-19.5 51l-2.2-4.5"/><path class="cl-t mn-pulgar" d="M-18 48.5l4.4-2.2"/></g>
+          <path class="cl-t" d="M110 80c9 4 11 12 6 18"/><path class="cl-t mn-palma" d="M116 98l-3.8 3.6"/><path class="cl-t mn-pulgar" d="M113.6 96.3l-3.6-2.6"/>
+        </g></g></g></g></g></g>
+      </svg><figcaption>Manila te rodea la cifra que no cuadra antes de que el informe salga.</figcaption></figure>
+    </section>
+
+    <section class="capitulo" id="preguntas" aria-labelledby="preguntas-t">
+      <h2 id="preguntas-t">Preguntas frecuentes</h2>
+      <div class="dossier-preguntas">
+        <h3>¿Tengo que saber de informática?</h3>
+        <p>No. Para instalarla abres un enlace y das unos pocos clics, y después le pides las cosas como se las pedirías a una persona, desde el ordenador o desde el móvil.</p>
+        <h3>¿Funciona en Windows y en Mac?</h3>
+        <p>Sí. Y si prefieres no instalar nada, puede trabajar con una carpeta que compartas desde la nube que ya usas.</p>
+        <h3>¿Puede enviar algo sin que yo lo vea?</h3>
+        <p>No. Te deja las respuestas escritas y los documentos preparados, y eres tú quien los revisa y les da a enviar, los presenta o los firma.</p>
+        <h3>¿Y si se equivoca?</h3>
+        <p>Por eso todo pasa por ti antes de salir. Además, cuando algo no cuadra te lo resalta, y cuando le corriges algo, lo recuerda para la próxima vez.</p>
+        <h3>¿Tiene que estar encendido mi ordenador?</h3>
+        <p>No hace falta para que lo prepare: aunque tu ordenador esté apagado, lo prepara igual y te lo deja en cuanto lo enciendas.</p>
+        <h3>¿Se usan mis datos para entrenar a la inteligencia artificial?</h3>
+        <p>No. Usamos el servicio para empresas de Anthropic, y sus condiciones no le permiten usar tus datos para entrenar sus modelos.</p>
+        <h3>¿Cuánto tarda en ponerse en marcha?</h3>
+        <p>Una llamada de unos veinte minutos, unos dos minutos para instalarla y una entrevista corta. Desde el primer día le puedes ir pidiendo cosas.</p>
+        <h3>¿Y si quiero dejarlo?</h3>
+        <p>Retiras el permiso y, desde ese momento, deja de entrar.</p>
+        <h3>¿Sirve si mi oficio es otro?</h3>
+        <p>Hoy trabaja sobre todo con tasadores, peritos, arquitectos y arquitectos técnicos, y ya lo hemos puesto a prueba en ámbitos muy distintos. En la llamada vemos si encaja con lo tuyo.</p>
+      </div>
+    </section>
+
+    <section class="capitulo capitulo-final" id="siguiente-paso" aria-labelledby="siguiente-paso-t">
+      <h2 id="siguiente-paso-t">El siguiente paso</h2>
+      <div class="capitulo-con-dibujo">
+        <div>
+          <p>Cuéntanos a qué te dedicas y qué te quita más tiempo. Te contesta Eduardo, el fundador, y hablar con él no te compromete a nada.</p>
+          <div class="contacto-directo"><p class="texto">Lo más sencillo es escribir a Eduardo, el fundador, por WhatsApp. Cuéntale a qué te dedicas y qué te quita más tiempo, y te contestará él mismo.</p><p class="whatsapp"><a class="boton boton-principal boton-grande" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a></p><p class="nota">Si no usas WhatsApp, también puedes <a href="sms:+34660013625">mandarle un SMS</a>.</p></div><p class="nota otras-vias">Si prefieres hablar, llámale al <a href="tel:+34660013625">660 013 625</a>. Es mejor que le llames por la tarde, porque de lunes a jueves por la mañana seguramente no lo pueda coger.</p>
+          <p class="dossier-nota">Si prefieres que te llamemos, déjanos tu teléfono en el <a href="../#contacto">formulario del recorrido</a>.</p>
+        </div>
+        <figure class="dossier-dibujo"><svg class="dossier-ilu ilu ct-manila" viewBox="-4 28 244 124" aria-hidden="true" focusable="false">
+            <g class="es-suelo"><path class="cl-ma" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5zM234 135l-2.5 3.5 4.5 1"/><path class="cl-t cl-f" d="M118 147.5l22-1.5"/></g>
+            <g transform="translate(102 6) rotate(-6 60 141)"><g class="ct-ella"><g class="mn-cuerpo">
+              <path class="cl-t" d="M42 120 39 141h-8M80 120l3 21h8"/>
+              <g class="cl-respira">
+                <path class="cl-ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104 17 106z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104"/>
+                <path class="cl-ho cl-t cl-f" d="M34 56 36 33.5 85 36.5 81 58z"/>
+                <path class="cl-t cl-f" d="M45 41.5l24 1.5"/>
+                <path class="cl-am" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z"/>
+                <g class="mn-ojos"><g class="cl-ojos"><path class="cl-sa mn-ojo" d="M37 80.5v12M62 79.5v12"/></g>
+                <path class="cl-sa mn-boca" d="M39 104c6.6 4.5 16 4.1 22-1.6"/></g>
+                <path class="cl-t" d="M11 86c-4 3-7 8-8 13M12 96c-3 6-6 14-8 25"/>
+                <g class="ct-abajo"><g class="ct-tambor">
+                  <path class="cl-t" d="M110 80c8 3 11 8 9.5 12.5"/><path class="cl-t mn-palma" d="M119.5 92.5l-1.6 4.7"/><path class="cl-t mn-pulgar" d="M117.3 91.5l-4.2-1.5"/>
+                </g></g>
+                <g class="ct-arriba">
+                  <path class="cl-t" d="M110 80c9-3 13.5-11 13.5-23"/><path class="cl-t mn-palma" d="M123.5 58.5v-5.4"/><path class="cl-t mn-pulgar" d="M120.3 59.4l-5.4-2.6"/>
+                </g>
+              </g>
+            </g></g></g>
+                      <g class="ct-carpeta"><g class="ct-ofrece"><g transform="translate(6 -6) scale(1.02)">
+              <path class="cl-am" d="M10 76 13 45c.3-2 1.5-3 3.5-3H72l5 19h13c2.5 0 3.5 1.5 3.5 4L90 128 9 129z" transform="translate(3.5 3)"/>
+              <path class="cl-t" d="M10 76 13 45c.3-2 1.5-3 3.5-3H72l5 19h13c2.5 0 3.5 1.5 3.5 4L90 128 9 129z"/>
+              <path class="cl-sa ct-txt" d="M23 68.2C22.8 63.6 22.3 59.3 22.2 55.3M22.2 55.5C24.2 54.5 28.5 54.5 28.6 57.9C28.7 61.1 25.3 62 22.8 61.3M34.3 60.5C33.3 58.4 29.3 58.9 29.5 63.7 29.8 67.9 34.1 67.4 34.7 64.1M34.5 58.6C34.6 62 34.8 65.3 35.8 67.1M36.7 58.6C37.1 61.9 37.2 64.4 37.6 67.0M37.1 62.2C37.5 59.2 39.1 58 41.1 58.5M47.4 59.7C46.5 57.5 42.5 57.8 42.6 62.5 42.7 66.5 46.9 66.3 47.7 63.1M47.6 57.8C47.6 61.2 47.6 64.3 48.6 66.1M55.1 53.7C55.4 58.1 55.9 63.3 56.5 65.1 56.9 66 58 65.8 58.9 64.6M53.4 58.1C54.8 57.6 56.6 57.5 58 57.1M59 57.2C59.3 60.6 59.6 63.2 60.2 65.8M58.7 53.8L59 54.2"/>
+              <path class="cl-ma cl-t" d="M9 82c27-2 54-3 81-3l-2.5 46c-25 1-50 1-75 0z"/>
+              <g class="ct-asoma"><path class="cl-ho cl-t cl-f" d="M28 86l34-3 2 26-34 3z"/><path class="cl-t cl-f cl-en" d="M34 92h20M35 98h14"/></g>
+              <g class="ct-tapa">
+                <path class="cl-am" d="M3 84c30-3 60-4 93-5l-6 51c-28 1-56 1-84 0z" transform="translate(3.5 3)"/>
+                <path class="cl-t" d="M3 84c30-3 60-4 93-5l-6 51c-28 1-56 1-84 0z"/>
+              </g>
+            </g>
+            <path class="cl-t mn-palma" d="M106.5 86l-5-.6M104 124.5l-5.2-.2"/><path class="cl-t mn-pulgar" d="M105.4 83.3l-3.4-3.4M103 121.8l-3.5-3.2"/></g></g>
+          </svg></figure>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="dossier-pie">
+  <div class="ancho dossier-pie-fila">
+    <p>© 2026 AutonomIA, de Eduardo Puebla Gallego. Hecho en España.</p>
+    <p><a href="../">Volver al recorrido</a> · <a href="../privacidad.html">Política de privacidad</a></p>
+  </div>
+</footer>
+</body>
+</html>

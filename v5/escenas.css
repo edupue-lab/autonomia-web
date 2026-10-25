@@ -1,0 +1,309 @@
+/* Escenas Calco nuevas de la v4 (empleado 456, ayudante A; skill ilustracion-calco). Siete escenas donde antes había
+   texto suelto o bloques vacíos: Qué no es, A tu medida, Tu página, La ola, Ya funciona, Cómo se empieza (tres) y el pie.
+   Cada una tiene una ENTRADA al aparecer (clase «vista», de ilustra.js) y un BUCLE sutil que solo corre mientras se ve
+   («en-pantalla»). Al tocarla o pasar el ratón, escenas.js le pone «toca» un segundo y reacciona. El estado final es el
+   CSS por defecto: sin JavaScript o con «reducir movimiento», todo se ve completo y quieto. Solo se anima transform,
+   opacity y stroke-dashoffset. Los grupos mn-cuerpo y mn-ojos son del seguimiento de la mirada (ayudante B): aquí no
+   se les pone transform; la respiración va en .es-respira (padre) y el parpadeo en .es-parpado (hijo). */
+
+/* ------------------------------------------------------------ piezas comunes */
+.es { --trazo: var(--t, 3); -webkit-tap-highlight-color: transparent; }
+.es .es-k80 { --trazo: calc(var(--t, 3) / 0.8); }
+.es .es-k60 { --trazo: calc(var(--t, 3) / 0.6); }
+.es .es-k58 { --trazo: calc(var(--t, 3) / 0.58); }
+.es .es-k50 { --trazo: calc(var(--t, 3) / 0.5); }
+.es .cl-bo { stroke-width: calc(var(--trazo) * 0.9); }
+.es .es-ojo { stroke-width: calc(var(--trazo) * 1.25); }
+.es .es-traza { stroke-dasharray: 100 120; stroke-dashoffset: 0; }
+/* Antes de verse (ayudante G): ninguna escena es una caja vacía. El papel y el fondo ya están (como mucho, un poco
+   desplazados) y los personajes esperan agachados en su sitio; solo lo secundario (polvo, chispas, trazos del boli)
+   parte invisible. Las entradas arrancan de esa misma pose, así que no hay salto al ponerse «vista». */
+.es .es-in { transform-origin: 50% 100%; }
+
+@keyframes es-respira { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.02); } }
+@keyframes es-parpado { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes es-flota { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+@keyframes es-hop {
+  0%, 100% { transform: none; }
+  30% { transform: translateY(2px) scaleY(0.94); }
+  60% { transform: translateY(-10px) scaleY(1.05); }
+  85% { transform: translateY(0) scaleY(0.96); }
+}
+@keyframes es-traza { from { stroke-dashoffset: 106; } to { stroke-dashoffset: 0; } }
+@keyframes es-vapor {
+  0% { transform: translateY(4px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(-6px); opacity: 0; }
+}
+@keyframes es-habla { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes es-habla-b { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
+
+.ilu-anima .es.en-pantalla .es-respira { transform-origin: 50% 100%; animation: es-respira 2.8s cubic-bezier(0.37, 0, 0.63, 1) infinite; /* 660: sin saltos */ }
+.ilu-anima .es.en-pantalla .es-parpado { transform-origin: 50% 50%; animation: es-parpado 4.6s steps(1) infinite; }
+.ilu-anima .es.en-pantalla .es-d2 { animation-delay: -1.7s; }
+.ilu-anima .es.en-pantalla .es-d3 { animation-delay: -3.1s; }
+/* Cada escena parpadea a su propio ritmo (ayudante E): si dos están en pantalla a la vez, nunca cierran los ojos juntas. */
+.ilu-anima .es-medida.en-pantalla .es-parpado { animation-duration: 5.2s; }
+.ilu-anima .es-pagina.en-pantalla .es-parpado { animation-duration: 4.1s; }
+.ilu-anima .es-ola.en-pantalla .es-parpado { animation-duration: 4.9s; }
+.ilu-anima .es-testimonio.en-pantalla .es-parpado { animation-duration: 5.6s; }
+.ilu-anima .es-instala.en-pantalla .es-parpado { animation-duration: 4.4s; }
+.ilu-anima .es-entrevista.en-pantalla .es-parpado { animation-duration: 5.3s; }
+.ilu-anima .es-pie.en-pantalla .es-parpado { animation-duration: 3.9s; }
+.ilu-anima .es.toca .es-hop { transform-origin: 50% 100%; animation: es-hop 600ms var(--rebote); }
+.ilu-anima .es.en-pantalla .es-vapor { animation: es-vapor 2.6s ease-out infinite; }
+.ilu-anima .es.en-pantalla .es-vapor path + path { animation: es-flota 1.3s ease-in-out infinite alternate; }
+
+/* Los mini-iconos de la frase de «Qué no es», a mano y en la paleta cerrada (sin calco: son pequeños) */
+.es-mini .cl-t { fill: none; stroke: var(--tinta); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.es-mini .cl-ho { fill: var(--hoja); }
+.es-mini .cl-ti { fill: var(--tinta); }
+.es-mini .cl-bo { fill: none; stroke: var(--boli-trazo); stroke-width: 2.2; stroke-linecap: round; }
+
+/* ============================================================ QUÉ NO ES */
+/* Manila deja atrás la caja de zapatos de las facturas y sale de un salto con el correo bajo el brazo. 300 de ancho:
+   a 336 px, trazo de 2,8 px; a 416 px, 3,2 px. */
+.es-queno { --t: 2.5; width: min(100%, 21rem); margin: 2rem 0 0 auto; }
+@media (min-width: 64rem) {
+  .es-queno-rejilla { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); column-gap: 4rem; align-items: end; }
+  .es-queno-rejilla > p { grid-column: 1; }
+  .es-queno { --t: 2.3; grid-column: 2; grid-row: 1 / span 3; width: 100%; max-width: 26rem; margin: 0; }
+}
+/* v5 (C1, 457): la caída en la caja, el salto en arco y el papel del pie los conduce el scroll (acompanante.css, E2).
+   Aquí queda el bucle: el sobre bajo el brazo se le escurre y lo recoloca. Al tocarla, salta (.es-hop, común). */
+/* 660 (Corpas: más fluidez): se escurre poco a poco (acelera al resbalar) y lo recoloca de un golpe que se pasa un
+   pelín y se asienta; antes iba a dos saltos */
+.ilu-anima .es-queno.en-pantalla .es-sobre { transform-origin: 0 50%; animation: es-sobre 3.2s linear infinite; }
+@keyframes es-sobre {
+  0%, 58% { transform: none; animation-timing-function: cubic-bezier(0.5, 0, 0.85, 0.6); }
+  76% { transform: rotate(-6deg) translateY(1.5px); animation-timing-function: cubic-bezier(0.2, 0.8, 0.35, 1); }
+  81% { transform: rotate(1.6deg); animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  88%, 100% { transform: none; }
+}
+
+/* ============================================================ A TU MEDIDA */
+/* Manila arrastra un boli más alto que ella: tacha el «24» y escribe «12 meses» en la libreta. 340 de ancho: a 330 px,
+   trazo de 2,8 px; a 480 px, 3,2 px. En el móvil va entre los dos bloques y la charla; en el ordenador, bajo el título. */
+.es-medida { --t: 2.9; order: 2; width: 100%; max-width: 30rem; margin: 0 0 1rem; }
+@media (min-width: 64rem) { .es-medida { --t: 2.3; order: 0; margin: 0 0 2rem; } }
+@keyframes es-tira {
+  0% { transform: translate(-95px, 6px) scale(1.04, 0.84); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  20% { transform: translate(-95px, 0); }
+  47% { transform: translate(-95px, 0); animation-timing-function: linear; }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes es-golpea { 0%, 100% { transform: none; } 50% { transform: rotate(-2.5deg); } }
+.ilu-anima .es-medida:not(.vista) .es-libreta { transform: translateY(10px) rotate(-1.5deg); }
+.ilu-anima .es-medida:not(.vista) .es-traza { stroke-dashoffset: 106; }
+.ilu-anima .es-medida:not(.vista) .es-tira { transform: translate(-95px, 6px) scale(1.04, 0.84); }
+.ilu-anima .es-medida.vista .es-libreta { transition: opacity 300ms ease-out, transform 700ms var(--resbala); }
+.ilu-anima .es-medida.vista .es-tacha { transition: stroke-dashoffset 340ms ease-out 760ms; }
+.ilu-anima .es-medida.vista .es-escribe { transition: stroke-dashoffset 900ms linear 1100ms; }
+.ilu-anima .es-medida.vista .es-subraya { transition: stroke-dashoffset 320ms ease-out 2080ms; }
+.ilu-anima .es-medida.vista .es-tira { animation: es-tira 1700ms linear 300ms both; }
+.ilu-anima .es-medida.en-pantalla .es-boli { transform-origin: 0 100%; animation: es-golpea 1.5s steps(2) 2.4s infinite; }
+.ilu-anima .es-medida.toca .es-subraya { animation: es-traza 420ms ease-out; }
+
+/* ============================================================ TU PÁGINA */
+/* Le haces una foto a un papel y Manila, de puntillas, tira de la hoja que sale de la pantalla. 260 de ancho: a
+   288-320 px, trazo de unos 2,8 px. */
+.es-pagina { --t: 2.5; width: min(100%, 20rem); margin: 2.25rem 0 0; }
+@keyframes es-visor { 0%, 30%, 60% { opacity: 0; } 15%, 45%, 100% { opacity: 1; } }
+@keyframes es-ondea { from { transform: rotate(-1.2deg); } to { transform: rotate(1.4deg); } }
+@keyframes es-vibra { 0%, 100% { transform: none; } 25% { transform: translateX(-1.5px); } 75% { transform: translateX(1.5px); } }
+.ilu-anima .es-pagina:not(.vista) .es-movil { transform: translateY(12px); }
+.ilu-anima .es-pagina:not(.vista) .es-hojafoto { opacity: 0; transform: translate(-20px, 40px); }
+.ilu-anima .es-pagina:not(.vista) .es-visto { stroke-dashoffset: 106; }
+.ilu-anima .es-pagina:not(.vista) .es-llega { transform: translate(8px, 6px) scale(1.04, 0.84); }
+/* La hoja del suelo (ayudante E): en oscuro Manila pisa papel y no flota sobre el campo (también en el contacto) */
+.es-suelo { transform-origin: 50% 100%; }
+.ilu-anima :is(.es-pagina, .ct-manila):not(.vista) .es-suelo { transform: translateX(-8px) scaleX(0.92); }
+.ilu-anima .es-pagina.vista .es-suelo { animation: pt-suelo 620ms var(--resbala) 1000ms both; }
+.ilu-anima .ct-manila.vista .es-suelo { animation: pt-suelo 620ms var(--resbala) 60ms both; }
+.ilu-anima .es-pagina.vista .es-movil { transition: opacity 260ms ease-out, transform 700ms var(--resbala); }
+.ilu-anima .es-pagina.vista .es-visor { animation: es-visor 520ms steps(1) 560ms both; }
+.ilu-anima .es-pagina.vista .es-hojafoto { transition: opacity 200ms ease-out 900ms, transform 820ms var(--resbala) 900ms; }
+.ilu-anima .es-pagina.vista .es-llega { transition: opacity 200ms ease-out 1150ms, transform 650ms var(--rebote) 1150ms; }
+.ilu-anima .es-pagina.vista .es-visto { transition: stroke-dashoffset 380ms ease-out 1850ms; }
+.ilu-anima .es-pagina.en-pantalla .es-ondea { transform-origin: 30% 100%; animation: es-ondea 2.8s ease-in-out infinite alternate; }
+.ilu-anima .es-pagina.toca .es-movil { animation: es-vibra 120ms steps(2) 3; }
+
+/* ============================================================ LA OLA */
+/* La ola de papeles llega, tres Manilas se la llevan en fila y la última le entrega al autónomo, el jefe, la hoja con
+   el visto. Va en una hoja pegada con cinta, nunca sobre el amarillo. 560 de ancho: a 358 px, trazo de 2,8 px; desde
+   tableta, unos 3 px. */
+.es-ola { --t: 4.4; width: 100%; max-width: 60rem; margin: 2.5rem 0 0; }
+@media (min-width: 40rem) { .es-ola { --t: 2.6; } }
+@media (min-width: 64rem) { .es-ola { --t: 2.1; margin-top: 3.5rem; } }
+@keyframes es-puntillas { 0%, 100% { transform: none; } 50% { transform: translateY(-4px); } }
+.ilu-anima .es-ola:not(.vista) .es-papel { transform: translateY(-8px) rotate(-1deg); }
+.ilu-anima .es-ola:not(.vista) .es-ola-sube { transform-origin: 50% 100%; transform: scaleY(0.4); }
+.ilu-anima .es-ola:not(.vista) .es-jefe { transform: translateX(12px); }
+.ilu-anima .es-ola:not(.vista) .es-fila { transform: translate(-18px, 6px) scale(1.04, 0.84); }
+.ilu-anima .es-ola.vista .es-papel { transition: opacity 300ms ease-out, transform 700ms var(--resbala); }
+.ilu-anima .es-ola.vista .es-ola-sube { transform-origin: 50% 100%; transition: opacity 300ms ease-out 250ms, transform 900ms var(--resbala) 250ms; }
+.ilu-anima .es-ola.vista .es-jefe { transition: opacity 300ms ease-out 420ms, transform 600ms var(--resbala) 420ms; }
+.ilu-anima .es-ola.vista .es-fila { transition: opacity 220ms ease-out var(--d), transform 700ms var(--rebote) var(--d); }
+.es-f1 { --d: 640ms; }
+.es-f2 { --d: 750ms; }
+.es-f3 { --d: 860ms; }
+.ilu-anima .es-ola.en-pantalla .es-ol { animation: es-flota 2.2s ease-in-out infinite alternate; }
+.ilu-anima .es-ola.en-pantalla .es-ol2 { animation-delay: -0.6s; }
+.ilu-anima .es-ola.en-pantalla .es-ol3 { animation-delay: -1.2s; }
+.ilu-anima .es-ola.en-pantalla .es-ol4 { animation-delay: -1.7s; }
+.ilu-anima .es-ola.en-pantalla .es-puntillas { animation: es-puntillas 1.6s steps(2) infinite; }
+.ilu-anima .es-ola.toca .es-f2 .es-hop { animation-delay: 90ms; }
+.ilu-anima .es-ola.toca .es-f3 .es-hop { animation-delay: 180ms; }
+
+/* ============================================================ YA FUNCIONA */
+/* Manila, seria, le rodea en azul al tasador la cifra que no cuadra, y él levanta las cejas desde abajo. Todo va en
+   una hoja, para que la tinta se vea sobre el campo oscuro. 360 de ancho: a 358 px, 2,8 px; a 440 px, 3,2 px. */
+.es-testimonio { --t: 2.8; width: 100%; max-width: 27.5rem; }
+@media (min-width: 64rem) {
+  .es-testimonio { --t: 2.6; grid-column: 5 / 9; grid-row: 2 / 4; align-self: end; justify-self: center; }
+}
+@keyframes es-boli { 0%, 100% { transform: none; } 50% { transform: rotate(4deg); } }
+.ilu-anima .es-testimonio:not(.vista) .es-papel { transform: translateY(8px) rotate(0.8deg); }
+.ilu-anima .es-testimonio:not(.vista) .es-asoma-m { transform: translateY(6px) scale(1.04, 0.84); }
+.ilu-anima .es-testimonio:not(.vista) .es-mira { transform: translateY(10px); }
+.ilu-anima .es-testimonio:not(.vista) .es-cejas { transform: translateY(5px); }
+.ilu-anima .es-testimonio:not(.vista) .es-traza { stroke-dashoffset: 106; }
+.ilu-anima .es-testimonio.vista .es-papel { transition: opacity 300ms ease-out, transform 700ms var(--resbala); }
+.ilu-anima .es-testimonio.vista .es-asoma-m { transition: opacity 200ms ease-out 350ms, transform 650ms var(--rebote) 350ms; }
+.ilu-anima .es-testimonio.vista .es-mira { transition: opacity 300ms ease-out 520ms, transform 600ms var(--resbala) 520ms; }
+/* v5 (C1): el círculo y el «!» los dibuja el scroll (acompanante.css, E8). */
+.ilu-anima .es-testimonio.vista .es-cejas { transition: transform 320ms var(--rebote) 1950ms; }
+.ilu-anima .es-testimonio.en-pantalla .es-brazo-boli { transform-origin: 100% 100%; animation: es-boli 1.8s steps(2) 2.4s infinite; }
+
+/* ============================================================ CÓMO SE EMPIEZA */
+/* Una mini escena por etapa, dentro de su losa de color: la llamada (Manila aún no ha llegado), la instalación (llega
+   al escritorio como icono) y la entrevista con botones. 160 de ancho a unos 256 px: trazo de 3,2 px. */
+.es-bloque { flex-direction: column; justify-content: space-between; gap: 0.9rem; }
+.es-etapa { --t: 2; width: 100%; max-width: 16rem; margin-top: auto; }
+@keyframes es-aguja { from { transform: rotate(-120deg); } to { transform: none; } }
+@keyframes es-suena { 0%, 100% { transform: none; } 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+@keyframes es-clic { 0%, 100% { transform: none; } 50% { transform: scale(0.85); } }
+@keyframes es-chispa { 0%, 100% { opacity: 0; } 20%, 70% { opacity: 1; } }
+@keyframes es-pulsa { 0%, 100% { transform: none; } 50% { transform: scale(0.88); } }
+@keyframes es-toque { from { transform: none; } to { transform: translate(2px, 2px); } }
+
+/* La llamada */
+.es-llamada .es-boca-a { opacity: 0; }
+.ilu-anima .es-llamada:not(.vista) .es-habla { transform: translateY(8px); }
+.ilu-anima .es-llamada:not(.vista) .es-telefono { opacity: 0; transform: translate(8px, 28px) rotate(12deg); }
+.ilu-anima .es-llamada:not(.vista) .es-reloj { transform: scale(0.8); }
+.ilu-anima .es-llamada:not(.vista) .es-cuna { opacity: 0; }
+.ilu-anima .es-llamada:not(.vista) .es-ondas { opacity: 0; }
+.ilu-anima .es-llamada.vista .es-habla { transition: opacity 300ms ease-out, transform 600ms var(--resbala); }
+.ilu-anima .es-llamada.vista .es-telefono { transition: opacity 200ms ease-out 300ms, transform 600ms var(--rebote) 300ms; }
+.ilu-anima .es-llamada.vista .es-reloj { transform-origin: 50% 50%; transition: opacity 200ms ease-out 450ms, transform 520ms var(--rebote) 450ms; }
+.ilu-anima .es-llamada.vista .es-aguja { transform-origin: 0 0; animation: es-aguja 900ms var(--resbala) 800ms both; }
+.ilu-anima .es-llamada.vista .es-cuna { transition: opacity 300ms ease-out 1600ms; }
+.ilu-anima .es-llamada.vista .es-ondas { transition: opacity 200ms ease-out 900ms; }
+.ilu-anima .es-llamada.en-pantalla .es-o1 { animation: es-habla 1.1s steps(1) infinite; }
+.ilu-anima .es-llamada.en-pantalla .es-o2 { animation: es-habla 1.1s steps(1) -0.55s infinite; }
+.ilu-anima .es-llamada.en-pantalla .es-boca-a { animation: es-habla 0.7s steps(1) infinite; }
+.ilu-anima .es-llamada.en-pantalla .es-boca-b { animation: es-habla-b 0.7s steps(1) infinite; }
+.ilu-anima .es-llamada.toca .es-reloj { transform-origin: 50% 0; animation: es-suena 140ms steps(2) 3; }
+
+/* La instalación */
+.es-chispa { opacity: 0; }
+.ilu-anima .es-instala:not(.vista) .es-portatil { transform: translateY(6px); }
+.ilu-anima .es-instala:not(.vista) .es-enlace { stroke-dashoffset: 106; }
+.ilu-anima .es-instala:not(.vista) .es-cursor { opacity: 0; transform: translate(30px, 30px); }
+.ilu-anima .es-instala:not(.vista) .es-p { opacity: 0; }
+.ilu-anima .es-instala:not(.vista) .es-icono { transform: translateY(3px) scale(0.9, 0.7); }
+.es-nombre { stroke-dasharray: 100; }
+.ilu-anima .es-instala:not(.vista) .es-nombre { stroke-dashoffset: 100; }
+.ilu-anima .es-instala.vista .es-portatil { transition: opacity 300ms ease-out, transform 600ms var(--resbala); }
+.ilu-anima .es-instala.vista .es-enlace { transition: stroke-dashoffset 500ms ease-out 400ms; }
+.ilu-anima .es-instala.vista .es-cursor { transition: opacity 200ms ease-out 700ms, transform 600ms var(--resbala) 700ms; }
+.ilu-anima .es-instala.vista .es-clic { transform-origin: 0 0; animation: es-clic 260ms ease-in-out 1320ms; }
+.ilu-anima .es-instala.vista .es-chispa { animation: es-chispa 500ms steps(1) 1380ms; }
+.ilu-anima .es-instala.vista .es-p { transition: opacity 120ms steps(1) var(--d); }
+.es-p1 { --d: 1550ms; }
+.es-p2 { --d: 1700ms; }
+.es-p3 { --d: 1850ms; }
+.ilu-anima .es-instala.vista .es-icono { transform-origin: 50% 100%; transition: opacity 150ms ease-out 2050ms, transform 600ms var(--rebote) 2050ms; }
+.ilu-anima .es-instala.vista .es-nombre { transition: stroke-dashoffset 300ms ease-out 2350ms; }
+.ilu-anima .es-instala.toca .es-clic { transform-origin: 0 0; animation: es-clic 240ms ease-in-out; }
+.ilu-anima .es-instala.toca .es-chispa { animation: es-chispa 500ms steps(1); }
+
+/* La entrevista */
+.es-entrevista .es-boca-a { opacity: 0; }
+.ilu-anima .es-entrevista:not(.vista) .es-papel { transform: translateY(6px); }
+.ilu-anima .es-entrevista:not(.vista) .es-llega { transform: translateY(6px) scale(1.04, 0.84); }
+/* F1 (465): el marco nunca espera vacío; la tarjeta con su pregunta y el dedo ya están, y al entrar se asientan. */
+.ilu-anima .es-entrevista:not(.vista) .es-tarjeta { transform: rotate(-6deg) translateY(4px); }
+.ilu-anima .es-entrevista:not(.vista) .es-dedo { transform: translate(10px, 8px); }
+.ilu-anima .es-entrevista.vista .es-papel { transition: opacity 300ms ease-out, transform 500ms var(--resbala); }
+.ilu-anima .es-entrevista.vista .es-llega { transition: opacity 200ms ease-out 250ms, transform 600ms var(--rebote) 250ms; }
+.ilu-anima .es-entrevista.vista .es-tarjeta { transform-origin: 0 100%; transition: opacity 200ms ease-out 600ms, transform 600ms var(--rebote) 600ms; }
+.ilu-anima .es-entrevista.vista .es-dedo { transition: opacity 200ms ease-out 1000ms, transform 600ms var(--resbala) 1000ms; }
+.ilu-anima .es-entrevista.vista .es-boton { transform-origin: 50% 50%; animation: es-pulsa 260ms ease-in-out 1580ms; }
+.ilu-anima .es-entrevista.en-pantalla .es-toque { animation: es-toque 1.2s ease-in-out 2s infinite alternate; }
+.ilu-anima .es-entrevista.en-pantalla .es-boca-a { animation: es-habla 0.8s steps(1) infinite; }
+.ilu-anima .es-entrevista.en-pantalla .es-boca-b { animation: es-habla-b 0.8s steps(1) infinite; }
+.ilu-anima .es-entrevista.toca .es-boton { transform-origin: 50% 50%; animation: es-pulsa 260ms ease-in-out; }
+
+/* ============================================================ PIE */
+/* Manila se va de espaldas por encima de la «IA» del nombre, con el fajo del día bajo el brazo. En el campo oscuro, su
+   tinta es la clara (como en el tema oscuro). 146 de ancho: a 80 px, 2,6 px; a 132 px, 3,1 px.
+   F3 (465): su sitio final (el CSS por defecto, el de «reducir movimiento» y sin JS) está --anda más a la derecha, en
+   el borde de la «A»; la entrada la trae andando desde encima de la «I». */
+.es-pie-marca {
+  position: relative; container-type: inline-size;
+  --w: clamp(5rem, 11vw, 8.25rem); --anda: clamp(8px, 100cqw / 9 * 0.38, 52px);
+}
+/* F4 (465): Manila va sobre su hoja de papel (el pie es campo oscuro en los dos temas y Manila nunca pisa el negro).
+   La hoja es fija y cubre todo el paseo, de encima de la «I» al borde de la «A»; tinta oscura y los colores de Manila
+   de siempre (amarillo, manila y papel de día) en los dos temas. */
+.es-pie, .es-pie-hoja {
+  --tinta: #1d1b16; --sobre-amarillo: #1d1b16; --amarillo: #f5c518; --carpeta-2: #f2e2ab; --hoja: #fbf8ef;
+}
+:root[data-theme="dark"] :is(.es-pie, .es-pie-hoja) { --carpeta-2: #e6d39a; --hoja: #ece6d6; }
+.es-pie {
+  --t: 4.8;
+  position: absolute; z-index: 1; bottom: 100%; right: calc(100% / 9 - var(--w) / 2 + 2px - var(--anda)); width: var(--w); margin: 0;
+}
+@media (min-width: 48rem) { .es-pie { --t: 3.4; } }
+.es-pie-hoja {
+  position: absolute; z-index: 0; bottom: calc(100% - 2px); overflow: visible;
+  right: max(-0.75rem, calc(100% / 9 - var(--w) / 2 - var(--anda) - 0.9rem));
+  width: calc(var(--w) + var(--anda) + 1.8rem); height: calc(var(--w) * 1.04);
+}
+.es-pie-hoja path { vector-effect: non-scaling-stroke; --trazo: 2.6; }
+.pie.seccion-pestana:has(.es-pie) { padding-top: calc(var(--alto-pestana) + 3rem + clamp(5rem, 11vw, 8.25rem)); }
+/* v5 (C1, 457) y F3 (465): ya no saluda de frente. Al verse, se va de espaldas con el fajo bajo el brazo: cuatro
+   pasos a saltos (las piernas y el avance van a la vez, steps, como un dibujo animado a mano) desde encima de la «I»
+   hasta el borde de la «A»; allí se para, mira por encima del hombro (silueta nueva, sin saludo) y vuelve a darte la
+   espalda. Después, cada 7 s, vuelve a mirarte un momento. Al tocarla, se gira enseguida. Quieta: de espaldas en el
+   borde. */
+.es-pie .pie-mira { opacity: 0; }
+.pie-pierna { transform-origin: 50% 0; }
+@keyframes pie-viaje { from { translate: calc(-1 * var(--anda)) 0; } to { translate: 0 0; } }
+@keyframes pie-anda { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(9deg); } }
+@keyframes pie-anda-b { 0%, 100% { transform: rotate(9deg); } 50% { transform: rotate(-10deg); } }
+@keyframes pie-gira { 0% { opacity: 0; } 18%, 100% { opacity: 1; } }
+@keyframes pie-gira-b { 0% { opacity: 1; } 18%, 100% { opacity: 0; } }
+@keyframes pie-fajo { 0%, 100% { transform: none; } 50% { transform: translateY(-1.5px) rotate(-2deg); } }
+.ilu-anima .es-pie:not(.vista) { translate: calc(-1 * var(--anda)) 0; }
+.ilu-anima .es-pie.vista { animation: pie-viaje 1.8s steps(4, jump-end) 0.9s both; }
+.ilu-anima .es-pie.vista .pie-p1 { animation: pie-anda 0.9s steps(2) 0.9s 2; }
+.ilu-anima .es-pie.vista .pie-p2 { animation: pie-anda-b 0.9s steps(2) 0.9s 2; }
+.ilu-anima .es-pie.vista .pie-fajo { animation: pie-fajo 0.9s steps(2) 0.9s 2; }
+.ilu-anima .es-pie.vista.en-pantalla .pie-espaldas { animation: pie-gira 7s steps(1) 2.9s infinite; }
+.ilu-anima .es-pie.vista.en-pantalla .pie-mira { animation: pie-gira-b 7s steps(1) 2.9s infinite; }
+.ilu-anima .es-pie.vista.toca .pie-espaldas { animation: pie-toca-a 1.1s steps(1); }
+.ilu-anima .es-pie.vista.toca .pie-mira { animation: pie-toca 1.1s steps(1); }
+@keyframes pie-toca { 0%, 85% { opacity: 1; } 86%, 100% { opacity: 0; } }
+@keyframes pie-toca-a { 0%, 85% { opacity: 0; } 86%, 100% { opacity: 1; } }
+/* F4 (465): cuando se gira a mirarte, dice adiós con la mano (a saltos, como dibujado a mano) */
+.pie-adios { transform-box: fill-box; transform-origin: 100% 100%; }
+.ilu-anima .es-pie.vista.en-pantalla .pie-adios { animation: pie-adios 0.42s steps(2) infinite alternate; }
+@keyframes pie-adios { from { transform: rotate(-12deg); } to { transform: rotate(10deg); } }
+
+/* ------------------------------------------------------------ reducir movimiento: todo quieto y completo */
+@media (prefers-reduced-motion: reduce) {
+  .es, .es * { animation: none !important; transition: none !important; }
+}

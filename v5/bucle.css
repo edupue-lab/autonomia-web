@@ -1,0 +1,583 @@
+/* 585 (Edu, 19/10): el bucle de la TAREA repite la tarea COMPLETA de Manila, no solo su último tramo, para que se
+   entienda qué hace. Cada escena tiene un programa --bucle que lee motor.js (sus pasos, allí): empieza en el reposo
+   (--sd-sale), hace un PUENTE que devuelve la escena a como estaba cuando empezó la tarea (casi siempre la propia
+   coreografía hacia atrás, que recoge lo hecho, y unas piezas rs- que archivan o tapan lo que sobra) y repite la tarea
+   desde su principio hasta el reposo. El salto del puente a la tarea no se ve: en ese instante todo lo visible está
+   igual (se comprueba con .taste-skill/v5-585/dif.py). --bucle-quietas: las sd- que se quedan en el reposo durante la
+   tarea (el aterrizaje de Manila, que aún coletea cuando empieza a trabajar). Las piezas rs- solo existen con el motor
+   (html.sd-motor); sin él o con «reducir movimiento», el último fotograma quieto de siempre. Las curvas de los
+   fotogramas clave van escritas (las de acompanante.css y escena-papeleo.css): var() en el animation-timing-function
+   de un fotograma clave no vale y se queda en lineal, en Chromium y en WebKit. Rendimiento: las rs- solo se crean
+   mientras su escena está en la tarea o saliendo (:is([data-fase="tarea"], [data-fase="sale"])), así que al cargar no
+   hay ninguna; las copias del puente esperan ocultas con atributos del SVG (opacity="0"…), y sus orígenes están en
+   tarea.css. */
+
+/* ============================================================ E1 · llena «Para ti» (portada) */
+/* Tarea (18-91 %): lanza tres hojas a «Para ti», la carpeta se abre en escritorio, llega la taza y el boli firma.
+   Puente: la coreografía hacia atrás hasta el 45 % (se borra la firma, se va la taza, las hojas se recogen y la tapa
+   se cierra) y las tres hojas se hunden dentro de la carpeta, detrás de la tapa (g.e1-archiva). Entonces la
+   coreografía vuelve al 18 %, donde esas hojas aún no existen (siguen en la mano de Manila), y las echa otra vez. */
+[data-escena="e1"] { --bucle: "0.91>0.45/2.4 rs/0.9 0.18>0.91"; --bucle-quietas: sd-e1-manila; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e1-archiva { animation-name: rs-e1-archiva; }
+@keyframes rs-e1-archiva {
+  0% { transform: none; animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  18% { transform: translateY(-2px); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.6); } /* se asientan */
+  100% { transform: translateY(30px); }
+}
+
+/* ============================================================ E2 · saca el correo de la caja de zapatos (Qué no es) */
+/* Tarea (47-86,5 %): agachada dentro de la caja, sale de un salto con el sobre y los papeles saltan con ella, aterriza
+   y se sacude del pie el papel que se le había pegado. Puente: el mismo salto hacia atrás, de vuelta a la caja (el
+   papel se le vuelve a pegar al pie y los papeles caen dentro). Empalma sin salto: no lleva piezas rs-. */
+[data-escena="e2"] { --bucle: "0.865>0.47/1.9 0.47>0.865"; }
+
+/* ============================================================ E4 · el papeleo (Lo que hace cada día) */
+/* Tarea (15-100 %): ve la torre, la lleva a trompicones a la mesa, la clasifica, los montones vuelan al Excel, entra en
+   la pantalla y rellena las filas, sale orgullosa; la lista de la pared se tacha y el sol cruza la ventana.
+   Puente (llega otro día de papeleo): lo que queda en la mesa salta al Excel rozando la planta (la hoja nueva queda
+   tapada y se cae: g.e4-archiva, g.e4-brote), la hoja de cálculo se guarda y sube (las filas salen por arriba de la
+   tabla, g.e4-filas; la pestaña, g.e4-pes), el sol se pone por la derecha y sale otra vez por la izquierda (g.e4-sol,
+   dentro del recorte de la ventana), una lista nueva cae sobre la tachada (g.e4-lista, copia de la del fondo) y una
+   torre nueva cae por arriba junto a Manila (g.e4-nueva, copia de la torre al empezar): con el golpe baja los brazos
+   (g.e4-ya y g.e4-otra). En el móvil, la cámara vuelve del plano final al de la torre (g.e4-cam, en los dos SVG).
+   Entonces la coreografía salta al 15 %, donde todo está igual que al final del puente (las tachas, tapadas por la
+   lista nueva; las filas, fuera del recorte de la tabla). Las curvas van escritas (--pp-cae, --pp-sube y --pp-vivo):
+   var() no vale en el animation-timing-function de un fotograma clave y se queda en lineal. */
+[data-escena="e4"] { --bucle: "rs/3.6 0.15>1/8"; }
+/* las tachas sin trazar de la lista nueva (como las de la pared al 15 %: solo asoma el punto del extremo redondo) */
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-sol { animation-name: rs-e4-sol; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-lista { animation-name: rs-e4-lista; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-filas { animation-name: rs-e4-filas; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-pes { animation-name: rs-e4-pes; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-brote { animation-name: rs-e4-brote; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-archiva { animation-name: rs-e4-archiva; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-nueva { animation-name: rs-e4-nueva; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-ya { animation-name: rs-e4-ya; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-otra { animation-name: rs-e4-otra; }
+@media (max-width: 63.99rem) { .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4-cam { animation-name: rs-e4-cam-m; } }
+/* Lo que queda en la mesa: se agacha, salta rozando la planta (20 %: tapa la hoja nueva), sube y entra en el Excel */
+@keyframes rs-e4-archiva {
+  0%, 8% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  12% { transform: scale(1.1, 0.86); animation-timing-function: cubic-bezier(0.3, 0.5, 0.6, 1); }
+  20% { transform: translate(58.5px, -20px) rotate(-6deg) scale(0.85); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  26% { transform: translate(118.5px, -80px) rotate(-12deg) scale(0.55); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  31% { transform: translate(160.5px, -56px) rotate(0deg) scale(0.25); opacity: 1; animation-timing-function: steps(1, end); }
+  31.1%, 100% { transform: translate(160.5px, -56px) rotate(0deg) scale(0.25); opacity: 0; }
+}
+@keyframes rs-e4-brote {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  20%, 100% { opacity: 0; }
+}
+/* La hoja de cálculo se guarda: las filas suben y salen por arriba de la tabla; la pestaña se apaga */
+@keyframes rs-e4-filas {
+  0%, 31% { transform: none; animation-timing-function: ease-out; }
+  33% { transform: translateY(2px); animation-timing-function: ease-in-out; }
+  44%, 100% { transform: translateY(-48px); }
+}
+@keyframes rs-e4-pes {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  33%, 100% { opacity: 0; }
+}
+/* El sol se pone por la derecha y, ya fuera de la ventana, sale por abajo a la izquierda hasta su sitio del 15 % */
+@keyframes rs-e4-sol {
+  0%, 26% { transform: none; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  38% { transform: translate(18px, 22px); animation-timing-function: steps(1, end); }
+  40% { transform: translate(-81px, 27px); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  72%, 100% { transform: translate(-71.4px, -28.73px); } /* 660: el 15 % con la curva escrita del sol */
+}
+/* La lista nueva cae por arriba (fuera del dibujo) y se posa encima de la tachada */
+@keyframes rs-e4-lista {
+  0%, 43.9% { transform: translateY(-270px) rotate(-4deg); opacity: 0; animation-timing-function: steps(1, end); }
+  44% { transform: translateY(-270px) rotate(-4deg); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  56% { transform: translateY(0) rotate(1deg); opacity: 1; animation-timing-function: ease-out; }
+  59% { transform: translateY(-3px) rotate(-0.5deg); opacity: 1; animation-timing-function: ease-in-out; }
+  62%, 100% { transform: none; opacity: 1; }
+}
+/* La torre nueva cae por arriba, se aplasta al llegar y se asienta */
+@keyframes rs-e4-nueva {
+  0%, 57.9% { transform: translateY(-450px) scale(0.94, 1.08); opacity: 0; animation-timing-function: steps(1, end); }
+  58% { transform: translateY(-450px) scale(0.94, 1.08); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  74% { transform: translateY(0) scale(1.1, 0.88); opacity: 1; animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  86%, 100% { transform: none; opacity: 1; }
+}
+/* Con el golpe de la torre, Manila deja de presumir: brazos abajo y la cara de siempre (la del 15 %) */
+@keyframes rs-e4-ya {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  74%, 100% { opacity: 0; }
+}
+@keyframes rs-e4-otra {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  74%, 100% { opacity: 1; }
+}
+/* Móvil: del plano final de sd-e4-cam-m (122,4; 174,6; ×0,9) al del principio (104; 196; ×1), dentro de cada SVG */
+@keyframes rs-e4-cam-m {
+  0%, 36% { transform: none; animation-timing-function: ease-in-out; }
+  70%, 100% { transform: translate(20.444px, -23.778px) scale(1.11111); }
+}
+
+/* ============================================================ E4b · despacha la Multa a la papelera (Plazos) */
+/* Tarea (18-100 %): el autónomo silba con su taza; se rodea el 20 del calendario, la Multa sale de la papelera y se
+   acerca de puntillas, Manila salta del estante, la aplasta, la hace bola y la encesta; él se vuelve y levanta la taza.
+   Mientras dura, el autónomo no vuelve a entrar andando: sus piernas, la cadera, el brazo libre y el humo se quedan en
+   el reposo (--bucle-quietas). Puente (rs/2.6, con la coreografía quieta en el reposo): la bola se hunde dentro de la
+   papelera (e4b-hunde, tapada por su frente); Manila coge impulso y de un salto vuelve al estante (e4b-vuelve-x/y) y
+   cambia de dibujo como en la entrada (en jarras, en el aire, al acecho); él baja la taza, se vuelve a su café y
+   vuelve a silbar; el círculo del 20 se borra a trazo (una copia, e4b-borra, que se desdibuja). Entonces la
+   coreografía salta al 18 %, donde todo eso ya está así, y llega una Multa nueva. */
+[data-escena="e4b"] {
+  --bucle: "rs/2.6 0.18>1";
+  --bucle-quietas: sd-e4b-au, sd-e4b-l0, sd-e4b-l1, sd-e4b-l2, sd-e4b-l3, sd-e4b-pie, sd-e4b-bob, sd-e4b-brazo, sd-e4b-vapor;
+}
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-hunde { animation-name: rs-e4b-hunde; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-vuelve-x { animation-name: rs-e4b-vuelve-x; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-vuelve-y { animation-name: rs-e4b-vuelve-y; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-f4, .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-p6 { animation-name: rs-e4b-jarras; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-f2, .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-p2 { animation-name: rs-e4b-aire; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-f1, .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-p1 { animation-name: rs-e4b-acecho; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-brindis { animation-name: rs-e4b-r-brindis; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-taza { animation-name: rs-e4b-r-taza; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-cara { animation-name: rs-e4b-r-cara; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-sonrie { animation-name: rs-e4b-r-sonrie; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-silba { animation-name: rs-e4b-r-silba; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-r-circulo { animation-name: rs-e4b-r-circulo; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e4b-borra { animation-name: rs-e4b-borra; }
+/* La bola intenta salir una última vez y se hunde (al 30 % ya está entera bajo el borde) */
+@keyframes rs-e4b-hunde {
+  0% { transform: none; animation-timing-function: ease-out; }
+  8% { transform: translateY(-3px) rotate(-8deg); animation-timing-function: ease-in; }
+  30%, 100% { transform: translateY(21px) scale(0.8); }
+}
+/* Manila: x lineal en el arco; y, aplastar y estirar desde los pies y la inclinación del acecho (de -3 a 8 grados) */
+@keyframes rs-e4b-vuelve-x {
+  0%, 15% { transform: none; animation-timing-function: linear; }
+  36%, 100% { transform: translateX(-30px); }
+}
+@keyframes rs-e4b-vuelve-y {
+  0% { transform: none; animation-timing-function: ease-in-out; }
+  6% { transform: scale(1.04, 0.96); animation-timing-function: ease-in-out; }
+  14% { transform: scale(1.16, 0.8) rotate(-4deg); animation-timing-function: ease-out; }
+  16% { transform: translateY(-8px) scale(0.86, 1.18) rotate(2deg); animation-timing-function: ease-out; }
+  26% { transform: translateY(-153px) scale(0.95, 1.06) rotate(6deg); animation-timing-function: ease-in; }
+  35.9% { transform: translateY(-148px) scale(0.88, 1.14) rotate(9deg); animation-timing-function: steps(1, end); }
+  36% { transform: translateY(-148px) scale(1.22, 0.8) rotate(11deg); animation-timing-function: ease-out; }
+  41% { transform: translateY(-148px) scale(0.95, 1.05) rotate(13deg); animation-timing-function: ease-in-out; }
+  46% { transform: translateY(-148px) scale(1.02, 0.98) rotate(10.5deg); animation-timing-function: ease-in-out; }
+  50%, 100% { transform: translateY(-148px) rotate(11deg); }
+}
+/* Los dibujos: en jarras hasta el despegue, en el aire, y al acecho al posarse */
+@keyframes rs-e4b-jarras { 0% { opacity: 1; animation-timing-function: steps(1, end); } 16%, 100% { opacity: 0; } }
+@keyframes rs-e4b-aire {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  16% { opacity: 1; animation-timing-function: steps(1, end); }
+  36%, 100% { opacity: 0; }
+}
+@keyframes rs-e4b-acecho { 0% { opacity: 0; animation-timing-function: steps(1, end); } 36%, 100% { opacity: 1; } }
+/* Él: baja la taza (con un vaivén de la taza, que llega tarde), se vuelve a su café y silba */
+@keyframes rs-e4b-r-brindis {
+  0%, 40% { transform: none; animation-timing-function: ease-in-out; }
+  54% { transform: rotate(33deg); animation-timing-function: ease-in-out; }
+  60%, 100% { transform: rotate(30deg); }
+}
+@keyframes rs-e4b-r-taza {
+  0%, 42% { transform: none; animation-timing-function: ease-in-out; }
+  56% { transform: rotate(-12deg); animation-timing-function: ease-in-out; }
+  62% { transform: rotate(2deg); animation-timing-function: ease-in-out; }
+  66%, 100% { transform: rotate(-4.1deg); }
+}
+@keyframes rs-e4b-r-cara {
+  0%, 56% { transform: none; animation-timing-function: ease-in-out; }
+  59% { transform: translateX(17px); animation-timing-function: ease-in-out; }
+  61.5%, 100% { transform: translateX(15px); }
+}
+@keyframes rs-e4b-r-sonrie { 0% { opacity: 1; animation-timing-function: steps(1, end); } 58%, 100% { opacity: 0; } }
+@keyframes rs-e4b-r-silba { 0% { opacity: 0; animation-timing-function: steps(1, end); } 58%, 100% { opacity: 1; } }
+/* El círculo: la copia ocupa su sitio enseguida (igual que él) y se desdibuja hacia atrás */
+@keyframes rs-e4b-r-circulo { 0% { opacity: 1; animation-timing-function: steps(1, end); } 1%, 100% { opacity: 0; } }
+@keyframes rs-e4b-borra {
+  0% { opacity: 0; stroke-dashoffset: 0; animation-timing-function: steps(1, end); }
+  1%, 62% { opacity: 1; stroke-dashoffset: 0; animation-timing-function: ease-in-out; }
+  88%, 100% { opacity: 1; stroke-dashoffset: 100; }
+}
+
+/* ============================================================ E5 · corrige el «24» en la libreta (A tu medida) */
+/* Tarea (29-42,5 %): agarra el boli, que pesa, tira de él hacia atrás y tacha el «24» y escribe «12» subrayado, con cara
+   de esfuerzo; acaba con cara de alivio (el reposo, --sd-sale 0,425 de tarea.css). Puente: una hoja limpia de la
+   libreta, con su «24», baja desde las anillas y tapa lo escrito (g.e5-pagina, por debajo de Manila; las anillas,
+   g.e5-anillas, copia exacta, quedan encima); Manila vuelve a la cara de esfuerzo (g.e5-sin-alivio / g.e5-otra-vez,
+   cambio de fotograma como los de la escena), carga el boli en arco hasta el principio (g.e5-lleva, como g.e5-punta) y
+   se echa hacia él (g.e5-agarra, dentro de g.e5-tiron: acaba en su valor exacto del 29 %). Entonces la coreografía
+   salta al 29 %: lo escrito, aún sin escribir y tapado por la hoja, que desaparece encima de su copia exacta. */
+[data-escena="e5"] { --bucle: "rs/2.6 0.29>0.425/1.8 espera/0.8"; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-pagina { animation-name: rs-e5-pagina; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-anillas { animation-name: rs-e5-anillas; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-sin-alivio { animation-name: rs-e5-sin-alivio; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-otra-vez { animation-name: rs-e5-otra-vez; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-lleva { animation-name: rs-e5-lleva; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e5-agarra { animation-name: rs-e5-agarra; }
+@keyframes rs-e5-pagina {
+  0%, 7.9% { opacity: 0; transform: scaleY(0.03); }
+  8% { opacity: 1; transform: scaleY(0.03); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  30% { opacity: 1; transform: scaleY(1.025); animation-timing-function: linear(0, 0.007 1.2%, 0.023 2.4%, 0.097 5.5%, 0.524 17.4%, 0.627 20.6%, 0.711 23.7%, 0.781 26.7%, 0.839 29.8%, 0.888 33%, 0.928 36.4%, 0.959 40.1%, 0.981 43.9%, 0.997 48.4%, 1.006 53.4%, 1.01 63.4%, 1); } /* cae la hoja */
+  36%, 100% { opacity: 1; transform: none; }
+}
+@keyframes rs-e5-anillas { 0%, 7.9% { opacity: 0; } 8%, 100% { opacity: 1; } }
+@keyframes rs-e5-sin-alivio { 0%, 37.9% { opacity: 1; } 38%, 100% { opacity: 0; } }
+@keyframes rs-e5-otra-vez { 0%, 37.9% { opacity: 0; } 38%, 100% { opacity: 1; } }
+@keyframes rs-e5-lleva {
+  0%, 36% { transform: none; animation-timing-function: ease-in-out; }
+  41% { transform: translate(1px, 2.5px); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }              /* coge impulso */
+  52% { transform: translate(-32px, -26px); animation-timing-function: ease-in-out; }
+  62% { transform: translate(-68px, -25px); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  70% { transform: translate(-87px, -12.5px); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }     /* lo posa */
+  80%, 100% { transform: translate(-87px, -16px); }
+}
+@keyframes rs-e5-agarra {
+  0%, 38% { transform: none; animation-timing-function: ease-in-out; }
+  45% { transform: rotate(5deg); animation-timing-function: ease-in-out; }
+  62% { transform: rotate(-9deg); animation-timing-function: ease-in-out; }
+  74% { transform: rotate(-21deg) translateX(-2px); animation-timing-function: linear(0, 0.007 1.2%, 0.023 2.4%, 0.097 5.5%, 0.524 17.4%, 0.627 20.6%, 0.711 23.7%, 0.781 26.7%, 0.839 29.8%, 0.888 33%, 0.928 36.4%, 0.959 40.1%, 0.981 43.9%, 0.997 48.4%, 1.006 53.4%, 1.01 63.4%, 1); }
+  88%, 100% { transform: matrix(0.954527, -0.298123, 0.298123, 0.954527, -1.91321, 0.597543); } /* sd-e5-tiron al 29 % */
+}
+
+/* ============================================================ E6 · la ola: la hoja de mano en mano */
+/* Tarea (30-100 %): con las tres ya en fila, la ola se encrespa y rompe (salpica tres hojas y el jefe se asusta), suelta
+   la hoja, que pasa de mano en mano (agachada, de perfil, de espaldas) hasta el jefe, y el boli le pone el visto. Las
+   tres se quedan en su sitio (sus llegadas, quietas). Puente: el jefe coge impulso y lanza la hoja vista por encima del
+   hombro, que sale dando vueltas por el canto derecho del papel (g.e6-vuela-x / g.e6-vuela-y, recortadas por la hoja
+   de papel; g.e6-lanza, el gesto del jefe). En el móvil, después, la cámara se aleja del jefe y vuelve a la ola sin
+   prisa (g.e6-camara, por fuera de g.e6-cam: acaba en su encuadre exacto del 30 %; por eso el puente es más largo).
+   Entonces la coreografía salta al 30 %, donde la hoja aún no ha salido de la ola. */
+[data-escena="e6"] { --bucle: "rs/2.6 0.3>1/4.6"; --bucle-quietas: sd-e6-m1-b, sd-e6-m2, sd-e6-m3-b; }
+@media (max-width: 47.99rem) { [data-escena="e6"] { --bucle: "rs/3.8 0.3>1/4.6"; } }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e6-lanza { animation-name: rs-e6-lanza; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e6-vuela-x { animation-name: rs-e6-vuela-x; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e6-vuela-y { animation-name: rs-e6-vuela-y; }
+@keyframes rs-e6-lanza {
+  0%, 14% { transform: none; animation-timing-function: ease-in-out; }
+  26% { transform: rotate(-4deg) translateY(2px); animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1); } /* impulso */
+  32% { transform: rotate(5deg); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }                         /* la lanza */
+  50%, 100% { transform: none; }
+}
+/* La hoja: fuera el X (lineal en el vuelo), dentro el Y, el giro y el impulso con la mano */
+@keyframes rs-e6-vuela-x {
+  0%, 30% { transform: none; animation-timing-function: linear; }
+  62%, 100% { transform: translateX(170px); }
+}
+@keyframes rs-e6-vuela-y {
+  0%, 14% { transform: none; animation-timing-function: ease-in-out; }
+  26% { transform: translate(-6px, 6px) rotate(-8deg); animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1); }
+  30% { transform: translate(0, -6px) rotate(10deg); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  44% { transform: translateY(-74px) rotate(130deg); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  62%, 100% { transform: translateY(24px) rotate(250deg); }
+}
+/* Móvil: la cámara vuelve del jefe a la ola. sd-e6-cam va de translate(-549px, -156px) scale(1.85) (reposo) a
+   translate(-20px, -107px) scale(1.5) (30 %), con su origen en la esquina de su caja: 10, -17,52 (con .ilu * en
+   fill-box, esa caja cambiaba con lo que se mueve dentro, la cresta o los papeles que flotan, y el encuadre daba
+   tirones de unos px; aquí se fija en ese mismo punto, que es el de los encuadres dibujados, y así el empalme es
+   exacto). Esta pieza, por fuera de ella y con el origen en el 0 0 del dibujo, lleva lo que falta:
+   W = C(30 %) · C(reposo)⁻¹, o sea scale(1,5 / 1,85) y
+   translate(-20 + 549 · 1,5/1,85 + 10 · (1 - 1,5/1,85), -107 + 156 · 1,5/1,85 - 17,52 · (1 - 1,5/1,85)). */
+@media (max-width: 47.99rem) {
+  .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e6-camara { animation-name: rs-e6-camara; }
+}
+@keyframes rs-e6-camara {
+  0%, 40% { transform: none; animation-timing-function: ease-in-out; }
+  100% { transform: translate(427.027px, 16.172px) scale(0.810811); }
+}
+
+/* ============================================================ E7 · Un martes de un tasador (Un día de trabajo) */
+/* Tarea (13-100 %): de la mañana a la noche, Manila escribe y pasa hojas a «Para ti», que crece; el sol cruza el
+   cielo, el tasador se va a dormir y el gato se le enrosca a los pies; cae la noche, se enciende el flexo, medianoche
+   (se frota los ojos y bosteza), la última hoja y se estira.
+   Puente (pasa la noche y amanece otro martes): el reloj corre ocho horas (g.e7-hora y g.e7-min), la luna se pone
+   por la izquierda (g.e7-luna), clarea (g.e7-noche) y vuelve la sombra del flexo (g.e7-alba, copia de la del 13 %),
+   el sol asoma por abajo aplastado y se estira (g.e7-sol), el flexo se apaga con un parpadeo (g.e7-luz); el tasador
+   se levanta con sus gafas (g.e7-despierta) y vuelve a saltos a la mesa (g.e7-tas, copia del de la mesa), el gato
+   salta detrás de la cama a la mesa (g.e7-gato-va y g.e7-gato, copia del sentado), recoge lo de «Para ti» (la pila
+   baja, g.e7-pila) y Manila coge el boli de la mesa (g.e7-ya, g.e7-coge y g.e7-mn, que deshace su estirón). En el
+   móvil, la cámara vuelve del plano de la noche al de la mañana (g.e7-cam). Entonces la coreografía salta al 13 %.
+   En «Antes» (sin Manila, el tasador se queda en la mesa) las piezas del tasador, el gato y Manila van dentro de
+   .c-ahora, que no se ve: solo pasan la noche, el reloj y el flexo. Las curvas, escritas (var() no vale en el
+   animation-timing-function de un fotograma clave: se queda en lineal). */
+[data-escena="e7"] { --bucle: "rs/3.4 0.13>1/8.4"; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-sol { animation-name: rs-e7-sol; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-noche { animation-name: rs-e7-noche; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-alba { animation-name: rs-e7-alba; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-luna { animation-name: rs-e7-luna; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-hora { animation-name: rs-e7-hora; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-min { animation-name: rs-e7-min; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-luz { animation-name: rs-e7-luz; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-despierta { animation-name: rs-e7-despierta; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-tas { animation-name: rs-e7-tas; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-gato-va { animation-name: rs-e7-gato-va; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-gato { animation-name: rs-e7-gato; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-pila { animation-name: rs-e7-pila; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-ya { animation-name: rs-e7-ya; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-coge { animation-name: rs-e7-coge; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-mn { animation-name: rs-e7-mn; }
+@media (max-width: 63.99rem) { .sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e7-cam { animation-name: rs-e7-cam-m; } }
+/* El reloj corre ocho horas: la aguja corta, 239,25° (de las 0:30 a las 8:30 del 13 %), y la larga, doce veces más */
+@keyframes rs-e7-hora {
+  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
+  84%, 100% { transform: rotate(239.25deg); }
+}
+@keyframes rs-e7-min {
+  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
+  84%, 100% { transform: rotate(2871deg); }
+}
+/* La luna se pone por la izquierda y, fuera del recorte de la ventana, pasa debajo de su sitio del 13 % (donde solo
+   asoma su punta por el borde de abajo) y sube hasta él */
+@keyframes rs-e7-luna {
+  0%, 6% { transform: none; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  22% { transform: translate(-45px, 18px) rotate(-10deg); animation-timing-function: steps(1, end); }
+  22.1%, 50% { transform: translate(46px, 84px) rotate(30deg); animation-timing-function: ease-out; }
+  70%, 100% { transform: translate(46px, 62px) rotate(30deg); }
+}
+/* Clarea: la noche se va y vuelve la sombra del flexo en la pared */
+@keyframes rs-e7-noche {
+  0%, 12% { opacity: 1; animation-timing-function: ease-out; }
+  40%, 100% { opacity: 0; }
+}
+@keyframes rs-e7-alba {
+  0%, 18% { opacity: 0; animation-timing-function: ease-in; }
+  44%, 100% { opacity: 1; }
+}
+/* El sol, escondido bajo la ventana desde la tarde, pasa a la izquierda y asoma aplastado y se estira (como al llegar) */
+@keyframes rs-e7-sol {
+  0% { transform: none; animation-timing-function: steps(1, end); }
+  24% { transform: translate(-58.69px, -14px) scale(1.35, 0.66); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  37% { transform: translate(-58.69px, -82px) scale(0.88, 1.14); animation-timing-function: ease-in-out; }
+  46%, 100% { transform: translate(-58.69px, -75.75px); } /* 660: el 13 % con la curva escrita del sol */
+}
+/* El flexo se apaga con un parpadeo */
+@keyframes rs-e7-luz {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  30% { opacity: 0; animation-timing-function: steps(1, end); }
+  31.5% { opacity: 1; animation-timing-function: steps(1, end); }
+  33%, 100% { opacity: 0; }
+}
+/* El tasador se despierta: deja la cama (con la manta) y las gafas de la mesilla, y vuelve a la mesa en dos saltos */
+@keyframes rs-e7-despierta {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  40%, 100% { opacity: 0; }
+}
+@keyframes rs-e7-tas {
+  0%, 39.9% { transform: translate(56px, -3px) rotate(6deg); opacity: 0; animation-timing-function: steps(1, end); }
+  40% { transform: translate(56px, -3px) rotate(6deg); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  44% { transform: translate(56px, -6px) rotate(2deg); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  50% { transform: translate(32px, -12px) rotate(-3deg); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  54% { transform: translate(18px, 0px) rotate(0deg); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  58% { transform: translate(8px, -7px) rotate(-2deg); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  62%, 100% { transform: none; opacity: 1; }
+}
+/* El gato se despereza y salta detrás de él, de la cama a la mesa */
+@keyframes rs-e7-gato-va {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  46%, 100% { opacity: 0; }
+}
+@keyframes rs-e7-gato {
+  0%, 45.9% { transform: translate(78px, 13px); opacity: 0; animation-timing-function: steps(1, end); }
+  46% { transform: translate(78px, 13px); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  49% { transform: translate(78px, 13px) scale(1.15, 0.8); opacity: 1; animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  54% { transform: translate(39px, -24px) scale(0.9, 1.12); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  59% { transform: scale(1.2, 0.8); opacity: 1; animation-timing-function: ease-out; }
+  63%, 100% { transform: none; opacity: 1; }
+}
+/* Él recoge lo de «Para ti»: la pila baja en la carpeta */
+@keyframes rs-e7-pila {
+  0%, 62% { transform: none; animation-timing-function: ease-out; }
+  64% { transform: translateY(-2px); animation-timing-function: ease-in; }
+  70%, 100% { transform: translateY(14px); }
+}
+/* Manila coge el boli de la mesa: de la pose estirada a la de escribir, y deshace el estirón (0,97 × 1,05) */
+@keyframes rs-e7-ya {
+  0% { opacity: 1; animation-timing-function: steps(1, end); }
+  68%, 100% { opacity: 0; }
+}
+@keyframes rs-e7-coge {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  68%, 100% { opacity: 1; }
+}
+@keyframes rs-e7-mn {
+  0%, 62% { transform: none; animation-timing-function: ease-in-out; }
+  68% { transform: scale(1.06, 0.9); animation-timing-function: ease-in-out; }
+  76%, 100% { transform: scale(1.030928, 0.952381); }
+}
+/* Móvil: del plano final de sd-e7-cam-m (96,6; 100,8; ×1,05) al del 13 % (114; 91,2; ×0,95), dentro del SVG */
+@keyframes rs-e7-cam-m {
+  0%, 24% { transform: none; animation-timing-function: ease-in-out; }
+  64%, 100% { transform: translate(-16.571px, 9.1429px) scale(0.904762); }
+}
+
+/* ============================================================ E8 · rodea la cifra que no cuadra (Ya funciona) */
+/* Tarea (43,6-89 %): Manila, junto a la cifra, rodea «88 m²» a boli, pone el «!» de dos golpes y el tasador mira; queda
+   así hasta el reposo (--sd-sale 0,89 de breve.css). Manila no se mueve en la tarea (su aterrizaje, sd-e8-cae-b, aún
+   coletea al 43,6 %: quieta). Puente: llega la hoja siguiente, que baja desde arriba por debajo de la cinta (g.e8-otra,
+   recortada por el borde de la hoja, con la cinta copiada encima, g.e8-cinta) y tapa el círculo y el «!»; cuando el
+   canto le pasa por los pies, Manila da un saltito (g.e8-brinca). Entonces la coreografía salta al 43,6 %, donde el
+   círculo y el «!» aún no están, y la hoja nueva desaparece encima de su copia exacta. */
+[data-escena="e8"] { --bucle: "rs/2 0.436>0.89/3.4"; --bucle-quietas: sd-e8-cae-b; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e8-otra { animation-name: rs-e8-otra; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e8-cinta { animation-name: rs-e8-cinta; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e8-brinca { animation-name: rs-e8-brinca; }
+@keyframes rs-e8-otra {
+  0%, 9.9% { opacity: 0; transform: translateY(-216px); }
+  10% { opacity: 1; transform: translateY(-216px); animation-timing-function: cubic-bezier(0.45, 0, 0.3, 1); }
+  76% { opacity: 1; transform: translateY(2px); animation-timing-function: linear(0, 0.007 1.2%, 0.023 2.4%, 0.097 5.5%, 0.524 17.4%, 0.627 20.6%, 0.711 23.7%, 0.781 26.7%, 0.839 29.8%, 0.888 33%, 0.928 36.4%, 0.959 40.1%, 0.981 43.9%, 0.997 48.4%, 1.006 53.4%, 1.01 63.4%, 1); }  /* se asienta */
+  86%, 100% { opacity: 1; transform: none; }
+}
+@keyframes rs-e8-cinta { 0%, 9.9% { opacity: 0; } 10%, 100% { opacity: 1; } }
+@keyframes rs-e8-brinca {
+  0%, 56% { transform: none; animation-timing-function: ease-in-out; }
+  61% { transform: translateY(2px) scale(1.04, 0.95); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }   /* coge impulso */
+  70% { transform: translateY(-14px); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  78% { transform: translateY(1px) scale(1.05, 0.94); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); }
+  88%, 100% { transform: none; }
+}
+
+/* ============================================================ E9 · trabaja solo donde le dejan (Seguridad) */
+/* Tarea (13-100 %): ya en la mesa, él le da el correo y la carpeta (se los «come»), señala el cajón y el boli dibuja el
+   candado de «Personal»; Manila repasa con la lupa lo permitido y frena antes del cajón (ahí no), se disfraza de él
+   (gafas, pelo y taza) y, con el plano ya cerca, brindan como en un espejo. Puente (rs/3.2, con la coreografía quieta
+   en el reposo): el plano se aleja (e9-aleja) mientras los dos bajan la taza a la vez; él la deja en la mesa y ella
+   baja los brazos (cambio de dibujo, como en la entrada); Manila se sacude (e9-sacude) y el pelo y las gafas salen
+   volando por arriba, fuera del dibujo, de donde le cayeron; vuelve a su cara de siempre; el candado se borra a trazo
+   (una copia, e9-borra, que se desdibuja) y él le tiende otro correo (copias de a1 y del sobre). Entonces la
+   coreografía salta al 13 %, donde todo eso ya está así, y vuelve a empezar el día. */
+[data-escena="e9"] { --bucle: "rs/3.2 0.13>1"; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-aleja { animation-name: rs-e9-aleja; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-a4 { animation-name: rs-e9-r-a4; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-taza-a { animation-name: rs-e9-r-taza-a; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-a0 { animation-name: rs-e9-r-a0; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-a1 { animation-name: rs-e9-otro; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-sobre { animation-name: rs-e9-r-sobre; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-cabeza { animation-name: rs-e9-r-cabeza; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-brindis { animation-name: rs-e9-r-brindis; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-taza-m { animation-name: rs-e9-r-taza-m; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-arf { animation-name: rs-e9-baja; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-ar0 { animation-name: rs-e9-r-ar0; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-sacude { animation-name: rs-e9-sacude; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-gafas { animation-name: rs-e9-r-gafas; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-pelo { animation-name: rs-e9-r-pelo; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-cd { animation-name: rs-e9-r-cd; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-ca { animation-name: rs-e9-r-ca; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-r-candado { animation-name: rs-e9-r-candado; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e9-borra { animation-name: rs-e9-borra; }
+@keyframes rs-e9-aleja {
+  0% { transform: none; animation-timing-function: ease-in-out; }
+  30%, 100% { transform: scale(0.81967); } /* × 1,22 del plano cerca = 1 */
+}
+/* Los dos bajan la taza a la vez, como en un espejo (las tazas se enderezan con el brazo) y cambian de dibujo */
+@keyframes rs-e9-r-a4 {
+  0%, 10% { opacity: 1; transform: none; animation-timing-function: ease-in-out; }
+  30% { opacity: 1; transform: rotate(-67deg); animation-timing-function: ease-in-out; }
+  34% { opacity: 1; transform: rotate(-64deg); animation-timing-function: steps(1, end); }
+  36%, 100% { opacity: 0; transform: rotate(-64deg); }
+}
+@keyframes rs-e9-r-taza-a {
+  0%, 12% { transform: none; animation-timing-function: ease-in-out; }
+  30%, 100% { transform: rotate(64deg); }
+}
+@keyframes rs-e9-r-a0 {
+  0% { opacity: 0; animation-timing-function: steps(1, end); }
+  36% { opacity: 1; animation-timing-function: steps(1, end); }
+  80%, 100% { opacity: 0; }
+}
+@keyframes rs-e9-otro { 0% { opacity: 0; animation-timing-function: steps(1, end); } 80%, 100% { opacity: 1; } }
+/* el sobre, ya donde lo tiene el 13 % de la coreografía (empieza a moverse al 12 %) */
+@keyframes rs-e9-r-sobre {
+  0% { opacity: 0; transform: translate(0.203px, -0.203px) rotate(0.406deg); animation-timing-function: steps(1, end); }
+  80%, 100% { opacity: 1; transform: translate(0.203px, -0.203px) rotate(0.406deg); }
+}
+@keyframes rs-e9-r-cabeza {
+  0%, 74% { transform: none; animation-timing-function: ease-in-out; }
+  82%, 100% { transform: rotate(-1deg); }
+}
+@keyframes rs-e9-r-brindis {
+  0%, 10% { opacity: 1; transform: none; animation-timing-function: ease-in-out; }
+  30% { opacity: 1; transform: rotate(79deg); animation-timing-function: ease-in-out; }
+  34% { opacity: 1; transform: rotate(76deg); animation-timing-function: steps(1, end); }
+  36%, 100% { opacity: 0; transform: rotate(76deg); }
+}
+@keyframes rs-e9-r-taza-m {
+  0%, 12% { transform: none; animation-timing-function: ease-in-out; }
+  30%, 100% { transform: rotate(-70deg); }
+}
+@keyframes rs-e9-baja { 0% { opacity: 1; animation-timing-function: steps(1, end); } 36%, 100% { opacity: 0; } }
+@keyframes rs-e9-r-ar0 { 0% { opacity: 0; animation-timing-function: steps(1, end); } 36%, 100% { opacity: 1; } }
+/* Manila se sacude el disfraz: se encoge, da un tirón hacia arriba (el pelo y las gafas siguen subiendo) y cae */
+@keyframes rs-e9-sacude {
+  0%, 38% { transform: none; animation-timing-function: ease-in-out; }
+  44% { transform: scale(1.12, 0.86); animation-timing-function: ease-out; }
+  48% { transform: translateY(-10px) scale(0.9, 1.12); animation-timing-function: ease-out; }
+  54% { transform: translateY(-14px) scale(0.96, 1.04); animation-timing-function: ease-in; }
+  60% { transform: scale(1.1, 0.9); animation-timing-function: ease-out; }
+  65% { transform: scale(0.97, 1.03); animation-timing-function: ease-in-out; }
+  70%, 100% { transform: none; }
+}
+@keyframes rs-e9-r-gafas {
+  0%, 46% { transform: none; animation-timing-function: cubic-bezier(0.3, 0.3, 0.6, 1); }
+  70%, 100% { transform: translate(-12px, -200px) rotate(-50deg); }
+}
+@keyframes rs-e9-r-pelo {
+  0%, 45% { transform: none; animation-timing-function: cubic-bezier(0.3, 0.3, 0.6, 1); }
+  68%, 100% { transform: translate(14px, -160px) rotate(30deg) scale(0.9, 1.15); }
+}
+@keyframes rs-e9-r-cd { 0% { opacity: 1; animation-timing-function: steps(1, end); } 48%, 100% { opacity: 0; } }
+@keyframes rs-e9-r-ca { 0% { opacity: 0; animation-timing-function: steps(1, end); } 48%, 100% { opacity: 1; } }
+/* El candado: la copia ocupa su sitio enseguida (igual que él) y se desdibuja hacia atrás */
+@keyframes rs-e9-r-candado { 0% { opacity: 1; animation-timing-function: steps(1, end); } 1%, 100% { opacity: 0; } }
+@keyframes rs-e9-borra {
+  0% { opacity: 0; stroke-dashoffset: 0; animation-timing-function: steps(1, end); }
+  1%, 62% { opacity: 1; stroke-dashoffset: 0; animation-timing-function: ease-in-out; }
+  80%, 100% { opacity: 1; stroke-dashoffset: 100; }
+}
+
+/* ============================================================ E10 · cómo se empieza: las tres etapas */
+/* Tarea (32-100 %), con la llamada de 20 minutos en su bucle de siempre: en la instalación, Manila coge impulso, salta
+   y cruza la pantalla del portátil hasta ser el icono, y la cámara se acerca; en la entrevista, sale del fondo de la
+   pantalla, pisa el canto y señala el «sí». La línea de boli que une las etapas se queda dibujada (quieta). Puente, en
+   las dos a la vez: en la entrevista, Manila se agacha, salta y vuelve al fondo encogiéndose (el camino de su salida,
+   sx-e10-vuelve) y se mete detrás de la tarjeta (g.e10-adentro); en la instalación, la cámara se aleja
+   (g.e10-aleja, por fuera de g.e10-portatil: scale(0,7) desde su mismo origen), el icono da un brinco
+   (g.e10-salta) y, en el corte de la entrada al revés, vuelve a ser Manila (g.e10-fuera, copia de g.e10-entra), que
+   sale de la pantalla de un salto y aterriza a su lado. Entonces la coreografía salta al 32 %: Manila, junto al
+   portátil, igual que su copia; el icono y la de la entrevista, aún sin aparecer (la de la entrevista estaba tapada). */
+[data-escena="e10"] { --bucle: "rs/3 0.32>1/4.4"; --bucle-quietas: sd-e10-linea; }
+/* g.e10-fuera, desde su pie (126,8 87 en el dibujo); al empezar, del tamaño y en el sitio del icono con la cámara lejos
+   (su caja, 30 22,4 34,6 × 33,6 dentro del portátil, a 0,7 desde 8 104: pie en 35,5 70,4 y 23,5 de alto) */
+/* El origen de g.e10-portatil, fijo (fill-box 4 14 + 4 91: con .ilu * en fill-box, su caja cambiaba con el cursor y
+   el icono, y el acercamiento daba tirones de un par de px; así el empalme con g.e10-aleja es exacto) */
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e10-aleja { animation-name: rs-e10-aleja; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e10-salta { animation-name: rs-e10-salta; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e10-fuera { animation-name: rs-e10-fuera; }
+.sd-motor :is([data-fase="tarea"], [data-fase="sale"]) .e10-adentro { animation-name: rs-e10-adentro; }
+@keyframes rs-e10-aleja {
+  0%, 6% { transform: none; animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); }
+  32%, 100% { transform: scale(0.7); }
+}
+@keyframes rs-e10-salta {
+  0%, 34% { opacity: 1; visibility: visible; transform: none; animation-timing-function: ease-in-out; }
+  40% { transform: translateY(1px) scale(1.16, 0.8); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }     /* coge impulso */
+  45.9% { opacity: 1; visibility: visible; transform: translateY(-3px) scale(0.92, 1.1); }
+  46%, 100% { opacity: 0; visibility: hidden; transform: translateY(-3px) scale(0.92, 1.1); }
+}
+/* El corte de la entrada (icono / Manila) al revés: el icono vuelve a ser Manila, que sale de la pantalla en arco */
+@keyframes rs-e10-fuera {
+  0%, 45.9% { opacity: 0; visibility: hidden; transform: translate(-91.3px, -16.6px) scale(0.37); }
+  46% { opacity: 1; visibility: visible; transform: translate(-91.3px, -16.6px) scale(0.37); animation-timing-function: ease-out; }
+  50% { transform: translate(-80px, -18px) scale(0.36, 0.5); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); } /* la puerta */
+  58% { transform: translate(-40px, -20px) scale(0.84, 0.88) rotate(5deg); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+  66% { transform: translateY(1px) scale(1.1, 0.88); animation-timing-function: linear(0, 0.01 0.8%, 0.037 1.6%, 0.152 3.6%, 0.772 10.5%, 1.003 13.6%, 1.084 15.1%, 1.145 16.5%, 1.186 18%, 1.21 19.5%, 1.217 20.5%, 1.217 21.4%, 1.213 22.4%, 1.201 23.6%, 1.165 25.9%, 1.056 31.3%, 1.009 34%, 0.973 37.2%, 0.961 38.8%, 0.955 40.4%, 0.953 42.4%, 0.956 44.7%, 0.997 55%, 1.009 61%, 1.01 65.8%, 0.998 81.2%, 1); } /* aterriza */
+  78%, 100% { opacity: 1; visibility: visible; transform: none; }
+}
+@keyframes rs-e10-adentro {
+  0%, 4% { transform: none; animation-timing-function: ease-out; }
+  12% { transform: translate(0, 1px) scale(1.08, 0.88); animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1); }
+  22% { transform: translate(7px, -14px) rotate(3deg) scale(0.86, 0.9); animation-timing-function: ease-in-out; }
+  34% { transform: translate(14px, -14px) scale(0.68); animation-timing-function: ease-in-out; }
+  46% { transform: translate(22px, -26px) scale(0.5); animation-timing-function: ease-in-out; }
+  58% { transform: translate(29px, -31px) scale(0.35); animation-timing-function: ease-in-out; }    /* al fondo */
+  66% { transform: translate(44px, -36px) scale(0.32) translateY(-5px); animation-timing-function: ease-in-out; }
+  76%, 100% { transform: translate(78px, -44px) scale(0.3); }                                    /* tras la tarjeta */
+}

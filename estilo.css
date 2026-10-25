@@ -1,0 +1,119 @@
+/* Web oficial de AutonomIA: estilo de las páginas sencillas (privacidad, gracias y las de error). La portada tiene el
+   suyo, inicio.css. Va después de marca/marca.css, de la que solo usa el logo, Atkinson Hyperlegible y el amarillo de
+   la marca (aquí, solo para el foco del teclado). Folio blanco, tinta azulada, bolígrafo azul como único acento, radio 0
+   y sin sombras (docs/anti-ai-slop.md). */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+}
+/* Las cifras del texto, en Archivo: el cero tachado de Atkinson parece de código */
+@font-face {
+  font-family: "Cifras";
+  src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap; unicode-range: U+0030-0039;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("fuentes/archivo-latin-wdth-italic.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: italic; font-display: swap;
+}
+
+:root {
+  --papel: #fafaf8;       /* fondo: blanco de folio, neutro */
+  --hoja: #ffffff;        /* superficies */
+  --linea: #d6d9df;       /* filetes finos */
+  --tinta: #151a24;       /* texto: tinta azulada casi negra (16,9:1) */
+  --gris: #4a5161;        /* texto secundario (7,9:1) */
+  --boli: #1d3fa6;        /* bolígrafo azul: enlaces y acento (8,1:1) */
+  --boli-suave: #e9edf9;
+  --foco: #f5c518;        /* el amarillo de la marca, solo para el foco del teclado */
+
+  --t-titulo: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --t-texto: "Cifras", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ancho: 72rem;
+}
+:root[data-theme="dark"] {
+  --papel: #111419;
+  --hoja: #181c23;
+  --linea: #2e343e;
+  --tinta: #eef0f3;
+  --gris: #a7aebb;
+  --boli: #9fb4ff;
+  --boli-suave: #1c2643;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--t-texto); font-size: 1.125rem; line-height: 1.6;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--boli); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--tinta); outline-offset: 0; box-shadow: 0 0 0 7px var(--foco); }
+p { margin: 0 0 1em; }
+h1, h2, h3 { font-family: var(--t-titulo); line-height: 1.08; margin: 0 0 0.5em; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 1.5rem + 3.2vw, 3.8rem); font-weight: 700; font-stretch: 88%; letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.35rem); font-weight: 750; font-stretch: 82%; }
+h3 { font-size: 1.2rem; font-weight: 700; font-stretch: 92%; line-height: 1.25; margin-bottom: 0.3em; }
+
+.ancho { max-width: var(--ancho); margin: 0 auto; padding-inline: 1rem; }
+@media (min-width: 48rem) { .ancho { padding-inline: 2rem; } }
+.saltar { position: absolute; left: -999px; top: 0; z-index: 10; background: var(--foco); color: #151a24; padding: 0.6rem 1rem; }
+.saltar:focus { left: 1rem; }
+p, li, dd { text-wrap: pretty; }
+
+/* ------------------------------------------------------------ cabecera */
+.cabecera { position: sticky; top: 0; z-index: 5; background: var(--papel); border-bottom: 3px solid var(--tinta); }
+.cabecera-fila { display: flex; align-items: center; gap: 0.5rem 1.75rem; flex-wrap: wrap; padding-block: 0.6rem; }
+.logo { display: inline-flex; align-items: center; gap: 0.45rem; margin-right: auto; }
+.logo img { height: 32px; width: auto; }
+.logo .logo-manila { height: 38px; } /* Manila, el logo (Edu, 22/10): marca/logo/manila-pequeno.svg */
+@media (max-width: 30rem) {
+  .cabecera-fila { gap: 0.5rem; flex-wrap: nowrap; }
+  .tema-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .tema { padding-inline: 0.6rem; }
+}
+.tema {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.4rem 0.75rem;
+  font: inherit; font-size: 0.95rem; color: var(--tinta); background: transparent;
+  border: 2px solid var(--tinta); border-radius: 0; cursor: pointer;
+}
+.tema:hover { background: var(--boli-suave); }
+.icono-sol { display: none; }
+:root[data-theme="dark"] .icono-sol { display: block; }
+:root[data-theme="dark"] .icono-luna { display: none; }
+:root[data-theme="dark"] .am-solo-claro { display: none; }
+:root[data-theme="dark"] .am-solo-oscuro { display: inline-block; }
+
+/* ------------------------------------------------------------ botones */
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0.75rem 1.4rem;
+  font: inherit; font-family: var(--t-titulo); font-weight: 650; font-stretch: 95%; font-size: 1.15rem; text-decoration: none; cursor: pointer; border-radius: 0;
+  border: 2px solid var(--tinta);
+}
+.boton-principal { background: var(--tinta); color: var(--papel); }
+.boton-principal:hover { background: var(--boli); border-color: var(--boli); color: var(--hoja); }
+:root[data-theme="dark"] .boton-principal:hover { color: #111419; }
+.boton-secundario { background: transparent; color: var(--tinta); }
+.boton-secundario:hover { background: var(--boli-suave); }
+
+/* Pie */
+.pie { border-top: 3px solid var(--tinta); font-variant-numeric: lining-nums; padding-block: 1.5rem 2.5rem; font-size: 1rem; color: var(--gris); }
+.pie-fila { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
+.pie p { margin: 0; }
+
+/* Páginas sencillas: privacidad, gracias, error */
+.aviso-pagina { max-width: 44rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
+.aviso-pagina .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }
+.pagina-texto { padding-block: 2.5rem 4rem; }
+.ancho-estrecho { max-width: 46rem; }
+.pagina-texto h2 { font-size: 1.5rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--linea); }
+.pagina-texto ul { padding-left: 1.2rem; }
+.pagina-texto li { margin-bottom: 0.4rem; }
+.pagina-texto .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }

@@ -1,0 +1,75 @@
+/* Portada v5, «interfaces vivas» (empleado 833, diseñador 1; pedido de Edu «pe-interfaces-vivas», 29/10/2026). Va
+   después de bucle.css y solo añade la respuesta que les faltaba a algunos controles; las escenas y sus bucles no se
+   tocan. Con las skills movimiento-fisico (apretar es inmediato, soltar es resorte: --muelle de breve.css) y
+   review-animations (curvas que salen rápido, nada de ease-in ni de transition: all, el hover solo con ratón). Solo
+   translate, scale, rotate, transform y opacity; todo lo que se mueve, dentro de prefers-reduced-motion:
+   no-preference (en el modo suave, movimiento.js lo deja pasar y --muelle ya no se pasa de su sitio). La parte de
+   JavaScript, en vivo-portada.js. */
+
+/* ------------------------------------------------------------ el logo: Manila se ladea y se aplasta */
+.logo-manila { transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .logo-manila { transition: rotate 460ms var(--muelle), scale 460ms var(--muelle); }
+  .logo:active .logo-manila { scale: 1.08 0.9; transition-duration: 80ms; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .logo:hover .logo-manila { rotate: -7deg; }
+}
+
+/* ------------------------------------------------------------ el tema y «Menos movimiento» */
+/* Al cambiar de tema, el icono nuevo entra girando (vivo-portada.js pone .vivo-cambia un momento). En el modo suave,
+   las ondas del icono de movimiento se aplanan: el estado se ve en el propio botón. */
+.icono-mov path { transform-box: fill-box; transform-origin: 50% 50%; }
+:root.mov-suave .icono-mov path { scale: 1 0.3; }
+@media (prefers-reduced-motion: no-preference) {
+  .tema.vivo-cambia svg { animation: vivo-icono 520ms var(--muelle); }
+  .icono-mov path { transition: scale 240ms cubic-bezier(0.23, 1, 0.32, 1); }
+}
+@keyframes vivo-icono { from { rotate: -100deg; scale: 0.8; opacity: 0.3; } }
+
+/* ------------------------------------------------------------ «Saber más»: el «+» se aplasta al apretar */
+@media (prefers-reduced-motion: no-preference) {
+@supports (transition-timing-function: linear(0, 1)) {
+  .saber-mas > summary::before, .demo-cambiar::before { transition: rotate 520ms var(--muelle), scale 460ms var(--muelle); }
+  .saber-mas > summary:active::before, .demo-cambiar:active::before { scale: 0.72; transition-duration: 520ms, 70ms; }
+}
+}
+
+/* ------------------------------------------------------------ la pila, en el táctil */
+/* Sin ratón no hay «pasar por encima»: al tocar una pestaña, se levanta como al sacarla del archivador */
+@media (hover: none) { a.carpeta:active .pestana { transform: translateY(-6px); } }
+/* Con ratón, la Manila de la portada salta al pasar por encima y fisica.js le da el salto con peso al tocarla; en el
+   táctil el toque traía los dos a la vez: se queda el de peso. */
+@media (hover: none) { :root.vivo-fis:not(.mov-suave) .pt-manila.saluda .pt-salta { animation: none; } }
+
+/* ------------------------------------------------------------ el formulario de contacto */
+/* Error: el campo en rojo, el texto debajo y una sacudida corta (4 px). Carga: «Enviando…» con un trazo de boli que
+   se dibuja y se borra. Listo: Manila del contacto abre su carpeta y levanta la mano (y salta, vivo-portada.js). */
+.campo-error { margin: 0; color: var(--aviso); font: 700 var(--s-pequeno) var(--t-titulo); font-stretch: 90%; }
+.campo-error[hidden] { display: none; }
+.campo-casilla .campo-error { grid-column: 1 / -1; }
+.campo.vivo-mal > :is(input, textarea, select) { border-color: var(--aviso); }
+.boton.vivo-enviando { position: relative; cursor: progress; }
+.boton.vivo-enviando::after {
+  content: ""; position: absolute; left: 1.6rem; right: 1.6rem; bottom: 0.65rem; height: 3px;
+  background: currentColor; opacity: 0.6;
+}
+.ct-manila.vivo-celebra .ct-arriba { opacity: 1; }
+.ct-manila.vivo-celebra .ct-abajo { opacity: 0; }
+.ct-manila.vivo-celebra .ct-tapa { transform: translateY(16px) scaleY(0.32); }
+@media (prefers-reduced-motion: no-preference) {
+  .campo-error:not([hidden]) { animation: vivo-aparece 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .campo.vivo-sacude > :is(input, textarea, select) { animation: vivo-sacude 320ms cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+  :root.mov-suave .campo.vivo-sacude > * { animation: none; }
+  .campo-casilla input { transition: scale 460ms var(--muelle); }
+  .campo-casilla input:active { scale: 0.86; transition-duration: 70ms; }
+  .boton.vivo-enviando::after { opacity: 1; animation: vivo-trazo 1100ms cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+}
+@keyframes vivo-aparece { from { opacity: 0; translate: 0 -4px; } }
+@keyframes vivo-sacude { 20% { translate: -4px 0; } 40% { translate: 4px 0; } 60% { translate: -3px 0; } 80% { translate: 2px 0; } }
+@keyframes vivo-trazo {
+  0% { transform: scaleX(0); transform-origin: 0 50%; }
+  50% { transform: scaleX(1); transform-origin: 0 50%; }
+  50.01% { transform: scaleX(1); transform-origin: 100% 50%; }
+  100% { transform: scaleX(0); transform-origin: 100% 50%; }
+}

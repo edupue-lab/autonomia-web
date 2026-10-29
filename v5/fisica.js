@@ -32,7 +32,8 @@
   // 2. Manila con peso
   var manila = d.querySelector(".e1-dibujo .e1-manila"), cuerpo = manila && manila.querySelector(".mn-cuerpo");
   if (cuerpo && cuerpo.getBBox) {
-    manila.addEventListener("pointerdown", function (e) {
+    // 833: con click y no pointerdown, que empezar un scroll con el dedo encima de ella no la haga saltar
+    manila.addEventListener("click", function (e) {
       if (e.button || M.quieto()) return;
       try { M.saltar(cuerpo, M.pieDe(cuerpo)); } catch (err) { /* sin caja medible (oculta): no salta */ }
     });

@@ -54,7 +54,7 @@ body {
 }
 img, svg { display: block; max-width: 100%; }
 a { color: var(--boli); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
+@media (hover: hover) and (pointer: fine) { a:hover { text-decoration-thickness: 2px; } }
 :focus-visible { outline: 3px solid var(--tinta); outline-offset: 0; box-shadow: 0 0 0 7px var(--foco); }
 p { margin: 0 0 1em; }
 h1, h2, h3 { font-family: var(--t-titulo); line-height: 1.08; margin: 0 0 0.5em; text-wrap: balance; }
@@ -83,8 +83,10 @@ p, li, dd { text-wrap: pretty; }
   display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.4rem 0.75rem;
   font: inherit; font-size: 0.95rem; color: var(--tinta); background: transparent;
   border: 2px solid var(--tinta); border-radius: 0; cursor: pointer;
+  transition: transform 120ms ease-out;
 }
-.tema:hover { background: var(--boli-suave); }
+@media (hover: hover) and (pointer: fine) { .tema:hover { background: var(--boli-suave); } }
+.tema:active { transform: translateY(2px); transition-duration: 80ms; }
 .icono-sol { display: none; }
 :root[data-theme="dark"] .icono-sol { display: block; }
 :root[data-theme="dark"] .icono-luna { display: none; }
@@ -92,16 +94,52 @@ p, li, dd { text-wrap: pretty; }
 :root[data-theme="dark"] .am-solo-oscuro { display: inline-block; }
 
 /* ------------------------------------------------------------ botones */
+/* (833) Con la sombra calco: un bloque plano amarillo corrido debajo (::before) y la cara del botón encima (::after).
+   Al pasar el ratón el botón se levanta y el calco se queda en su sitio, así que se separa; al apretar se hunde sobre
+   él al momento (80 ms) y al soltar vuelve con resorte. Solo se mueve transform; los colores cambian sin animar. */
 .boton {
+  position: relative; isolation: isolate;
   display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0.75rem 1.4rem;
   font: inherit; font-family: var(--t-titulo); font-weight: 650; font-stretch: 95%; font-size: 1.15rem; text-decoration: none; cursor: pointer; border-radius: 0;
-  border: 2px solid var(--tinta);
+  border: 0; background: none; color: var(--tinta);
+  --cara: var(--papel); --borde: var(--tinta); --calco: var(--foco);
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  transition: transform 120ms ease-out;
 }
-.boton-principal { background: var(--tinta); color: var(--papel); }
-.boton-principal:hover { background: var(--boli); border-color: var(--boli); color: var(--hoja); }
-:root[data-theme="dark"] .boton-principal:hover { color: #111419; }
-.boton-secundario { background: transparent; color: var(--tinta); }
-.boton-secundario:hover { background: var(--boli-suave); }
+.boton::before, .boton::after { content: ""; position: absolute; inset: 0; z-index: -1; transition: transform 120ms ease-out; }
+.boton::before { background: var(--calco); transform: translate(4px, 4px); }
+.boton::after { background: var(--cara); border: 2px solid var(--borde); }
+:root[data-theme="dark"] .boton { --calco: #b38a0c; }
+.boton-principal { --cara: var(--tinta); color: var(--papel); }
+.boton-secundario { --cara: var(--papel); color: var(--tinta); }
+@media (hover: hover) and (pointer: fine) {
+  .boton-principal:hover { --cara: var(--boli); --borde: var(--boli); color: var(--hoja); }
+  :root[data-theme="dark"] .boton-principal:hover { color: #111419; }
+  .boton-secundario:hover { --cara: var(--boli-suave); }
+  .boton:hover { transform: translate(-2px, -2px); }
+  .boton:hover::before { transform: translate(6px, 6px); }
+}
+.boton:active { transform: translate(3px, 3px); transition-duration: 80ms; }
+.boton:active::before { transform: translate(1px, 1px); transition-duration: 80ms; }
+.boton:focus-visible::before { transform: translate(6px, 6px); }
+@media (prefers-reduced-motion: no-preference) {
+  .boton, .boton::before { transition: transform 460ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @supports (transition-timing-function: linear(0, 1)) {
+    .boton, .boton::before {
+      transition-timing-function: linear(0, 0.007 1%, 0.034 2.2%, 0.079 3.5%, 0.137 4.8%, 0.281 7.2%, 0.594 12%,
+        0.719 14%, 0.845 16.2%, 0.940 18.2%, 1.018 20.2%, 1.077 22.2%, 1.120 24.2%, 1.147 26.2%, 1.163 29.2%,
+        1.154 32.5%, 1.128 35.8%, 1.018 46.8%, 0.991 51%, 0.977 55.2%, 0.975 62%, 1.003 83%, 1);
+    }
+  }
+  .boton:hover, .boton:hover::before { transition-duration: 300ms; }
+  .boton:active, .boton:active::before { transition-duration: 80ms; transition-timing-function: ease-out; }
+}
+
+/* (833) El botón del tema: al cambiar, el icono nuevo llega girando (tema.js le pone .tema-cambia un momento) */
+@media (prefers-reduced-motion: no-preference) {
+  .tema-cambia svg { animation: tema-gira 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+}
+@keyframes tema-gira { from { transform: rotate(-70deg) scale(0.7); opacity: 0.2; } }
 
 /* Pie */
 .pie { border-top: 3px solid var(--tinta); font-variant-numeric: lining-nums; padding-block: 1.5rem 2.5rem; font-size: 1rem; color: var(--gris); }
@@ -113,7 +151,7 @@ p, li, dd { text-wrap: pretty; }
 .aviso-pagina .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }
 .pagina-texto { padding-block: 2.5rem 4rem; }
 .ancho-estrecho { max-width: 46rem; }
-.pagina-texto h2 { font-size: 1.5rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--linea); }
+.pagina-texto h2 { font-size: 1.5rem; margin-top: 2.75rem; } /* 833: sin filete fino; el aire separa */
 .pagina-texto ul { padding-left: 1.2rem; }
 .pagina-texto li { margin-bottom: 0.4rem; }
 .pagina-texto .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }

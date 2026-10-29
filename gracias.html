@@ -12,15 +12,42 @@
 <link rel="icon" href="favicon.ico?v=614" sizes="16x16 24x24 32x32 48x48 64x64">
 <link rel="icon" href="marca/logo/manila-16.svg" type="image/svg+xml">
 <link rel="stylesheet" href="marca/marca.css">
-<link rel="stylesheet" href="estilo.css?v=614">
-<script src="tema.js"></script>
+<link rel="stylesheet" href="estilo.css?v=833">
+<link rel="stylesheet" href="paginas-vivas.css?v=833">
+<script src="tema.js?v=833"></script>
+<script src="v5/muelle.js?v=658" defer></script>
+<script src="paginas-vivas.js?v=833" defer></script>
 </head>
 <body>
-<main class="aviso-pagina">
-  <p class="eyebrow">Mensaje recibido</p>
-  <h1>Gracias por dejarnos tus datos</h1>
-  <p>Uno de nosotros te llamará en los próximos días, en la franja que nos has indicado, y nos contarás qué te quita más tiempo. No tienes que preparar nada.</p>
-  <p><a class="boton boton-principal" href="./">Volver a la página principal</a></p>
+<!-- 833 (Edu, 29/10: «más animaciones de los dibujos»): Manila recibe la hoja con tus datos, la guarda y lo celebra.
+     Sin JavaScript o con «reducir movimiento», se ve quieta en su último fotograma (paginas-vivas.css). -->
+<main class="aviso-pagina aviso-vivo">
+  <div class="aviso-texto">
+    <p class="eyebrow">Mensaje recibido</p>
+    <h1>Gracias por dejarnos tus datos</h1>
+    <p>Uno de nosotros te llamará en los próximos días, en la franja que nos has indicado, y nos contarás qué te quita más tiempo. No tienes que preparar nada.</p>
+    <p><a class="boton boton-principal" href="./">Volver a la página principal</a></p>
+  </div>
+  <figure class="aviso-dibujo"><svg class="pv-ilu pv-escena pv-gracias" data-dura="2400" viewBox="-20 -30 136 116" aria-hidden="true" focusable="false">
+    <path class="pv-ma" d="M-14 77.5c30-1.6 70-2.6 118-3.4l5 7c-40 1.2-80 2-124 2.4z" transform="translate(2.4 2)"/>
+    <path class="pv-ho pv-t pv-f" d="M-14 77.5c30-1.6 70-2.6 118-3.4l5 7c-40 1.2-80 2-124 2.4z"/>
+    <path class="pv-bo pv-visto" pathLength="100" d="M80 60.5l6.5 7.5 15-19"/>
+    <g class="pv-hop"><g class="pv-salta"><g class="pv-respira"><g class="mn-cuerpo">
+      <path class="pv-filo" d="M20 62.6 17 76h-6M46 62.4l3 13.6h6"/><path class="pv-t" d="M20 62.6 17 76h-6M46 62.4l3 13.6h6"/>
+      <path class="pv-ma" d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z" transform="translate(2.4 2)"/>
+      <path class="pv-t" d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 9"/>
+      <g class="pv-hoja-x"><g class="pv-hoja-y"><g class="pv-hoja-r">
+        <path class="pv-ho pv-t pv-f" d="M17 58 17.8 11.8l29 2-1.6 44z"/>
+        <path class="pv-t pv-f" d="M23.4 16.6l13 .9M23.2 24.2l17 1.1M23 31.4l11 .7"/>
+      </g></g></g>
+      <path class="pv-am" d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z" transform="translate(2.4 2)"/>
+      <path class="pv-t" d="M2 26.5C21 25 41 24 62.5 23L60.4 62c-18.5 1-37 1-56 .5z"/>
+      <path class="pv-sa mn-boca" d="M23.8 53c4.3 3.2 10.2 2.9 14-1.1"/>
+      <g class="mn-ojos"><g class="pv-parpado"><path class="pv-sa mn-ojo" d="M23 40v7.4M39 39.4v7.4"/></g></g>
+      <g class="pv-brazo-i"><path class="pv-filo" d="M3.2 44C-2.4 47-5.4 52.4-6.2 58.6M-4.6 60.6l2.8 1.4"/><path class="pv-filo pv-filo-p" d="M-6.5 60.4l-.6 3.2"/><path class="pv-t" d="M3.2 44C-2.4 47-5.4 52.4-6.2 58.6"/><path class="pv-t mn-palma" d="M-6.5 60.4l-.6 3.2"/><path class="pv-t mn-pulgar" d="M-4.6 60.6l2.8 1.4"/></g>
+      <g class="pv-brazo-d"><g class="pv-mano-d"><path class="pv-filo" d="M61.6 40c6.5-2.6 9.6-9 9-17M68.6 22.4l-3.2-1.6"/><path class="pv-filo pv-filo-p" d="M70.5 21.2l-.3-3.4"/><path class="pv-t" d="M61.6 40c6.5-2.6 9.6-9 9-17"/><path class="pv-t mn-palma" d="M70.5 21.2l-.3-3.4"/><path class="pv-t mn-pulgar" d="M68.6 22.4l-3.2-1.6"/></g></g>
+    </g></g></g></g>
+  </svg></figure>
 </main>
 </body>
 </html>

@@ -105,6 +105,79 @@
   .dossier-pie { background: none; padding: 0; margin-top: 1cm; }
 }
 
+/* ------------------------------------------------------------ (833) con vida, en el dossier y en oficinas
+   Edu (29/10): «más animaciones de los dibujos, más interactividad, todo tiene respuesta». Los dibujos siguen
+   terminados desde el principio (se leen y se imprimen así); ../paginas-vivas.js les enciende los bucles de
+   escenas.css e ilustra.css (respiran, parpadean), la mirada y el salto con peso al tocarlos (muelle.js). Sin
+   JavaScript, con «reducir movimiento» sin elegir más, o al imprimir, siguen quietos. */
+
+/* En oscuro, Manila pisa papel (skill ilustracion-calco §3): los dibujos que viven sobre una hoja son, como en el
+   recorrido (acompanante.css, que aquí no se carga), una hoja iluminada con la paleta de día, y el de «Qué es» lleva
+   su hoja dibujada debajo (g.pv-hoja-osc, con su calco), que en claro no se pinta */
+:root[data-theme="dark"] .dossier-cuerpo :is(.ilu-papel-claro, .ilu-hoja-entera) {
+  --tinta: #1d1b16; --hoja: #e9e0c8; --carpeta-2: #e6d39a; --boli-trazo: #1d3fa6; --sobre-amarillo: #1d1b16;
+}
+.pv-hoja-osc { display: none; }
+:root[data-theme="dark"] .pv-hoja-osc { display: inline; }
+
+/* Al tocar, el salto con peso lo da Muelle.saltar (paginas-vivas.js): el de los fotogramas de escenas.css, fuera */
+.pv-muelle .dossier-ilu.toca .es-hop { animation: none; }
+.dossier-ilu { cursor: default; -webkit-tap-highlight-color: transparent; }
+
+/* El índice: al pasar el ratón el capítulo se adelanta un poco y su raya se engorda; al apretar, se hunde al momento */
+.dossier-indice a { text-decoration-thickness: 2px; text-underline-offset: 0.22em; transition: transform 120ms ease-out; }
+@media (hover: hover) and (pointer: fine) {
+  .dossier-indice a:hover { transform: translateX(4px); text-decoration-thickness: 4px; }
+  .dossier-indice a:hover:active { transform: translate(4px, 1.5px); }
+}
+.dossier-indice a:active { transform: translateY(1.5px); transition-duration: 70ms; }
+@media (prefers-reduced-motion: no-preference) {
+  .dossier-indice a { transition: transform 300ms var(--muelle); }
+  .dossier-indice a:active { transition-duration: 70ms; }
+}
+/* Al llegar a un capítulo desde el índice (o con un enlace), el boli le pasa una raya por debajo del título: «estás
+   aquí». Se queda puesta mientras sea el destino. */
+.capitulo > h2 { position: relative; }
+.capitulo:target > h2::after {
+  content: ""; position: absolute; left: 0; bottom: -0.3rem; width: min(100%, 9ch); height: 0.3rem;
+  background: var(--boli-trazo); clip-path: polygon(0 35%, 100% 0, 99% 70%, 1% 100%); transform-origin: 0 50%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .capitulo:target > h2::after { animation: dossier-raya 460ms cubic-bezier(0.22, 1, 0.36, 1) 380ms backwards; }
+}
+@keyframes dossier-raya { from { transform: scaleX(0.04); } }
+
+/* Los botones (v5.css): resorte de verdad al soltar, como en el recorrido (breve.css, 635); al apretar, al momento.
+   En táctil no se quedan levantados después del toque. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (transition-timing-function: linear(0, 1)) {
+    .dossier-cuerpo {
+      --muelle: linear(0, 0.007 1%, 0.034 2.2%, 0.079 3.5%, 0.137 4.8%, 0.281 7.2%, 0.594 12%, 0.719 14%, 0.845 16.2%,
+        0.940 18.2%, 1.018 20.2%, 1.077 22.2%, 1.120 24.2%, 1.147 26.2%, 1.163 29.2%, 1.154 32.5%, 1.128 35.8%,
+        1.018 46.8%, 0.991 51%, 0.977 55.2%, 0.975 62%, 1.003 83%, 1);
+    }
+    .dossier-cuerpo .boton, .dossier-cuerpo .tema { transition-duration: 460ms; }
+  }
+}
+.dossier-cuerpo .boton:active, .dossier-cuerpo .tema:active { transition-duration: 80ms; }
+@media (hover: none) {
+  @supports (corner-shape: bevel) {
+    .dossier-cuerpo .boton:hover { transform: none; filter: drop-shadow(3px 3px 0 var(--calco)); } /* taste-skill-ignore: sombra calco, bloque plano */
+    .dossier-cuerpo .boton:active { transform: translate(3px, 3px); filter: none; }
+  }
+}
+/* El tema: el icono nuevo llega girando (tema.js pone .tema-cambia) */
+@media (prefers-reduced-motion: no-preference) {
+  .dossier-cuerpo .tema-cambia svg { animation: dossier-gira 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+}
+@keyframes dossier-gira { from { transform: rotate(-70deg) scale(0.7); opacity: 0.2; } }
+
+@media print {
+  .dossier-ilu *, .tema svg { animation: none !important; transition: none !important; }
+  .capitulo:target > h2::after { content: none; }
+  :root .pv-hoja-osc { display: none; }
+}
+
 /* El cordel con el que Manila baja en el recorrido no pinta nada en una hoja quieta; la polilla, tampoco */
 .dossier-ilu .e2-cordel, .dossier-ilu .e2-polilla { display: none; }
 @media (max-width: 30rem) { .dossier-cuerpo .cabecera-contacto { padding-inline: 0.45rem; white-space: nowrap; } }

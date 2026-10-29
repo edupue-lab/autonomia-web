@@ -48,11 +48,22 @@
   appearance: none; border: 0; border-radius: 0; margin: 0; min-height: 48px; padding: 0.6rem 1.5rem 0.5rem;
   font: 720 var(--s-texto) var(--t-titulo); font-stretch: 86%; color: var(--tinta);
   background: var(--carpeta-3); clip-path: var(--pestana);
-  transform: translateY(5px); transition: transform 260ms var(--muelle), background-color 160ms var(--suave);
+  transform: translateY(5px); transition: transform 260ms var(--muelle); cursor: pointer;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
 }
-.puesto-pestana:hover { background: var(--carpeta-4); transform: translateY(1px); }
-.puesto-pestana:active { transform: translateY(6px); }
+/* (833) Al pasar el ratón, la pestaña asoma; al apretarla, se hunde al momento; la elegida sube con resorte y su hoja
+   sale delante desde el lado de la pestaña (oficinas.js, solo al tocar: con el teclado, sin animar) */
+@media (hover: hover) and (pointer: fine) {
+  .puesto-pestana:hover { background: var(--carpeta-4); transform: translateY(1px); }
+  .puesto-pestana[aria-selected="true"]:hover { transform: none; }
+}
+.puesto-pestana:active { transform: translateY(7px); transition-duration: 80ms; }
 .puesto-pestana[aria-selected="true"] { background: var(--of-hoja); transform: none; }
+.puesto-pestana[aria-selected="true"]:active { transform: translateY(2px); }
+@media (prefers-reduced-motion: no-preference) {
+  .puesto-pestana { transition-duration: 460ms; }
+  .puesto-pestana:active { transition-duration: 80ms; }
+}
 .puesto-pestana:focus-visible { clip-path: none; }
 /* En oscuro, la hoja blanca sería casi del color de la carpeta: va en manila para que se despegue */
 .oficinas { --of-hoja: var(--hoja); --of-calco: var(--carpeta-3); }
@@ -76,11 +87,8 @@
 .of-llaves { margin-top: 1.25rem; max-width: 15rem; }
 .of-llaves .dossier-ilu { --trazo: 2.4; }
 
-/* La hoja nueva sube un poco al sacarla delante, como una ficha que se tira de la pestaña */
-@media (prefers-reduced-motion: no-preference) {
-  .con-pestanas .puesto:not([hidden]) { animation: of-saca 420ms var(--suave) both; }
-  @keyframes of-saca { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-}
+/* (833) La hoja nueva se saca delante con oficinas.js (WAAPI, interrumpible; antes era un fotograma clave que saltaba
+   también al cargar y con el teclado) */
 @media (prefers-reduced-motion: reduce) { .puesto-pestana { transition: none; } }
 
 /* En el móvil, las pestañas más estrechas para que quepan en dos filas */

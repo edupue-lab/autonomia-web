@@ -179,7 +179,7 @@ body {
 }
 img, svg { display: block; max-width: 100%; }
 a { color: var(--tinta); text-decoration-color: var(--subrayado); text-decoration-thickness: 0.12em; text-underline-offset: 0.18em; }
-a:hover { text-decoration-thickness: 0.18em; text-underline-offset: 0.26em; text-decoration-color: currentColor; }
+@media (hover: hover) and (pointer: fine) { a:hover { text-decoration-thickness: 0.18em; text-underline-offset: 0.26em; text-decoration-color: currentColor; } }
 /* El foco: tinta y, por fuera, el amarillo de la carpeta, como una pestaña marcada con rotulador */
 :focus-visible { outline: 3px solid var(--tinta); outline-offset: 2px; box-shadow: 0 0 0 8px var(--foco); } /* taste-skill-ignore: el anillo de foco */
 button, summary, [role="tab"] { cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -227,7 +227,7 @@ h3 { font-size: var(--s-sub); font-weight: 720; font-stretch: 85%; line-height: 
   background: transparent; border: 0; border-radius: 0; cursor: pointer;
   clip-path: var(--chaflan); transition: transform 140ms var(--suave);
 }
-.tema:hover { background: var(--amarillo-suave); }
+@media (hover: hover) and (pointer: fine) { .tema:hover { background: var(--amarillo-suave); } }
 .tema:active { transform: translateY(2px); }
 .tema:focus-visible { clip-path: none; }
 .icono-sol { display: none; }
@@ -258,9 +258,9 @@ h3 { font-size: var(--s-sub); font-weight: 720; font-stretch: 85%; line-height: 
 /* El principal (casi siempre el de WhatsApp) es el que más destaca: tinta con letra amarilla en claro, amarillo con
    letra de tinta en oscuro. Sobre la carpeta amarilla de la portada va siempre en tinta. */
 .boton-principal { background: var(--boton); color: var(--sobre-boton); }
-.boton-principal:hover { background: var(--boton-encima); color: var(--sobre-boton); }
+@media (hover: hover) and (pointer: fine) { .boton-principal:hover { background: var(--boton-encima); color: var(--sobre-boton); } }
 .boton-secundario { background: var(--amarillo-suave); color: var(--tinta); }
-.boton-secundario:hover { background: var(--carpeta-2); color: var(--tinta); }
+@media (hover: hover) and (pointer: fine) { .boton-secundario:hover { background: var(--carpeta-2); color: var(--tinta); } }
 .boton-grande { min-height: 64px; padding: 0.9rem 2rem; font-size: var(--s-sub); }
 
 /* ------------------------------------------------------------ secciones con su pestaña */
@@ -346,7 +346,7 @@ h3 { font-size: var(--s-sub); font-weight: 720; font-stretch: 85%; line-height: 
   .carpeta-4 .pestana { margin-left: 74%; }
 }
 /* La pestaña se levanta como si la sacaras del archivador, y al apretar baja a su sitio */
-a.carpeta:hover .pestana { transform: translateY(-8px); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+@media (hover: hover) and (pointer: fine) { a.carpeta:hover .pestana { transform: translateY(-8px); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; } }
 a.carpeta:active .pestana { transform: translateY(-2px); transition-duration: 90ms; }
 a.carpeta:focus-visible { outline-offset: -3px; }
 
@@ -361,7 +361,7 @@ a.carpeta:focus-visible { outline-offset: -3px; }
 @media (min-width: 60rem) { .delantera-explica { font-size: var(--s-sub); line-height: 1.3; max-width: 24ch; } }
 .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.75rem; }
 .carpeta-delantera .boton-principal { background: var(--sobre-amarillo); color: var(--amarillo); font-size: var(--s-sub); min-height: 60px; }
-.carpeta-delantera .boton-principal:hover { background: var(--tinta-encima); color: var(--amarillo); }
+@media (hover: hover) and (pointer: fine) { .carpeta-delantera .boton-principal:hover { background: var(--tinta-encima); color: var(--amarillo); } }
 .carpeta-delantera :focus-visible { outline-color: var(--sobre-amarillo); }
 .enlace-ver {
   display: inline-flex; align-items: center; min-height: 44px;
@@ -377,11 +377,11 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   content: ""; position: absolute; left: 0; right: 0; bottom: 0.55rem; height: 3px;
   background: currentColor; transform-origin: 0 50%;
 }
-.cabecera-contacto::after { left: 0.6rem; right: 0.6rem; transform: scaleX(0); transition: transform 320ms var(--suave); }
-.cabecera-contacto:hover::after { transform: scaleX(1); }
+.cabecera-contacto::after { left: 0.6rem; right: 0.6rem; transform: scaleX(0); transition: transform 220ms var(--suave); }
+@media (hover: hover) and (pointer: fine) { .cabecera-contacto:hover::after { transform: scaleX(1); } }
 .enlace-ver::after { clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%); }
-@media (prefers-reduced-motion: no-preference) {
-  .enlace-ver:hover::after { animation: redibuja 520ms var(--suave); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .enlace-ver:hover::after { animation: redibuja 440ms var(--suave); }
 }
 .enlace-ver:active, .cabecera-contacto:active { transform: translateY(1px); }
 @media (max-width: 30rem) { .acciones .boton { width: 100%; } }
@@ -578,7 +578,7 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   font: 720 var(--s-texto) var(--t-titulo); font-stretch: 88%; background: var(--amarillo-suave); color: var(--tinta);
   transition: transform 140ms var(--suave);
 }
-.dia-modo:hover { background: var(--carpeta-2); color: var(--tinta); }
+@media (hover: hover) and (pointer: fine) { .dia-modo:hover { background: var(--carpeta-2); color: var(--tinta); } }
 .dia-modo:active { transform: translateY(2px); }
 .dia-modo[aria-pressed="true"] { background: var(--amarillo); color: var(--sobre-amarillo); }
 .dia-modo:focus-visible { clip-path: none; }
@@ -590,9 +590,9 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   padding: 1rem 1rem 1.1rem; border: 0; border-radius: 0; cursor: pointer; text-align: left;
   background: var(--carpeta-1); color: var(--tinta); font: inherit;
 }
-.hora-cuando { font: 800 var(--s-sub) var(--t-titulo); font-stretch: 80%; color: var(--acento-texto); line-height: 1; font-variant-numeric: tabular-nums; transition: transform 300ms var(--muelle); }
+.hora-cuando { font: 800 var(--s-sub) var(--t-titulo); font-stretch: 80%; color: var(--acento-texto); line-height: 1; font-variant-numeric: tabular-nums; transition: transform 200ms var(--suave); } /* 833: lo que se lee, sin rebote */
 .hora-cuando, .ui-trimestre, .ui-excel td, .ui-descarga, .demo-de span { font-variant-numeric: tabular-nums; }
-.hora-boton:hover .hora-cuando { transform: translateX(5px); }
+@media (hover: hover) and (pointer: fine) { .hora-boton:hover .hora-cuando { transform: translateX(5px); } }
 .hora-boton:active { transform: scale(0.992); }
 .hora-boton { transition: transform 160ms var(--suave); }
 .hora-textos { display: grid; gap: 0.5rem; }
@@ -601,7 +601,8 @@ a.carpeta:focus-visible { outline-offset: -3px; }
 .hora .vista, .vista-antes { margin: 0.75rem 0 1.25rem; }
 .vista [data-ui], .vista-antes [data-ui] { font-size: var(--s-pequeno); line-height: 1.4; }
 .vista-antes { display: none; }
-.hora:hover .hora-boton, .hora.activa .hora-boton { background: var(--carpeta-2); }
+.hora.activa .hora-boton { background: var(--carpeta-2); }
+@media (hover: hover) and (pointer: fine) { .hora:hover .hora-boton { background: var(--carpeta-2); } }
 
 /* Con JavaScript: un modo a la vez y la vista previa de la fila elegida. La libreta de «Antes» la mete v5.js en la
    fila elegida, así que en el móvil sale junto a la hora tocada igual que las vistas de «Con AutonomIA». */
@@ -742,7 +743,7 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   font: 720 var(--s-texto) var(--t-titulo); font-stretch: 88%; color: var(--tinta); background: var(--amarillo-suave);
   clip-path: var(--chaflan); transition: transform 140ms var(--suave);
 }
-.llamadnos > summary:hover { background: var(--hoja); }
+@media (hover: hover) and (pointer: fine) { .llamadnos > summary:hover { background: var(--hoja); } }
 .llamadnos > summary:active { transform: translateY(2px); }
 .llamadnos > summary:focus-visible { clip-path: none; }
 .llamadnos[open] > summary { margin-bottom: 0.75rem; }
@@ -793,7 +794,7 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   .barra-movil {
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 9;
     padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom)); background: var(--papel);
-    box-shadow: 0 -6px 20px rgba(21, 26, 36, 0.12); /* taste-skill-ignore: barra fija que flota */ transition: transform 0.24s var(--suave);
+    box-shadow: 0 -3px 0 var(--carpeta-2); /* 833: el canto plano de una carpeta, no una sombra difusa */ transition: transform 0.24s var(--suave);
   }
   .barra-movil .boton { width: 100%; min-height: 52px; }
   .barra-movil.oculta { transform: translateY(110%); }
@@ -819,10 +820,12 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   .vista [data-ui], .vista-antes [data-ui], .impreso-hoja, .charla, .movil-pantalla {
     filter: drop-shadow(var(--calco-x) var(--calco-y) 0 var(--calco)); /* taste-skill-ignore: sombra calco, bloque plano */
   }
-  .paso-vista > [data-ui] { transition: transform 360ms var(--muelle); }
+  .paso-vista > [data-ui] { transition: transform 240ms var(--suave); } /* 833: es una hoja que se lee: sin rebote */
+  @media (hover: hover) and (pointer: fine) {
   .paso:hover .paso-vista > [data-ui] {
     transform: translate(-3px, -4px);
     filter: drop-shadow(10px 9px 0 var(--calco)); /* taste-skill-ignore: sombra calco, bloque plano */
+  }
   }
 
   /* Los botones: un calco pequeño en reposo; al pasar por encima se levantan y el calco se separa; al apretar se
@@ -830,15 +833,17 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   .boton, .dia-modo, .llamadnos > summary {
     filter: drop-shadow(3px 3px 0 var(--calco)); /* taste-skill-ignore: sombra calco, bloque plano */
   }
+  @media (hover: hover) and (pointer: fine) {
   .boton:hover, .dia-modo:hover, .llamadnos > summary:hover {
     transform: translate(-2px, -3px);
     filter: drop-shadow(6px 7px 0 var(--calco)); /* taste-skill-ignore: sombra calco, bloque plano */
+  }
   }
   .boton:active, .dia-modo:active, .llamadnos > summary:active, .dia-modo[aria-pressed="true"] {
     transform: translate(3px, 3px); transition-duration: 90ms;
     filter: drop-shadow(0 0 0 var(--calco)); /* taste-skill-ignore: sombra calco, bloque plano */
   }
-  .tema:hover { transform: translate(-1px, -2px); filter: drop-shadow(3px 3px 0 var(--calco)); } /* taste-skill-ignore: sombra calco */
+  @media (hover: hover) and (pointer: fine) { .tema:hover { transform: translate(-1px, -2px); filter: drop-shadow(3px 3px 0 var(--calco)); } } /* taste-skill-ignore: sombra calco */
   .tema:active { transform: translate(2px, 2px); filter: none; }
 }
 /* El color del calco según el campo: sobre el amarillo, tinta o papel; sobre el negro, amarillo */

@@ -25,6 +25,12 @@
         if (oscuro) raiz.removeAttribute("data-theme"); else raiz.setAttribute("data-theme", "dark");
         try { localStorage.setItem("autonomia-tema", oscuro ? "light" : "dark"); } catch (e) {}
         pintar(boton);
+        // (833) El icono nuevo llega girando (lo dibuja el CSS de cada página con .tema-cambia; sin él, nada cambia)
+        boton.classList.remove("tema-cambia");
+        void boton.offsetWidth;
+        boton.classList.add("tema-cambia");
+        clearTimeout(boton._tc);
+        boton._tc = setTimeout(function () { boton.classList.remove("tema-cambia"); }, 500);
       });
     });
   });

@@ -60,18 +60,22 @@ svg.ilu .mn-pulgar { stroke-width: calc(var(--trazo, 3) * 0.86); }
 .pt-vuela { opacity: 0; pointer-events: none; }
 .pt-saludo { opacity: 0; }
 .pt-jarra, .pt-saludo { transition: opacity 90ms steps(1); }
-.pt-manila:hover .pt-saludo, .pt-manila.saluda .pt-saludo,
-.portada:has(.acciones .boton:hover) .pt-saludo,
-.portada:has(.acciones .boton:focus-visible) .pt-saludo { opacity: 1; }
-.pt-manila:hover .pt-jarra, .pt-manila.saluda .pt-jarra,
-.portada:has(.acciones .boton:hover) .pt-jarra,
-.portada:has(.acciones .boton:focus-visible) .pt-jarra { opacity: 0; }
+.pt-manila.saluda .pt-saludo, .portada:has(.acciones .boton:focus-visible) .pt-saludo { opacity: 1; }
+.pt-manila.saluda .pt-jarra, .portada:has(.acciones .boton:focus-visible) .pt-jarra { opacity: 0; }
+/* 833: lo de pasar por encima, solo con ratón (en el táctil, el toque deja el «hover» pegado; tocar ya pone .saluda) */
+@media (hover: hover) and (pointer: fine) {
+  .pt-manila:hover .pt-saludo, .portada:has(.acciones .boton:hover) .pt-saludo { opacity: 1; }
+  .pt-manila:hover .pt-jarra, .portada:has(.acciones .boton:hover) .pt-jarra { opacity: 0; }
+  .ilu-anima .pt-manila:hover .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
+  .ilu-anima .pt-manila:hover .pt-saludo, .ilu-anima .portada:has(.acciones .boton:hover) .pt-saludo { transform-origin: 0 100%; animation: pt-mano 300ms steps(3) infinite alternate; }
+  .ilu-anima .portada:has(.acciones .boton:hover) .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
+  .ilu-anima .portada:has(.acciones .boton:hover) .pt-hojita { animation-duration: 0.9s; }
+}
 
 /* v5 (C1, 457): la llegada, el brazo que lanza y las hojas que vuelan ya no van por tiempo: los conduce el scroll
    (acompanante.css, E1: baja colgada de su cordel, lanza tres hojas en arco a «Para ti» y la carpeta se abre). */
-.ilu-anima .pt-manila:hover .pt-salta, .ilu-anima .pt-manila.saluda .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
-.ilu-anima .pt-manila:hover .pt-saludo, .ilu-anima .pt-manila.saluda .pt-saludo,
-.ilu-anima .portada:has(.acciones .boton:hover) .pt-saludo,
+.ilu-anima .pt-manila.saluda .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
+.ilu-anima .pt-manila.saluda .pt-saludo,
 .ilu-anima .portada:has(.acciones .boton:focus-visible) .pt-saludo { transform-origin: 0 100%; animation: pt-mano 300ms steps(3) infinite alternate; }
 
 @keyframes pt-salto {
@@ -101,9 +105,7 @@ svg.ilu .mn-pulgar { stroke-width: calc(var(--trazo, 3) * 0.86); }
 @keyframes pt-ondea { 0%, 100% { transform: none; } 33% { transform: rotate(4deg) skewY(-3deg); } 66% { transform: rotate(-2deg) skewY(2deg); } }
 @keyframes pt-asoma { 0%, 80%, 100% { transform: none; } 84%, 92% { transform: translateY(-3px); } 88% { transform: translateY(-5px) rotate(-2deg); } }
 /* Al apuntar al WhatsApp: salta una vez y saluda (los ojos los gira ilustra.js hacia el botón). */
-.ilu-anima .portada:has(.acciones .boton:hover) .pt-salta,
 .ilu-anima .portada:has(.acciones .boton:focus-visible) .pt-salta { transform-origin: 50% 100%; animation: pt-salto 620ms var(--rebote); }
-.ilu-anima .portada:has(.acciones .boton:hover) .pt-hojita { animation-duration: 0.9s; }
 
 /* ============================================================ UN MARTES (ayudante C; en la v5, E7 del ayudante C2) */
 /* v5: el dibujo y su coreografía conducida por el scroll están en escena-papeleo.css; aquí solo queda lo común: el
@@ -183,14 +185,17 @@ svg.ilu .mn-pulgar { stroke-width: calc(var(--trazo, 3) * 0.86); }
 .ct-manila .ct-txt { stroke-width: calc(var(--trazo) * .66); } /* «Para ti» rotulado a mano, con aire hasta el borde de la pestaña */
 .ct-arriba { opacity: 0; transform-origin: 0 100%; }
 .ct-carpeta, .ct-ella { transform-origin: 50% 100%; transition: transform 420ms var(--rebote); }
-.cupon:has(.whatsapp .boton:hover) .ct-arriba, .cupon:has(.whatsapp .boton:focus-visible) .ct-arriba,
-.cupon:has(.llamadnos > summary:hover) .ct-arriba, .cupon:has(.llamadnos > summary:focus-visible) .ct-arriba { opacity: 1; }
-.cupon:has(.whatsapp .boton:hover) .ct-abajo, .cupon:has(.whatsapp .boton:focus-visible) .ct-abajo,
-.cupon:has(.llamadnos > summary:hover) .ct-abajo, .cupon:has(.llamadnos > summary:focus-visible) .ct-abajo { opacity: 0; }
-.cupon:has(.whatsapp .boton:hover) .ct-carpeta, .cupon:has(.whatsapp .boton:focus-visible) .ct-carpeta,
-.cupon:has(.llamadnos > summary:hover) .ct-carpeta, .cupon:has(.llamadnos > summary:focus-visible) .ct-carpeta { transform: translateY(-6px) rotate(-4deg); }
-.cupon:has(.whatsapp .boton:hover) .ct-ella, .cupon:has(.whatsapp .boton:focus-visible) .ct-ella,
-.cupon:has(.llamadnos > summary:hover) .ct-ella, .cupon:has(.llamadnos > summary:focus-visible) .ct-ella { transform: translateY(-5px) rotate(2deg); }
+.cupon:has(.whatsapp .boton:focus-visible) .ct-arriba, .cupon:has(.llamadnos > summary:focus-visible) .ct-arriba { opacity: 1; }
+.cupon:has(.whatsapp .boton:focus-visible) .ct-abajo, .cupon:has(.llamadnos > summary:focus-visible) .ct-abajo { opacity: 0; }
+.cupon:has(.whatsapp .boton:focus-visible) .ct-carpeta, .cupon:has(.llamadnos > summary:focus-visible) .ct-carpeta { transform: translateY(-6px) rotate(-4deg); }
+.cupon:has(.whatsapp .boton:focus-visible) .ct-ella, .cupon:has(.llamadnos > summary:focus-visible) .ct-ella { transform: translateY(-5px) rotate(2deg); }
+/* 833: lo mismo al pasar por encima, solo con ratón (en el táctil se celebra al dejar el formulario listo) */
+@media (hover: hover) and (pointer: fine) {
+  .cupon:has(.whatsapp .boton:hover) .ct-arriba, .cupon:has(.llamadnos > summary:hover) .ct-arriba { opacity: 1; }
+  .cupon:has(.whatsapp .boton:hover) .ct-abajo, .cupon:has(.llamadnos > summary:hover) .ct-abajo { opacity: 0; }
+  .cupon:has(.whatsapp .boton:hover) .ct-carpeta, .cupon:has(.llamadnos > summary:hover) .ct-carpeta { transform: translateY(-6px) rotate(-4deg); }
+  .cupon:has(.whatsapp .boton:hover) .ct-ella, .cupon:has(.llamadnos > summary:hover) .ct-ella { transform: translateY(-5px) rotate(2deg); }
+}
 /* Al llegar: la carpeta resbala hasta su sitio, Manila aparece con rebote, cambia el brazo de abajo por el de arriba y
    saluda con la mano tres veces, a saltos. Las llegadas no dejan el transform fijado (backwards), para que el hover
    siga funcionando después. */
@@ -221,8 +226,10 @@ svg.ilu .mn-pulgar { stroke-width: calc(var(--trazo, 3) * 0.86); }
   100% { opacity: 0; transform: none; }
 }
 @keyframes ct-esconde { 0%, 99.9% { opacity: 0; } 100% { opacity: 1; } }
-.ilu-anima .cupon:has(.whatsapp .boton:hover) .ct-arriba,
-.ilu-anima .cupon:has(.llamadnos > summary:hover) .ct-arriba { animation: pt-mano 320ms steps(3) infinite alternate; }
+@media (hover: hover) and (pointer: fine) {
+  .ilu-anima .cupon:has(.whatsapp .boton:hover) .ct-arriba,
+  .ilu-anima .cupon:has(.llamadnos > summary:hover) .ct-arriba { animation: pt-mano 320ms steps(3) infinite alternate; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ilu *, .ilu { animation: none !important; transition: none !important; }

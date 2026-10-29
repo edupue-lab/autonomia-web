@@ -69,6 +69,8 @@
 .ac-on .ac-pd { animation: ac-pierna 1.9s steps(4) -0.95s infinite alternate; }
 .ac-on .ac-ojos { transform-origin: 50% 50%; animation: cl-parpadea 4.4s steps(1) infinite; }
 .ac-on .ac-mira { animation: ac-mira 9s steps(1) infinite; }
+/* 833: escondida arriba (ac-fuera), sus bucles se paran */
+.acompanante.ac-fuera :is(.ac-pi, .ac-pd, .ac-ojos, .ac-mira) { animation-play-state: paused; }
 @keyframes ac-pierna { from { transform: rotate(-9deg); } to { transform: rotate(7deg); } }
 @keyframes ac-mira { 0%, 70%, 100% { transform: none; } 74%, 86% { transform: translateX(-5px); } }
 
@@ -1097,8 +1099,10 @@ main { timeline-scope: --e3, --e5, --e6, --e8, --e10, --pu-dia, --pu-pagina, --p
 
 /* ============================================================ CONTACTO (465, C1): ofrece la carpeta */
 .ct-tapa { transform-origin: 50% 100%; transition: transform 520ms var(--muelle-vivo); }
-.cupon:has(.whatsapp .boton:hover) .ct-tapa, .cupon:has(.whatsapp .boton:focus-visible) .ct-tapa,
-.cupon:has(.llamadnos > summary:hover) .ct-tapa, .cupon:has(.llamadnos > summary:focus-visible) .ct-tapa { transform: translateY(16px) scaleY(0.32); }
+.cupon:has(.whatsapp .boton:focus-visible) .ct-tapa, .cupon:has(.llamadnos > summary:focus-visible) .ct-tapa { transform: translateY(16px) scaleY(0.32); }
+@media (hover: hover) and (pointer: fine) { /* 833: el hover, solo con ratón */
+  .cupon:has(.whatsapp .boton:hover) .ct-tapa, .cupon:has(.llamadnos > summary:hover) .ct-tapa { transform: translateY(16px) scaleY(0.32); }
+}
 /* La hoja que asoma (gag) vive detrás de la tapa: quieta no se ve; al abrirse la carpeta, se ve dentro. */
 @media (max-width: 59.99rem) { .ct-manila { width: min(100%, 21rem); --trazo: 2.9; } }
 

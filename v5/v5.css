@@ -737,6 +737,16 @@ a.carpeta:focus-visible { outline-offset: -3px; }
 .cupon .nota { color: var(--tinta); }
 .contacto-directo .nota a, .otras-vias a { color: var(--tinta); font-weight: 700; white-space: nowrap; }
 .otras-vias { padding-top: 0.25rem; }
+/* (901, WEB-M08) El SMS, el teléfono y los enlaces del pie (portada, dossier y oficinas) se tocan sin afinar con el dedo:
+   una zona invisible de 44 px de alto, sin mover el texto. En la portada las líneas del SMS y del teléfono están a unos
+   41 px, entre el botón de WhatsApp y el desplegable: la del SMS se queda casi centrada y la del teléfono
+   crece hacia abajo, y ninguna pisa a otra. */
+.contacto-directo .nota a, .otras-vias a, .pie-fila a, .pie-movimiento, .dossier-pie a { position: relative; }
+.contacto-directo .nota a::after, .otras-vias a::after, .pie-fila a::after, .pie-movimiento::after, .dossier-pie a::after {
+  content: ""; position: absolute; left: -0.25rem; right: -0.25rem; top: calc(50% - 22px); height: 44px;
+}
+.contacto-directo .nota a::after { top: calc(50% - 20px); }
+.otras-vias a::after { top: calc(50% - 12px); }
 .llamadnos { margin-top: 1.25rem; }
 .llamadnos > summary {
   cursor: pointer; display: inline-flex; align-items: center; min-height: 48px; padding: 0.5rem 1.2rem; width: fit-content;
@@ -865,6 +875,9 @@ a.carpeta:focus-visible { outline-offset: -3px; }
   .carpetas-io .seccion-pestana:not(.abierta), .carpetas-io .panel:not(.abierta) { transform: translateY(var(--sube-carpeta)); }
 }
 :root { --sube-carpeta: 36px; }
+/* (901, WEB-M07) Al saltar a una carpeta que aún no ha subido, el navegador apunta a donde está mientras espera, más
+   abajo; cuando sube, se pasaba de largo y su pestaña quedaba cortada arriba. Este margen la deja entera. */
+.carpetas-io .seccion-pestana:not(.abierta), .carpetas-io .panel:not(.abierta) { scroll-margin-top: var(--sube-carpeta); }
 /* 468: en el móvil la carpeta ya está en su sitio cuando su canto llega a media pantalla (antes, casi arriba) */
 @media (max-width: 47.99rem) { :root { --sube-fin: 50%; } }
 @keyframes carpeta-sube { from { transform: translateY(var(--sube-carpeta)); } to { transform: none; } }

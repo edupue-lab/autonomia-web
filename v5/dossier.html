@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self' https://pc-salon.tail9a0eeb.ts.net; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self' https://pc-salon.tail9a0eeb.ts.net; form-action 'self' https://pc-salon.tail9a0eeb.ts.net; base-uri 'none'; object-src 'none'">
 <meta name="referrer" content="same-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>El dossier de AutonomIA</title>
@@ -10,12 +10,19 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#fafaf8">
 <meta name="color-scheme" content="only light">
+<link rel="canonical" href="https://www.autonomia-ia.es/v5/dossier.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El dossier de AutonomIA">
+<meta property="og:description" content="Para leerlo con calma: qué es AutonomIA y qué te quita en cada oficio, cómo funciona paso a paso, la seguridad y los permisos, y lo que hace y lo que no.">
+<meta property="og:url" content="https://www.autonomia-ia.es/v5/dossier.html">
+<meta property="og:image" content="https://www.autonomia-ia.es/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.ico?v=614" sizes="16x16 24x24 32x32 48x48 64x64">
 <link rel="icon" href="../marca/logo/manila-16.svg" type="image/svg+xml">
 <link rel="preload" href="../fuentes/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../marca/fuentes/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../marca/marca.css">
-<link rel="stylesheet" href="v5.css?v=833">
+<link rel="stylesheet" href="v5.css?v=901">
 <link rel="stylesheet" href="ilustra.css?v=833">
 <link rel="stylesheet" href="escenas.css?v=660">
 <link rel="stylesheet" href="dossier.css?v=833">
@@ -33,12 +40,12 @@
      Las ilustraciones son las del recorrido, quietas (sin ilustra.js, cada una en su último fotograma). -->
 <header class="cabecera">
   <div class="ancho cabecera-fila">
-    <a class="logo" href="../" aria-label="AutonomIA, volver al recorrido">
+    <a class="logo" href="../" aria-label="AutonomIA, volver a la portada">
       <img class="logo-manila" src="../marca/logo/manila-pequeno.svg" alt="" width="40" height="40">
       <img class="am-solo-claro" src="../marca/logo/autonomia-claro.svg" alt="AutonomIA" width="150" height="38">
       <img class="am-solo-oscuro" src="../marca/logo/autonomia-oscuro.svg" alt="AutonomIA" width="150" height="38">
     </a>
-    <a class="cabecera-contacto" href="../">Recorrido</a>
+    <a class="cabecera-contacto" href="../">Portada</a>
     <a class="cabecera-contacto" href="#siguiente-paso">Contacto</a>
     <button class="tema" type="button" data-tema aria-label="Cambiar a tema oscuro">
       <svg class="icono-luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
@@ -75,7 +82,7 @@
       <div class="capitulo-con-dibujo">
         <div>
           <p>AutonomIA es una inteligencia artificial que entra en tu ordenador con tu permiso, aprende cómo trabajas y te hace el papeleo igual que lo harías tú. Tú pasas a ser el jefe de tu empleado de inteligencia artificial: le encargas las cosas, él las prepara y tú las revisas.</p>
-          <p>No es un programa al que le pasas las facturas cada trimestre. Funciona solo: lee tu correo y tus PDF, busca lo que hace falta y te deja el trabajo preparado en tu carpeta, con tus plantillas y con tus palabras.</p>
+          <p>No es un programa al que le pasas las facturas cada trimestre. Le pides las cosas, lee tus carpetas y tus PDF, busca lo que hace falta y te deja el trabajo preparado en tu carpeta, con tus plantillas y con tus palabras.</p>
         </div>
         <figure class="dossier-dibujo"><svg class="dossier-ilu ilu es es-queno ilu-papel-claro" viewBox="0 0 300 172" aria-hidden="true" focusable="false">
         <g class="pv-hoja-osc"><path class="cl-ma" d="M3 4c98-2 196-2.5 294-1l1 166c-98 2-196 2-295 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t cl-f" d="M3 4c98-2 196-2.5 294-1l1 166c-98 2-196 2-295 0z"/></g>
@@ -113,10 +120,10 @@
 
       <h3>Si eres tasador</h3>
       <ul class="dossier-lista">
-        <li>Cuando llega un encargo, lo lee, descarga la nota simple, la compara con el Catastro y te señala si la superficie no coincide.</li>
+        <li>Cuando llega un encargo, lo lee, mira la nota simple, la compara con el Catastro y te señala si la superficie no coincide.</li>
         <li>Busca testigos de la zona y te los deja en tu Excel, para que tú elijas cuáles valen.</li>
         <li>Te deja en el móvil la hoja de la visita y prepara el borrador del informe con tu plantilla.</li>
-        <li>Si una clienta pide cita, mira tu agenda y te deja escrita la respuesta con dos huecos para que ella elija.</li>
+        <li>Si una clienta pide cita, te pregunta qué huecos le ofreces y te deja escrita la respuesta con dos horas para que ella elija.</li>
         <li>Si el control de calidad te pide justificar algo, corrige el párrafo del borrador y te deja escrita la respuesta.</li>
       </ul>
 
@@ -138,10 +145,9 @@
 
       <h3>Y en cualquier oficio, el papeleo de todos los días</h3>
       <ul class="dossier-lista">
-        <li>Entra en tu correo y en tus webs, siempre con tu permiso y solo para leer.</li>
-        <li>Descarga las facturas de las webs donde están y las guarda en su carpeta.</li>
-        <li>Te avisa de los plazos, los de Hacienda y, si eres perito, los del juzgado, y te deja preparado el resumen del trimestre para que lo presentes tú o tu gestoría.</li>
-        <li>Con normas nuevas como Verifactu, te prepara los datos para que cumplas.</li>
+        <li>Te hace las facturas y los presupuestos con tus datos y con tu formato.</li>
+        <li>Te avisa de los plazos, los de Hacienda y, si eres perito, los del juzgado.</li>
+        <li>Lo que viene, y todavía no hace: entrar en tu correo, siempre con tu permiso y solo para leer, descargarte de tus webs las facturas, dejarte preparado el resumen del trimestre para que lo presentes tú o tu gestoría y prepararte los datos de normas nuevas como Verifactu.</li>
         <li>Le preguntas desde el móvil dónde está un archivo y te lo da en unos segundos.</li>
       </ul>
       <p class="dossier-nota">Los ejemplos son del día a día de cada oficio, con datos inventados.</p>
@@ -186,7 +192,7 @@
           <div class="sin-dibujo"></div>
           <div>
             <h3>Firmas la autorización</h3>
-            <p>En ella eliges qué carpetas puede mirar y en qué correo y webs puede entrar. Cuanto más de tu trabajo pueda ver, mejor lo hará; lo personal se queda fuera.</p>
+            <p>En ella eliges qué carpetas puede mirar y en qué webs puede entrar. Cuanto más de tu trabajo pueda ver, mejor lo hará; lo personal se queda fuera.</p>
           </div>
         </li>
         <li>
@@ -295,7 +301,7 @@
           <div class="sin-dibujo"></div>
           <div>
             <h3>La cuidamos nosotros</h3>
-            <p>Tú no tienes que mantener nada. Te la dejamos montada y preparada para tu oficio, funciona en nuestro servidor y la mejoramos cada día, y esas mejoras te llegan solas, sin que tengas que instalar ni configurar nada. Trabaja siempre con el mejor modelo de inteligencia artificial que haya en cada momento y, para cualquier cosa que necesites, te atiende directamente Eduardo, el fundador.</p>
+            <p>Tú no tienes que mantener nada. Te la dejamos montada y preparada para tu oficio, funciona en nuestro servidor y la mejoramos cada día, y esas mejoras te llegan solas, sin que tengas que instalar ni configurar nada. Trabaja con el modelo de inteligencia artificial más avanzado que hay hoy y, para cualquier cosa que necesites, te atiende directamente Eduardo, el fundador.</p>
           </div>
         </li>
       </ol>
@@ -305,11 +311,11 @@
       <h2 id="seguridad-t">Seguridad y permisos</h2>
       <p class="capitulo-entrada">Tú decides hasta dónde llega, y lo decides por escrito.</p>
       <ul class="dossier-lista dossier-vistos">
-        <li><strong>Solo con tu permiso por escrito.</strong> En la autorización eliges qué carpetas puede mirar y en qué correo y webs puede entrar.</li>
+        <li><strong>Solo con tu permiso por escrito.</strong> En la autorización eliges qué carpetas puede mirar y en qué webs puede entrar.</li>
         <li><strong>Solo ve, nunca modifica.</strong> No cambia ni borra tus archivos. Lo que prepara te lo deja en una carpeta aparte.</li>
         <li><strong>Presentas y firmas tú.</strong> No envía correos, no presenta nada en Hacienda ni en ningún otro sitio y no firma en tu nombre.</li>
         <li><strong>Lo retiras cuando quieras.</strong> Puedes retirar el permiso en cualquier momento, y desde ese momento deja de entrar.</li>
-        <li><strong>Tus datos son solo tuyos.</strong> No se mezclan con los de otros clientes ni se le cuentan a nadie. De cada oficio se comparte lo aprendido, nunca tus clientes, tus cifras ni tus correos.</li>
+        <li><strong>Tus datos son solo tuyos.</strong> No se mezclan con los de otros clientes ni se le cuentan a nadie. De cada oficio se comparte lo aprendido, nunca tus clientes, tus cifras ni tus documentos.</li>
       </ul>
       <p>La conexión con tu ordenador es privada y va cifrada. Por dentro usa la inteligencia artificial de Anthropic, una empresa estadounidense, así que lo que lee se procesa en sus servidores. Usamos su servicio para empresas, y sus condiciones no le permiten usar tus datos para entrenar sus modelos. Tienes el detalle en la <a href="../privacidad.html">política de privacidad</a>.</p>
     </section>
@@ -321,7 +327,7 @@
         <div>
           <h3>Lo que hace</h3>
           <ul class="dossier-lista">
-            <li>Lee tus correos y tus PDF y saca los datos que importan.</li>
+            <li>Lee los PDF y los documentos que le pasas y saca los datos que importan.</li>
             <li>Busca en webs como la sede del Catastro y en tus carpetas.</li>
             <li>Rellena tus Excel y prepara borradores y respuestas con tus plantillas y en tu tono.</li>
             <li>Cuenta los plazos y te avisa a tiempo.</li>
@@ -398,7 +404,7 @@
         <h3>¿Cuánto tarda en ponerse en marcha?</h3>
         <p>Una llamada de unos veinte minutos, unos dos minutos para instalarla y una entrevista corta. Desde el primer día le puedes ir pidiendo cosas.</p>
         <h3>¿Y si mañana sale una inteligencia artificial mejor?</h3>
-        <p>Te llega sin que hagas nada. Tu ayudante trabaja siempre con el mejor modelo que haya en cada momento, y cuando sale uno mejor, el cambio lo hacemos nosotros.</p>
+        <p>Te llega sin que hagas nada. Tu ayudante trabaja con el modelo más avanzado que hay hoy, y cuando sale uno mejor, el cambio lo hacemos nosotros.</p>
         <h3>¿Y si quiero dejarlo?</h3>
         <p>Retiras el permiso y, desde ese momento, deja de entrar.</p>
         <h3>¿Sirve si mi oficio es otro?</h3>
@@ -412,7 +418,7 @@
         <div>
           <p>Cuéntanos a qué te dedicas y qué te quita más tiempo. Te contesta Eduardo, el fundador, y hablar con él no te compromete a nada.</p>
           <div class="contacto-directo"><p class="texto">Lo más sencillo es escribir a Eduardo, el fundador, por WhatsApp. Cuéntale a qué te dedicas y qué te quita más tiempo, y te contestará él mismo.</p><p class="whatsapp"><a class="boton boton-principal boton-grande" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a></p><p class="nota">Si no usas WhatsApp, también puedes <a href="sms:+34660013625">mandarle un SMS</a>.</p></div><p class="nota otras-vias">Si prefieres hablar, llámale al <a href="tel:+34660013625">660 013 625</a>. Es mejor que le llames por la tarde, porque de lunes a jueves por la mañana seguramente no lo pueda coger.</p>
-          <p class="dossier-nota">Si prefieres que te llamemos, déjanos tu teléfono en el <a href="../#contacto">formulario del recorrido</a>.</p>
+          <p class="dossier-nota">Si prefieres que te llamemos, déjanos tu teléfono en el <a href="../#formulario">formulario de la portada</a>.</p>
         </div>
         <figure class="dossier-dibujo"><svg class="dossier-ilu ilu ct-manila" viewBox="-4 28 244 124" aria-hidden="true" focusable="false">
             <g class="es-suelo"><path class="cl-ma" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5zM234 135l-2.5 3.5 4.5 1"/><path class="cl-t cl-f" d="M118 147.5l22-1.5"/></g>
@@ -458,7 +464,7 @@
 <footer class="dossier-pie">
   <div class="ancho dossier-pie-fila">
     <p>© 2026 AutonomIA, de Eduardo Puebla Gallego. Hecho en España.</p>
-    <p><a href="../">Volver al recorrido</a> · <a href="../privacidad.html">Política de privacidad</a></p>
+    <p><a href="../">Volver a la portada</a> · <a href="../privacidad.html">Política de privacidad</a></p>
   </div>
 </footer>
 </body>

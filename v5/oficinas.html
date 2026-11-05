@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self' https://pc-salon.tail9a0eeb.ts.net; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self' https://pc-salon.tail9a0eeb.ts.net; form-action 'self' https://pc-salon.tail9a0eeb.ts.net; base-uri 'none'; object-src 'none'">
 <meta name="referrer" content="same-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AutonomIA para oficinas inmobiliarias</title>
@@ -22,7 +22,7 @@
 <link rel="preload" href="../fuentes/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../marca/fuentes/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../marca/marca.css">
-<link rel="stylesheet" href="v5.css?v=833">
+<link rel="stylesheet" href="v5.css?v=901">
 <link rel="stylesheet" href="ilustra.css?v=833">
 <link rel="stylesheet" href="escenas.css?v=660">
 <link rel="stylesheet" href="dossier.css?v=833">
@@ -63,7 +63,7 @@
       <div>
         <h1 id="of-titulo">Un empleado de IA en cada mesa</h1>
         <p class="of-frase">Aprende cómo trabaja cada persona de tu inmobiliaria y le prepara el papeleo como lo haría ella, para que solo tenga que revisarlo.</p>
-        <p>No es un programa más al que haya que pasarle los papeles. Con el permiso de la oficina, lee el correo y las carpetas de cada mesa y deja el trabajo preparado con vuestros modelos y con vuestras palabras. Así, cada persona pasa a ser la jefa de su propio empleado de inteligencia artificial: le encarga las cosas, él las prepara y ella las revisa, las firma y las envía.</p>
+        <p>No es un programa más al que haya que pasarle los papeles. Con el permiso de la oficina, lee las carpetas de cada mesa (y, cuando lo conectemos, también el correo) y deja el trabajo preparado con vuestros modelos y con vuestras palabras. Así, cada persona pasa a ser la jefa de su propio empleado de inteligencia artificial: le encarga las cosas, él las prepara y ella las revisa, las firma y las envía.</p>
         <p class="of-acciones">
           <a class="boton boton-principal" href="#siguiente-paso">Hablar con Eduardo</a>
           <a class="boton boton-secundario" href="#puestos">Qué le quita a cada puesto</a>
@@ -123,7 +123,7 @@
             <h3>Quien dirige la oficina</h3>
             <p>A quien dirige, lo que más tiempo le quita no suele ser vender, sino estar encima de todo lo demás.</p>
             <ul class="dossier-lista">
-              <li>Si se lo pides, cada semana te deja un resumen de la oficina con los encargos que han entrado, las visitas previstas y los contratos pendientes de firma, sacado de los correos y las carpetas que hayas autorizado.</li>
+              <li>Si se lo pides, cada semana te deja un resumen de la oficina con los encargos que han entrado, las visitas previstas y los contratos pendientes de firma, sacado de las carpetas que hayas autorizado.</li>
               <li>Si hacéis valoraciones o informes periciales, busca inmuebles comparables de la zona, te los deja en tu Excel para que elijas cuáles valen y prepara el borrador con el estilo de tus informes anteriores.</li>
               <li>Te señala lo que no cuadra antes de que salga, como una superficie que no coincide entre la nota simple y el Catastro.</li>
               <li>Le preguntas desde el móvil por un documento de cualquier operación y te lo encuentra en unos segundos.</li>
@@ -157,15 +157,14 @@
             <h3>Administración y contabilidad</h3>
             <p>Es el puesto que más se parece al de un profesional con mucho papeleo, que es justo donde empezamos.</p>
             <ul class="dossier-lista">
-              <li>Recoge las facturas de los proveedores del correo y de las webs donde están, las ordena por meses y deja los datos preparados para vuestra gestoría.</li>
+              <li>Ordena por meses las facturas de los proveedores que tengáis en vuestras carpetas y deja los datos preparados para vuestra gestoría.</li>
               <li>Con cada operación cerrada, reúne los datos de la factura de honorarios y del reparto de comisiones y los deja en vuestro Excel. La factura la emitís vosotros con vuestro programa.</li>
-              <li>Os avisa de los plazos de Hacienda y deja preparado el resumen del trimestre para que lo revise y lo presente vuestra gestoría.</li>
-              <li>Con normas nuevas como Verifactu, os ayuda a elegir un programa de facturación que cumpla y os prepara los datos para pasar a él.</li>
+              <li>Os avisa de los plazos de Hacienda para que lleguéis con tiempo.</li>
             </ul>
           </div>
           <aside class="puesto-luego" aria-label="Lo que estudiamos con vosotros">
             <p class="puesto-luego-t">Lo vemos contigo</p>
-            <p>Cuadrar los cobros y los pagos con el banco, conectándolo solo para leer, si la oficina lo autoriza.</p>
+            <p>Cuadrar los cobros y los pagos con el banco, conectándolo solo para leer, si la oficina lo autoriza. Y, cuando lo tengamos listo, el resumen del trimestre para vuestra gestoría y los datos para pasar a un programa de facturación que cumpla Verifactu.</p>
           </aside>
         </article>
 
@@ -206,9 +205,9 @@
             <h3>Recepción y atención al cliente</h3>
             <p>Por la recepción entra todo: propietarios que quieren vender, compradores que preguntan por un anuncio y vecinos que buscan alquiler.</p>
             <ul class="dossier-lista">
-              <li>Lee los correos que llegan a la cuenta general, los ordena por asunto y deja escrita la respuesta para la persona de la oficina a la que le toca.</li>
+              <li>Ordena por asunto los mensajes de la cuenta general que le pasáis y deja escrita la respuesta para la persona de la oficina a la que le toca.</li>
               <li>Si un propietario pide que le valoréis el piso, reúne los datos del Catastro y te prepara la respuesta para quedar con él.</li>
-              <li>Te dice qué correos de clientes llevan días sin contestar, para que no se quede ninguno atrás.</li>
+              <li>Cuando conectemos el correo, os dirá qué mensajes de clientes llevan días sin contestar, para que no se quede ninguno atrás.</li>
               <li>Encuentra en unos segundos el documento que pide un cliente por teléfono, aunque esté en la carpeta de otra mesa, si la oficina lo ha autorizado.</li>
             </ul>
           </div>
@@ -263,7 +262,7 @@
           <div class="sin-dibujo"></div>
           <div>
             <h3>La oficina firma la autorización</h3>
-            <p>En ella se decide qué carpetas puede mirar cada empleado de inteligencia artificial y en qué correos y webs puede entrar. Lo personal de cada persona se queda fuera.</p>
+            <p>En ella se decide qué carpetas puede mirar cada empleado de inteligencia artificial y en qué webs puede entrar. Lo personal de cada persona se queda fuera.</p>
           </div>
         </li>
         <li>
@@ -365,7 +364,7 @@
           <div class="sin-dibujo"></div>
           <div>
             <h3>La cuidamos nosotros</h3>
-            <p>En la oficina nadie tiene que mantener nada. Os la dejamos montada y preparada para vuestro trabajo, funciona en nuestro servidor y la mejoramos cada día, y esas mejoras os llegan solas, sin que tengáis que instalar ni configurar nada. Trabaja siempre con el mejor modelo de inteligencia artificial que haya en cada momento y, para cualquier cosa que necesitéis, os atiende directamente Eduardo, el fundador.</p>
+            <p>En la oficina nadie tiene que mantener nada. Os la dejamos montada y preparada para vuestro trabajo, funciona en nuestro servidor y la mejoramos cada día, y esas mejoras os llegan solas, sin que tengáis que instalar ni configurar nada. Trabaja con el modelo de inteligencia artificial más avanzado que hay hoy y, para cualquier cosa que necesitéis, os atiende directamente Eduardo, el fundador.</p>
           </div>
         </li>
       </ol>
@@ -377,7 +376,7 @@
       <h2 id="datos-t">Los datos de vuestros clientes</h2>
       <p class="capitulo-entrada">Por el ordenador de una inmobiliaria pasan los datos de mucha gente: propietarios, compradores e inquilinos. Por eso se tratan así.</p>
       <ul class="dossier-lista dossier-vistos">
-        <li><strong>Solo con permiso por escrito.</strong> En la autorización la oficina elige qué carpetas puede mirar y en qué correos y webs puede entrar.</li>
+        <li><strong>Solo con permiso por escrito.</strong> En la autorización la oficina elige qué carpetas puede mirar y en qué webs puede entrar.</li>
         <li><strong>Solo ve, nunca modifica.</strong> No cambia ni borra vuestros archivos, y lo que prepara lo deja en una carpeta aparte.</li>
         <li><strong>Firmáis y enviáis vosotros.</strong> No firma contratos, no manda nada a vuestros clientes y no publica anuncios por su cuenta.</li>
         <li><strong>Lo vuestro es solo vuestro.</strong> No se mezcla con lo de otros clientes ni se le cuenta a nadie.</li>
@@ -395,7 +394,7 @@
         <div>
           <h3>Lo que hace</h3>
           <ul class="dossier-lista">
-            <li>Lee correos y PDF, como notas simples, contratos, nóminas y facturas, y saca los datos que importan.</li>
+            <li>Lee los PDF y los documentos, como notas simples, contratos, nóminas y facturas, y saca los datos que importan.</li>
             <li>Busca en webs como la sede del Catastro y en vuestras carpetas.</li>
             <li>Rellena vuestros Excel y prepara borradores y respuestas con vuestros modelos y en vuestro tono.</li>
             <li>Os avisa de las fechas que importan, como las renovaciones, las actualizaciones de renta y los plazos de Hacienda.</li>
@@ -460,7 +459,7 @@
       <h2 id="preguntas-t">Lo que suele preguntar una oficina</h2>
       <div class="dossier-preguntas">
         <h3>¿Tenemos que dejar nuestro programa inmobiliario?</h3>
-        <p>No. Lo seguís usando como siempre, porque el empleado de inteligencia artificial trabaja con lo que ya tenéis: vuestras carpetas, vuestro correo y vuestros modelos. Si además hace falta meter datos en el programa, lo estudiamos en vuestro caso, porque cada programa lo permite de una forma distinta.</p>
+        <p>No. Lo seguís usando como siempre, porque el empleado de inteligencia artificial trabaja con lo que ya tenéis: vuestras carpetas y vuestros modelos. Si además hace falta meter datos en el programa, lo estudiamos en vuestro caso, porque cada programa lo permite de una forma distinta.</p>
         <h3>Somos pocos. ¿Nos compensa?</h3>
         <p>Se puede empezar por una sola mesa, la que más papeleo tiene, y sumar las demás solo si os compensa. No hay permanencia.</p>
         <h3>¿Cada persona tiene el suyo?</h3>
@@ -486,7 +485,7 @@
         <div>
           <p>Cuéntanos cómo es tu oficina, cuántas personas sois y qué mesa pierde más tiempo en papeleo. Te contesta Eduardo, el fundador, y hablar con él no os compromete a nada.</p>
           <div class="contacto-directo"><p class="texto">Lo más sencillo es escribir a Eduardo, el fundador, por WhatsApp. Cuéntale a qué te dedicas y qué te quita más tiempo, y te contestará él mismo.</p><p class="whatsapp"><a class="boton boton-principal boton-grande" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a></p><p class="nota">Si no usas WhatsApp, también puedes <a href="sms:+34660013625">mandarle un SMS</a>.</p></div><p class="nota otras-vias">Si prefieres hablar, llámale al <a href="tel:+34660013625">660 013 625</a>. Es mejor que le llames por la tarde, porque de lunes a jueves por la mañana seguramente no lo pueda coger.</p>
-          <p class="dossier-nota">Si prefieres que te llamemos, déjanos tu teléfono en el <a href="../#contacto">formulario de la portada</a>.</p>
+          <p class="dossier-nota">Si prefieres que te llamemos, déjanos tu teléfono en el <a href="../#formulario">formulario de la portada</a>.</p>
         </div>
         <figure class="dossier-dibujo"><svg class="dossier-ilu ilu ct-manila" viewBox="-4 28 244 124" aria-hidden="true" focusable="false">
             <g class="es-suelo"><path class="cl-ma" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5zM234 135l-2.5 3.5 4.5 1"/><path class="cl-t cl-f" d="M118 147.5l22-1.5"/></g>

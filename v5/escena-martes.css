@@ -20,6 +20,15 @@
   --pp-noche: #1d1b16;
 }
 :root[data-theme="dark"] .dia-historia { --pp-noche: #050504; }
+/* (901, WEB-M18) En oscuro, la escena pisa su hoja (g.hoja-osc, acompanante.css). En el móvil la cámara llega al plano de
+   la noche, donde las patas de la cama, la mesilla y la mesa bajan hasta y = 196, más allá del borde de la hoja de
+   siempre (y = 175): la hoja del móvil llega hasta y = 199 y nada flota sobre el campo. En el ordenador el escenario
+   corta el dibujo en y = 180 y se queda la hoja de siempre, con su borde a mano a la vista. */
+:root[data-theme="dark"] .pp7-cam .hoja-movil { display: none; }
+@media (max-width: 63.99rem) {
+  :root[data-theme="dark"] .pp7-cam .hoja-movil { display: inline; }
+  :root[data-theme="dark"] .pp7-cam .hoja-ancha { display: none; }
+}
 .dia-historia .c-escena { overflow: clip; }
 .c-escena .pp7-k50 { --trazo: calc(var(--c-tr) / 0.5); }
 .c-escena .pp7-bostezo { fill: var(--sobre-amarillo); }

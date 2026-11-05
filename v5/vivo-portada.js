@@ -47,7 +47,29 @@
   var boton = form.querySelector('[type="submit"]'), ct = d.querySelector(".ct-manila");
   var FALTA = { "f-nombre": "Falta tu nombre.", "f-telefono": "Falta un teléfono para llamarte.",
                 "f-privacidad": "Marca la casilla para que podamos llamarte." };
+  var MAL = { "f-telefono": "Revisa el teléfono, porque necesitamos un número al que podamos llamarte." };
   var primero = null, listo = false, enviando = false, textoBoton = boton ? boton.textContent : "";
+
+  // (901, WEB-M03) El desplegable «Prefiero que me llaméis» se abre solo cuando te han traído a él (#formulario, desde
+  // el dossier, oficinas o «Volver al formulario») y cuando ya tiene algo escrito (al volver atrás desde la privacidad,
+  // el navegador repone lo escrito), con el primer campo a la vista. Si no, sigue plegado bajo el WhatsApp.
+  var plegable = form.closest("details");
+  function escrito() {
+    return [].some.call(form.querySelectorAll("input[type=text], input[type=tel], textarea"), function (x) {
+      return x.name !== "web" && x.value.trim();
+    });
+  }
+  function abreSiToca(porEnlace) {
+    if (!plegable) return;
+    var traido = location.hash === "#formulario";
+    if (!traido && !escrito()) return;
+    plegable.open = true;
+    if (traido && porEnlace) requestAnimationFrame(function () { plegable.scrollIntoView({ block: "start", behavior: "instant" }); });
+  }
+  abreSiToca(true);
+  window.addEventListener("hashchange", function () { abreSiToca(true); });
+  window.addEventListener("pageshow", function () { abreSiToca(false); });
+  window.addEventListener("load", function () { if (location.hash === "#formulario") abreSiToca(true); });
 
   function nota(c, campo) {
     var id = c.id + "-error", p = d.getElementById(id);
@@ -70,7 +92,9 @@
     if (!campo || !c.id) return;
     var p = nota(c, campo);
     if (mal) {
-      p.textContent = FALTA[c.id] || c.validationMessage;
+      // (901) Un teléfono escrito pero sin sus 9 a 15 cifras se avisa aquí, con la misma regla y la misma frase que el
+      // servidor (validar() en web/servidor.py), en vez de llevar a otra página y perder lo escrito.
+      p.textContent = c.validity.patternMismatch && MAL[c.id] ? MAL[c.id] : FALTA[c.id] || c.validationMessage;
       p.hidden = false;
       c.setAttribute("aria-invalid", "true");
       describe(c, p.id, true);
@@ -120,15 +144,78 @@
     boton.textContent = textoBoton;
     boton.style.minWidth = "";
   }
+  // (901, WEB-M01 y caidas-11) El envío va con fetch y la página no se va: si se corta la red o no contesta en 15 s,
+  // lo escrito sigue en su sitio, el botón vuelve a estar listo y debajo se dice qué ha pasado; los «no» del servidor
+  // (400, 413 y 429) salen ahí mismo con su frase. Si llega, Manila lo celebra y se pasa a gracias: la de este sitio, o
+  // la de la web pública si el formulario va a otro origen (la copia de GitHub Pages lo manda al Funnel, con CORS).
+  // Sin fetch, el envío de siempre; el campo trampa y los límites siguen en el servidor.
+  var ESPERA = 15000, aviso = null;
+  var AVISO_RED = "No nos ha llegado porque se ha cortado la conexión. Tus datos siguen aquí, así que puedes volver a " +
+                  "intentarlo";
+  var wa = d.querySelector('.contacto-directo a[href^="https://wa.me/"]');
+  var conFetch = !!(boton && window.fetch && window.AbortController && window.URLSearchParams && window.FormData);
+
+  function avisa(texto, ofreceWa) {
+    if (!aviso) {
+      aviso = d.createElement("p");
+      aviso.className = "envio-error";
+      aviso.id = "envio-error";
+      aviso.setAttribute("role", "alert");
+      boton.parentNode.insertBefore(aviso, boton.nextSibling);
+    }
+    aviso.hidden = true;
+    aviso.textContent = "";
+    describe(boton, aviso.id, !!texto);
+    if (!texto) return;
+    aviso.appendChild(d.createTextNode(texto));
+    if (ofreceWa && wa) {
+      var a = d.createElement("a");
+      a.href = wa.href;
+      a.rel = "noopener";
+      a.textContent = "escribirnos por WhatsApp";
+      aviso.appendChild(d.createTextNode(" o "));
+      aviso.appendChild(a);
+      aviso.appendChild(d.createTextNode("."));
+    } else if (ofreceWa) {
+      aviso.appendChild(d.createTextNode(" dentro de un momento."));
+    }
+    void aviso.offsetWidth;   // vuelve a entrar con su animación si ya estaba
+    aviso.hidden = false;
+  }
+  function llega(accion) {
+    var u = new URL(accion, location.href);
+    var gracias = u.origin === location.origin ? new URL("gracias.html", u) : new URL("/gracias.html", location.href);
+    celebra();
+    setTimeout(function () { location.assign(gracias.href); }, M && !M.quieto() ? 450 : 0);
+  }
+  function manda() {
+    var ctrl = new AbortController(), reloj = setTimeout(function () { ctrl.abort(); }, ESPERA);
+    var accion = form.action;
+    fetch(accion, { method: "POST", body: new URLSearchParams(new FormData(form)), signal: ctrl.signal,
+                    headers: { Accept: "application/json" }, credentials: "omit", cache: "no-store" })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { r: r, j: j || {} }; });
+      })
+      .then(function (x) {
+        clearTimeout(reloj);
+        // un servidor aún sin reiniciar contesta como siempre (303 a gracias): también ha llegado
+        if (x.r.ok && (x.j.ok || (x.r.redirected && /gracias\.html$/.test(x.r.url)))) return llega(accion);
+        quitaCarga();
+        if (x.j.motivo) avisa(x.j.motivo, false); else avisa(AVISO_RED, true);
+      })
+      .catch(function () { clearTimeout(reloj); quitaCarga(); avisa(AVISO_RED, true); });
+  }
   form.addEventListener("submit", function (e) {
     if (enviando) { e.preventDefault(); return; }   // un segundo toque no lo manda otra vez
     enviando = true;
+    if (conFetch) e.preventDefault();
     if (!boton) return;
+    if (aviso) avisa("");
     boton.style.minWidth = boton.offsetWidth + "px";  // el botón no encoge al cambiar el texto
     boton.textContent = "Enviando…";
     boton.setAttribute("aria-disabled", "true");
     boton.classList.add("vivo-enviando");
-    celebra();
+    if (conFetch) manda(); else celebra();
   });
   // Al volver atrás desde «gracias» (la página sale de la caché del navegador), el botón vuelve a estar listo
   window.addEventListener("pageshow", function (e) { if (e.persisted) quitaCarga(); });

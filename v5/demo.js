@@ -117,6 +117,13 @@
     pintar(anunciar);
   }
 
+  /* (901, WEB-M09) Cuando va sola, cada paso se queda lo que cuesta leerlo (de 2,5 a 4 s, según sus palabras), y el
+     resultado, unos 9 s antes de recogerse (otraVez). Solo cambian los tiempos: las curvas y los dibujos son los de
+     siempre, y si alguien la toca, manda él. */
+  function lectura(li) {
+    var palabras = li ? li.textContent.trim().split(/\s+/).length : 0;
+    return Math.max(2500, Math.min(4000, 1200 + palabras * 140));
+  }
   function seguido() {
     visto = true;
     bSeguido.textContent = "Pausar";
@@ -126,7 +133,7 @@
         avanzar(false);
         if (fin) { para(); pintar(true); otraVez(); return; }
         tic();
-      }, paso === 0 ? 700 : paso >= total ? 1300 : 1500);
+      }, paso === 0 ? 700 : lectura(caso.querySelectorAll(".demo-pasos li")[paso - 1]));
     })();
   }
 
@@ -144,7 +151,7 @@
       paso = 0; fin = false; aviso.textContent = "";
       pintar(false);
       vuelta = setTimeout(function () { if (!mano && !fin && !paso) seguido(); }, 1100);
-    }, 4500);
+    }, 9000);
   }
   function toca() { mano = true; clearTimeout(vuelta); }
 

@@ -49,6 +49,10 @@
 .campo-error[hidden] { display: none; }
 .campo-casilla .campo-error { grid-column: 1 / -1; }
 .campo.vivo-mal > :is(input, textarea, select) { border-color: var(--aviso); }
+/* (901) El envío que no ha llegado, bajo el botón: la misma tinta de aviso, en frase entera y con su enlace al WhatsApp */
+.envio-error { margin: 0.85rem 0 0; max-width: 34em; color: var(--aviso); font: 700 var(--s-pequeno)/1.45 var(--t-titulo); font-stretch: 90%; }
+.envio-error[hidden] { display: none; }
+.envio-error a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
 .boton.vivo-enviando { position: relative; cursor: progress; }
 .boton.vivo-enviando::after {
   content: ""; position: absolute; left: 1.6rem; right: 1.6rem; bottom: 0.65rem; height: 3px;
@@ -58,7 +62,7 @@
 .ct-manila.vivo-celebra .ct-abajo { opacity: 0; }
 .ct-manila.vivo-celebra .ct-tapa { transform: translateY(16px) scaleY(0.32); }
 @media (prefers-reduced-motion: no-preference) {
-  .campo-error:not([hidden]) { animation: vivo-aparece 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .campo-error:not([hidden]), .envio-error:not([hidden]) { animation: vivo-aparece 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
   .campo.vivo-sacude > :is(input, textarea, select) { animation: vivo-sacude 320ms cubic-bezier(0.36, 0.07, 0.19, 0.97); }
   :root.mov-suave .campo.vivo-sacude > * { animation: none; }
   .campo-casilla input { transition: scale 460ms var(--muelle); }

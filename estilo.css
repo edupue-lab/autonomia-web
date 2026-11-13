@@ -1,14 +1,9 @@
-/* Web oficial de AutonomIA: estilo de las páginas sencillas (privacidad, gracias y las de error). La portada tiene el
-   suyo, inicio.css. Va después de marca/marca.css, de la que solo usa el logo, Atkinson Hyperlegible y el amarillo de
-   la marca (aquí, solo para el foco del teclado). Folio blanco, tinta azulada, bolígrafo azul como único acento, radio 0
-   y sin sombras (docs/anti-ai-slop.md). */
 
 @font-face {
   font-family: "Archivo";
   src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
   font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
 }
-/* Las cifras del texto, en Archivo: el cero tachado de Atkinson parece de código */
 @font-face {
   font-family: "Cifras";
   src: url("fuentes/archivo-latin-wdth-normal.woff2") format("woff2");
@@ -21,14 +16,14 @@
 }
 
 :root {
-  --papel: #fafaf8;       /* fondo: blanco de folio, neutro */
-  --hoja: #ffffff;        /* superficies */
-  --linea: #d6d9df;       /* filetes finos */
-  --tinta: #151a24;       /* texto: tinta azulada casi negra (16,9:1) */
-  --gris: #4a5161;        /* texto secundario (7,9:1) */
-  --boli: #1d3fa6;        /* bolígrafo azul: enlaces y acento (8,1:1) */
+  --papel: #fafaf8;
+  --hoja: #ffffff;
+  --linea: #d6d9df;
+  --tinta: #151a24;
+  --gris: #4a5161;
+  --boli: #1d3fa6;
   --boli-suave: #e9edf9;
-  --foco: #f5c518;        /* el amarillo de la marca, solo para el foco del teclado */
+  --foco: #f5c518;
 
   --t-titulo: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --t-texto: "Cifras", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -68,12 +63,11 @@ h3 { font-size: 1.2rem; font-weight: 700; font-stretch: 92%; line-height: 1.25; 
 .saltar:focus { left: 1rem; }
 p, li, dd { text-wrap: pretty; }
 
-/* ------------------------------------------------------------ cabecera */
 .cabecera { position: sticky; top: 0; z-index: 5; background: var(--papel); border-bottom: 3px solid var(--tinta); }
 .cabecera-fila { display: flex; align-items: center; gap: 0.5rem 1.75rem; flex-wrap: wrap; padding-block: 0.6rem; }
 .logo { display: inline-flex; align-items: center; gap: 0.45rem; margin-right: auto; }
 .logo img { height: 32px; width: auto; }
-.logo .logo-manila { height: 38px; } /* Manila, el logo (Edu, 22/10): marca/logo/manila-pequeno.svg */
+.logo .logo-manila { height: 38px; }
 @media (max-width: 30rem) {
   .cabecera-fila { gap: 0.5rem; flex-wrap: nowrap; }
   .tema-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -93,10 +87,6 @@ p, li, dd { text-wrap: pretty; }
 :root[data-theme="dark"] .am-solo-claro { display: none; }
 :root[data-theme="dark"] .am-solo-oscuro { display: inline-block; }
 
-/* ------------------------------------------------------------ botones */
-/* (833) Con la sombra calco: un bloque plano amarillo corrido debajo (::before) y la cara del botón encima (::after).
-   Al pasar el ratón el botón se levanta y el calco se queda en su sitio, así que se separa; al apretar se hunde sobre
-   él al momento (80 ms) y al soltar vuelve con resorte. Solo se mueve transform; los colores cambian sin animar. */
 .boton {
   position: relative; isolation: isolate;
   display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0.75rem 1.4rem;
@@ -135,23 +125,20 @@ p, li, dd { text-wrap: pretty; }
   .boton:active, .boton:active::before { transition-duration: 80ms; transition-timing-function: ease-out; }
 }
 
-/* (833) El botón del tema: al cambiar, el icono nuevo llega girando (tema.js le pone .tema-cambia un momento) */
 @media (prefers-reduced-motion: no-preference) {
   .tema-cambia svg { animation: tema-gira 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
 }
 @keyframes tema-gira { from { transform: rotate(-70deg) scale(0.7); opacity: 0.2; } }
 
-/* Pie */
 .pie { border-top: 3px solid var(--tinta); font-variant-numeric: lining-nums; padding-block: 1.5rem 2.5rem; font-size: 1rem; color: var(--gris); }
 .pie-fila { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
 .pie p { margin: 0; }
 
-/* Páginas sencillas: privacidad, gracias, error */
 .aviso-pagina { max-width: 44rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
 .aviso-pagina .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }
 .pagina-texto { padding-block: 2.5rem 4rem; }
 .ancho-estrecho { max-width: 46rem; }
-.pagina-texto h2 { font-size: 1.5rem; margin-top: 2.75rem; } /* 833: sin filete fino; el aire separa */
+.pagina-texto h2 { font-size: 1.5rem; margin-top: 2.75rem; }
 .pagina-texto ul { padding-left: 1.2rem; }
 .pagina-texto li { margin-bottom: 0.4rem; }
 .pagina-texto .eyebrow { color: var(--gris); font-size: 1rem; margin-bottom: 0.5rem; }

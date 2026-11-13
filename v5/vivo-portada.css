@@ -1,12 +1,4 @@
-/* Portada v5, «interfaces vivas» (empleado 833, diseñador 1; pedido de Edu «pe-interfaces-vivas», 29/10/2026). Va
-   después de bucle.css y solo añade la respuesta que les faltaba a algunos controles; las escenas y sus bucles no se
-   tocan. Con las skills movimiento-fisico (apretar es inmediato, soltar es resorte: --muelle de breve.css) y
-   review-animations (curvas que salen rápido, nada de ease-in ni de transition: all, el hover solo con ratón). Solo
-   translate, scale, rotate, transform y opacity; todo lo que se mueve, dentro de prefers-reduced-motion:
-   no-preference (en el modo suave, movimiento.js lo deja pasar y --muelle ya no se pasa de su sitio). La parte de
-   JavaScript, en vivo-portada.js. */
 
-/* ------------------------------------------------------------ el logo: Manila se ladea y se aplasta */
 .logo-manila { transform-origin: 50% 100%; }
 @media (prefers-reduced-motion: no-preference) {
   .logo-manila { transition: rotate 460ms var(--muelle), scale 460ms var(--muelle); }
@@ -16,9 +8,6 @@
   .logo:hover .logo-manila { rotate: -7deg; }
 }
 
-/* ------------------------------------------------------------ el tema y «Menos movimiento» */
-/* Al cambiar de tema, el icono nuevo entra girando (vivo-portada.js pone .vivo-cambia un momento). En el modo suave,
-   las ondas del icono de movimiento se aplanan: el estado se ve en el propio botón. */
 .icono-mov path { transform-box: fill-box; transform-origin: 50% 50%; }
 :root.mov-suave .icono-mov path { scale: 1 0.3; }
 @media (prefers-reduced-motion: no-preference) {
@@ -27,7 +16,6 @@
 }
 @keyframes vivo-icono { from { rotate: -100deg; scale: 0.8; opacity: 0.3; } }
 
-/* ------------------------------------------------------------ «Saber más»: el «+» se aplasta al apretar */
 @media (prefers-reduced-motion: no-preference) {
 @supports (transition-timing-function: linear(0, 1)) {
   .saber-mas > summary::before, .demo-cambiar::before { transition: rotate 520ms var(--muelle), scale 460ms var(--muelle); }
@@ -35,21 +23,13 @@
 }
 }
 
-/* ------------------------------------------------------------ la pila, en el táctil */
-/* Sin ratón no hay «pasar por encima»: al tocar una pestaña, se levanta como al sacarla del archivador */
 @media (hover: none) { a.carpeta:active .pestana { transform: translateY(-6px); } }
-/* Con ratón, la Manila de la portada salta al pasar por encima y fisica.js le da el salto con peso al tocarla; en el
-   táctil el toque traía los dos a la vez: se queda el de peso. */
 @media (hover: none) { :root.vivo-fis:not(.mov-suave) .pt-manila.saluda .pt-salta { animation: none; } }
 
-/* ------------------------------------------------------------ el formulario de contacto */
-/* Error: el campo en rojo, el texto debajo y una sacudida corta (4 px). Carga: «Enviando…» con un trazo de boli que
-   se dibuja y se borra. Listo: Manila del contacto abre su carpeta y levanta la mano (y salta, vivo-portada.js). */
 .campo-error { margin: 0; color: var(--aviso); font: 700 var(--s-pequeno) var(--t-titulo); font-stretch: 90%; }
 .campo-error[hidden] { display: none; }
 .campo-casilla .campo-error { grid-column: 1 / -1; }
 .campo.vivo-mal > :is(input, textarea, select) { border-color: var(--aviso); }
-/* (901) El envío que no ha llegado, bajo el botón: la misma tinta de aviso, en frase entera y con su enlace al WhatsApp */
 .envio-error { margin: 0.85rem 0 0; max-width: 34em; color: var(--aviso); font: 700 var(--s-pequeno)/1.45 var(--t-titulo); font-stretch: 90%; }
 .envio-error[hidden] { display: none; }
 .envio-error a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.18em; }

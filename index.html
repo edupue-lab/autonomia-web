@@ -79,10 +79,6 @@
 
 <main id="contenido">
 
-  <!-- E1 · La carpeta que se abre (escena FIJA, guion §3). Texto (titular, frase y WhatsApp) arriba a la izquierda;
-       el escenario con la pila de carpetas y Manila, fijo a la derecha (en el móvil, arriba, con 42svh); la tarjeta
-       «Para ti» con la lista de entregas entra después por la columna de texto (en el móvil, pasa por encima del
-       escenario). La pila sigue siendo la navegación de la página. historia.css, motor.js y coreografia.css. -->
   <section class="portada">
     <div class="ancho escena-fija portada-historia" data-escena="e1" data-rango="contain">
     <div class="historia-cabeza portada-cabeza">
@@ -96,18 +92,8 @@
 
     <div class="escenario portada-escenario">
       <div class="escenario-dibujo">
-      <!-- Manila, de pie sobre la pila de carpetas, de tres cuartos (modelo base del 22/10), echa hojas hacia la carpeta
-           «Para ti», que está a su izquierda; con el scroll, la carpeta se abre y se convierte en el escritorio del
-           tasador (huecos para el ilustrador: g.e1-carpeta, g.e1-tapa, g.e1-hojas, g.e1-taza, path.e1-firma; Manila va
-           en g.e1-manila). Al tocarla, salta y saluda (ilustra.css, PORTADA). -->
       <svg class="ilu pt-manila e1-dibujo ilu-hoja-entera" data-ilustra viewBox="-152 0 284 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-        <!-- F3 (465): en oscuro, la hoja dibujada debajo de todo (con su calco), como en las demás escenas: Manila y la
-             carpeta «Para ti» pisan papel y no el campo negro. En claro no se pinta (acompanante.css, .hoja-osc). -->
         <g class="hoja-osc"><path class="cl-ma" d="M-149 9c90-2.5 180-3 271-1.5l1.5 137c-91 2.5-182 2.5-273.5.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M-149 9c90-2.5 180-3 271-1.5l1.5 137c-91 2.5-182 2.5-273.5.5z"/></g>
-        <!-- C1 (457): Manila baja colgada de su cordel desde arriba (g.e1-manila), aterriza en su hoja y lanza en arco tres
-             hojas a la carpeta «Para ti» (g.e1-hN, que caen detrás de la tapa); la tapa se abre (e1-tapa → e1-tapa-in), las
-             cuatro hojas se reparten como el escritorio del tasador, llega la taza y el boli firma. Al final salta hacia
-             abajo (relevo). Sin movimiento: el escritorio abierto, la firma hecha y Manila de pie. acompanante.css. -->
         <path class="cl-ma" d="M-150 141c32-1.5 64-2.5 96-3l6 9c-34 1-68 1.5-102 1.5z" transform="translate(3.5 3)"/>
         <path class="cl-ho cl-t" d="M-150 141c32-1.5 64-2.5 96-3l6 9c-34 1-68 1.5-102 1.5z"/>
         <g transform="translate(-148 8)">
@@ -115,7 +101,6 @@
           <path class="cl-t" d="M10 76 13 45c.3-2 1.5-3 3.5-3H72l5 19h13c2.5 0 3.5 1.5 3.5 4L90 128 9 129z"/>
           <path class="cl-sa" d="M23 68.2C22.8 63.6 22.3 59.3 22.2 55.3M22.2 55.5C24.2 54.5 28.5 54.5 28.6 57.9C28.7 61.1 25.3 62 22.8 61.3M34.3 60.5C33.3 58.4 29.3 58.9 29.5 63.7 29.8 67.9 34.1 67.4 34.7 64.1M34.5 58.6C34.6 62 34.8 65.3 35.8 67.1M36.7 58.6C37.1 61.9 37.2 64.4 37.6 67M37.1 62.2C37.5 59.2 39.1 58 41.1 58.5M47.4 59.7C46.5 57.5 42.5 57.8 42.6 62.5 42.7 66.5 46.9 66.3 47.7 63.1M47.6 57.8C47.6 61.2 47.6 64.3 48.6 66.1M55.1 53.7C55.4 58.1 55.9 63.3 56.5 65.1 56.9 66 58 65.8 58.9 64.6M53.4 58.1C54.8 57.6 56.6 57.5 58 57.1M59 57.2C59.3 60.6 59.6 63.2 60.2 65.8M58.7 53.8 59 54.2"/>
           <g class="sd e1-h1"><path class="cl-ho cl-t cl-f" d="M16 73l33-1.5 1 26-33 1z"/><path class="cl-t cl-f cl-en" d="M21 80h22M21 86h17M21 92h20"/></g>
-          <!-- 585 · PUENTE del bucle: con la tapa ya cerrada, las tres hojas echadas se hunden dentro de «Para ti» (bucle.css) -->
           <g class="rs e1-archiva">
           <g class="sd e1-hx e1-hx2"><g class="sd e1-hy e1-h2"><path class="cl-ho cl-t cl-f" d="M54 71l34 1-1 26-33-1z"/><path class="cl-t cl-f cl-en" d="M54.5 79.5l33 1M54 88.5h33M65 71.5 64.5 97M76 72l-.5 25.5"/></g></g>
           <g class="sd e1-hx e1-hx3"><g class="sd e1-hy e1-h3"><path class="cl-ho cl-t cl-f" d="M17 102l32-1 1 25-33 1z"/><path class="cl-t cl-f cl-en" d="M22 108h21M22 120h14"/><path class="cl-bo" d="M31 112c5-3 14-2.5 14 1.5s-10 4.5-14 1.5c-2-2 0-4 3-5"/></g></g>
@@ -131,7 +116,6 @@
           </g>
           <g class="sd e1-taza"><path class="cl-am" d="M93 118h11l-1.5 13h-8z" transform="translate(2.5 2)"/><path class="cl-t cl-f" d="M93 118h11l-1.5 13h-8zM104 121c4 0 4.5 6 0 6.5M97 114c-2-2 1-4 0-6M101 114c-2-2 1-4 0-6"/></g>
         </g>
-        <!-- C1 (465) · gag: una mosca da vueltas sobre la taza del café (desde que se abre el escritorio) -->
         <g transform="translate(-50 103)"><g class="sd e1-mosca"><g class="pt-mosca"><path d="M-12-12h24v24h-24z" fill="none"/><path class="cl-t cl-f" d="M10-1v2.5M10 0c-2-4-6-3-3.5 0M10 0c2-4 6-3 3.5 0"/></g></g></g>
         <g class="pt-suelo"><path class="cl-ma" d="M-14 138.5c40-2.5 80-4 121-5.5l9 11c-42 2-84 3-125 3.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M-14 138.5c40-2.5 80-4 121-5.5l9 11c-42 2-84 3-125 3.5zM107 133l-1.5 5 6 .5"/><path class="cl-t cl-f cl-en" d="M-4 143.5l30-1M90 140.5l14-.6"/></g>
         <g class="sd e1-manila">
@@ -197,29 +181,17 @@
     </div>
   </section>
 
-  <!-- E2 · La caja de zapatos (Qué no es): una frase con trocitos de interfaz en línea. Escena rodada: Manila cae
-       desde arriba al entrar (el relevo de E1) y sale hacia abajo con el sobre (g.e2-manila) -->
   <section class="seccion seccion-pestana queno escena-rodada" id="que-no-es" data-escena="e2" data-rango="cover">
     <div class="ancho es-queno-rejilla">
       <h2 class="oculto-visual">Qué no es</h2>
       <p class="queno-frase" data-sube>No es un programa al que le vas pasando papeles. Le pides las cosas, lee tus carpetas y tus PDF y trabaja como tú.</p>
       <p class="queno-nota" data-sube>Es mucho más autónomo de lo que te puedas llegar a imaginar.</p>
-      <!-- Manila (modelo base del 22/10) deja atrás la caja de zapatos de las facturas (lo que hacen los programas de
-           siempre) y sale de un salto con el correo bajo el brazo, camino del trabajo (escenas.css, QUÉ NO ES) -->
       <svg class="ilu es es-queno ilu-papel-claro" data-ilustra viewBox="0 0 300 172" aria-hidden="true" focusable="false">
-        <!-- C1 (457): la caja de zapatos desbordada (lo de siempre). Manila cae DENTRO de la caja (relevo de E1), asoma los
-             ojos por el borde, coge impulso y sale de un salto en arco; aterriza de tres cuartos con el correo bajo el
-             brazo y se sacude el papel que se le ha quedado pegado al pie. Al final se va corriendo por la derecha, fuera
-             del encuadre (465: antes se columpia del cordel, y la hoja y el brazo llegan con retraso). acompanante.css. -->
         <path class="cl-t cl-f" d="M6 162c70-2 180 1 288-1"/>
         <g class="sd e2-tapa"><path class="cl-ma cl-t cl-f" d="M3 160 15 99l12 2-12 61z"/></g>
         <path class="cl-ma" d="M16 114 30 102l98-4-14 12z"/>
         <path class="cl-t cl-f" d="M16 114l14-12 98-4"/>
         <g class="sd e2-cordel"><path class="cl-t cl-f" d="M56 -24c.5 3-.5 7 0 10"/></g>
-        <!-- 674 (Corpas, 23/10): dentro de la caja no se le ven brazos ni piernas a través de las paredes. La caja va en
-             dos capas (la boca, detrás de Manila; el frente y el costado, delante) y este recorte quita lo que quedaría
-             por debajo del canto y fuera de la caja (a la izquierda del frente y a la derecha del costado). No toca a
-             Manila fuera de la caja: colgada va por encima del canto y aterriza más allá del recorte. -->
         <clipPath id="e2-boca"><path clip-rule="evenodd" d="M-80-150H380V220H-80zM-70 114H16l1.5 48V210H-70zM128.5 98H138V210H115V160.5l14.5-14z"/></clipPath>
         <g class="e2-dentro" clip-path="url(#e2-boca)">
         <g class="sd e2-manila"><g transform="translate(150 20)"><g class="sd e2-salto"><g><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
@@ -246,20 +218,12 @@
         <path class="cl-ma" d="M16 114l98-4 1 50-98 2z" transform="translate(3.5 3)"/>
         <path class="cl-ma cl-t" d="M16 114l98-4 1 50-98 2zM114 110l14-12 1 48-14 14z"/>
         <path class="cl-t cl-f" d="M30 126c20-1 50-2 70-2M44 140l30-.5"/>
-        <!-- C1 (465) · gag: una polilla vive en la caja vieja; de vez en cuando revolotea y vuelve a posarse -->
         <g class="e2-polilla"><g class="e2-alas"><path class="cl-t cl-f" d="M97 106v3.5M97 107c-4-5-8-1-5 2.5M97 107c4-5 8-1 5 2.5"/></g></g>
         <g class="sd e2-polvo"><path class="cl-t cl-f" d="M48 92v.5M86 84v.5M104 96v.5"/></g>
       </svg>
     </div>
   </section>
 
-  <!-- Del correo al trabajo hecho (demo.css, demo.js). Eliges oficio, eliges un correo de su bandeja y ves, paso a
-       paso, lo que hace con él hasta dejarte la carpeta «Para ti» abierta con el resultado. Sin JavaScript se ve el
-       primer correo de cada oficio con todos sus pasos y su resultado. Ejemplo con datos inventados. -->
-  <!-- E3 · El sobre en la mesa: la demo NO se conduce con el scroll (sus pasos los mueven los botones); el scroll solo
-       trae el sobre de E2 (g.e3-sobre, decorativo) y, al final, deja salir tres hojas hacia E4 (g.e3-relevo). -->
-  <!-- C1 (465) · PUENTE a «Qué hace»: una hoja vieja de la caja de zapatos de E2 salta en arco y se mete en la carpeta
-       siguiente (lo de siempre entra a trabajar). Quieta: no se ve. acompanante.css, PUENTES. -->
   <div class="puente pu-hoja" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-70 -100 110 130" focusable="false">
       <clipPath id="pu-c0"><path d="M-300-500h700v530h-700z"/></clipPath>
@@ -319,15 +283,9 @@
       </div>
 
       <div class="demo-escena">
-        <!-- Manila trabaja encima del encargo: con cada paso sale una hoja del sobre a la mesa, la marca con el boli,
-             y al final se guarda las hojas dentro y da un salto. A sus pies, lo de cada oficio (cinta métrica, sello,
-             plano enrollado o casco). Ojos en .mn-ojos y cuerpo en .mn-cuerpo (los mueve ilustra.js con el puntero).
-             Modelo base del 22/10: ojos abiertos en las tres caras (esperando, concentrada mirando la hoja y contenta)
-             y la hoja de detrás asomando poco; la alta, la del resultado, solo sale al terminar (.dm-dentro). -->
         <svg class="ilu dm-ilu ilu-hoja-entera" data-ilustra viewBox="0 -4 420 164" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
           <g class="hoja-osc"><path class="cl-ho" d="M3 -1c138-2 276-3 413-1l1 158c-138 2-276 2-414 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M3 -1c138-2 276-3 413-1l1 158c-138 2-276 2-414 0z"/></g>
           <path class="cl-t" d="M-6 154.5c90-1.5 180 .5 262-.5 55-.5 110 .5 166 0"/>
-          <!-- C1b (465): en el móvil el dibujo se recorta a la acción (Manila a ~180 px) y el sobre se acerca a la pila -->
           <g class="dm-sobre-sitio"><g class="sd e3-sobre"><g class="sd e3-sobre-y"><g class="dm-llega-sobre"><g class="dm-late"><g class="dm-sobre" transform="translate(-10 0)">
             <path class="cl-ho" d="M14 106 108 101 111 151 17 152z" transform="translate(3.5 3)"/>
             <path class="cl-t" d="M14 106 108 101 111 151 17 152z"/>
@@ -347,8 +305,6 @@
             <g class="dm-prop dm-p-arquitecto"><path class="cl-ho cl-t" d="M383 150l27-20c3-2 6.5-1 6 2.5l-25 21.5c-3 2.5-8.5 1.5-8-4z"/><path class="cl-t cl-f" d="M410 130.5c3-.5 6 1.5 5.5 4.5M395 147.5l4.5-3.5"/></g>
             <g class="dm-prop dm-p-tecnico"><path class="cl-am cl-t" d="M389 152c0-12 6-20 13-20s14 8 14 20z"/><path class="cl-t" d="M385 152.5h34"/><path class="cl-sa" d="M402 133v11"/></g>
           </g>
-          <!-- C1 (457): Manila trabaja sobre una hoja pegada con cinta (nunca amarillo sobre manila) y pisa papel; llega
-               cayendo desde arriba (g.e3-manila, relevo) y el sobre entra en arco desde fuera del marco. acompanante.css -->
           <g class="dm-fondo-c1"><path class="cl-ho" d="M250 4l136-3 3 150-138 2z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M250 4l136-3 3 150-138 2z"/><path class="cl-ma cl-t cl-f" d="M300 -3l32 2-1 10-32-2z"/><path class="cl-t cl-f" d="M262 150c38-1.5 80-2.5 122-3"/></g>
           <g class="sd e3-cordel"><path class="cl-t cl-f" d="M298 -4c.5 6-.5 13 0 20"/></g>
           <g class="sd e3-manila"><g transform="translate(262 12)"><g><g class="dm-manila"><g class="dm-salto"><g class="mn-cuerpo"><g class="cl-respira">
@@ -392,7 +348,6 @@
         </svg>
 
         <div class="demo-casos">
-          <!-- TASADOR -->
           <article class="demo-caso" id="demo-c-ta1" data-oficio="tasador" aria-labelledby="demo-c-ta1-t">
             <h3 class="demo-caso-oficio" id="demo-c-ta1-t">Si eres tasador</h3>
             <div class="demo-pantalla" data-ui>
@@ -508,7 +463,6 @@
             </div>
           </article>
 
-          <!-- PERITO -->
           <article class="demo-caso" id="demo-c-pe1" data-oficio="perito" aria-labelledby="demo-c-pe1-t">
             <h3 class="demo-caso-oficio" id="demo-c-pe1-t">Si eres perito</h3>
             <div class="demo-pantalla" data-ui>
@@ -622,7 +576,6 @@
             </div>
           </article>
 
-          <!-- ARQUITECTO -->
           <article class="demo-caso" id="demo-c-ar1" data-oficio="arquitecto" aria-labelledby="demo-c-ar1-t">
             <h3 class="demo-caso-oficio" id="demo-c-ar1-t">Si eres arquitecto</h3>
             <div class="demo-pantalla" data-ui>
@@ -739,7 +692,6 @@
             </div>
           </article>
 
-          <!-- ARQUITECTO TÉCNICO -->
           <article class="demo-caso" id="demo-c-te1" data-oficio="tecnico" aria-labelledby="demo-c-te1-t">
             <h3 class="demo-caso-oficio" id="demo-c-te1-t">Si eres arquitecto técnico</h3>
             <div class="demo-pantalla" data-ui>
@@ -862,12 +814,6 @@
     </div>
   </section>
 
-  <!-- E4 · El papeleo (Lo que hace cada día) · escena FIJA, 200svh. Los ocho titulares van en cuatro pasos de dos, cada
-       uno con un solo fragmento de interfaz, al lado del escenario (en el móvil, pasan por debajo del dibujo fijo). El
-       dibujo (ayudante C2) son dos SVG apilados en .pp4-capas: el fondo quieto y los actores; guion en
-       escena-papeleo.css. -->
-  <!-- C1 (465) · PUENTE a «Cada día»: dos hojas entran resbalando por el hueco desde la derecha, saltan y se meten en
-       la carpeta; la segunda se queda asomando por el canto (así se ve también quieta). acompanante.css, PUENTES. -->
   <div class="puente pu-hojas" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-50 -60 100 90" focusable="false">
       <clipPath id="pu-c1"><path d="M-300-500h700v530h-700z"/></clipPath>
@@ -886,13 +832,9 @@
 
       <div class="escenario" aria-hidden="true">
         <div class="escenario-dibujo">
-          <!-- E4 · el papeleo (ayudante C2): la torre de papeles más alta que Manila, la clasificación a toda prisa y el
-               Excel por dentro. Estado por defecto = último fotograma (escena-papeleo.css). -->
           <div class="pp4-capas sd pp4-zoom">
           <svg class="ilu es e4-dibujo pp4-fondo ilu-hoja-entera" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
-            <!-- 585 (bucle): g.e4-cam, en el móvil, devuelve la cámara del plano final al de la torre (bucle.css) -->
             <g class="rs e4-cam">
-            <!-- F1 (465): en oscuro, la escena va sobre una hoja de papel dibujada (Manila nunca pisa el negro) -->
             <g class="hoja-osc"><path class="cl-ho" d="M8 9C140 6 270 5 393 3l3 291c-130 2-262 3-392 1z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M8 9C140 6 270 5 393 3l3 291c-130 2-262 3-392 1z"/><path class="cl-ma cl-t cl-f" d="M182 -3l40 2-1 12-40-2z"/></g>
             <path class="cl-ma" d="M24 18 98 14 102 108 27 112z" transform="translate(3.5 3)"/>
             <path class="cl-ho cl-t" d="M24 18 98 14 102 108 27 112z"/>
@@ -919,7 +861,6 @@
               <clipPath id="pp4-vent"><path d="M150 22 236 19 238 82 151 84z"/></clipPath>
               <clipPath id="pp4-tabla"><path d="M278 119.5h108v47H278z"/></clipPath>
             </defs>
-            <!-- 585 (bucle): las piezas rs- del puente de la tarea (bucle.css); en reposo, la identidad o invisibles -->
             <g class="rs e4-cam">
             <g clip-path="url(#pp4-vent)"><g class="rs e4-sol"><g class="sd pp4-sol-x"><g class="sd pp4-sol-y"><path class="cl-am" d="M184 52c0-6 4.5-10.5 10.5-10.5S205 46 204.5 52 200 62 194 62s-10-4-10-10z" transform="translate(3 2.5)"/><path class="cl-t cl-f" d="M184 52c0-6 4.5-10.5 10.5-10.5S205 46 204.5 52 200 62 194 62s-10-4-10-10z"/></g></g></g></g>
             <path class="cl-t" d="M150 22 236 19 238 82 151 84zM194 20.5l1 62M150.5 53 214 51.5"/>
@@ -927,7 +868,6 @@
             <path class="sd pp4-tacha pp4-t2 cl-t" pathLength="100" d="M44 69c12-5 22 2 32-2s12-1 18-3"/>
             <path class="sd pp4-tacha pp4-t3 cl-t" pathLength="100" d="M44 85c9-4 16 2 24-1s10-1 14-3"/>
             <path class="sd pp4-tacha pp4-t4 cl-t" pathLength="100" d="M44 101c11-5 21 2 30-2s12-1 16-3"/>
-            <!-- 585 (bucle): la lista del día siguiente, copia exacta de la de la pared (fondo), cae encima de la tachada -->
             <g class="rs e4-lista" opacity="0">
               <path class="cl-ma" d="M24 18 98 14 102 108 27 112z" transform="translate(3.5 3)"/>
               <path class="cl-ho cl-t" d="M24 18 98 14 102 108 27 112z"/>
@@ -957,7 +897,6 @@
               <path class="cl-sa" d="M-2.5-8v2M1.8-8.3v2M-2.2-4.6c1.2 1 3 1 4.2-.2"/>
               <path class="cl-t" d="M-3-2-3.5 0h-2M3-2l.5 2h2"/>
             </g></g></g>
-            <!-- La planta de la mesa (el gag de fondo): se mustia con el jaleo y revive al final, con una hoja nueva -->
             <g class="pp4-planta">
               <path class="cl-ma cl-t cl-f" d="M222 187.5l20-.5-2.5 13h-15z"/>
               <g class="sd pp4-tallo">
@@ -975,15 +914,12 @@
               <g class="sd pp4-b4"><path class="cl-ma" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(4.5 -87)"/><path class="cl-ho cl-t" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(1 -90)"/><path class="cl-t cl-f" d="M22 263h49M20 276h53M73 266l9-2 1 6-9 1" transform="translate(1 -90)"/><path class="sd pp4-suelta cl-ho cl-t cl-f" d="M27 166l18-9 22 5-17 6z"/></g>
               </g>
             </g></g>
-            <!-- 585 (bucle): la torre del día siguiente, copia exacta de la torre al empezar, cae por arriba -->
             <g class="rs e4-nueva" opacity="0">
               <g><path class="cl-ma" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M21 284 19 270 23 254h52l-2 16 3 14z"/><path class="cl-t cl-f" d="M22 263h49M20 276h53M73 266l9-2 1 6-9 1"/></g>
               <g><path class="cl-ma" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(6.5 -27)"/><path class="cl-ho cl-t" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(3 -30)"/><path class="cl-t cl-f" d="M22 263h49M20 276h53M73 266l9-2 1 6-9 1" transform="translate(3 -30)"/></g>
               <g><path class="cl-ma" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(1.5 -57)"/><path class="cl-ho cl-t" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(-2 -60)"/><path class="cl-t cl-f" d="M22 263h49M20 276h53M73 266l9-2 1 6-9 1" transform="translate(-2 -60)"/></g>
               <g><path class="cl-ma" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(4.5 -87)"/><path class="cl-ho cl-t" d="M21 284 19 270 23 254h52l-2 16 3 14z" transform="translate(1 -90)"/><path class="cl-t cl-f" d="M22 263h49M20 276h53M73 266l9-2 1 6-9 1" transform="translate(1 -90)"/><path class="cl-ho cl-t cl-f" d="M27 166l18-9 22 5-17 6z"/></g>
             </g>
-            <!-- Manila (modelo base del 22/10), delante de la torre: piernas (rectas, rodillas dobladas, a la pata coja)
-                 y seis caras, que solo cambian los ojos y la boca -->
             <g class="sd pp4-mn"><g class="sx e4-sx-mn"><g transform="translate(82 199.4) scale(.6)" class="pp4-k60"><g class="es-respira">
               <path class="sd pp4-piernas cl-t" d="M42 120 40 141h-8M80 120l2 21h8"/>
               <path class="sd pp4-rodillas cl-t" d="M42 119c-9 5-11 12-6 22h-8M80 119c9 5 11 12 6 22h8"/>
@@ -1007,7 +943,6 @@
               <g class="rs e4-ya"><g class="sd pp4-bb"><path class="cl-t" d="M11 82C2 70 0 54 6 42M110 78c9-12 11-28 6-40"/><path class="cl-t mn-palma" d="M6.2 41.6l2.2-4.5M115.8 37.5l-1.9-4.6"/><path class="cl-t mn-pulgar" d="M9.1 42.7l4.9.2M112.8 38.5l-4.9-.1"/></g></g>
               <g class="sd pp4-bc"><path class="cl-t" d="M11 82C-4 78-14 70-20 58M110 78c9-12 11-28 6-40"/><path class="cl-t mn-palma" d="M-20.2 57.6l-2.2-4.5M115.8 37.5l-1.9-4.6"/><path class="cl-t mn-pulgar" d="M-17.6 55.9l3.1-3.8M112.8 38.5l-4.9-.1"/></g>
             </g></g></g></g>
-            <!-- La hoja que se escapa de la torre (el gag): cae en el pie de Manila y vuelve arriba de una patada -->
             <g class="sd pp4-escapa-x"><path class="sd pp4-escapa-y cl-ho cl-t cl-f" d="M-18 3l18-9 22 5-17 6z"/></g>
             <g clip-path="url(#pp4-suelo)">
               <use class="cl-ho cl-t cl-f sd pp4-m pp4-m1" href="#pp4-p" x="34" y="284"/>
@@ -1043,8 +978,6 @@
     </div>
   </section>
 
-  <!-- C1b (465) · PUENTE a «Plazos»: una hoja de calendario con un día rodeado a boli se suelta del papeleo de «Cada
-       día», revolotea en arco y se cuela en la carpeta de los plazos. Quieto: no se ve. acompanante.css, PUENTES. -->
   <div class="puente pu-plazos" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-70 -50 110 80" focusable="false">
       <clipPath id="pu-c7"><path d="M-300-500h700v530h-700z"/></clipPath>
@@ -1055,10 +988,6 @@
       </g></g></g>
     </svg>
   </div>
-  <!-- E4b · La Multa (Ningún plazo se te escapa) · escena FIJA, 175svh (ayudante C3; estilos y coreografía en
-       escena-multa.css). El autónomo pasea con su taza; la Multa (papel arrugado, sello «SANCIÓN», reloj de plazos y
-       capa de normativas) entra de un salto y le ataca por la espalda; Manila cae desde arriba, la aplasta y la deja hecha
-       una bola de papel; él se vuelve y levanta la taza (F3: la escena acaba en esa pose, sin cola vacía). El villano es la Multa, nunca Hacienda: sin logos ni símbolos oficiales. -->
   <section class="seccion seccion-pestana multa-seccion" id="plazos" data-pestana="Plazos">
     <div class="ancho escena-fija multa-historia" data-escena="e4b" data-rango="contain">
       <div class="historia-cabeza" data-sube>
@@ -1069,8 +998,6 @@
         <div class="escenario-dibujo">
           <svg class="ilu e4b-ilu ilu-hoja-entera" data-ilustra viewBox="0 -8 240 278" aria-hidden="true" focusable="false">
             <g class="hoja-osc"><path class="cl-ho" d="M3 -2c78-2 156-3 233-1l1 266c-78 2-156 2-234 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M3 -2c78-2 156-3 233-1l1 266c-78 2-156 2-234 0z"/></g>
-            <!-- Fondo: el estante (Manila espía desde él), la planta (el gag: se mustia cuando llega la Multa y revive
-                 al final), el calendario con el «20», el suelo y la papelera (donde acaba la Multa). -->
             <path class="cl-t" d="M6 102c42-1 84-1 126 1"/>
             <path class="cl-t cl-f" d="M20 103l5 9M118 104l-5 9"/>
             <g class="sd e4b-viva"><g class="e4b-mece">
@@ -1088,17 +1015,11 @@
               <path class="cl-ho cl-t" d="M194 -46l56-2 1 51-57 1z"/>
               <path class="cl-t cl-f" d="M195 -36l55-1M200 -26h5M210 -26h5M200 -15h5M210 -15h5M200 -4h5M210 -4h5"/>
               <text class="e4b-dia" x="223" y="-2">20</text>
-              <!-- 585 · PUENTE del bucle (bucle.css): el círculo del 20 se borra a trazo (una copia que se desdibuja) -->
               <g class="rs e4b-r-circulo"><path class="cl-bo sd e4b-circulo" pathLength="100" d="M221 -17c6-8 23-7 26 2 3 10-8 16-17 14-9-2-12-11-5-17 3-2 7-3 10-2"/></g>
               <path class="cl-bo rs e4b-borra" opacity="0" stroke-dasharray="100" pathLength="100" d="M221 -17c6-8 23-7 26 2 3 10-8 16-17 14-9-2-12-11-5-17 3-2 7-3 10-2"/>
             </g>
-            <!-- F2 (465): en el ordenador el suelo sigue hacia la izquierda por debajo del texto (la habitación entera) -->
             <path class="cl-t" d="M-10 250c96-2 170-2 262 1"/>
             <path class="cl-t cl-f" d="M62 254l-3 5M152 253l-3 6M228 254l-3 5"/>
-            <!-- F3 (465): aquí estaban la cajonera y el suelo que seguían por debajo del texto en el ordenador (F2); con
-                 el texto fijo y el dibujo subiendo a la salida del pin, tachaban «Con normas nuevas…» y «Tú solo lo
-                 revisas…». Se quitan: la columna del texto queda libre en todos los fotogramas y anchuras. -->
-            <!-- La bola (la Multa arrugada): sale del arrugón, rebota, Manila la caza y la encesta -->
             <g class="sd e4b-bola"><g transform="translate(27 214)"><g class="sd e4b-gira"><g class="e4b-bola-vive"><g class="rs e4b-hunde">
               <path class="cl-ma" d="M-13 -4-9 -12-1 -15 7 -13 13 -6 14 3 9 11 0 14-8 12-14 5z" transform="translate(2.5 2)"/>
               <path class="cl-ho cl-t" d="M-13 -4-9 -12-1 -15 7 -13 13 -6 14 3 9 11 0 14-8 12-14 5z"/>
@@ -1110,8 +1031,6 @@
               <path class="cl-ho cl-t" d="M10 214l34-1-4 37h-26z"/>
               <path class="cl-t cl-f" d="M7 214c13-2 27-2 40-1M20 221l1 24M31 221l-1 24"/>
             </g>
-            <!-- El autónomo: anda con peso (cuatro dibujos de pierna, la cadera sube y baja, la taza llega tarde),
-                 se para, da un sorbo sin enterarse de nada y al final se gira (antes se encoge) y levanta la taza -->
             <g transform="translate(50 23)"><g class="sd e4b-au"><g class="sd e4b-bob">
               <g class="sd e4b-brazo"><path class="cl-t" d="M137 156c-7 8-9 16-6 24"/></g>
               <path class="cl-t" d="M150 141v9"/>
@@ -1124,7 +1043,6 @@
               <g transform="translate(109.5 78) scale(.5)" class="e4b-k50">
                 <path class="cl-ho cl-t" d="M52 70c-1-28 13-44 29-44 18 0 30 15 29 42-1 30-13 57-29 58-17 1-28-24-29-56z"/>
                 <path class="cl-ti" d="M50 60c0-22 14-36 32-35 13 1 27 9 29 30-8-7-14-14-17-20-8 9-24 14-44 25z"/>
-                <!-- 585 · PUENTE: se vuelve a su café (la cara gira, deja de sonreír y vuelve a silbar) -->
                 <g class="sd e4b-cara"><g class="rs e4b-r-cara">
                   <path class="cl-t" d="M58 76h17v12H58zM86 76h17v12H86zM75 81c4-2 7-2 11 0"/>
                   <path class="cl-t cl-f" d="M82 92c-1 5-3 9-6 12l7 1"/>
@@ -1147,11 +1065,6 @@
                 <path class="cl-t" d="M146 128l11 2-2 13-9-1zM157 131c4 1 3 6-1 7"/>
               </g>
             </g></g></g>
-            <!-- La Multa: papel arrugado con capa de normativas, reloj de plazos en la cabeza y el sello rojo. Se
-                 acerca de puntillas frotándose las manos, arma la garra, mira arriba asustada, se aplasta, se arruga
-                 (dos tiempos) y sale la bola. No es Hacienda: sin logos ni símbolos oficiales. -->
-            <!-- F2 (465): la Multa sale trepando de la papelera; lo que queda por debajo del borde, dentro, no se ve (585: ni lo
-                 que asomaba por debajo del suelo, a la derecha de la papelera, mientras sube) -->
             <clipPath id="e4b-c-papelera"><path d="M-300-300H600V251H47V213H-300z"/></clipPath>
             <g clip-path="url(#e4b-c-papelera)">
             <g transform="translate(132 250)"><g class="sd e4b-multa">
@@ -1159,7 +1072,7 @@
                 <g transform="translate(-28 -90) scale(.72) translate(28 90)"><g class="sd e4b-capa">
                   <path class="cl-ma" d="M-28 -90C-62 -98-98-96-132-86l9 13-10 12 12 12-8 11C-92-40-62-44-34-50z" transform="translate(3.5 3)"/>
                   <path class="cl-t" d="M-28 -90C-62 -98-98-96-132-86l9 13-10 12 12 12-8 11C-92-40-62-44-34-50z"/>
-                  <text class="e4b-letra" x="-118" y="-74" transform="rotate(-4 -118 -74)">Verifactu</text>
+                  <text class="e4b-letra" x="-118" y="-74" transform="rotate(-4 -118 -74)">trámite</text>
                   <text class="e4b-letra" x="-110" y="-60" transform="rotate(-2 -110 -60)">plazo 20</text>
                   <text class="e4b-letra" x="-118" y="-45" transform="rotate(-6 -118 -45)">obligación</text>
                 </g></g>
@@ -1194,11 +1107,8 @@
             </g></g>
             </g>
             <path class="cl-bo sd e4b-golpe" d="M104 122l-12-4M106 136l-12 4M160 120l12-5M159 135l12 4M116 108l-6-9M148 107l6-9"/>
-            <!-- Manila: espía desde el estante con cara de pillería, se agacha (anticipación), salta en arco, cae
-                 estirada (smear), aplasta a la Multa, rebota, caza la bola, la encesta y se queda orgullosa -->
             <clipPath id="e4b-c-sale"><path d="M-400-400H250V500H-400z"/></clipPath>
             <g clip-path="url(#e4b-c-sale)"><g class="sx e4b-sale">
-            <!-- 585 · PUENTE del bucle (bucle.css): de un salto, vuelve del suelo a su sitio en el estante a espiar -->
             <g class="rs e4b-vuelve-x"><g class="rs e4b-vuelve-y">
             <g class="sd e4b-mx"><g class="sd e4b-my"><g transform="translate(44 137.2) scale(.8)" class="e4b-k80"><g class="sd e4b-mrot"><g class="cl-respira"><g>
               <g class="sd e4b-estela"><path class="cl-t cl-f" d="M28 14V-14M60 8V-30M92 12V-12"/></g>
@@ -1238,8 +1148,6 @@
     </div>
   </section>
 
-  <!-- C1b (465) · PUENTE a «Tu oficio»: la bola de papel en que quedó la Multa (con su sello rojo asomando) rueda por el
-       canto, da dos botes y cae dentro de la carpeta. Quieto: no se ve. acompanante.css, PUENTES. -->
   <div class="puente pu-bola" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-110 -28 140 58" focusable="false">
       <clipPath id="pu-c8"><path d="M-300-500h700v530h-700z"/></clipPath>
@@ -1251,17 +1159,11 @@
       </g></g></g></g>
     </svg>
   </div>
-  <!-- E5 · La libreta y el móvil: «Se adapta a ti» y «Tu página» comparten una escena rodada (para que la hoja que se
-       arranca de la libreta pueda llegar al móvil). Son de leer: entradas normales; el scroll solo trae la libreta del
-       relevo (g.e5-libreta) y mueve la hoja arrancada (g.e5-hoja) y las que salen hacia la ola (g.e5-relevo). -->
   <div class="escena-rodada" data-escena="e5" data-rango="cover">
   <section class="seccion medida-seccion" id="a-tu-medida">
     <div class="panel" data-pestana="Tu oficio">
       <div class="panel-izquierda">
         <h2 data-sube>Se adapta a ti, y no al revés</h2>
-        <!-- Manila (modelo base del 22/10) apunta la corrección en la libreta: tacha el «24» y escribe «12 meses»
-             arrastrando un boli más alto que ella (escenas.css, A TU MEDIDA). Esfuerzo: ojos cortos y boca ondulada;
-             alivio: ojos abiertos y sonrisa grande. -->
         <svg class="ilu es es-medida ilu-hoja-entera" data-ilustra viewBox="0 0 340 214" aria-hidden="true" focusable="false">
           <g class="sd e5-libreta"><g class="es-libreta">
             <path class="cl-ho" d="M10 22l316-12 4 188-316 8z" transform="translate(3.5 3)"/>
@@ -1270,22 +1172,16 @@
             <path class="cl-t cl-en" transform="translate(-4 64)" d="M43.6 64.1c.6-.6 2.4-3.3 3.9-3.9 1.5-.6 4-.9 4.9 .1 .9 1 1.2 4.1 .7 6.1 -.5 2-1.6 2.8-3.6 5.7 -2 2.9-8.9 10-8.3 11.8 .6 1.8 9.8-.9 11.8-1.1M64.7 83.5c.3-3.9 3.1-22.4 1.7-23.5 -1.4-1-10.7 14.4-10.1 17.2 .5 2.8 11.2-.2 13.4-.2"/>
           </g></g>
           <g class="e5-hoja"></g>
-          <!-- C1b (465) · el «24» se tacha y el «12» se escribe con el scroll: la punta del boli recorre cada trazo
-               (g.e5-punta lleva el boli y a Manila; sus fotogramas salen de los mismos d). Manila, de tres cuartos,
-               se echa 12° hacia atrás con los pies clavados porque el boli pesa; al acabar se seca el sudor. -->
           <path class="cl-bo sd e5-tacha" pathLength="100" d="M29 141c14-5 30-9 46-13"/>
           <path class="cl-bo sd e5-uno" pathLength="100" d="M85.2 132.3c.7-.7 4-6.4 4.4-4.4 .4 2-1.7 13.1-2.1 16.4 -.4 3.3-.2 2.9-.2 3.5"/>
           <path class="cl-bo sd e5-dos" pathLength="100" d="M93.7 131.6c.6-.6 2.3-3.2 3.7-3.7 1.4-.4 3.7 .1 4.5 1 .8 .9 .9 2.7 .5 4.3 -.4 1.6-1.3 2.9-3.2 5.3 -1.9 2.4-8.4 7.9-8 9.3 .4 1.4 8.8-.7 10.5-.8"/>
           <path class="cl-bo sd e5-subraya" pathLength="100" d="M80 158c12-1 24-1.6 36-1.2"/>
-          <!-- 585 · PUENTE del bucle: una hoja limpia de la libreta (con su «24») baja desde las anillas y tapa lo escrito
-               (por debajo de Manila); sus anillas, copia exacta de las de la libreta, quedan encima. Sin motor no existe. -->
           <g class="rs e5-pagina" opacity="0">
             <path class="cl-ho" d="M10 22l316-12 4 188-316 8z" transform="translate(3.5 3)"/>
             <path class="cl-t" d="M10 22l316-12 4 188-316 8z"/>
             <path class="cl-t cl-en" transform="translate(-4 64)" d="M43.6 64.1c.6-.6 2.4-3.3 3.9-3.9 1.5-.6 4-.9 4.9 .1 .9 1 1.2 4.1 .7 6.1 -.5 2-1.6 2.8-3.6 5.7 -2 2.9-8.9 10-8.3 11.8 .6 1.8 9.8-.9 11.8-1.1M64.7 83.5c.3-3.9 3.1-22.4 1.7-23.5 -1.4-1-10.7 14.4-10.1 17.2 .5 2.8 11.2-.2 13.4-.2"/>
           </g>
           <g class="rs e5-anillas" opacity="0"><path class="cl-t cl-f cl-en" d="M40 26c-3-10 7-12 6-2M80 24c-3-10 7-12 6-2M120 23c-3-10 7-12 6-2M160 21c-3-10 7-12 6-2M200 20c-3-10 7-12 6-2M240 18c-3-10 7-12 6-2M280 17c-3-10 7-12 6-2"/></g>
-          <!-- C1 (465) · gag: un caracol dibujado a boli en el margen de la libreta, que se arrastra muy despacio -->
           <g class="e5-caracol"><path class="cl-bo" d="M293 186c0-6 9-6 9 0 0 4-6 4-6 0M289 191c7 1 14 1 18-2l2-6M307 183l1-4M309 185l3-3"/></g>
           <g class="sd e5-cordel"><path class="cl-t cl-f" d="M241 13c-1 6-3 12-5 19"/></g>
           <g class="sd e5-punta"><g class="rs e5-lleva">
@@ -1349,8 +1245,6 @@
           <p class="saber-dossier"><a href="v5/dossier.html#como-funciona">Léelo con calma en el dossier</a></p>
         </details>
       <figure class="movil" id="tu-pagina" data-movil>
-        <!-- F2 (465): el móvil va dibujado a mano (trazo y calco Calco, no una maqueta de teléfono) y Manila asoma por
-             detrás de la esquina, con el boli, a ver qué le pides (maqueta.css, TU PÁGINA) -->
         <svg class="ilu movil-manila" data-ilustra viewBox="0 0 130 100" aria-hidden="true" focusable="false">
           <g class="es-respira"><g class="mn-cuerpo" transform="rotate(8 60 100)">
             <path class="cl-ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 120 17 122z" transform="translate(3.5 3)"/>
@@ -1378,7 +1272,6 @@
         </div>
         <figcaption class="boli-pie">Un ejemplo de cómo se ve tu página en el móvil.</figcaption>
       </figure>
-        <!-- 469: el contacto a mitad del recorrido, discreto (una línea, no un botón grande); el servidor pone el enlace -->
         <p class="charla-wa">¿Te imaginas cómo sería en tu trabajo? <a class="boton boton-principal boton-wa" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a></p>
       </div>
     </div>
@@ -1386,10 +1279,6 @@
 
   </div>
 
-  <!-- E6 · La ola: la banda amarilla que separa las dos mitades de la página. Escena rodada (sin fijar): la ola de
-       papeles avanza pegada al scroll (g.e6-ola), con las cinco hojas del relevo (g.e6-hojas) y el jefe (g.e6-jefe). -->
-  <!-- C1 (465) · PUENTE a la ola: las tres hojas que suelta Manila en «Tu página» caen revoloteando y se hunden en el
-       amarillo, la ola que viene. Quieto: no se ve. acompanante.css, PUENTES. -->
   <div class="puente pu-mar" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-100 -66 200 126" focusable="false">
       <clipPath id="pu-c5"><path d="M-300-500h700v560h-700z"/></clipPath>
@@ -1408,8 +1297,6 @@
       <p class="ola-firma" data-sube>Eduardo, fundador de AutonomIA</p>
       </div>
     </div>
-    <!-- La ola de papeles llega y tres Manilas se la llevan en fila: una con el correo, otra con el plano y la última,
-         de puntillas, le entrega al autónomo, que ya es el jefe, la hoja con el visto (escenas.css, LA OLA) -->
     <div class="ancho">
       <svg class="ilu es es-ola ilu-hoja-entera" data-ilustra viewBox="0 0 560 236" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
         <g class="rs e6-camara"><g class="sd e6-cam">
@@ -1419,9 +1306,6 @@
           <path class="cl-ma cl-t cl-f" d="M30 10l44 8-3 13-44-8zM486 6l44-6 2 13-44 6z"/>
           <path class="cl-t cl-f" d="M28 212c150-2 330 1 504-1"/>
         </g>
-        <!-- C1 (457): la ola crece, rompe por encima del papel y salpica hojas; tres Manilas DISTINTAS (agachada recoge la
-             hoja de la ola, de perfil la pasa, de espaldas se la entrega al jefe) y la MISMA hoja viaja de mano en mano
-             (g.e6-hoja); el jefe se asusta con la cresta (cejas y taza) y acaba con la hoja y el visto. acompanante.css. -->
         <g class="sd e6-ola"><g class="es-ola-sube">
           <path class="cl-ma" d="M30 212C30 156 60 96 122 80c30-8 50 4 52 24-12-14-36-12-56 0C80 120 58 160 56 212z" transform="translate(3.5 3)"/>
           <path class="cl-t" d="M30 212C30 156 60 96 122 80c34-9 56 6 52 28-3 18-24 20-30 8-4-8 4-16 12-12M118 104C80 120 58 160 56 212"/>
@@ -1429,12 +1313,9 @@
           <g class="es-ol es-ol2"><path class="cl-ho cl-t cl-f" d="M66 120l19-5 4 17-19 4z"/></g>
           <g class="es-ol es-ol3"><path class="cl-ho cl-t cl-f" d="M104 92l19-2 1 17-19 2z"/></g>
           <g class="es-ol es-ol4"><path class="cl-ho cl-t cl-f" d="M142 84l17 4-4 16-17-4z"/></g>
-          <!-- C1 (465) · gag: un barquito de papel navega en la cresta -->
           <g class="e6-barco"><path class="cl-ho cl-t cl-f" d="M110 76h24l-5 7h-14zM121 76l-1-13 9 13"/></g>
         </g></g>
         <g class="e6-salpica"><g class="sd e6-s1"><path class="cl-ho cl-t cl-f" d="M150 80l14-3 3 14-14 3z"/></g><g class="sd e6-s2"><path class="cl-ho cl-t cl-f" d="M150 80l14-3 3 14-14 3z"/></g><g class="sd e6-s3"><path class="cl-ho cl-t cl-f" d="M150 80l14-3 3 14-14 3z"/></g></g>
-        <!-- 660 (Corpas): la de espaldas entra andando por DETRÁS del jefe (antes le cruzaba la cara por delante) y
-             asoma por el canto derecho del papel (recortada por él) -->
         <g clip-path="url(#e6-recorte)">
         <g class="es-k80" transform="translate(356 99) scale(.8)"><g class="sd e6-m e6-m3"><g class="sx e6-sx3"><g class="e6-vaiven e6-v3"><g class="sd e6-m3f"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
           <path class="cl-ho cl-t cl-f" d="M37 56 37.5 33.5 84 35 83 56z"/>
@@ -1462,8 +1343,6 @@
           </g>
           <path class="cl-t" d="M458 190c-8-16-12-36-8-52 0-4-5-6-6-2"/>
         </g></g></g>
-        <!-- C1b (465) · la primera, agachada con la carpeta abierta en V como un recogedor: la tapa amarilla toca el suelo,
-             recoge la hoja que suelta la ola y la lanza hacia la de perfil (g.e6-m1f) -->
         <g class="es-k80" transform="translate(168 99) scale(.8)"><g class="sd e6-m e6-m1"><g class="sx e6-sx1"><g class="e6-vaiven e6-v1"><g class="sd e6-m1f"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
           <path class="cl-t" d="M58 122 46 130l6 11h-8M90 120l12 9-4 12h8"/>
           <g transform="rotate(16 74 120)">
@@ -1481,7 +1360,6 @@
           <path class="cl-t" d="M18 78C8 66 2 52 0 40M112 92c10 4 13 14 8 24"/>
           <path class="cl-t mn-palma" d="M0 40l-.7-4.9M120 116l-3 4.2"/><path class="cl-t mn-pulgar" d="M2.8 39.6l5-2.2M117.5 114.2l-3.6-2.6"/>
         </g></g></g></g></g></g></g></g>
-        <!-- 660: la de perfil cae desde el canto de arriba del papel, recortada por él (antes cruzaba el borde y la cinta) -->
         <g clip-path="url(#e6-recorte)">
         <g class="es-k80" transform="translate(262 99) scale(.8)"><g class="sd e6-m e6-m2"><g class="sx e6-sx2"><g class="e6-vaiven e6-v2"><g class="sd e6-m2f"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
           <path class="cl-ma" d="M34 47 37 30c.5-2 1.5-2.5 3-2.5h9l3 8 6 .5 1 68-23 2z" transform="translate(3.5 3)"/>
@@ -1495,9 +1373,6 @@
           <path class="cl-t mn-palma" d="M26 110l-1 4.9M108 78l4.7-1.6"/><path class="cl-t mn-pulgar" d="M26.6 107.1l4.1 2.4M105.2 79v-4.7"/>
         </g></g></g></g></g></g></g></g>
         </g>
-        <!-- 585 · PUENTE del bucle: el jefe lanza por encima del hombro la hoja ya vista, que sale dando vueltas por el
-             canto derecho del papel (g.e6-vuela-x / g.e6-vuela-y, recortadas por la hoja de papel: dentro de ella, la
-             hoja viajera nunca se recorta) -->
         <clipPath id="e6-recorte"><path d="M10 20l538-10 4 210-540 6z"/></clipPath>
         <g clip-path="url(#e6-recorte)"><g class="rs e6-vuela-x"><g class="rs e6-vuela-y">
         <g class="sd e6-hoja"><g class="sd e6-hoja-y">
@@ -1511,14 +1386,7 @@
     </div>
   </section>
 
-  <!-- Un martes de un tasador: lista por horas con vista previa (el movimiento firma de la página). 472: vuelve tras
-       quitarla el 469; a la vista solo el titular, una frase y el dibujo de la noche; las horas, en «Saber más». Su
-       dibujo se pinta con escena-martes.css, que se carga aquí para no frenar la primera pintura. -->
   <link rel="stylesheet" href="v5/escena-martes.css?v=901">
-  <!-- E7 · El día que se hace noche (Un martes de un tasador) · escena FIJA, 180svh. El scroll solo mueve el dibujo
-       (nunca la hora elegida ni el modo, que siguen en los botones como en la v4). En el ordenador, la vista previa de la
-       hora elegida va dentro del escenario, debajo del dibujo (v5.js la pasa a .dia-ventana); en el móvil, dentro de
-       la tarjeta de la hora. El dibujo (ayudante C2, clases pp7-*) y su coreografía: escena-papeleo.css. -->
   <section class="seccion seccion-pestana dia" id="un-dia" data-pestana="Un día de trabajo">
     <div class="ancho">
       <div class="escena-fija dia-historia" data-escena="e7" data-rango="contain">
@@ -1532,12 +1400,8 @@
       </div>
       <div class="escenario dia-escenario">
         <div class="escenario-dibujo">
-        <!-- La noche de antes (ayudante C de la v4): con AutonomIA, Manila trabaja bajo la lámpara mientras el tasador
-             duerme; antes, era él quien pasaba la noche en la mesa. El modo lo sigue por CSS (:has) desde [data-dia]. -->
         <div class="c-escena" data-ilustra>
           <svg class="ilu sd pp7-cam ilu-hoja-entera" viewBox="0 0 320 180" aria-hidden="true" focusable="false">
-            <!-- 585 (bucle): las piezas rs- del puente de la tarea (bucle.css); en reposo, la identidad o invisibles.
-                 g.e7-cam, en el móvil, devuelve la cámara del plano de la noche al de la mañana -->
             <g class="rs e7-cam">
             <g class="hoja-osc hoja-ancha"><path class="cl-ho" d="M4 5c104-2 208-3 312-2l1 172c-104 2-209 2-313 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M4 5c104-2 208-3 312-2l1 172c-104 2-209 2-313 0z"/></g>
             <g class="hoja-osc hoja-movil"><path class="cl-ho" d="M4 5c104-2 208-3 312-2l1 196c-104 2-209 2-313 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M4 5c104-2 208-3 312-2l1 196c-104 2-209 2-313 0z"/></g>
@@ -1554,9 +1418,7 @@
             <path class="cl-ho cl-t cl-f" d="M130 33c0-8 6-13.5 13.5-13.5S157 25 156.5 33 150 46.5 143 46.5 130 41 130 33zM143 22.5v3M143 41v3M132.5 33h3M150.5 33h3"/>
             <g class="rs e7-hora"><path class="sd pp7-hora cl-t" d="M143 33v-7"/></g>
             <g class="rs e7-min"><path class="sd pp7-min cl-t cl-f" d="M143 33v-10"/></g>
-            <!-- La sombra del flexo en la pared: cambia de largo y de lado con el sol; de noche no hay -->
             <path class="sd pp7-sombra" d="M24 150c1-4 5-6 10-6s9 2 10 6zM33 144l-6-26 19-15 2 3-17 13 5 25zM45 98l20-8 10 16-22 10z"/>
-            <!-- 585 (bucle): la sombra de la mañana siguiente, copia de la del 13 %, que vuelve al amanecer -->
             <g class="rs e7-alba" opacity="0"><path class="e7-sombra" d="M24 150c1-4 5-6 10-6s9 2 10 6zM33 144l-6-26 19-15 2 3-17 13 5 25zM45 98l20-8 10 16-22 10z"/></g>
             <g class="sx e7-sx-luz"><g class="rs e7-luz"><path class="sd pp7-luz cl-am" d="M62 113 54 150h86L76 105z"/></g></g>
             <path class="cl-t" d="M24 150c1-4 5-6 10-6s9 2 10 6M34 144l-6-26 20-15M8 150.5 232 149M18 150l-2 46M222 149.5l3 46.5M236 166h22M238 166v30M256 166v30M238 180h18M264 132v64M316 154v42M264 172h52M264 184h52"/>
@@ -1564,12 +1426,10 @@
             <path class="cl-ho cl-t cl-f" d="M267 163c4-4 12-4 17-1 1 4 0 8-2 10-6 1-11 1-14-1z"/>
             <g class="c-ahora">
               <g class="rs e7-despierta"><path class="sd pp7-gafas cl-t cl-f" d="M237 166c-.5-3.5 1-5.5 4-5.5s4.5 2 4 5.5zM248 166c-.5-3.5 1-5.5 4-5.5s4.5 2 4 5.5zM245 162.5c1-1.2 2-1.2 3 0M237.5 161.5l-3-2.5M255.5 161.5l3-3"/></g>
-              <!-- El gato (el gag de fondo): de día, sentado en la mesa; de noche, enroscado a los pies del tasador -->
               <g transform="translate(226 150)"><g class="sd pp7-gato-x"><g class="sd pp7-gato-y">
                 <g class="sd pp7-gato-sentado"><path class="cl-ma cl-t cl-f" d="M-5 0c-3-4-2-10 2-12 4-2 8 1 8 6 0 3-1 5-1 6zM-11-11c-1-4 2-6 5-6 3 0 5 2 4.5 5-.5 3-3 4-5.5 4-2.5 0-4-1-4-3z"/><path class="cl-t cl-f" d="M-10-15.5l-.5-4 3 2.5M-5-16.5l1.5-3.5 1.5 3.5M4-1c5 1 8-2 7-6M-8-13v1.2"/></g>
                 <g class="rs e7-gato-va"><g class="sd pp7-gato-enroscado"><path class="cl-ma cl-t cl-f" d="M-11 0c0-6 5-9 11-9s11 3 11 9zM-14 0c-1-4 1-7 5-7 3 0 5 2 5 5"/><path class="cl-t cl-f" d="M-13-5l-.5-3.5 2.5 2M-9-6.5l1-3 1.5 3M-11-3c.8.6 1.8.6 2.5 0M11 0c-1 3-9 4-16 2.5"/></g></g>
               </g></g></g>
-              <!-- 585 (bucle): el gato de la mañana (copia del sentado) salta de la cama a la mesa -->
               <g transform="translate(226 150)"><g class="rs e7-gato" opacity="0"><path class="cl-ma cl-t cl-f" d="M-5 0c-3-4-2-10 2-12 4-2 8 1 8 6 0 3-1 5-1 6zM-11-11c-1-4 2-6 5-6 3 0 5 2 4.5 5-.5 3-3 4-5.5 4-2.5 0-4-1-4-3z"/><path class="cl-t cl-f" d="M-10-15.5l-.5-4 3 2.5M-5-16.5l1.5-3.5 1.5 3.5M4-1c5 1 8-2 7-6M-8-13v1.2"/></g></g>
               <g class="rs e7-despierta"><g class="sd pp7-duerme">
                 <path class="cl-ho cl-t cl-f" d="M271 161c0-6 4-9 9-9 4 0 7 3 7 6l3 1.5-3 1.5c0 4-3 6.5-7.5 6.5-5 0-8.5-2.5-8.5-6.5z"/>
@@ -1594,7 +1454,6 @@
               <path class="cl-am" d="M98 160h22l-2 26h-18z" transform="translate(3.5 3)"/>
               <path class="cl-t" d="M98 160h22l-2 26h-18zM120 166c7 0 8 12 0 13"/>
             </g></g></g>
-            <!-- 585 (bucle): el tasador de la mañana (copia del de la mesa) se levanta de la cama y vuelve a la mesa -->
             <g class="c-ahora"><g class="rs e7-tas" opacity="0"><g transform="translate(150 57) scale(.5)" class="c-a">
               <path class="cl-ho cl-t" d="M30 186c2-30 18-46 50-47 31 0 47 17 50 47"/>
               <path class="cl-t" d="M80 139v-12"/>
@@ -1622,15 +1481,12 @@
                 <path class="cl-t cl-f cl-en" d="M45 41.5l24 1.5"/>
                 <path class="cl-am" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z" transform="translate(3.5 3)"/>
                 <path class="cl-t" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z"/>
-                <!-- Tres poses según la hora (modelo base del 22/10, de tres cuartos hacia la mesa: solo cambian los ojos y
-                     la boca): A escribe inclinada, B se frota los ojos a medianoche, C se estira al acabar -->
                 <g class="sd pp7-pose-a">
                   <g class="cl-ojos"><path class="cl-sa mn-ojo" d="M55.6 84v10M80.6 83v10"/></g>
                   <path class="cl-sa mn-boca" d="M60.3 104.6c4.3 2.9 10.4 2.7 14.3-1"/>
                   <path class="cl-t" d="M11 84C2 90 0 100 7 108"/><path class="cl-t mn-palma" d="M7.3 108.4l3.3 3.8"/><path class="cl-t mn-pulgar" d="M9.9 106.6l4.7-1.5"/>
                   <g class="sd pp7-escribe"><path class="cl-t" d="M110 84c11 6 17 19 18 34"/><path class="pp7-boli cl-bo" d="M129 124l7-14"/><path class="cl-t mn-palma" d="M128 118.5l.3 5"/><path class="cl-t mn-pulgar" d="M131.1 118.6l4.6 1.7"/></g>
                 </g>
-                <!-- 585 (bucle): la pose de escribir (copia de la A) con la que coge el boli de la mesa por la mañana -->
                 <g class="rs e7-coge" opacity="0">
                   <g class="cl-ojos"><path class="cl-sa mn-ojo" d="M55.6 84v10M80.6 83v10"/></g>
                   <path class="cl-sa mn-boca" d="M60.3 104.6c4.3 2.9 10.4 2.7 14.3-1"/>
@@ -1774,12 +1630,6 @@
     </div>
   </section>
 
-  <!-- Ya funciona: una cita grande y dos pequeñas en las esquinas (solo lo que dijo de verdad el tasador) -->
-  <!-- E8 · El círculo azul: escena rodada. Llega la hoja del relevo (g.e8-hoja), el círculo se dibuja con el scroll y,
-       al salir, le crece el mango y se convierte en la lupa de E9 (g.e8-mango). -->
-  <!-- C1 (465) · PUENTE a «Ya funciona»: el tasador de E7 se ha quedado dormido; Manila asoma despacio por el canto del
-       campo oscuro, te pide silencio con la palma junto a la boca (pillería, modelo base del 22/10: sin dedos ni
-       guiño) y se vuelve a meter sin hacer ruido. Quieta: asomada, chistando. acompanante.css, PUENTES. -->
   <div class="puente pu-chis" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" data-ilustra viewBox="-14 12 148 96" focusable="false">
       <clipPath id="pu-c4"><path d="M-300-500h700v608h-700z"/></clipPath>
@@ -1796,8 +1646,6 @@
       </g></g>
     </svg>
   </div>
-  <!-- C1b (465) · PUENTE a «Ya funciona»: la nota simple de la noche, con la cifra ya rodeada a boli, sale de «Para ti»
-       en arco y se cuela en la hoja oscura de la cita (en E8 Manila la rodea delante del tasador). Quieto: no se ve. -->
   <div class="puente pu-nota" aria-hidden="true">
     <svg class="ilu puente-ilu ilu-papel-claro" viewBox="-70 -50 110 80" focusable="false">
       <clipPath id="pu-c9"><path d="M-300-500h700v530h-700z"/></clipPath>
@@ -1819,8 +1667,6 @@
         <blockquote><p>«Te evita errores, porque si cometes algún error te lo resalta, te llama la atención.»</p></blockquote>
         <figcaption>El mismo tasador</figcaption>
       </figure>
-      <!-- Manila, concentrada y mirando la cifra, le rodea en azul al tasador la que no cuadra, y él levanta las cejas desde abajo
-           (escenas.css, YA FUNCIONA) -->
       <svg class="ilu es es-testimonio ilu-hoja-entera" data-ilustra viewBox="0 0 360 220" aria-hidden="true" focusable="false">
         <g class="e8-hoja"></g>
         <g class="sd e8-papel"><g class="es-papel">
@@ -1833,9 +1679,6 @@
         <path class="cl-bo es-traza sd e8-rodea" pathLength="100" d="M124 90c18-9 54-8 58 5 3 13-38 19-57 12-9-4-7-15 4-20"/>
         <g class="e8-mango"></g>
         <path class="cl-bo es-traza sd e8-exclama" pathLength="100" d="M194 90l1 12M195.4 107v.4"/>
-        <!-- 585 · PUENTE del bucle: otra hoja, la siguiente, baja desde arriba por debajo de la cinta (recortada por el
-             borde de la hoja, como si saliera de detrás de la cinta) y tapa el círculo y el «!»; la cinta, copia exacta,
-             encima. Sin motor no existe. -->
         <clipPath id="e8-recorte"><path d="M14 12l330-6 4 200-332 6z"/></clipPath>
         <g clip-path="url(#e8-recorte)"><g class="rs e8-otra" opacity="0">
           <path class="cl-ho" d="M14 12l330-6 4 200-332 6z" transform="translate(3.5 3)"/>
@@ -1874,14 +1717,6 @@
     </div>
   </section>
 
-  <!-- Seguridad: las garantías y la autorización rellenada a bolígrafo (texto idéntico a la v3) -->
-  <!-- E9 · La lupa y el cajón «Personal» · escena FIJA, 150svh. En el ordenador, el escenario fijo lleva el dibujo
-       arriba y la autorización debajo, y las tres garantías pasan por la izquierda; en el móvil, solo el dibujo se queda
-       fijo (42svh), la autorización es la primera tarjeta y las garantías, las tres siguientes. El párrafo de
-       privacidad va después, en el flujo normal. Dibujo (ayudante C3, escena-multa.css): el autónomo le pasa el correo y
-       una carpeta de trabajo, que Manila se mete dentro; el boli dibuja el candado del cajón «Personal»; Manila se
-       disfraza de él y los dos levantan la taza a la vez. Manila va en dos grupos g.e9-m (detrás y delante) para que
-       lo que le dan entre en la carpeta. -->
   <section class="seccion seccion-pestana" id="seguridad" data-pestana="Seguridad">
     <div class="ancho seguridad">
       <div class="escena-fija seg-historia" data-escena="e9" data-rango="contain">
@@ -1906,9 +1741,7 @@
         <div class="seg-escena" data-ilustra>
           <svg class="ilu e9-ilu ilu-hoja-entera" viewBox="0 0 236 200" aria-hidden="true" focusable="false">
             <g class="hoja-osc"><path class="cl-ho" d="M3 4c76-2 152-2 229-1l1 192c-77 2-153 2-230 0z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M3 4c76-2 152-2 229-1l1 192c-77 2-153 2-230 0z"/></g>
-            <g class="sd e9-cam"><g class="rs e9-aleja"><!-- 585 · PUENTE del bucle (bucle.css): el plano se aleja -->
-            <!-- El despacho: estante con lo que sí puede mirar (dos carpetas y un sobre), la mesa y el archivador con el
-                 cajón «Personal», que el boli cierra con un candado dibujado a trazo -->
+            <g class="sd e9-cam"><g class="rs e9-aleja">
             <path class="cl-t" d="M14 80c18-1 36-1 56 0"/>
             <path class="cl-t cl-f" d="M24 81l4 7"/>
             <g class="sd e9-it1"><path class="cl-ma" d="M22 80l1-26h10l-1 26z" transform="translate(2.5 2)"/><path class="cl-t cl-f" d="M22 80l1-26h10l-1 26zM25 54l1-4h5l1 4"/></g>
@@ -1923,13 +1756,10 @@
               <path class="cl-ho cl-t cl-f" d="M46 181h40l6 7-6 7h-40z"/>
               <text class="e9-letra" x="49" y="192">Personal</text>
             </g></g>
-            <!-- 585 · PUENTE: el candado se borra a trazo (una copia que se desdibuja) para que el boli lo vuelva a dibujar -->
             <g class="rs e9-r-candado"><path class="cl-bo sd e9-candado" pathLength="100" d="M98 187c-1-8 11-9 11 0M95.5 187l16-.5.4 11.5-16 .4zM103.5 191v3M91 185l-3-3"/></g>
             <path class="cl-bo rs e9-borra" opacity="0" stroke-dasharray="100" pathLength="100" d="M98 187c-1-8 11-9 11 0M95.5 187l16-.5.4 11.5-16 .4zM103.5 191v3M91 185l-3-3"/>
             <path class="cl-ho cl-t" d="M-6 150c84-1 166-1 248 1l-1 7c-82-1-164-1-246 0z"/>
-            <!-- El gag de fondo: una mosca que ronda entre las dos cabezas -->
             <g transform="translate(140 52)"><g class="e9-mosca"><path class="cl-t cl-f" d="M-2 0c0-2 4-2 4 0s-4 2-4 0zM-1-1c-3-4-6-2-4 0M1-1c3-4 6-2 4 0"/></g></g>
-            <!-- El autónomo, de busto tras la mesa: le da el correo, le da la carpeta, señala el cajón y levanta la taza -->
             <g transform="translate(140 10) scale(.78)" class="e9-k78">
               <path class="cl-ho cl-t" d="M30 186c2-30 18-46 50-47 31 0 47 17 50 47"/>
               <path class="cl-t" d="M80 139v-12"/>
@@ -1949,7 +1779,6 @@
               <g class="sd e9-a1"><path class="cl-t" d="M42 158c-10-6-20-20-30-36"/></g>
               <g class="sd e9-a2"><path class="cl-t" d="M42 158c-14-14-12-36-24-58"/></g>
               <g class="sd e9-a3"><path class="cl-t" d="M42 158c-12 4-24 10-38 18m0 0-8 3m8-3-3 7"/></g>
-              <!-- 585 · PUENTE: baja la taza, la deja en la mesa y le tiende otro correo (copias de a0 y a1) -->
               <g class="rs e9-r-a0" opacity="0">
                 <path class="cl-t" d="M42 158c-6 4-10 8-16 10"/>
                 <path class="cl-am" d="M6 158h20l-2 21h-16z" transform="translate(3.5 3)"/>
@@ -1968,7 +1797,6 @@
               <path class="cl-ho cl-t cl-f" d="M0 0l2-7 15-26 4 2-15 26z"/>
               <path class="cl-bo" d="M0 0l2-7"/>
             </g></g>
-            <!-- Manila: detrás (lo que le dan entra en la carpeta), los objetos, y delante (cara, disfraz y brazos) -->
             <g class="sx e9-sale"><g class="sd e9-mm"><g transform="translate(60 37.2) scale(.8)" class="e9-k80"><g class="sd e9-fa"><g class="rs e9-sacude">
               <path class="cl-ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104 17 106z" transform="translate(3.5 3)"/>
               <path class="cl-t" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104"/>
@@ -1982,8 +1810,6 @@
               <path class="cl-t" d="M42 120 40 141h-8M80 120l2 21h8"/>
               <path class="cl-am" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z" transform="translate(3.5 3)"/>
               <path class="cl-t" d="M10 58c33-3 66-5 101-7.5L107 119c-31 1.5-62 1.5-93 .5z"/>
-              <!-- 585 · PUENTE: se sacude el disfraz (el pelo y las gafas salen volando por arriba), baja la taza y los
-                   brazos y vuelve a su cara de siempre (copias de ca y ar0) -->
               <g class="sd e9-pelo"><g class="rs e9-r-pelo"><path class="cl-ti" d="M24 30c-4-14 12-26 34-26 18 0 32 9 34 24-8-5-14-10-17-14-9 8-29 13-51 16z"/></g></g>
               <g class="sd e9-gota"><path class="cl-ti" d="M29 30c-2 3-2 6 0 7 2-1 2-4 0-7z"/></g>
               <g class="mn-ojos">
@@ -2008,8 +1834,6 @@
                 </g></g>
               </g></g>
             </g></g></g></g></g></g>
-            <!-- Manila de perfil (mirando al estante y al archivador) con la lupa: recorre lo permitido en arco y frena
-                 antes del cajón «Personal» -->
             <g class="sx e9-sale"><g class="sd e9-mm"><g transform="translate(60 37.2) scale(.8)" class="e9-k80"><g class="sd e9-perfil"><g transform="matrix(-1 0 0 1 120 0)">
               <path class="cl-ma" d="M34 47 37 30c.5-2 1.5-2.5 3-2.5h9l3 8 6 .5 1 68-23 2z" transform="translate(3.5 3)"/>
               <path class="cl-t" d="M34 47 37 30c.5-2 1.5-2.5 3-2.5h9l3 8 6 .5"/>
@@ -2047,11 +1871,6 @@
     </div>
   </section>
 
-  <!-- E10 · La carpeta vacía (Cómo se empieza): la barra de etapas; es una secuencia de verdad, por eso es una lista
-       ordenada. Escena rodada corta: una línea de boli une las tres etapas y se dibuja con el scroll (svg.e10-linea:
-       horizontal en el ordenador, vertical en el móvil). El contacto y el pie siguen con sus entradas de la v4. -->
-  <!-- C1 (465) · PUENTE a «Cómo se empieza»: la línea de boli baja haciendo un lazo y se mete en la carpeta; dentro
-       sigue como la línea que une las tres etapas. Quieta: dibujada. acompanante.css, PUENTES. -->
   <div class="puente pu-boli" aria-hidden="true">
     <svg class="ilu puente-ilu" viewBox="0 14 260 16" focusable="false">
       <clipPath id="pu-c6"><path d="M-300-500h900v530h-900z"/></clipPath>
@@ -2073,8 +1892,6 @@
       <ol class="etapas">
         <li class="etapa etapa-1" data-sube>
           <p class="etapa-bloque es-bloque">Nos cuentas cómo trabajas
-            <!-- El autónomo escribe desde el móvil a qué se dedica (1197: sin las ondas de voz, porque ya no hay llamada);
-                 el reloj de cocina marca el rato. Manila todavía no ha llegado (escenas.css, CÓMO SE EMPIEZA) -->
             <svg class="ilu es es-etapa es-llamada ilu-hoja-entera" data-ilustra viewBox="0 0 160 96" aria-hidden="true" focusable="false">
               <g class="hoja-osc"><path class="cl-ho" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z" transform="translate(2.5 2)"/><path class="cl-ho cl-t cl-f" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z"/></g>
               <g class="es-k50" transform="translate(4 2) scale(.5)"><g class="es-in es-habla">
@@ -2107,7 +1924,6 @@
         </li>
         <li class="etapa etapa-2" data-sube>
           <p class="etapa-bloque es-bloque">Unos dos minutos para instalarla
-            <!-- Abres el enlace, tres clics y Manila aterriza en tu escritorio convertida en el icono de tu página -->
             <svg class="ilu es es-etapa es-instala ilu-hoja-entera" data-ilustra viewBox="0 0 160 96" aria-hidden="true" focusable="false">
               <g class="hoja-osc"><path class="cl-ho" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z" transform="translate(2.5 2)"/><path class="cl-ho cl-t cl-f" d="M4 4c50-2 101-2 152-1l1 89c-51 1-102 1-153 0z"/></g>
               <g class="rs e10-aleja"><g class="sd e10-portatil">
@@ -2135,10 +1951,6 @@
               </g></g></g></g></g></g>
               <path class="cl-t cl-f es-nombre" d="M33 63l26-.6" pathLength="100"/>
               </g></g>
-              <!-- C1b (465) · Manila, de espaldas, cruza la pantalla como quien entra por una puerta: coge impulso,
-                   salta, se aplasta de lado al pasar el canto y se encoge hasta ser el icono de tu página (corte a
-                   juego con g.e10-icono). Después, la cámara se acerca a la pantalla (g.e10-portatil). Quieto: ya
-                   dentro, el portátil a todo el dibujo. -->
               <g class="sd e10-entra"><g transform="translate(94 12) scale(.56)"><g class="es-k58b">
                 <path class="cl-t" d="M44 116c-8 0-16-4-20-12l-7 2M80 118l12 15 9 1"/>
                 <path class="cl-am" d="M9 58c6-.5 10-1 14-1L22 117c-4 .2-8 .3-12 .3z" transform="translate(3.5 3)"/>
@@ -2150,9 +1962,6 @@
                 <path class="cl-t" d="M16 76C6 70-2 60-6 48M104 80c8 6 16 8 24 4"/>
                 <path class="cl-t mn-palma" d="M-6 48l-1.6-4.7M128 84l4.5-2.2"/><path class="cl-t mn-pulgar" d="M-5 50.8l3.8-2.8M125.3 85.3l-.7-4.7"/>
               </g></g></g>
-              <!-- 585 · PUENTE del bucle: la cámara se aleja (g.e10-aleja), el icono da un brinco (g.e10-salta) y, en el corte de
-                   la entrada al revés, vuelve a ser Manila, que sale de la pantalla de un salto y aterriza a su lado
-                   (g.e10-fuera, copia de g.e10-entra), lista para entrar otra vez. Sin motor no existe. -->
               <g class="rs e10-fuera" opacity="0" visibility="hidden"><g transform="translate(94 12) scale(.56)"><g class="es-k58b">
                 <path class="cl-t" d="M44 116c-8 0-16-4-20-12l-7 2M80 118l12 15 9 1"/>
                 <path class="cl-am" d="M9 58c6-.5 10-1 14-1L22 117c-4 .2-8 .3-12 .3z" transform="translate(3.5 3)"/>
@@ -2171,14 +1980,11 @@
         </li>
         <li class="etapa etapa-3" data-sube>
           <p class="etapa-bloque es-bloque">Desde el primer día
-            <!-- La entrevista con botones: Manila te enseña la tarjeta con la pregunta y tú tocas «sí» -->
             <svg class="ilu es es-etapa es-entrevista ilu-hoja-entera" data-ilustra viewBox="0 0 160 96" aria-hidden="true" focusable="false">
               <g class="es-papel">
                 <path class="cl-ho" d="M6 10l148-5 2 84-150 4z" transform="translate(2.5 2)"/>
                 <path class="cl-t cl-f" d="M6 10l148-5 2 84-150 4z"/>
               </g>
-              <!-- C1b (465) · sale de la pantalla: viene de dentro (pequeña, al fondo), crece a dos pasos, pisa el canto del
-                   papel con un muelle y, tras echar el brazo atrás, señala el «sí» (g.e10-sale, g.e10-senala) -->
               <g class="sx e10-vuelve"><g class="sd e10-sale"><g class="rs e10-adentro"><g class="es-k68" transform="translate(-10 0) scale(.68)"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
                 <path class="cl-t" d="M40 118 34 141h-8M78 118c8 6 14 14 16 24l8 1"/>
                 <path class="cl-ma" d="M30 46 33 31c.5-2 1.5-3 3.5-3l19-.5 5 10 46-1.5c2.5 0 3.5 1.5 3.5 4L110 100 32 104z" transform="translate(3.5 3)"/>
@@ -2221,14 +2027,12 @@
     </div>
   </section>
 
-  <!-- Contacto: el cupón recortable. El servidor mete el bloque de WhatsApp; el formulario va plegado debajo. -->
   <section class="seccion seccion-pestana contacto-seccion" id="contacto" data-pestana="Contacto">
     <div class="ancho">
       <div class="cupon">
         <div class="cupon-cabeza">
           <h2>Cuéntanos a&nbsp;qué te dedicas</h2>
           <p>Te contestamos por escrito, y escribirnos no te compromete a nada.</p>
-          <!-- Manila espera con una carpeta vacía «Para ti» para el nuevo cliente: saluda al llegar y levanta la mano al acercarse a un botón (modelo base del 22/10; ilustra.css, CONTACTO) -->
           <svg class="ilu ct-manila" data-ilustra viewBox="-4 28 244 124" aria-hidden="true" focusable="false">
             <g class="es-suelo"><path class="cl-ma" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5z" transform="translate(3.5 3)"/><path class="cl-ho cl-t" d="M108 144c42-3 84-6 126-9l2 8c-42 3-85 5.5-127 7.5zM234 135l-2.5 3.5 4.5 1"/><path class="cl-t cl-f" d="M118 147.5l22-1.5"/></g>
             <g transform="translate(102 6) rotate(-6 60 141)"><g class="ct-ella"><g class="mn-cuerpo">
@@ -2251,9 +2055,6 @@
                 </g>
               </g>
             </g></g></g>
-                      <!-- C1 (465): Manila OFRECE la carpeta: la sostiene en alto, delante de ella, con las dos manitas (palma y
-                 pulgar) asomando por el canto; al apuntar al WhatsApp o a «Prefiero escribiros aquí», la tapa se abre y
-                 dentro hay sitio vacío -->
             <g class="ct-carpeta"><g class="ct-ofrece"><g transform="translate(6 -6) scale(1.02)">
               <path class="cl-am" d="M10 76 13 45c.3-2 1.5-3 3.5-3H72l5 19h13c2.5 0 3.5 1.5 3.5 4L90 128 9 129z" transform="translate(3.5 3)"/>
               <path class="cl-t" d="M10 76 13 45c.3-2 1.5-3 3.5-3H72l5 19h13c2.5 0 3.5 1.5 3.5 4L90 128 9 129z"/>
@@ -2269,7 +2070,6 @@
           </svg>
         </div>
         <div class="cupon-cuerpo">
-          <!-- F1 (465): las tijeras sobre la línea de corte: el cupón se lee como un recortable de papel, no como dos tarjetas -->
           <svg class="ilu tijeras" viewBox="0 0 50 30" aria-hidden="true" focusable="false">
             <path class="cl-am" d="M5 5c5-3 11 0 11 5s-7 7-11 4-4-7 0-9zM5 17c5-3 11 0 11 5s-7 6-11 3-4-6 0-8z" transform="translate(1.6 1.4)"/>
             <path class="cl-t" d="M5 5c5-3 11 0 11 5s-7 7-11 4-4-7 0-9zM5 17c5-3 11 0 11 5s-7 6-11 3-4-6 0-8z"/>
@@ -2277,8 +2077,6 @@
             <path class="cl-t cl-f" d="M24.6 15.3v.3"/>
           </svg>
       <div class="contacto-directo"><p class="texto">Lo más sencillo es escribirnos por WhatsApp. Cuéntanos a qué te dedicas y qué te quita más tiempo, y te contestamos por escrito.</p><p class="whatsapp"><a class="boton boton-principal boton-grande" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a></p><p class="nota">Si no usas WhatsApp, también puedes <a href="sms:+34660013625">mandarnos un SMS</a> o dejarnos tu correo en el formulario de aquí debajo.</p></div>
-      <!-- 1197 (EduBot, 13/11: «Edu no llama»): el formulario es por escrito, como el de /tasadores. Contesta el equipo
-           a su correo; la clase «llamadnos» se queda solo por los estilos y las animaciones que cuelgan de ella. -->
       <details class="llamadnos">
         <summary>Prefiero escribiros aquí</summary>
         <p>Déjanos tu nombre y tu correo, cuéntanos a qué te dedicas y te contestamos por escrito.</p>
@@ -2321,17 +2119,11 @@
 <footer class="pie seccion-pestana sin-pestana">
   <div class="ancho">
     <div class="es-pie-marca">
-    <!-- F4 (465): Manila se va de tres cuartos por encima de la «IA», con el fajo del día bajo el brazo y sobre su hoja de
-         papel (el pie es campo oscuro en los dos temas: Manila nunca pisa el negro). escenas.css, PIE. -->
     <svg class="ilu es-pie-hoja" viewBox="0 0 120 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
       <path class="cl-ma" d="M4 7c37-2.5 74-3.5 111-4.5l1.5 92c-38 2-75 2.5-112.5 1.5z" transform="translate(2.5 2.5)"/>
       <path class="cl-ho cl-t" d="M4 7c37-2.5 74-3.5 111-4.5l1.5 92c-38 2-75 2.5-112.5 1.5z"/>
     </svg>
     <svg class="ilu es es-pie" data-ilustra viewBox="0 0 146 136" aria-hidden="true" focusable="false">
-      <!-- C1 (457), F3 y F4 (465): el cierre de la película. Manila se va de TRES CUARTOS hacia la derecha, amarilla y
-           mirando adonde va, con el fajo de papeles del día bajo el brazo: al verse, anda por encima de la «I» hasta el
-           borde de la «A» y se para; de vez en cuando se gira hacia ti y se despide con la mano (cambio de silueta a
-           saltos). Sin movimiento: de tres cuartos en el borde, con el fajo. escenas.css, PIE. -->
       <g transform="translate(14 -6)"><g class="es-in es-sube"><g class="es-hop"><g class="es-respira"><g class="mn-cuerpo">
         <g class="pie-pierna pie-p1"><path class="cl-t" d="M46 118 42 141h8"/></g>
         <g class="pie-pierna pie-p2"><path class="cl-t" d="M82 118l4 23h8"/></g>
@@ -2345,8 +2137,6 @@
           <g class="mn-ojos" data-mn-max="1.5"><g class="es-parpado"><path class="cl-sa mn-ojo" d="M66 80v12M86 79v12"/></g><path class="cl-sa mn-boca" d="M68 103c4.5 3.6 11.5 3.4 16.5-1.2"/></g>
           <path class="cl-t" d="M26 84C17 90 14 99 17 107"/><path class="cl-t mn-palma" d="M17 107l1.9 5.1"/><path class="cl-t mn-pulgar" d="M19.6 107.4l4.4 2.2"/>
         </g>
-        <!-- La despedida: se gira hacia ti (la carpeta de detrás asoma con su pestaña), te mira, sonríe y dice adiós con
-             la manita libre; la otra sigue con el fajo. Cara y manos del modelo base (22/10). -->
         <g class="pie-mira">
           <path class="cl-ma" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104 17 106z" transform="translate(3.5 3)"/>
           <path class="cl-t" d="M19 47 23 31c.5-2 1.5-3 3.5-3l23-.5 5 10.5 47-1.5c2.5 0 3.5 1.5 3.5 4L103 104"/>
@@ -2373,9 +2163,6 @@
   </div>
 </footer>
 
-<!-- La Manila acompañante (C1, acompanante.css y .js): en el ordenador ancho cuelga de su cordel en el margen, junto al
-     texto, entre las escenas que tienen su propia Manila; con la cara y las manitas del modelo base (22/10), agarrada al
-     cordel con las dos palmas. Decorativa: sin JS o con «reducir movimiento», no se ve. -->
 <div class="acompanante ac-fuera" data-acompanante aria-hidden="true">
   <div class="ac-pendulo"><div class="ac-dentro">
     <svg class="ilu ac-manila" viewBox="0 0 130 150" focusable="false">
@@ -2395,7 +2182,6 @@
   </div></div>
 </div>
 
-<!-- Barra fija del móvil: el WhatsApp siempre a un toque (se esconde con la portada a la vista y en el contacto) -->
 <div class="barra-movil" data-barra>
   <a class="boton boton-principal boton-wa" href="https://wa.me/34660013625?text=Hola%2C%20Eduardo.%20He%20visto%20la%20web%20de%20AutonomIA%20y%20me%20gustar%C3%ADa%20que%20me%20contaras%20c%C3%B3mo%20me%20podr%C3%ADais%20ayudar%20con%20mi%20negocio." rel="noopener">Escribir por WhatsApp</a>
 </div>

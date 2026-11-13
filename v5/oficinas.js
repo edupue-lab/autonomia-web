@@ -1,5 +1,3 @@
-/* v5 (605): las pestañas de los puestos de oficinas.html. Sin JavaScript se ven todas las hojas seguidas; con él,
-   cada puesto es una pestaña (patrón de pestañas de WAI-ARIA: flechas, Inicio y Fin) y solo se ve la hoja elegida. */
 (function () {
   var caja = document.querySelector("[data-puestos]");
   if (!caja) return;
@@ -19,13 +17,9 @@
     hojas[i].tabIndex = 0;
   });
 
-  /* (833) Al tocar una pestaña, su hoja sale delante desde el lado en que está (la de la derecha llega por la derecha)
-     y, si lleva un visto a bolígrafo, se dibuja. Con WAAPI, así un toque seguido corta el anterior sin saltos. Con el
-     teclado se cambia al momento (se usa muchas veces seguidas); con «reducir movimiento» o el modo suave, solo un
-     fundido corto. */
   var actual = 0, anim = null, trazo = null, raiz = document.documentElement;
   var quietoGuardado = false;
-  try { quietoGuardado = localStorage.getItem("autonomia-movimiento") === "quieto"; } catch (e) { /* sin almacenamiento */ }
+  try { quietoGuardado = localStorage.getItem("autonomia-movimiento") === "quieto"; } catch (e) {   }
   function suave() {
     return raiz.classList.contains("mov-suave") || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }

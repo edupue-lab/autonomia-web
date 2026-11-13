@@ -1,5 +1,3 @@
-/* v5 (469): el dossier. Enseña el botón de imprimir (sin JS no sirve, así que viene oculto) y, al imprimir o guardar en
-   PDF, lo saca siempre en claro aunque se esté leyendo en oscuro (papel blanco, tinta negra) y lo deja como estaba. */
 (function () {
   var raiz = document.documentElement, antes = null;
   var b = document.querySelector("[data-imprime]");

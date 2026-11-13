@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
   <title>AutonomIA</title>
-  <!-- Silueta de Manila de una sola tinta para el badge de las notificaciones de Android (solo cuenta la
-       transparencia). Mismas formas que manila-pequeno.svg: la carpeta con sus dos ojos y la sonrisa vaciados. -->
   <defs>
     <mask id="cara" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
       <rect width="48" height="48" fill="#fff"/>

@@ -1,13 +1,4 @@
-/* (833) Las páginas sencillas con dibujo: gracias.html (Manila recibe la hoja con tus datos, la guarda y lo celebra) y
-   404.html (Manila busca la página con una hoja en blanco). Va después de estilo.css. Sistema Calco (skill
-   ilustracion-calco): Manila es el modelo base de marca/logo/manila.svg, en sus mismas coordenadas, con el relleno
-   corrido (el calco) en las formas grandes. Solo se anima transform, opacity y stroke-dashoffset.
-   El estado final es el CSS por defecto: sin JavaScript, con «reducir movimiento» y sin elegir más, o al imprimir, se
-   ve quieto y completo. Con JavaScript (tema.js pone html.js), la escena espera en su pose de partida y
-   paginas-vivas.js le pone «vista» (la entrada), «hecha» al acabar, «en-pantalla» (los bucles) y «toca» al tocarla;
-   html.pv-vivo dice que hay movimiento y html.mov-suave, que es el modo suave (entradas sin rebotes ni saltos). */
 
-/* ------------------------------------------------------------ la página: texto y dibujo */
 .aviso-vivo { max-width: 66rem; display: grid; gap: 1.25rem; align-items: center; }
 .aviso-texto { max-width: 40rem; }
 .aviso-texto > :last-child { margin-bottom: 0; }
@@ -20,15 +11,11 @@
   .aviso-dibujo { order: 0; width: 100%; max-width: 24rem; justify-self: center; }
 }
 
-/* ------------------------------------------------------------ el dibujo */
 .pv-ilu {
   display: block; width: 100%; height: auto; overflow: visible; -webkit-tap-highlight-color: transparent;
   --trazo: 1.75; --pv-am: #f5c518; --pv-ma: #f2e2ab; --pv-sa: #1d1b16; --pv-boli: var(--boli);
 }
 @media (min-width: 48rem) { .pv-ilu { --trazo: 1.4; } }
-/* En oscuro, como el logo (marca/logo/manila.svg): Manila con su paleta de día, pisando papel claro, con la tinta
-   oscura y un filo de papel (.pv-filo) debajo de los brazos y las piernas, que si no se perderían en el campo oscuro.
-   El boli sigue con el azul que se lee sobre el oscuro. */
 .pv-filo { display: none; }
 :root[data-theme="dark"] .pv-ilu { --tinta: #1d1b16; --hoja: #fbf8ef; --pv-ma: #f2e2ab; }
 :root[data-theme="dark"] .pv-ilu .pv-filo {
@@ -49,17 +36,15 @@
 .pv-ilu .mn-boca { stroke-width: calc(var(--trazo) * 0.9); }
 .pv-ilu .mn-palma { stroke-width: calc(var(--trazo) * 1.8); }
 .pv-ilu .mn-pulgar { stroke-width: calc(var(--trazo) * 0.86); }
-/* Cada grupo gira o se aplasta desde su sitio, en las coordenadas del dibujo (las de Manila, las del logo) */
 .pv-ilu g { transform-box: view-box; }
-.pv-hop, .pv-salta, .pv-respira { transform-origin: 33px 77px; }    /* los pies */
-.pv-parpado, .pv-busca { transform-origin: 31px 43.5px; }          /* los ojos */
-.pv-brazo-i { transform-origin: 3.2px 44px; }                       /* los hombros */
+.pv-hop, .pv-salta, .pv-respira { transform-origin: 33px 77px; }
+.pv-parpado, .pv-busca { transform-origin: 31px 43.5px; }
+.pv-brazo-i { transform-origin: 3.2px 44px; }
 .pv-brazo-d, .pv-mano-d { transform-origin: 61.6px 40px; }
 .pv-hoja-r { transform-origin: 31px 30px; }
-.pv-papel, .pv-ondea { transform-origin: 70px 19px; }               /* la mano que sujeta la hoja */
-.pv-404 .pv-parpado, .pv-404 .pv-busca { transform-origin: 34px 42px; }  /* en la 404 mira de lado, hacia la hoja */
+.pv-papel, .pv-ondea { transform-origin: 70px 19px; }
+.pv-404 .pv-parpado, .pv-404 .pv-busca { transform-origin: 34px 42px; }
 
-/* Resorte de verdad (skill movimiento-fisico §2: ζ 0.5, el de los botones), donde el navegador sabe linear() */
 :root { --pv-muelle: cubic-bezier(0.34, 1.56, 0.64, 1); --pv-frena: cubic-bezier(0.22, 1, 0.36, 1); }
 @supports (transition-timing-function: linear(0, 1)) {
   :root {
@@ -75,20 +60,15 @@
 @keyframes pv-aparece { from { opacity: 0; } }
 @keyframes pv-alza { from { transform: rotate(119deg); } }
 
-/* Pose de partida (solo con JavaScript): la hoja aún no ha llegado, el brazo está bajado y el visto sin dibujar */
 .js .pv-gracias:not(.vista) .pv-hoja-r { opacity: 0; }
 .js .pv-gracias:not(.vista) .pv-brazo-d, .js .pv-404:not(.vista) .pv-brazo-d { transform: rotate(119deg); }
 .js .pv-404:not(.vista) .pv-papel { transform: rotate(24deg); }
 .js .pv-escena:not(.vista) .pv-bo { stroke-dashoffset: 106; }
 
-/* ------------------------------------------------------------ los bucles, solo mientras se ve */
 .pv-vivo .pv-escena.en-pantalla .pv-respira { animation: pv-respira 2.8s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
 .pv-vivo .pv-escena.en-pantalla .pv-parpado { animation: pv-parpado 4.6s steps(1) infinite; }
 .pv-vivo .pv-404.en-pantalla .pv-parpado { animation-duration: 5.3s; animation-delay: -2s; }
 
-/* ------------------------------------------------------------ gracias: la hoja cae en la carpeta y lo celebra */
-/* La hoja cae en arco (resbala de lado y cae con gravedad), Manila la recoge aplastándose un poco, levanta los dos
-   brazos, da un salto y se dibuja el visto. Después baja un brazo y se queda saludando con el otro. */
 @keyframes pv-hx { from { transform: translateX(36px); } }
 @keyframes pv-hy { from { transform: translateY(-62px); } }
 @keyframes pv-hr { 0% { opacity: 0; transform: rotate(18deg); } 18% { opacity: 1; } 100% { opacity: 1; transform: none; } }
@@ -124,14 +104,9 @@
 .pv-vivo .pv-gracias.vista:not(.hecha) .pv-salta { animation: pv-salta 560ms 1180ms; }
 .pv-vivo .pv-gracias.vista:not(.hecha) .pv-visto { animation: pv-traza 420ms cubic-bezier(0.22, 1, 0.36, 1) 1380ms backwards; }
 .pv-vivo .pv-gracias.en-pantalla .pv-mano-d { animation: pv-saluda 7s 2.6s infinite; }
-/* Al tocarla, lo vuelve a celebrar (el salto con peso lo pone Muelle.saltar) y repasa el visto */
 .pv-vivo .pv-gracias.hecha.toca .pv-brazo-i { animation: pv-celebra 1000ms; }
 .pv-vivo .pv-gracias.hecha.toca .pv-visto { animation: pv-traza 420ms cubic-bezier(0.22, 1, 0.36, 1) 180ms backwards; }
 
-/* ------------------------------------------------------------ 404: busca la página con la hoja en blanco */
-/* Levanta la hoja que ha encontrado (está en blanco), se dibuja la interrogación y mira a un lado y a otro. Si mueves
-   el ratón o la tocas, deja de buscar y te mira (paginas-vivas.js le pone .pv-atento); al tocarla, salta y sacude la
-   hoja. La hoja se mece un poco en la mano. */
 @keyframes pv-papel-in { from { transform: rotate(24deg); } }
 @keyframes pv-busca {
   0%, 16% { transform: none; animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1); }
@@ -155,7 +130,6 @@
 .pv-vivo .pv-404.hecha.toca .pv-papel { animation: pv-sacude 420ms cubic-bezier(0.37, 0, 0.63, 1); }
 .pv-vivo .pv-404.hecha.toca .pv-pregunta { animation: pv-traza 520ms cubic-bezier(0.22, 1, 0.36, 1) 120ms backwards; }
 
-/* ------------------------------------------------------------ modo suave: sin rebotes, saltos ni celebración */
 .mov-suave .pv-escena .pv-hop, .mov-suave .pv-escena .pv-salta, .mov-suave .pv-escena .pv-brazo-i,
 .mov-suave .pv-escena .pv-hoja-x, .mov-suave .pv-escena.toca .pv-papel { animation: none !important; }
 .pv-vivo.mov-suave .pv-404.vista:not(.hecha) .pv-papel { animation: pv-papel-in 760ms var(--pv-frena) 300ms backwards; }
@@ -164,5 +138,4 @@
 .pv-vivo.mov-suave .pv-escena.vista:not(.hecha) .pv-brazo-d { animation: pv-alza 760ms var(--pv-frena) 300ms backwards; }
 @keyframes pv-hy-suave { from { transform: translateY(-14px); } }
 
-/* Al imprimir, quieto */
 @media print { .pv-ilu * { animation: none !important; } .aviso-dibujo { max-width: 7cm; } }

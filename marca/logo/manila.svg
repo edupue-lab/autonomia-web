@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="AutonomIA">
   <title>AutonomIA</title>
-  <!-- Logo oficial de AutonomIA: Manila, modelo base (Edu, 22/10/2026). Para 71 px o más. Generado por marca/herramientas/generar_manila.py; no se edita a mano. -->
   <g transform="translate(17.5 4.9) scale(.98)">
     <path d="M-4 77.5c22-1.6 46-2.4 72-3l4.6 6.4c-25 1-51 1.6-76.6 2z" fill="#f2e2ab" transform="translate(2.4 2)"/>
     <path d="M-4 77.5c22-1.6 46-2.4 72-3l4.6 6.4c-25 1-51 1.6-76.6 2z" fill="#fbf8ef" stroke="#1d1b16" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round"/>

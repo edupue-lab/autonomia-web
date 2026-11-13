@@ -1,8 +1,3 @@
-/* «Del correo al trabajo hecho» (sección #que-hace) y su escena .dm-ilu. Todo cuelga de .demo y usa las fichas de
-   v4.css. Sin JavaScript se ve el primer correo de cada oficio con sus pasos marcados y su carpeta «Para ti»; con
-   demo.js (clase .activa) se eligen oficio y correo y se ve paso a paso. demo.js escribe en .demo-escena el estado:
-   data-oficio, data-fase (espera | paso | fin), .ultimo y las reacciones de la escena (.dm-hop, .dm-cambia, .dm-final);
-   en cada hoja de la escena, data-e (sobre | mesa | dentro). Solo se mueven transform, opacity y stroke-dashoffset. */
 
 .demo {
   --d-hoja: var(--hoja, #fff);
@@ -20,7 +15,6 @@
   --d-rebote: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ------------------------------------------------ composición: escena a la izquierda, elegir a la derecha */
 .demo-rejilla { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
 .demo-cabeza h2 {
   margin: 0; font-family: var(--d-titulo); font-weight: 800; font-stretch: 76%; letter-spacing: -0.02em;
@@ -49,8 +43,6 @@
   .demo-acciones { grid-area: acciones; }
 }
 
-/* ------------------------------------------------ el «calco» de los controles: un bloque amarillo corrido que
-   asoma por detrás al pasar por encima y se hunde al pulsar (la misma firma que las ilustraciones) */
 .demo-pestanas button, .demo-mensaje, .demo-mando { position: relative; isolation: isolate; }
 .demo-pestanas button::after, .demo-mensaje::after, .demo-mando::after {
   content: ""; position: absolute; inset: 0; z-index: -2; background: var(--d-amarillo);
@@ -66,7 +58,6 @@
 }
 .demo-pestanas button:active::after, .demo-mensaje:active::after, .demo-mando:active::after { opacity: 1; transform: translate(1px, 1px); }
 
-/* ------------------------------------------------ pestañas de oficio: pestañas de carpeta */
 .demo-pestanas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
 .demo-pestanas[hidden] { display: none; }
 .demo-pestanas button {
@@ -82,7 +73,6 @@
   .demo-pestanas button:active { transform: translate(2px, 2px); }
 }
 
-/* ------------------------------------------------ la bandeja de entrada del oficio: el visitante elige el correo */
 .demo-bandeja[hidden] { display: none; }
 .demo-bandeja-titulo {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem;
@@ -99,11 +89,10 @@
 .demo-m-de { font: 700 var(--d-texto) / 1.2 var(--d-titulo); font-stretch: 88%; overflow-wrap: anywhere; }
 .demo-m-hora { font-size: var(--d-pequeno); color: var(--d-gris); font-variant-numeric: tabular-nums; }
 .demo-m-asunto { grid-column: 1 / -1; font-size: var(--d-pequeno); line-height: 1.35; color: var(--d-tinta); }
-/* El abierto: fondo amarillo suave y la pestaña amarilla del borde, que crece desde abajo */
 .demo-mensaje[aria-pressed="true"] { background: var(--d-suave-am); }
 .demo-mensaje > span:first-child::before {
   content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.5rem; background: var(--d-amarillo);
-  transform: scaleY(0); transform-origin: 50% 100%; transition: transform 240ms var(--d-rebote); /* 833: 320 -> 240 ms */
+  transform: scaleY(0); transform-origin: 50% 100%; transition: transform 240ms var(--d-rebote);
 }
 .demo-mensaje[aria-pressed="true"] > span:first-child::before { transform: scaleY(1); }
 @media (hover: hover) and (pointer: fine) {
@@ -111,7 +100,6 @@
 }
 .demo-mensaje:active { transform: translate(2px, 2px); }
 
-/* ------------------------------------------------ la placa con la escena, el encargo y los mandos */
 .demo-escena {
   position: relative; display: grid; gap: 1rem; align-content: start; background: var(--d-placa);
   padding: clamp(1rem, 3.2vw, 2.25rem); margin-inline: calc(var(--margen, 16px) * -1);
@@ -123,7 +111,6 @@
 .demo-caso:focus-visible { outline-offset: 4px; }
 .demo-caso-oficio { margin: 0; font: 800 var(--s-sub, 24px) / 1.1 var(--d-titulo); font-stretch: 80%; color: var(--d-tinta); }
 
-/* El correo abierto y lo que hace con él */
 .demo-pantalla { background: var(--d-hoja); color: var(--d-tinta); font-size: var(--d-texto); line-height: 1.4; }
 .demo-pantalla p { margin: 0; }
 .demo-correo { padding: 1rem 1.1rem 1.1rem; }
@@ -149,7 +136,6 @@
   position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.6rem;
   padding: 0.45rem 0.5rem; isolation: isolate;
 }
-/* Sin JS, cada paso lleva una marca sencilla (dos trazos), ya que la del boli la dibuja demo.js */
 .demo:not(.activa) .demo-pasos li::before {
   content: ""; width: 0.7rem; height: 1.2rem; margin: 0.05rem 0 0 0.55rem; border: solid var(--d-acento);
   border-width: 0 3px 3px 0; transform: rotate(40deg);
@@ -160,7 +146,6 @@
   stroke-dasharray: 100; stroke-dashoffset: 0;
 }
 
-/* La carpeta «Para ti» abierta: su pestaña, sus archivos, el documento abierto y la nota a boli */
 .demo-resultado { color: var(--d-tinta); font-size: var(--d-pequeno); line-height: 1.45; }
 .demo-resultado p { margin: 0; }
 .demo-carpeta-nombre {
@@ -206,7 +191,6 @@
   .demo-carpeta-de, .demo-nota { grid-column: 1 / -1; }
 }
 
-/* ------------------------------------------------ los mandos: avanzar, verlo seguido, otro correo */
 .demo-mandos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
 .demo-mandos[hidden], .demo-mando[hidden] { display: none; }
 .demo-mando {
@@ -225,18 +209,14 @@
 
 .demo-aviso { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* ------------------------------------------------ con demo.js: el caso abierto cambia de pantalla a resultado */
 .demo.activa .demo-caso-oficio { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
-/* El correo y la carpeta comparten sitio: la altura es la del mayor de los dos y no salta al terminar */
 .demo.activa .demo-caso { grid-template-columns: minmax(0, 1fr); }
 .demo.activa .demo-pantalla, .demo.activa .demo-resultado { grid-area: 1 / 1; }
 .demo.activa .demo-resultado { visibility: hidden; opacity: 0; align-self: start; }
 .demo.activa .demo-caso.fin .demo-pantalla { visibility: hidden; opacity: 0; }
-/* En el resultado, la pantalla del correo ya no reserva alto: los botones quedan pegados a la carpeta */
 .demo.activa .demo-caso { position: relative; }
 .demo.activa .demo-caso.fin .demo-pantalla { position: absolute; inset: 0 0 auto 0; }
 .demo.activa .demo-caso.fin .demo-resultado { visibility: visible; opacity: 1; }
-/* Los pasos que faltan se ven en gris (AA sobre la hoja) y se encienden al hacerse; el último hecho, resaltado */
 .demo.activa .demo-pasos li > span { color: var(--d-gris); }
 .demo.activa .demo-pasos li.hecho > span { color: var(--d-tinta); }
 .demo.activa .demo-pasos li::after {
@@ -257,11 +237,9 @@
   .demo.activa .demo-marca { transition: opacity 100ms ease 120ms; }
   .demo.activa .demo-marca path { transition: stroke-dashoffset 420ms ease-out 120ms; }
 
-  /* Al terminar: el correo se va hacia arriba y la carpeta se abre debajo, con los archivos uno a uno */
   .demo.activa .demo-pantalla { transition: opacity 260ms ease, transform 420ms var(--d-resbala), visibility 0s; }
   .demo.activa .demo-caso.fin .demo-pantalla { transform: translateY(-18px) scale(0.98); transition-delay: 0s, 0s, 420ms; }
   .demo.activa .demo-resultado { transition: opacity 280ms ease 150ms, visibility 0s 150ms; }
-  /* Al llegar, visible al momento (la opacidad sigue entrando con su retardo): así el foco puede pasar a la carpeta */
   .demo.activa .demo-caso.fin .demo-resultado { transition-delay: 150ms, 0s; }
   .demo.activa .demo-carpeta-nombre { transform: translateY(14px); transition: transform 520ms var(--d-rebote) 200ms; }
   .demo.activa .demo-carpeta-cuerpo { transform: scaleY(0.92); transform-origin: 50% 0; transition: transform 560ms var(--d-resbala) 260ms; }
@@ -282,10 +260,6 @@
 }
 @keyframes demo-llega { from { opacity: 0; transform: translateY(-14px); } }
 
-/* ================================================ la escena: Manila trabajando encima del encargo */
-/* viewBox de 420 y como mucho 420 px: escala 0,85 a 390 y 1 en escritorio. Con --trazo 3,2, unos 2,7 px en el móvil
-   y 3,2 px en escritorio. Por defecto (sin JS o con «reducir movimiento») se ve el último fotograma: el sobre abierto,
-   Manila contenta con las hojas dentro y lo de su oficio a los pies. */
 .demo .dm-ilu { width: 100%; max-width: 26.25rem; margin: 0 auto; --trazo: 3.2; overflow: visible; }
 .demo .dm-ilu .cl-bo { stroke-width: 2.9; }
 .demo .dm-ilu .dm-visto { stroke-dasharray: 100; stroke-dashoffset: 0; }
@@ -295,7 +269,6 @@
 .demo .dm-ilu .dm-hoja[data-e="sobre"] { transform: translate(-171px, 7px) scale(0.35); }
 .demo .dm-ilu .dm-hoja[data-e="mesa"] { opacity: 1; transform: none; }
 
-/* Pose y ojos según la fase; por defecto, contenta */
 .demo .dm-ilu .dm-pose, .demo .dm-ilu .dm-ojo { opacity: 0; }
 .demo .demo-escena:not([data-fase]) :is(.dm-feliz, .dm-ojo-feliz),
 .demo .demo-escena[data-fase="fin"] :is(.dm-feliz, .dm-ojo-feliz),
@@ -306,7 +279,6 @@
 .demo .demo-escena:is([data-fase="espera"], [data-fase="paso"]) .dm-sobre-visto { stroke-dashoffset: 100; opacity: 0; }
 .demo .demo-escena.ultimo[data-fase="paso"] .dm-pila-visto { stroke-dashoffset: 0; opacity: 1; }
 
-/* Lo de cada oficio: la hoja que lleva dentro y el objeto a sus pies */
 .demo .dm-ilu .dm-o, .demo .dm-ilu .dm-prop { opacity: 0; }
 .demo .demo-escena:not([data-oficio]) :is(.dm-o-tasador, .dm-p-tasador),
 .demo .demo-escena[data-oficio="tasador"] :is(.dm-o-tasador, .dm-p-tasador),
@@ -315,10 +287,7 @@
 .demo .demo-escena[data-oficio="tecnico"] :is(.dm-o-tecnico, .dm-p-tecnico) { opacity: 1; }
 .demo .dm-ilu .dm-prop { transform-origin: 50% 100%; }
 
-/* Movimiento: solo con ilustra.js (.ilu-anima) y sin «reducir movimiento» */
 @media (prefers-reduced-motion: no-preference) {
-  /* Entrada, la primera vez que se ve: cae el sobre y Manila llega andando con rebote */
-  /* Antes de verse, nada queda vacío: el sobre está un poco más arriba y Manila agachada en su sitio (ayudante G) */
   .ilu-anima .demo .dm-ilu:not(.vista) .dm-llega-sobre { transform: translateY(-10px) rotate(-2deg); }
   .ilu-anima .demo .dm-ilu:not(.vista) .dm-manila { transform-origin: 50% 100%; transform: translateY(5px) scale(1.03, 0.86); }
   .ilu-anima .demo .dm-ilu:not(.vista) .dm-props { opacity: 0.001; }
@@ -326,7 +295,6 @@
   .ilu-anima .demo .dm-ilu.vista .dm-manila { transform-origin: 50% 100%; animation: dm-llega 760ms var(--d-rebote) 320ms both; }
   .ilu-anima .demo .dm-ilu.vista .dm-props { animation: dm-pop 420ms var(--d-rebote) 900ms both; }
 
-  /* Las hojas: del sobre a la mesa en arco con cada paso, y de la mesa a Manila al terminar */
   .ilu-anima .demo .dm-ilu .dm-hoja[data-e="mesa"] { animation: dm-sale 720ms linear both; }
   .ilu-anima .demo .dm-ilu .dm-hoja[data-e="dentro"] { animation: dm-guarda 700ms linear both; }
   .ilu-anima .demo .dm-ilu .dm-h2[data-e="dentro"] { animation-delay: 90ms; }
@@ -336,20 +304,16 @@
   .ilu-anima .demo .dm-ilu .dm-visto { transition: stroke-dashoffset 380ms ease-out, opacity 0s; }
   .ilu-anima .demo .demo-escena[data-fase="fin"] .dm-sobre-visto { transition-delay: 1100ms; }
   .ilu-anima .demo .dm-ilu .dm-dentro { transition: transform 600ms var(--d-resbala) 700ms, opacity 200ms ease 700ms; }
-  /* 585: al volver a empezar sola (demo.js, otraVez), la hoja del resultado se hunde dentro de Manila y solo
-     desaparece ya tapada, y el visto del sobre se borra trazo a trazo: nada se funde */
   .ilu-anima .demo .demo-escena:not([data-fase="fin"]) .dm-dentro { transition: transform 600ms var(--d-resbala), opacity 0s 600ms; }
-  .ilu-anima .demo .demo-escena:not([data-fase="fin"]) .dm-sobre-visto { transition: stroke-dashoffset 380ms cubic-bezier(0.23, 1, 0.32, 1), opacity 0s 380ms; } /* 833: sin ease-in */
+  .ilu-anima .demo .demo-escena:not([data-fase="fin"]) .dm-sobre-visto { transition: stroke-dashoffset 380ms cubic-bezier(0.23, 1, 0.32, 1), opacity 0s 380ms; }
   .ilu-anima .demo .demo-escena[data-fase="fin"] :is(.dm-pose, .dm-ojo) { transition: opacity 0s 760ms; }
 
-  /* Reacciones: un saltito por paso, agacharse y levantarse al cambiar de oficio, y el salto del final */
   .ilu-anima .demo .dm-ilu .dm-salto { transform-origin: 50% 100%; }
   .ilu-anima .demo .dm-ilu.dm-hop .dm-salto { animation: dm-hop 460ms var(--d-rebote) 200ms both; }
   .ilu-anima .demo .dm-ilu.dm-cambia .dm-salto { animation: dm-agacha 700ms var(--d-rebote) both; }
   .ilu-anima .demo .dm-ilu.dm-cambia .dm-prop { animation: dm-pop 460ms var(--d-rebote) 260ms both; }
   .ilu-anima .demo .dm-ilu.dm-final .dm-salto { animation: dm-salta 680ms var(--d-rebote) 820ms both; }
 
-  /* Bucles, solo mientras se ve: el boli va y viene al trabajar y, esperando, el sobre late («ha llegado otro») */
   .ilu-anima .demo .demo-escena[data-fase="paso"] .dm-ilu.en-pantalla .dm-mano { transform-origin: 100% 0; animation: dm-boli 520ms steps(1) infinite; }
   .ilu-anima .demo .demo-escena[data-fase="espera"] .dm-ilu.en-pantalla .dm-late { transform-origin: 50% 100%; animation: dm-late 5s steps(12) 1.2s infinite; }
 

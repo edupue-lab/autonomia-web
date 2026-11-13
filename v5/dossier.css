@@ -1,13 +1,8 @@
-/* v5 (469): el dossier (dossier.html). Edu, 19/10: no hay PDF aparte; la web hace también de dossier, «mucha info y
-   bien ordenada, sin ser la biblia». Es una hoja de carpeta para leer con calma: una columna de lectura, el índice
-   como pestañas de una carpeta, las ilustraciones del recorrido quietas y unos estilos de impresión limpios (se guarda
-   en PDF desde el navegador). Va después de v5.css (fichas, cabecera y botones), ilustra.css y escenas.css. */
 
 .dossier { padding: clamp(1.5rem, 1rem + 2vw, 3rem) 0 clamp(3rem, 2rem + 3vw, 5rem); }
 .dossier-hoja { max-width: 52rem; }
 .dossier p, .dossier li { max-width: 64ch; }
 
-/* ------------------------------------------------------------ la portada del dossier */
 .dossier-portada { padding-bottom: 1.5rem; }
 .dossier-pestana {
   display: inline-block; margin: 0 0 1rem; color: var(--boli-trazo);
@@ -20,7 +15,6 @@
 .dossier-entrada { font-size: var(--s-sub); line-height: 1.45; }
 .dossier-acciones { margin: 1.25rem 0 0; }
 
-/* ------------------------------------------------------------ el índice: las pestañas de la carpeta */
 .dossier-indice { margin: 1.5rem 0 3rem; padding: 1.25rem 1.25rem 1.5rem; background: var(--carpeta-1); color: var(--sobre-carpeta-1); clip-path: var(--chaflan); }
 .dossier-indice h2 { font-size: var(--s-sub); margin: 0 0 0.75rem; }
 .dossier-indice ol { margin: 0; padding-left: 1.6rem; display: grid; gap: 0.15rem; }
@@ -29,7 +23,6 @@
 .dossier-indice a { display: inline-flex; align-items: center; min-height: 44px; color: var(--sobre-carpeta-1); }
 @media (min-width: 48rem) { .dossier-indice ol { grid-template-columns: 1fr 1fr; column-gap: 2rem; } }
 
-/* ------------------------------------------------------------ capítulos */
 .capitulo { padding-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem); scroll-margin-top: 1rem; }
 .capitulo h2 {
   font-size: clamp(2rem, 1.2rem + 3vw, 3.25rem); font-weight: 800; font-stretch: 78%; letter-spacing: -0.02em;
@@ -40,10 +33,9 @@
 .dossier-nota { color: var(--gris); font-size: var(--s-pequeno); }
 .dossier-lista { margin: 0 0 1rem; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
 .dossier-lista li { position: relative; padding-left: 1.6rem; line-height: 1.5; }
-/* La viñeta: un recorte amarillo con su calco manila corrido, como los rellenos de los dibujos */
 .dossier-lista li::before {
   content: ""; position: absolute; left: 0.1rem; top: 0.5em; width: 0.6rem; height: 0.6rem; background: var(--amarillo);
-  box-shadow: 2px 2px 0 var(--carpeta-3); /* taste-skill-ignore: el calco, bloque plano */
+  box-shadow: 2px 2px 0 var(--carpeta-3);
 }
 .dossier-vistos li { padding-left: 2.2rem; }
 .dossier-vistos li::before {
@@ -51,7 +43,6 @@
   -webkit-mask: url("visto-boli.svg") center / contain no-repeat; mask: url("visto-boli.svg") center / contain no-repeat;
 }
 
-/* Texto con dibujo al lado (en el móvil, el dibujo debajo) */
 .capitulo-con-dibujo { display: grid; gap: 1.5rem; align-items: center; }
 @media (min-width: 48rem) { .capitulo-con-dibujo { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2.5rem; } }
 .dossier-dibujo { margin: 0; }
@@ -59,7 +50,6 @@
 .dossier-ilu { width: 100%; height: auto; overflow: visible; --t: 2.4; --trazo: 2.6; }
 .dibujo-ancho { margin-top: 2rem; max-width: 30rem; }
 
-/* Los pasos: dibujo pequeño a la izquierda, texto a la derecha */
 .dossier-pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; display: grid; gap: 1.75rem; }
 .dossier-pasos > li { display: grid; grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); gap: 1rem 1.25rem; align-items: start; }
 .dossier-pasos h3 { margin: 0 0 0.35rem; }
@@ -74,7 +64,6 @@
 .dossier-preguntas h3:first-child { margin-top: 0; }
 .dossier-preguntas p { margin: 0; }
 
-/* El siguiente paso: el bloque de WhatsApp que pone el servidor, como en el cupón del recorrido */
 .capitulo-final .contacto-directo { margin: 1.25rem 0; }
 .capitulo-final .whatsapp { margin: 1rem 0; }
 .capitulo-final .otras-vias, .capitulo-final .nota { font-size: var(--s-pequeno); }
@@ -84,7 +73,6 @@
 .dossier-pie p { margin: 0; font-size: var(--s-pequeno); color: var(--sobre-carpeta-1); }
 .dossier-pie a { color: inherit; }
 
-/* ------------------------------------------------------------ impresión y «guardar en PDF» */
 @media print {
   @page { margin: 16mm 16mm 18mm; }
   body { background: #fff; color: #111; font-size: 11pt; }
@@ -105,26 +93,16 @@
   .dossier-pie { background: none; padding: 0; margin-top: 1cm; }
 }
 
-/* ------------------------------------------------------------ (833) con vida, en el dossier y en oficinas
-   Edu (29/10): «más animaciones de los dibujos, más interactividad, todo tiene respuesta». Los dibujos siguen
-   terminados desde el principio (se leen y se imprimen así); ../paginas-vivas.js les enciende los bucles de
-   escenas.css e ilustra.css (respiran, parpadean), la mirada y el salto con peso al tocarlos (muelle.js). Sin
-   JavaScript, con «reducir movimiento» sin elegir más, o al imprimir, siguen quietos. */
 
-/* En oscuro, Manila pisa papel (skill ilustracion-calco §3): los dibujos que viven sobre una hoja son, como en el
-   recorrido (acompanante.css, que aquí no se carga), una hoja iluminada con la paleta de día, y el de «Qué es» lleva
-   su hoja dibujada debajo (g.pv-hoja-osc, con su calco), que en claro no se pinta */
 :root[data-theme="dark"] .dossier-cuerpo :is(.ilu-papel-claro, .ilu-hoja-entera) {
   --tinta: #1d1b16; --hoja: #e9e0c8; --carpeta-2: #e6d39a; --boli-trazo: #1d3fa6; --sobre-amarillo: #1d1b16;
 }
 .pv-hoja-osc { display: none; }
 :root[data-theme="dark"] .pv-hoja-osc { display: inline; }
 
-/* Al tocar, el salto con peso lo da Muelle.saltar (paginas-vivas.js): el de los fotogramas de escenas.css, fuera */
 .pv-muelle .dossier-ilu.toca .es-hop { animation: none; }
 .dossier-ilu { cursor: default; -webkit-tap-highlight-color: transparent; }
 
-/* El índice: al pasar el ratón el capítulo se adelanta un poco y su raya se engorda; al apretar, se hunde al momento */
 .dossier-indice a { text-decoration-thickness: 2px; text-underline-offset: 0.22em; transition: transform 120ms ease-out; }
 @media (hover: hover) and (pointer: fine) {
   .dossier-indice a:hover { transform: translateX(4px); text-decoration-thickness: 4px; }
@@ -135,8 +113,6 @@
   .dossier-indice a { transition: transform 300ms var(--muelle); }
   .dossier-indice a:active { transition-duration: 70ms; }
 }
-/* Al llegar a un capítulo desde el índice (o con un enlace), el boli le pasa una raya por debajo del título: «estás
-   aquí». Se queda puesta mientras sea el destino. */
 .capitulo > h2 { position: relative; }
 .capitulo:target > h2::after {
   content: ""; position: absolute; left: 0; bottom: -0.3rem; width: min(100%, 9ch); height: 0.3rem;
@@ -147,8 +123,6 @@
 }
 @keyframes dossier-raya { from { transform: scaleX(0.04); } }
 
-/* Los botones (v5.css): resorte de verdad al soltar, como en el recorrido (breve.css, 635); al apretar, al momento.
-   En táctil no se quedan levantados después del toque. */
 @media (prefers-reduced-motion: no-preference) {
   @supports (transition-timing-function: linear(0, 1)) {
     .dossier-cuerpo {
@@ -162,11 +136,10 @@
 .dossier-cuerpo .boton:active, .dossier-cuerpo .tema:active { transition-duration: 80ms; }
 @media (hover: none) {
   @supports (corner-shape: bevel) {
-    .dossier-cuerpo .boton:hover { transform: none; filter: drop-shadow(3px 3px 0 var(--calco)); } /* taste-skill-ignore: sombra calco, bloque plano */
+    .dossier-cuerpo .boton:hover { transform: none; filter: drop-shadow(3px 3px 0 var(--calco)); }
     .dossier-cuerpo .boton:active { transform: translate(3px, 3px); filter: none; }
   }
 }
-/* El tema: el icono nuevo llega girando (tema.js pone .tema-cambia) */
 @media (prefers-reduced-motion: no-preference) {
   .dossier-cuerpo .tema-cambia svg { animation: dossier-gira 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
 }
@@ -178,10 +151,8 @@
   :root .pv-hoja-osc { display: none; }
 }
 
-/* El cordel con el que Manila baja en el recorrido no pinta nada en una hoja quieta; la polilla, tampoco */
 .dossier-ilu .e2-cordel, .dossier-ilu .e2-polilla { display: none; }
 @media (max-width: 30rem) { .dossier-cuerpo .cabecera-contacto { padding-inline: 0.45rem; white-space: nowrap; } }
-/* En el móvil, los pasos a todo el ancho: el dibujo, pequeño, encima de su paso */
 @media (max-width: 47.99rem) {
   .dossier-pasos > li { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
   .dossier-pasos .sin-dibujo { display: none; }

@@ -1,6 +1,3 @@
-/* Escenas Calco nuevas de la v4 (empleado 456, ayudante A). La entrada y los bucles los marca ilustra.js con las clases
-   «vista» y «en-pantalla»; aquí solo va la reacción al tocar o al pasar el ratón: la escena recibe «toca» durante un
-   segundo y escenas.css dice qué hace cada una (un salto, un saludo, un toque al botón). Sin este archivo, nada cambia. */
 (function () {
   if (!document.documentElement.classList || !window.matchMedia) return;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -18,11 +15,6 @@
   });
 })();
 
-/* F4 (465): en el móvil, con las escenas fijas encendidas, el dibujo fijo va arriba y opaco, y el texto que sube
-   nunca pasa por debajo de él: cada bloque (un par de título y frase, una tarjeta con fondo, una hora) se desvanece
-   en los últimos 40 px antes de tocar el canto de abajo del dibujo y vuelve al bajar. El texto va por encima del
-   dibujo (historia.css, .se-va), así que nada se dibuja nunca sobre letras visibles. Solo opacidad, en un rAF y con
-   listeners pasivos; sin JS, con «reducir movimiento» o en el ordenador, nada cambia. */
 (function () {
   var w = window, d = document, raiz = d.documentElement;
   if (!w.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in w)) return;
@@ -38,8 +30,6 @@
   });
   var pendiente = 0;
   function activo() { return movil.matches && getComputedStyle(raiz).getPropertyValue("--sd-on").trim() === "1"; }
-  // 468: primero se leen todas las posiciones y luego se escribe, para no forzar un recálculo de estilo por bloque
-  // (con la CPU del móvil, eso retrasaba las animaciones respecto al scroll).
   function lee(e, si) {
     var borde = si && e.dibujo ? e.dibujo.getBoundingClientRect().bottom : -1e9;
     return {
@@ -47,8 +37,6 @@
         var o = si ? Math.min(1, Math.max(0, (b.getBoundingClientRect().top - borde) / RECORRIDO)) : 1;
         return Math.round(o * 20) / 20;
       }),
-      // El papel que hace de fondo (la hoja de la agenda de E7) no se desvanece: se corta justo en el canto del
-      // dibujo, como si pasara por debajo (dia-lista::before y ::after, escena-papeleo.css).
       corte: e.hojas.map(function (h) { return si ? Math.max(0, Math.round(borde - h.getBoundingClientRect().top)) : 0; })
     };
   }

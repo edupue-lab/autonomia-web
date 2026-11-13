@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AutonomIA">
   <title>AutonomIA</title>
-  <!-- Manila de 24 a 48 px: la carpeta con su cara, trazo grueso (generar_manila.py). -->
   <g transform="translate(1.2 1.6) scale(.68)">
     <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 12L6 27z" fill="#f2e2ab" transform="translate(2.4 2)"/>
     <path d="M6 24 8.8 11.6c.4-1.8 1.4-2.6 3.2-2.6l14.6-.3 4 6.8 27.6-.7c1.8 0 2.8 1 2.8 2.8l.4 9" fill="none" stroke="#1d1b16" stroke-width="4.40" stroke-linecap="round" stroke-linejoin="round"/>

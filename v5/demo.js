@@ -1,8 +1,3 @@
-/* «Del correo al trabajo hecho» (sección #que-hace). Eliges oficio (pestañas), eliges uno de los correos de su
-   bandeja y lo ves paso a paso: cada paso se marca con el boli, Manila saca una hoja del sobre en la escena (.dm-ilu)
-   y al final se abre la carpeta «Para ti» con el resultado. Se puede avanzar a mano («Siguiente paso») o verlo
-   seguido. Sin este archivo se ve el primer correo de cada oficio terminado; con «reducir movimiento», todo cambia
-   al momento y no arranca solo. Solo mueve transform, opacity y stroke-dashoffset (en demo.css). */
 (function () {
   var demo = document.querySelector(".demo");
   if (!demo) return;
@@ -21,8 +16,7 @@
 
   var caso = null, paso = 0, total = 0, fin = false, auto = null, visto = false, oficio = 0, mano = false, vuelta = null;
 
-  // Las marcas a boli de los pasos y la flecha de la nota se dibujan aquí (sin JS, demo.css pone una marca sencilla).
-  var NS = document.querySelector("svg").namespaceURI; // el de SVG, sin escribir su dirección
+  var NS = document.querySelector("svg").namespaceURI;
   var VISTOS = ["M5 17c2.5 1.8 4.3 3.9 6 7 3.5-8 9-14.5 15-19", "M5 16c2.8 2 4.4 4.2 6.2 7.4 3.2-7.6 8.7-14 14.8-18.6",
     "M5.5 17.5c2.3 1.6 4 3.6 5.8 6.6 3.7-8.3 9-14.2 14.7-19.3"];
   function dibujo(clase, caja, d) {
@@ -45,8 +39,7 @@
 
   function para() { clearTimeout(auto); auto = null; bSeguido.textContent = "Verlo seguido"; bSeguido.setAttribute("aria-pressed", "false"); }
 
-  var SALTOS = ["dm-hop", "dm-cambia", "dm-final"]; // las tres mueven .dm-salto: solo una a la vez
-  // Repite una animación de reacción quitando y poniendo la clase.
+  var SALTOS = ["dm-hop", "dm-cambia", "dm-final"];
   function reacciona(clase) {
     if (!ilu || quieto) return;
     ilu.classList.remove(clase);
@@ -57,9 +50,8 @@
 
   function hoja(i, estado) { if (hojas[i]) hojas[i].setAttribute("data-e", estado); }
 
-  // Pinta el estado (caso, paso, fin) en los pasos, la carpeta, la escena y los botones.
   function pintar(anunciar) {
-    var tenia = document.activeElement; // si estaba en un mando que se esconde, el foco no puede quedarse en el aire
+    var tenia = document.activeElement;
     var lis = caso.querySelectorAll(".demo-pasos li");
     [].forEach.call(lis, function (li, i) {
       li.classList.toggle("hecho", i < paso);
@@ -75,8 +67,6 @@
     bSeguido.hidden = fin;
     bOtro.hidden = !fin;
     bSig.textContent = fin ? "Repetir" : paso >= total ? "Ver el resultado" : paso ? "Siguiente paso" : "Empezar";
-    // Con el teclado, al ver el resultado el foco pasa a la carpeta «Para ti» (el siguiente Tab, a «Repetir») en vez
-    // de perderse con «Verlo seguido», que se esconde (fallo heredado de la v4).
     var nombre = caso.querySelector(".demo-carpeta-nombre");
     if (fin && nombre && (tenia === bSig || tenia === bSeguido)) {
       nombre.setAttribute("tabindex", "-1");
@@ -95,7 +85,6 @@
     }
   }
 
-  // Abre un caso desde el principio, sin animar hacia atrás.
   function abrir(nuevo, arrancar) {
     para();
     casos.forEach(function (c) { c.hidden = c !== nuevo; });
@@ -117,9 +106,6 @@
     pintar(anunciar);
   }
 
-  /* (901, WEB-M09) Cuando va sola, cada paso se queda lo que cuesta leerlo (de 2,5 a 4 s, según sus palabras), y el
-     resultado, unos 9 s antes de recogerse (otraVez). Solo cambian los tiempos: las curvas y los dibujos son los de
-     siempre, y si alguien la toca, manda él. */
   function lectura(li) {
     var palabras = li ? li.textContent.trim().split(/\s+/).length : 0;
     return Math.max(2500, Math.min(4000, 1200 + palabras * 140));
@@ -137,11 +123,6 @@
     })();
   }
 
-  /* 585 (Edu, 19/10: cada escena repite su tarea completa en bucle): mientras nadie toque la demo y la escena siga en
-     el centro de la pantalla (motor.js le pone data-fase="tarea"), el resultado se queda unos segundos y el mismo
-     correo vuelve a empezar. Sin «sin-paso»: las transiciones de siempre lo devuelven a su sitio (el visto del sobre se
-     borra, la hoja del resultado se guarda dentro de Manila y la tapa se cierra; las hojas ya están ocultas dentro de
-     ella y del sobre), así que no hay salto. Si alguien la toca, manda él y no vuelve a arrancar sola. */
   function otraVez() {
     clearTimeout(vuelta);
     if (mano || quieto) return;
@@ -176,7 +157,6 @@
     elegirCorreo(elegido, true);
   }
 
-  // Puesta en marcha: el modo con JS (clase .activa), el primer oficio y su primer correo esperando.
   demo.classList.add("activa");
   pestanas[0].parentNode.hidden = false;
   mandos.hidden = false;
@@ -184,11 +164,6 @@
   abrir(correoDe(bandejas[0].querySelector(".demo-mensaje")), false);
   if (quieto) { paso = total; fin = true; pintar(false); }
 
-  /* Altura fija: las cuatro bandejas reservan el alto de la más alta, medido a este ancho, para que las pestañas de
-     oficio no muevan lo de debajo. Cada correo, en cambio, guarda SOLO su propio alto (ayudante H): la pantalla del
-     correo y la carpeta del resultado comparten celda (demo.css), así que el caso ya mide lo que el mayor de sus pasos
-     y de su resultado, al ancho que haya y al redimensionar, y los botones no saltan entre pasos de un mismo correo
-     sin dejar papel vacío en los correos cortos. Se vuelve a medir al cambiar el ancho y al cargar las letras. */
   function reserva(grupo) {
     var ocultos = grupo.filter(function (el) { return el.hidden; });
     grupo.forEach(function (el) { el.style.minHeight = ""; el.hidden = false; });
@@ -234,8 +209,6 @@
     if (fin) abrir(caso, false);
     seguido();
   });
-  // 469: en el móvil, la elección de oficio y de correo va plegada tras un «Elegir otro oficio o correo» (la demo
-  // arranca sola con el primer correo del tasador); así la escena llega antes y la página es más corta.
   var elige = demo.querySelector(".demo-elige"), plegar = null;
   if (elige && window.matchMedia && matchMedia("(max-width: 47.99rem)").matches) {
     elige.id = elige.id || "demo-elige";
@@ -262,7 +235,6 @@
     siguiente.focus();
   });
 
-  // La primera vez que la escena entra en pantalla, el primer correo se pone en marcha solo.
   if (quieto || !("IntersectionObserver" in window)) return;
   var mirar = new IntersectionObserver(function (entradas) {
     if (entradas[0].isIntersecting) { mirar.disconnect(); if (!visto) seguido(); }

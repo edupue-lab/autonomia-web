@@ -1,18 +1,4 @@
-/* v5 (472): E7, «Un martes de un tasador» (el dibujo y su coreografía, ayudante C2 del 465). Vivía en
-   escena-papeleo.css; el 469 quitó la escena y el 472 la devolvió en este archivo, que se carga en el cuerpo justo
-   antes de la sección para no frenar la primera pintura del móvil. La maquetación de E7 sigue en escena-papeleo.css
-   (F2 y F3) y en historia.css y breve.css. */
 
-/* ============================================================ E7 · el día que se hace noche (Un martes)
-   (ayudante C2 del 465) 0-13 %: Manila cae a su sitio bajo el flexo; el sol asoma aplastado por el borde de la ventana y
-   se estira; el tasador llega con su taza; un gato sentado en la mesa. 14-70 %: Manila escribe inclinada y pasa hojas
-   a «Para ti», que crece; el sol cruza en arco y la sombra del flexo en la pared se acorta y cambia de lado; el reloj
-   corre con las horas de la lista. 52-64 %: el tasador se va a dormir (de lado, gafas en la mesilla) y el gato salta
-   detrás de él y se enrosca a sus pies (el gag). 66-80 %: cae la noche, se enciende el flexo con un parpadeo y la luna
-   sube en arco. 74-86 %: medianoche: Manila se frota los ojos y bosteza. 86-89 %: la última hoja. 89-94 %: coge
-   impulso y se estira. Por defecto (sin JS, sin soporte o con «reducir movimiento»): la noche, el flexo encendido,
-   Manila estirada, el tasador dormido con el gato. En «Antes» (los botones): no hay Manila; él se queda en la mesa,
-   bajo el flexo, cabeceando. */
 .dia-historia {
   --pp-cae: cubic-bezier(0.55, 0, 1, 0.45);
   --pp-sube: cubic-bezier(0, 0.55, 0.45, 1);
@@ -20,10 +6,6 @@
   --pp-noche: #1d1b16;
 }
 :root[data-theme="dark"] .dia-historia { --pp-noche: #050504; }
-/* (901, WEB-M18) En oscuro, la escena pisa su hoja (g.hoja-osc, acompanante.css). En el móvil la cámara llega al plano de
-   la noche, donde las patas de la cama, la mesilla y la mesa bajan hasta y = 196, más allá del borde de la hoja de
-   siempre (y = 175): la hoja del móvil llega hasta y = 199 y nada flota sobre el campo. En el ordenador el escenario
-   corta el dibujo en y = 180 y se queda la hoja de siempre, con su borde a mano a la vista. */
 :root[data-theme="dark"] .pp7-cam .hoja-movil { display: none; }
 @media (max-width: 63.99rem) {
   :root[data-theme="dark"] .pp7-cam .hoja-movil { display: inline; }
@@ -42,7 +24,6 @@
 .c-escena .pp7-sol-s { transform-box: view-box; transform-origin: 55px 36px; }
 .c-escena .pp7-sombra { transform-box: view-box; transform-origin: 34px 150px; }
 .c-escena .pp7-luna-y { transform-origin: 50% 50%; }
-/* Último fotograma (el CSS por defecto): la noche */
 .c-escena .pp7-mn { transform: scale(0.97, 1.05); }
 .c-escena .pp7-sol-x { transform: translateX(38px); }
 .c-escena .pp7-sol-y { transform: translateY(90px); }
@@ -54,7 +35,6 @@
 .c-escena .pp7-gato-y { transform: translateY(13px); }
 .c-escena .pp7-tas-sale, .c-escena .pp7-h1, .c-escena .pp7-h2, .c-escena .pp7-bostezo, .c-escena .pp7-pose-a,
 .c-escena .pp7-pose-b, .c-escena .pp7-gato-sentado, .c-escena .pp7-sombra { opacity: 0; }
-/* Conducidas por el scroll: solo animation-name */
 .c-escena .pp7-mn { animation-name: sd-e7-manila; }
 .c-escena .pp7-escribe { animation-name: sd-e7-escribe; }
 .c-escena .pp7-bostezo { animation-name: sd-e7-bostezo; }
@@ -83,7 +63,6 @@
 .c-escena .pp7-sombra { animation-name: sd-e7-sombra; }
 .c-escena .pp7-hora { animation-name: sd-e7-hora; }
 .c-escena .pp7-min { animation-name: sd-e7-min; }
-/* «Antes»: sin Manila; el tasador se queda en la mesa, se corre bajo el flexo y cabecea toda la noche */
 .c-escena .pp7-tas { transition: transform 0.5s var(--rebote); }
 #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-tas { transform: translateX(-50px); }
 #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-tas-sale { animation-name: none; opacity: 1; transform: none; }
@@ -92,7 +71,6 @@
 #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-cansado { opacity: 1; }
 #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena .pp7-sonrisa { opacity: 0; }
 .ilu-anima #un-dia:has(.dia-cuerpo[data-modo="antes"]) .c-escena.en-pantalla .pp7-cabeza { animation: c-cabecea 4s steps(3) infinite; }
-/* El bucle mientras se lee es uno solo: el tasador respira bajo la manta (ilustra.css, .c-manta). */
 
 @keyframes sd-e7-manila {
   0% { transform: translate(0px, -200px) rotate(0deg) scale(0.86, 1.18); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }

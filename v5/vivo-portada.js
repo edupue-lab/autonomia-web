@@ -1,18 +1,7 @@
-/* Portada v5, «interfaces vivas» (empleado 833, diseñador 1; pedido de Edu «pe-interfaces-vivas», 29/10/2026). La
-   respuesta que aún faltaba, con el estilo de vivo-portada.css y sin tocar las escenas ni sus bucles:
-   1. Cada Manila de las escenas da el saltito con peso al tocarla (Muelle.saltar, como la de la portada en fisica.js).
-   2. El botón del tema avisa del cambio: su icono entra girando.
-   3. El formulario de contacto: el error se dice con palabras debajo de su campo (y una sacudida de 4 px), la carga
-      con «Enviando…» y un trazo de boli que va y viene, y cuando ya está todo, Manila del contacto lo celebra: abre su
-      carpeta, levanta la mano y da un saltito.
-   En el modo suave (html.mov-suave) y con «reducir movimiento», Muelle.quieto() deja los saltos fuera; el texto del
-   error, el estado de carga y la mano levantada se ven igual. Sin JavaScript, el formulario es el de siempre. Solo
-   `translate` y `scale` (Muelle) y clases: nunca `transform` en línea. */
 (function () {
   "use strict";
   var d = document, raiz = d.documentElement, M = window.Muelle;
 
-  // Pone una clase un momento (y la vuelve a poner si ya estaba, para que su animación empiece de nuevo)
   function pulso(el, clase, ms) {
     el.classList.remove(clase);
     void el.offsetWidth;
@@ -22,38 +11,29 @@
   }
   function salta(cuerpo) {
     if (!M || M.quieto() || !cuerpo) return;
-    try { M.saltar(cuerpo, M.pieDe(cuerpo)); } catch (err) { /* sin caja medible (oculta): no salta */ }
+    try { M.saltar(cuerpo, M.pieDe(cuerpo)); } catch (err) {   }
   }
 
-  // 1. Las Manilas de las escenas, con peso (la de la portada ya lo hace fisica.js; en el táctil, su salto de CSS al
-  //    tocarla sobraría, y vivo-portada.css lo quita con html.vivo-fis)
   if (M) {
     raiz.classList.add("vivo-fis");
     [].forEach.call(d.querySelectorAll("[data-ilustra] .mn-cuerpo"), function (c) {
       if (c.closest(".e1-dibujo")) return;
-      // click y no pointerdown: en el móvil, empezar un scroll con el dedo encima no es tocarla
       c.addEventListener("click", function (e) { if (!e.button) salta(c); });
     });
   }
 
-  // 2. El tema
   [].forEach.call(d.querySelectorAll("[data-tema]"), function (b) {
     b.addEventListener("click", function () { pulso(b, "vivo-cambia", 700); });
   });
 
-  // 3. El formulario de contacto
   var form = d.querySelector(".formulario");
   if (!form) return;
   var boton = form.querySelector('[type="submit"]'), ct = d.querySelector(".ct-manila");
-  // (1197) Por escrito: el correo es obligatorio y es por donde se contesta; ya no se pide un teléfono para llamar.
   var FALTA = { "f-nombre": "Falta tu nombre.", "f-correo": "Falta tu correo, que es por donde te vamos a contestar.",
                 "f-privacidad": "Marca la casilla para que podamos contestarte." };
   var MAL = { "f-correo": "Revisa el correo, porque no parece bien escrito." };
   var primero = null, listo = false, enviando = false, textoBoton = boton ? boton.textContent : "";
 
-  // (901, WEB-M03) El desplegable «Prefiero escribiros aquí» se abre solo cuando te han traído a él (#formulario, desde
-  // el dossier, oficinas o «Volver al formulario») y cuando ya tiene algo escrito (al volver atrás desde la privacidad,
-  // el navegador repone lo escrito), con el primer campo a la vista. Si no, sigue plegado bajo el WhatsApp.
   var plegable = form.closest("details");
   function escrito() {
     return [].some.call(form.querySelectorAll("input[type=text], input[type=email], input[type=tel], textarea"), function (x) {
@@ -93,8 +73,6 @@
     if (!campo || !c.id) return;
     var p = nota(c, campo);
     if (mal) {
-      // (901) Un teléfono escrito pero sin sus 9 a 15 cifras se avisa aquí, con la misma regla y la misma frase que el
-      // servidor (validar() en web/servidor.py), en vez de llevar a otra página y perder lo escrito.
       p.textContent = (c.validity.patternMismatch || c.validity.typeMismatch) && MAL[c.id] ? MAL[c.id] : FALTA[c.id] || c.validationMessage;
       p.hidden = false;
       c.setAttribute("aria-invalid", "true");
@@ -108,8 +86,6 @@
       campo.classList.remove("vivo-mal");
     }
   }
-  // El navegador avisa de cada campo mal con «invalid» (no sube: se escucha en captura). Su globo se cambia por el
-  // texto bajo el campo, y el foco va al primero.
   form.addEventListener("invalid", function (e) {
     var c = e.target;
     if (!c.closest || !c.closest(".campo")) return;
@@ -129,7 +105,6 @@
   function revisa(e) {
     var c = e.target;
     if (c && c.validity && c.validity.valid) marca(c, false);
-    // Leer validity no dispara «invalid» (checkValidity sí): así no salen errores mientras se escribe
     var ahora = [].every.call(form.querySelectorAll("[required]"), function (x) { return x.validity.valid; });
     if (ahora && !listo) celebra();
     listo = ahora;
@@ -145,11 +120,6 @@
     boton.textContent = textoBoton;
     boton.style.minWidth = "";
   }
-  // (901, WEB-M01 y caidas-11) El envío va con fetch y la página no se va: si se corta la red o no contesta en 15 s,
-  // lo escrito sigue en su sitio, el botón vuelve a estar listo y debajo se dice qué ha pasado; los «no» del servidor
-  // (400, 413 y 429) salen ahí mismo con su frase. Si llega, Manila lo celebra y se pasa a gracias: la de este sitio, o
-  // la de la web pública si el formulario va a otro origen (la copia de GitHub Pages lo manda al Funnel, con CORS).
-  // Sin fetch, el envío de siempre; el campo trampa y los límites siguen en el servidor.
   var ESPERA = 15000, aviso = null;
   var AVISO_RED = "No nos ha llegado porque se ha cortado la conexión. Tus datos siguen aquí, así que puedes volver a " +
                   "intentarlo";
@@ -180,7 +150,7 @@
     } else if (ofreceWa) {
       aviso.appendChild(d.createTextNode(" dentro de un momento."));
     }
-    void aviso.offsetWidth;   // vuelve a entrar con su animación si ya estaba
+    void aviso.offsetWidth;
     aviso.hidden = false;
   }
   function llega(accion) {
@@ -199,7 +169,6 @@
       })
       .then(function (x) {
         clearTimeout(reloj);
-        // un servidor aún sin reiniciar contesta como siempre (303 a gracias): también ha llegado
         if (x.r.ok && (x.j.ok || (x.r.redirected && /gracias\.html$/.test(x.r.url)))) return llega(accion);
         quitaCarga();
         if (x.j.motivo) avisa(x.j.motivo, false); else avisa(AVISO_RED, true);
@@ -207,17 +176,16 @@
       .catch(function () { clearTimeout(reloj); quitaCarga(); avisa(AVISO_RED, true); });
   }
   form.addEventListener("submit", function (e) {
-    if (enviando) { e.preventDefault(); return; }   // un segundo toque no lo manda otra vez
+    if (enviando) { e.preventDefault(); return; }
     enviando = true;
     if (conFetch) e.preventDefault();
     if (!boton) return;
     if (aviso) avisa("");
-    boton.style.minWidth = boton.offsetWidth + "px";  // el botón no encoge al cambiar el texto
+    boton.style.minWidth = boton.offsetWidth + "px";
     boton.textContent = "Enviando…";
     boton.setAttribute("aria-disabled", "true");
     boton.classList.add("vivo-enviando");
     if (conFetch) manda(); else celebra();
   });
-  // Al volver atrás desde «gracias» (la página sale de la caché del navegador), el botón vuelve a estar listo
   window.addEventListener("pageshow", function (e) { if (e.persisted) quitaCarga(); });
 })();

@@ -45,17 +45,18 @@
   var form = d.querySelector(".formulario");
   if (!form) return;
   var boton = form.querySelector('[type="submit"]'), ct = d.querySelector(".ct-manila");
-  var FALTA = { "f-nombre": "Falta tu nombre.", "f-telefono": "Falta un teléfono para llamarte.",
-                "f-privacidad": "Marca la casilla para que podamos llamarte." };
-  var MAL = { "f-telefono": "Revisa el teléfono, porque necesitamos un número al que podamos llamarte." };
+  // (1197) Por escrito: el correo es obligatorio y es por donde se contesta; ya no se pide un teléfono para llamar.
+  var FALTA = { "f-nombre": "Falta tu nombre.", "f-correo": "Falta tu correo, que es por donde te vamos a contestar.",
+                "f-privacidad": "Marca la casilla para que podamos contestarte." };
+  var MAL = { "f-correo": "Revisa el correo, porque no parece bien escrito." };
   var primero = null, listo = false, enviando = false, textoBoton = boton ? boton.textContent : "";
 
-  // (901, WEB-M03) El desplegable «Prefiero que me llaméis» se abre solo cuando te han traído a él (#formulario, desde
+  // (901, WEB-M03) El desplegable «Prefiero escribiros aquí» se abre solo cuando te han traído a él (#formulario, desde
   // el dossier, oficinas o «Volver al formulario») y cuando ya tiene algo escrito (al volver atrás desde la privacidad,
   // el navegador repone lo escrito), con el primer campo a la vista. Si no, sigue plegado bajo el WhatsApp.
   var plegable = form.closest("details");
   function escrito() {
-    return [].some.call(form.querySelectorAll("input[type=text], input[type=tel], textarea"), function (x) {
+    return [].some.call(form.querySelectorAll("input[type=text], input[type=email], input[type=tel], textarea"), function (x) {
       return x.name !== "web" && x.value.trim();
     });
   }
@@ -94,7 +95,7 @@
     if (mal) {
       // (901) Un teléfono escrito pero sin sus 9 a 15 cifras se avisa aquí, con la misma regla y la misma frase que el
       // servidor (validar() en web/servidor.py), en vez de llevar a otra página y perder lo escrito.
-      p.textContent = c.validity.patternMismatch && MAL[c.id] ? MAL[c.id] : FALTA[c.id] || c.validationMessage;
+      p.textContent = (c.validity.patternMismatch || c.validity.typeMismatch) && MAL[c.id] ? MAL[c.id] : FALTA[c.id] || c.validationMessage;
       p.hidden = false;
       c.setAttribute("aria-invalid", "true");
       describe(c, p.id, true);
